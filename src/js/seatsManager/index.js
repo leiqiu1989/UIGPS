@@ -12,8 +12,8 @@ define(function(require, exports, module) {
     require('exhide');
     // 模板
     var tpls = {
-        carIndex: require('../../tpl/seatsManager/index'),
-        carList: require('../../tpl/seatsManager/list'),
+        index: require('../../tpl/seatsManager/index'),
+        list: require('../../tpl/seatsManager/list'),
         editSeats: require('../../tpl/seatsManager/editSeats')
     };
 
@@ -23,46 +23,17 @@ define(function(require, exports, module) {
             // 初始化查询条件参数
             this.getParams(param);
             // 渲染模板
-            $('#main-content').empty().html(template.compile(tpls.carIndex)({ searchValue: this.searchParam }));
-            // 控件初始化
-            this.initControl();
+            $('#main-content').empty().html(template.compile(tpls.index)());
             // 获取数据
             this.getData();
         },
-        // 初始化控件
-        initControl: function() {
-            var me = this;
-            this.event();
-            common.tableSort(function(sortParam) {
-                me.sortParam = sortParam;
-                me.getData();
-            });
-            common.initDateTime('input[name="start"]', 'Y-m-d H:i', false, 'yyyy-MM-dd h:m', true, false);
-            common.initDateTime('input[name="end"]', 'Y-m-d H:i', false, 'yyyy-MM-dd h:m', true, false);
-            $('#vehicleType').val(me.searchParam.OrderType);
-        },
         // 获取查询条件
         getParams: function(param) {
-            this.sortParam = {};
-            var newParams = {
-                OrderNum: common.getElValue('input[name="OrderNum"]'), //订单编号
-                start: common.getElValue('input[name="start"]'),
-                end: common.getElValue('input[name="end"]'),
-                phone: common.getElValue('input[name="phone"]'),
-                plateNo: common.getElValue('input[name="plateNo"]'),
-                OrderType: common.getElValue('select[name="OrderType"]')
-            };
-            if (newParams.start) newParams.start = newParams.start;
-            if (newParams.end) newParams.end = newParams.end;
-            if (!param) {
-                newParams = {};
-            }
-            this.searchParam = common.getParams('seatsManagerSearchParams', param, newParams, true);
+            this.searchParam = common.getParams('seatsManagerSearchParams');
         },
         getData: function() {
             var me = this;
             var param = this.searchParam;
-            //if (this.searchParam && !_.isEmpty(this.searchParam)) {
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
             // 将查询条件保存到localStorage里面
             common.setlocationStorage('seatsManagerSearchParams', JSON.stringify(this.searchParam));
@@ -70,7 +41,7 @@ define(function(require, exports, module) {
             common.ajax(api.seatsManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#carList').empty().html(template.compile(tpls.carList)({
+                    $('#seatList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
@@ -83,7 +54,6 @@ define(function(require, exports, module) {
                 }
                 common.loading();
             });
-            //}
         },
         event: function() {
             var me = this;
@@ -150,7 +120,6 @@ define(function(require, exports, module) {
                             treeObj.checkNode(getNodeByParam, true, false);
                         }
                     }
-                    //treeObj.setChkDisabled(nodess[i], true,true,true);
                 };
                 treeObj.expandAll(true); //默认展开全部节点
                 common.loading();
@@ -198,13 +167,10 @@ define(function(require, exports, module) {
                         return;
                     }
                     $.fn.zTree.init($treeContainer, ztreeSetting, data);
-                    // //展开节点
-                    // var treeObj = $.fn.zTree.getZTreeObj("vehicleTree");
-                    // treeObj.expandAll(true);
                     typeof callback === 'function' && callback();
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
         },
@@ -246,11 +212,11 @@ define(function(require, exports, module) {
                 common.loading();
                 if (res && res.status === 'SUCCESS') {
                     dialogObj.close();
-                    common.toast('数据操作成功', 'success');
+                    common.layMsg('数据操作成功', 'success');
                     me.getData();
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
-                    common.alert(msg, 'error');
+                    common.layAlert(msg, 'error');
                 }
             });
         },
@@ -265,12 +231,11 @@ define(function(require, exports, module) {
             }, function(data) {
                 common.loading();
                 if (data.status == 'SUCCESS') {
-                    common.toast('成功' + (status == 1 ? '启用' : '停用') + '座席信息', 'success');
-                    //common.changeHash('#seatsManager/index');
+                    common.layMsg('成功' + (status == 1 ? '启用' : '停用') + '座席信息');
                     me.init();
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
-                    common.alert(msg, 'error');
+                    common.layAlert(msg);
                 }
             });
         }

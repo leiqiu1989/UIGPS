@@ -438,6 +438,7 @@ define(function(require, exports, module) {
             layui.use(['form'], function() {
                 var form = layui.form()
                 form.render('select');
+                form.render('checkbox');
             });
         },
         layAlert: function(content, opt) {
@@ -550,6 +551,7 @@ define(function(require, exports, module) {
             common.removeLocationStorage('roleManagerSearchParams'); //角色管理
             common.removeLocationStorage('orderManagerSearchParams'); //订单管理
             common.removeLocationStorage('carOrderConfigParams'); //车辆订单配置
+            common.removeLocationStorage('seatsManagerSearchParams'); // 坐席管理
             common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，

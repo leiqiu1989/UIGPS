@@ -6,9 +6,9 @@ define(function(require, exports, module) {
     require('lodash');
     // 模板
     var tpls = {
-        carIndex: require('../../tpl/carOrderConfig/index'),
-        carList: require('../../tpl/carOrderConfig/list'),
-        configDialog: require('../../tpl/carOrderConfig/configDialog')
+        index: require('../../tpl/carOrderConfig/index'),
+        list: require('../../tpl/carOrderConfig/list'),
+        config: require('../../tpl/carOrderConfig/configDialog')
     };
 
     function carOrderConfigList() {}
@@ -17,7 +17,7 @@ define(function(require, exports, module) {
             // 初始化查询条件参数
             this.getParams(param);
             // 渲染模板
-            $('#main-content').empty().html(template.compile(tpls.carIndex)({ searchValue: this.searchParam }));
+            $('#main-content').empty().html(template.compile(tpls.index)({ searchValue: this.searchParam }));
             // 控件初始化
             this.initControl();
             // 获取数据
@@ -75,7 +75,7 @@ define(function(require, exports, module) {
             common.ajax(api.carOrderConfig.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#carList').empty().html(template.compile(tpls.carList)({
+                    $('#orderConfigList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
@@ -84,7 +84,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -123,7 +123,6 @@ define(function(require, exports, module) {
                     var tr = $(this).closest('tr');
                     var id = tr.data('vid');
                     var plateno = tr.data('plateno');
-
                     me.initCarOrderConfig(id, plateno);
                 })
                 .on('click', '.js_list_export', function() {
@@ -132,51 +131,55 @@ define(function(require, exports, module) {
         },
         setCarOrderConfig: function(id, plateno, content) {
             var me = this;
-
-            common.autoAdaptionDialog(template.compile(tpls.configDialog)({ data: content || {} }), {
-                title: plateno
-            }, function(_dialog) {
-                var $dialogContainer = $('#js_configDialog_form');
-
-                $dialogContainer.off()
-
-                .on('click', '#btnCancel', function() {
-                        _dialog.close();
-                    })
-                    .on('click', '#btnOK', function() {
+            common.layUI({
+                title: plateno,
+                area: '600px',
+                btn: [],
+                content: template.compile(tpls.config)({ data: content || {} }),
+                success: function(el) {
+                    common.layUIForm($('#configForm'));
+                    $(el).find('.js-save').on('click', function() {
+                        var wxFlag = $(el).find('input[name="WxFlag"]').is(':checked') ? 1 : 0;
+                        var positionFlag = $(el).find('input[name="PositionFlag"]').is(':checked') ? 1 : 0;
+                        var voiceFlag = $(el).find('input[name="VoiceFlag"]').is(':checked') ? 1 : 0;
+                        var controlFlag = $(el).find('input[name="ControlFlag"]').is(':checked') ? 1 : 0;
+                        var remark = $(el).find('input[name="remark"]').val();
                         common.ajax(api.carOrderConfig.editVehicleOrder, {
                             vid: id,
                             plateNo: plateno, //车牌号码
-                            WxFlag: $dialogContainer.find('input[name="WxFlag"]').is(':checked') ? 1 : 0, //微信订单
-                            PositionFlag: $dialogContainer.find('input[name="PositionFlag"]').is(':checked') ? 1 : 0, //位置订单
-                            VoiceFlag: $dialogContainer.find('input[name="VoiceFlag"]').is(':checked') ? 1 : 0, //语音订单
-                            ControlFlag: $dialogContainer.find('input[name="ControlFlag"]').is(':checked') ? 1 : 0, //调度屏信息
-                            SettingRemark: $.trim($dialogContainer.find('#_remark').val()) //备注
+                            WxFlag: wxFlag,
+                            PositionFlag: positionFlag,
+                            VoiceFlag: voiceFlag,
+                            ControlFlag: controlFlag,
+                            SettingRemark: remark
                         }, function(res) {
                             if (res.status === 'SUCCESS') {
-                                _dialog.close();
-                                common.toast('配置成功', 'success');
+                                layer.closeAll();
+                                common.layMsg('配置成功!');
                                 // 获取数据
                                 me.getData();
                             } else {
                                 var msg = res.errorMsg || '请求失败，请联系管理员！';
-                                common.toast(msg);
+                                common.layMsg(msg);
                             }
                         });
                     });
+                    $(el).find('.js-cancel').on('click', function() {
+                        layer.closeAll();
+                    });
+                }
             });
         },
         //初始化数据
         initCarOrderConfig: function(id, plateno) {
             var me = this;
-
             common.ajax(api.carOrderConfig.queryVehicelOrder, { vid: id }, function(res) {
                 if (res.status === 'SUCCESS') {
                     var content = res.content;
                     me.setCarOrderConfig(id, plateno, content);
                 } else {
                     var msg = res.errorMsg || '请求失败，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
         }

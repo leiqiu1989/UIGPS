@@ -1,30 +1,25 @@
-<form id="js_configDialog_form" class="form-horizontal form-horizontal-lg form-horizontal-patch w-500 p15">
-    <div class='form-group col-sm-12'>
-        <label class="control-label">可接订单类型</label>
-        <div class="checkbox">
-			<label><input type="checkbox" <%= data.WxFlag==1?'checked=checked':''%>  name="WxFlag">微信订单</label>
-			<label><input type="checkbox" <%= data.PositionFlag==1?'checked=checked':''%>  name="PositionFlag">位置订单</label>
-			<label><input type="checkbox" <%= data.VoiceFlag==1?'checked=checked':''%> name="VoiceFlag">语音订单</label>
-			<label><input type="checkbox" <%= data.ControlFlag==1?'checked=checked':''%>  name="ControlFlag">调度屏信息</label>
-		</div>
-    </div>
-    <div class='form-group col-sm-12'>
-        <label class="control-label">备注</label>
-        <div>
-           <textarea class="form-control" placeholder="允许填写50字以内" maxlength="50" rows="3" id="_remark">
-           <%= data.SettingRemark%></textarea>
-        </div>        
-    </div>
-    <div class="form-group no-margin">
-        <div class="col-sm-offset-3 col-sm-9">
-            <a class="btn btn-primary mr10" id="btnOK">
-                <i class="fa fa-check"></i>
-                保 存
-            </a>
-            <a class="btn btn-default" id="btnCancel">
-                <i class="fa fa-ban"></i>
-                取 消
-            </a>
+<div class="layui-form auto-label-width p15" id="configForm">
+    <div class="layui-form-item">
+        <label class="layui-form-label">可接订单类型</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="WxFlag" <%=data.WxFlag==1? 'checked': ''%> lay-skin="primary" title="微信订单" />
+            <input type="checkbox" name="PositionFlag" <%=data.PositionFlag==1? 'checked': ''%> lay-skin="primary" title="位置订单" />
+            <input type="checkbox" name="VoiceFlag" <%=data.VoiceFlag==1? 'checked': ''%> lay-skin="primary" title="语音订单" />
+            <input type="checkbox" name="ControlFlag" <%=data.ControlFlag==1? 'checked': ''%> lay-skin="primary" title="调度屏信息" />
         </div>
     </div>
-</form>
+    <div class="layui-form-item">
+        <label class="layui-form-label">备注</label>
+        <div class="layui-input-block">
+            <textarea placeholder="允许填写50字以内" name="remark" maxlength="50" class="layui-textarea">
+                <%= data.SettingRemark %>
+            </textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal js-save">保 存</button>
+            <button class="layui-btn layui-btn-primary js-cancel">取 消</button>
+        </div>
+    </div>
+</div>

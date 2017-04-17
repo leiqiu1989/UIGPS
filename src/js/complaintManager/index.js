@@ -20,6 +20,8 @@ define(function(require, exports, module) {
             this.getParams(param);
             // 渲染模板
             $('#main-content').empty().html(template.compile(tpls.index)({ searchValue: this.searchParam }));
+            // 初始化form
+            common.layUIForm();
             // 控件初始化
             this.initControl();
             // 获取数据
@@ -41,10 +43,14 @@ define(function(require, exports, module) {
             if (!this.searchParam.End) this.searchParam.End = new Date().format('yyyy-MM-dd h:m');
         },
         initControl: function() {
+            var me = this;
             common.initDateTime('input[name="Start"]', null, false, 'yyyy-MM-dd 00:00');
             common.initDateTime('input[name="End"]', null, false);
             // 默认选中
-            $('select[name="Feature"]').val(this.searchParam.Feature || 0);
+            setTimeout(function() {
+                $('#Feature').val(me.searchParam.Feature || 0);
+                $('#Feature').next().css('width', '200px');
+            }, 100);
             this.event();
         },
         event: function() {
@@ -76,7 +82,7 @@ define(function(require, exports, module) {
             common.ajax(api.complaintManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#complaintList').empty().html(template.compile(tpls.list)({
+                    $('#complaintList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     me.totalCount = data.totalCount;
@@ -86,7 +92,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -103,7 +109,7 @@ define(function(require, exports, module) {
                 var downSrc = encodeURI(src);
                 $(el).attr('href', downSrc);
             } else {
-                common.toast('导出数据量过大,请输入查询条件查询,最多导出1000条数据!');
+                common.layMsg('导出数据量过大,请输入查询条件查询,最多导出1000条数据!');
                 return false;
             }
         }
