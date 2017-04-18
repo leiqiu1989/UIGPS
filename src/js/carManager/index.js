@@ -21,6 +21,7 @@ define(function(require, exports, module) {
             this.getParams(param);
             // 渲染模板
             this.addPermission = common.getPermission(api.btnCodes.carManager.add);
+
             $('#main-content').empty().html(template.compile(tpls.carIndex)({ searchValue: this.searchParam, addPermission: this.addPermission }));
             // 控件初始化
             this.initControl();
@@ -41,6 +42,8 @@ define(function(require, exports, module) {
                 key: ['PKey', 'PValue'],
                 selected: me.searchParam.VehicleType,
                 isall: true
+            }, function() {
+                common.layUIForm();
             });
         },
         // 获取查询条件
@@ -68,7 +71,7 @@ define(function(require, exports, module) {
                         me.editPermission = common.getPermission(api.btnCodes.carManager.edit);
                         me.delPermission = common.getPermission(api.btnCodes.carManager.del);
                     }
-                    $('#carList').empty().html(template.compile(tpls.carList)({
+                    $('#carList > table > tbody').empty().html(template.compile(tpls.carList)({
                         data: data.Page || [],
                         editPermission: me.editPermission,
                         delPermission: me.delPermission
@@ -79,7 +82,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -87,7 +90,7 @@ define(function(require, exports, module) {
         //删除车辆
         deleteCar: function(truckId, confirmText, callback) {
             var me = this;
-            common.confirm(confirmText, function() {
+            common.layConfirm(confirmText, function() {
                 common.loading('show', '数据正在处理中...');
                 common.ajax(api.carManager.delete, {
                     ArrVid: truckId
@@ -100,22 +103,11 @@ define(function(require, exports, module) {
                         }
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });
             });
-        },
-        exportCarList: function(el) {
-            this.getParams();
-            var st = common.getCookie('st');
-            var sid = common.getCookie('sid');
-            var src = api.carManager.exportCarList + '?sid=' + sid + '&st=' + st;
-            $.each(this.searchParam, function(key, value) {
-                src += '&' + key + '=' + value;
-            });
-            var downSrc = encodeURI(src);
-            $(el).attr('href', downSrc);
         },
         event: function() {
             var me = this;
@@ -166,7 +158,7 @@ define(function(require, exports, module) {
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.toast('请选择要删除的车辆！');
+                            common.layAlert('请选择要删除的车辆！');
                             return false;
                         }
                         confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;辆车，是否对车辆进行删除？';
@@ -180,17 +172,17 @@ define(function(require, exports, module) {
                 }).on('click', 'input[name="checkAll"]', function() {
                     var isChecked = $(this).is(':checked');
                     if (isChecked) {
-                        $('.datatable-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
+                        $('.grid-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
                     } else {
-                        $('.datatable-content table > tbody input[name="checkItem"]').removeAttr('checked');
+                        $('.grid-content table > tbody input[name="checkItem"]').removeAttr('checked');
                     }
                 }).on('click', 'input[name="checkItem"]', function() {
-                    var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked').size();
-                    var totalChks = $('.datatable-content table > tbody input[name="checkItem"]').size();
+                    var chks = $('.grid-content table > tbody input[name="checkItem"]:checked').size();
+                    var totalChks = $('.grid-content table > tbody input[name="checkItem"]').size();
                     if (chks == totalChks) {
-                        $('.datatable-header table > thead input[name="checkAll"]').prop('checked', true);
+                        $('.table-head table > thead input[name="checkAll"]').prop('checked', true);
                     } else {
-                        $('.datatable-header table > thead input[name="checkAll"]').removeAttr('checked');
+                        $('.table-head table > thead input[name="checkAll"]').removeAttr('checked');
                     }
                 });
         }

@@ -914,7 +914,7 @@ define(function(require, exports, module) {
                 if (callback) callback(params);
             });
         },
-        getSelect: function(opt) {
+        getSelect: function(opt, callback) {
             var obj = {
                 url: opt.url,
                 params: opt.params || {},
@@ -935,9 +935,10 @@ define(function(require, exports, module) {
                     }
                     obj.$objs.html(html);
                     obj.selected && obj.$objs.val(obj.selected);
+                    callback && callback();
                 } else {
                     var msg = res.errorMsg || obj.errorMsg;
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
         },

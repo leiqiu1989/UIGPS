@@ -26,6 +26,8 @@ define(function(require, exports, module) {
             $('#main-content').empty().html(template.compile(tpls.index)());
             // 获取数据
             this.getData();
+            // 事件绑定
+            this.event();
         },
         // 获取查询条件
         getParams: function(param) {
@@ -50,7 +52,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -58,24 +60,25 @@ define(function(require, exports, module) {
         event: function() {
             var me = this;
             // 事件监听
-            $('#main-content').off().on('click', '.js_list_add', function() {
-                    common.changeHash('#carManager/edit');
-                })
+            $('#main-content').off()
                 //编辑
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
                     var id = tr.data('truckid');
-
-                    common.autoAdaptionDialog(template.compile(tpls.editSeats)(), {
-                        title: '编辑座席'
-                    }, function(_dialog) {
-                        me.initOrgTree(function() {
-                            me.initEditValue(id);
-                            me.validate(_dialog, id);
-                            $('#frmSeat .js_cancel').on('click', function() {
-                                _dialog.close();
+                    common.layUI({
+                        title: '编辑坐席',
+                        area: '900px',
+                        btn: [],
+                        content: template.compile(tpls.editSeats)(),
+                        success: function(el) {
+                            me.initOrgTree(function() {
+                                me.initEditValue(id);
+                                me.validate(id);
+                                $(el).find('.js_cancel').on('click', function() {
+                                    layer.closeAll();
+                                });
                             });
-                        });
+                        }
                     });
                 })
                 //停用、启用
@@ -83,9 +86,9 @@ define(function(require, exports, module) {
                     var tr = $(this).closest('tr');
                     var id = tr.data('truckid');
                     var status = tr.data('status') == 1 ? 0 : 1; //0:禁用  1：启用
-
-                    common.confirm('确定' + (status == 1 ? '启用' : '停用') + '此座席信息？', function() {
-                        me._opStatus(id, status);
+                    debugger;
+                    common.layConfirm('确定' + (status == 1 ? '启用' : '停用') + '此座席信息？', function() {
+                        me.changeStatus(id, status);
                     });
                 });
         },
@@ -109,7 +112,7 @@ define(function(require, exports, module) {
                     resourceIdArr = (content.Vids && content.Vids.split(',')) || [];
                 //给表单赋值
                 common.setFormData($('#frmSeat'), content);
-                $('#js_editSeats_no').text(content.Id);
+                $('#seatNo').val(content.Id);
                 //给权限树赋值回显
                 if (nodess == null || (nodess != null && nodess.length == 0)) return;
                 //根据该角色已有的权限进行相应节点的选中操作
@@ -174,13 +177,13 @@ define(function(require, exports, module) {
                 }
             });
         },
-        validate: function(_dialog, id) {
+        validate: function(id) {
             var me = this;
             validate('#frmSeat', {
                 subBtn: '.js_save',
                 promptPos: 'inline',
                 submit: function() {
-                    me.submitForm(_dialog, id);
+                    me.submitForm(id);
                 },
                 reg: {
                     'ipaddress': /^([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.([0-9]|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])$/
@@ -190,7 +193,7 @@ define(function(require, exports, module) {
                 }
             });
         },
-        submitForm: function(dialogObj, id) {
+        submitForm: function(id) {
             var me = this;
             var url = api.seatsManager.update;
 
@@ -211,7 +214,7 @@ define(function(require, exports, module) {
             common.ajax(url, params, function(res) {
                 common.loading();
                 if (res && res.status === 'SUCCESS') {
-                    dialogObj.close();
+                    layer.closeAll();
                     common.layMsg('数据操作成功', 'success');
                     me.getData();
                 } else {
@@ -221,9 +224,8 @@ define(function(require, exports, module) {
             });
         },
         //停用、启用坐席信息
-        _opStatus: function(id, status) {
+        changeStatus: function(id, status) {
             var me = this;
-
             common.loading('show');
             common.ajax(api.seatsManager.changeStatus, {
                 Id: id,
@@ -241,9 +243,9 @@ define(function(require, exports, module) {
         }
     });
 
-    var _carObj = new seatsList();
+    var _seatObj = new seatsList();
 
     exports.init = function(param) {
-        _carObj.init(param);
+        _seatObj.init(param);
     };
 });

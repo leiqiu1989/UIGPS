@@ -32,10 +32,10 @@ define(function(require, exports, module) {
             common.loading('show');
             common.ajax(api.sendCode, param, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.toast('指令发送成功!', 'success');
+                    common.layMsg('指令发送成功!');
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -55,11 +55,10 @@ define(function(require, exports, module) {
                         };
                         me.sendCodeByVids(param);
                     } else {
-                        common.toast('不能为空且只能输入整数（2-3000）以内的整数!');
+                        common.layAlert('不能为空且只能输入整数（2-3000）以内的整数!');
                     }
                 } else {
-                    common.toast('请勾选需要发送指令的车辆!');
-                    return false;
+                    common.layAlert('请勾选需要发送指令的车辆!');
                 }
             }).on('click', '.js-setMessage', function() {
                 var message = $.trim($('textarea[name="txtMessage"]').val());
@@ -73,11 +72,10 @@ define(function(require, exports, module) {
                         };
                         me.sendCodeByVids(param);
                     } else {
-                        common.toast('不能为空，且长度必须在50个字符以内!');
+                        common.layAlert('不能为空，且长度必须在50个字符以内!');
                     }
                 } else {
-                    common.toast('请勾选需要发送指令的车辆!');
-                    return false;
+                    common.layAlert('请勾选需要发送指令的车辆!');
                 }
             });
         },
@@ -115,7 +113,7 @@ define(function(require, exports, module) {
                     treeObj.expandAll(true);
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });

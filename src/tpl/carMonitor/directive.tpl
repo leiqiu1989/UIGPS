@@ -1,5 +1,5 @@
 <div class="p15">
-    <div class="layui-form">
+    <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
                 <label class="layui-form-label">回传间隔</label>
