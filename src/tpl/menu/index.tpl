@@ -9,7 +9,7 @@
         %>
             <li>
                 <a href="javascript:void(0);" class="link">
-                <i class="<%= icon %>"></i>
+                <i class="menu-icon <%= icon %>"></i>
                 <span class="nav-text">
                         <%= groupname %>
                 </span>

@@ -27,32 +27,17 @@ define(function(require, exports, module) {
         },
         selectMenu: function(href) {
             this.menuEvent();
-            // var me = this;
-            // var expand = $('.js-toggleMenu').data('expand');
-            // var currTarget = $('a[href="#' + href + '"');
-            // if (currTarget.size() > 0) {
-            //     var $submenu = $(currTarget).closest('ul.submenu');
-            //     if (!expand) {
-            //         var li = $(currTarget).parent();
-            //         var menuLi = $(li).parents('li');
-            //         $('ul.submenu > li').removeClass('active');
-            //         $(li).addClass('active');
-            //         if (!menuLi.hasClass('active')) {
-            //             menuLi.siblings().removeClass('active');
-            //             menuLi.addClass('active');
-            //         }
-            //     } else {
-            //         $submenu.show();
-            //         $submenu.parent().addClass('open');
-            //         $('.accordion .submenu > li > a').removeClass('active');
-            //         $(currTarget).addClass('active');
-            //         if (href === 'carMonitor/index') {
-            //             setTimeout(function() {
-            //                 me.adjustBox();
-            //             }, 100);
-            //         }
-            //     }
-            // }
+            var me = this;
+            var currTarget = $('a[href="#' + href + '"');
+            if (currTarget.size() > 0) {
+                $('nav.main-menu a').removeClass('active');
+                $(currTarget).addClass('active');
+                var li = $(currTarget).parent();
+                var menuLi = $(li).parents('li');
+                if (!menuLi.hasClass('open')) {
+                    menuLi.addClass('open').siblings().removeClass('open');
+                }
+            }
         },
         _init: function() {
             var me = this;

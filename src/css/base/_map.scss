@@ -9,15 +9,14 @@
     left: 0px;
     right: 0;
     bottom: 0;
-    // border-top: 1px solid #363f44;
     background-color: rgba(255, 255, 255, 0.98);
     background-color: #fff \9;
     font-size: 14px;
+    z-index: 1;
     .monitorBar {
         height: 40px;
         line-height: 40px;
         background: #363f44;
-        // border-bottom: 1px solid #363f44;
         .monitorOrganizationIcon {
             cursor: pointer;
             width: 40px;
@@ -133,7 +132,7 @@
         position: absolute;
         left: 0;
         right: 0;
-        top: 90px;
+        top: 83px;
         bottom: 60px;
     }
     .vehicleOK {
@@ -261,14 +260,9 @@
         color: #555;
         box-shadow: 3px 3px 5px #CFCCC7;
     }
-    .mapRectSearch {
-        @extend .icon;
-        background: #fff url('./../img/selecticon.png') no-repeat 10px;
-    }
     .mapInputSearch {
         display: inline-block;
         background-color: #fff;
-        margin-left: 15px;
         box-shadow: 3px 3px 5px #CFCCC7;
         span {
             color: #555;
@@ -305,7 +299,7 @@
 
 /*OBD信息*/
 
-.mapOBDInfo {
+.OBDInfo {
     width: 300px;
     position: absolute;
     top: 30px;
@@ -325,6 +319,10 @@
     }
     .obd-Content {
         padding: 10px;
+        height: 620px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top-width: 0;
         >ul>li {
             padding: 5px 0;
             color: #666;

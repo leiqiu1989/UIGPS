@@ -6,13 +6,13 @@ define(function(require, exports, module) {
     require('lodash');
     // 模板
     var tpls = {
-        index: require('../../tpl/carOrderConfig/index'),
-        list: require('../../tpl/carOrderConfig/list'),
-        config: require('../../tpl/carOrderConfig/configDialog')
+        index: require('../../tpl/orderConfig/index'),
+        list: require('../../tpl/orderConfig/list'),
+        config: require('../../tpl/orderConfig/configDialog')
     };
 
-    function carOrderConfigList() {}
-    $.extend(carOrderConfigList.prototype, {
+    function orderConfig() {}
+    $.extend(orderConfig.prototype, {
         init: function(param) {
             // 初始化查询条件参数
             this.getParams(param);
@@ -63,16 +63,16 @@ define(function(require, exports, module) {
             if (param == false) {
                 newParams = {};
             }
-            this.searchParam = common.getParams('carOrderConfigParams', param, newParams, true);
+            this.searchParam = common.getParams('OrderConfigParams', param, newParams, true);
         },
         getData: function() {
             var me = this;
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
             // 将查询条件保存到localStorage里面
-            common.setlocationStorage('carOrderConfigParams', JSON.stringify(this.searchParam));
+            common.setlocationStorage('orderConfigParams', JSON.stringify(this.searchParam));
             common.loading('show');
-            common.ajax(api.carOrderConfig.list, param, function(res) {
+            common.ajax(api.orderConfig.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
                     $('#orderConfigList > table > tbody').empty().html(template.compile(tpls.list)({
@@ -80,7 +80,7 @@ define(function(require, exports, module) {
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.PageIndex = currPage;
-                        common.changeHash('#carOrderConfig/index/', me.searchParam);
+                        common.changeHash('#orderConfig/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
@@ -108,13 +108,13 @@ define(function(require, exports, module) {
             $('.panel-toolbar')
                 //重置
                 .on('click', '.js_list_reset', function() {
-                    common.removeLocationStorage('carOrderConfigParams'); // 车辆管理
+                    common.removeLocationStorage('orderConfigParams'); // 车辆管理
                     me.getParams(false);
-                    common.changeHash('#carOrderConfig/index/', me.searchParam);
+                    common.changeHash('#orderConfig/index/', me.searchParam);
                 })
                 .on('click', '.js_list_search', function() {
                     me.getParams(true);
-                    common.changeHash('#carOrderConfig/index/', me.searchParam);
+                    common.changeHash('#orderConfig/index/', me.searchParam);
                 });
             // 事件监听
             $('#main-content').off()
@@ -123,13 +123,13 @@ define(function(require, exports, module) {
                     var tr = $(this).closest('tr');
                     var id = tr.data('vid');
                     var plateno = tr.data('plateno');
-                    me.initCarOrderConfig(id, plateno);
+                    me.initOrderConfig(id, plateno);
                 })
                 .on('click', '.js_list_export', function() {
                     me.exportCarList($(this));
                 });
         },
-        setCarOrderConfig: function(id, plateno, content) {
+        setOrderConfig: function(id, plateno, content) {
             var me = this;
             common.layUI({
                 title: plateno,
@@ -144,7 +144,7 @@ define(function(require, exports, module) {
                         var voiceFlag = $(el).find('input[name="VoiceFlag"]').is(':checked') ? 1 : 0;
                         var controlFlag = $(el).find('input[name="ControlFlag"]').is(':checked') ? 1 : 0;
                         var remark = $(el).find('input[name="remark"]').val();
-                        common.ajax(api.carOrderConfig.editVehicleOrder, {
+                        common.ajax(api.orderConfig.editVehicleOrder, {
                             vid: id,
                             plateNo: plateno, //车牌号码
                             WxFlag: wxFlag,
@@ -171,12 +171,12 @@ define(function(require, exports, module) {
             });
         },
         //初始化数据
-        initCarOrderConfig: function(id, plateno) {
+        initOrderConfig: function(id, plateno) {
             var me = this;
-            common.ajax(api.carOrderConfig.queryVehicelOrder, { vid: id }, function(res) {
+            common.ajax(api.orderConfig.queryVehicelOrder, { vid: id }, function(res) {
                 if (res.status === 'SUCCESS') {
                     var content = res.content;
-                    me.setCarOrderConfig(id, plateno, content);
+                    me.setOrderConfig(id, plateno, content);
                 } else {
                     var msg = res.errorMsg || '请求失败，请联系管理员！';
                     common.layMsg(msg);
@@ -186,6 +186,6 @@ define(function(require, exports, module) {
     });
 
     exports.init = function(param) {
-        new carOrderConfigList().init(param);
+        new orderConfig().init(param);
     };
 });

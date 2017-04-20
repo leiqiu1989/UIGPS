@@ -2,6 +2,8 @@ define(function(require, exports, module) {
     'use strict';
 
     require('eventWrapper');
+    require('draw');
+    require('lodash');
     var common = require('common');
 
     var map = function() {
@@ -77,6 +79,50 @@ define(function(require, exports, module) {
                 this._map.addControl(this.overView);
             }
             if (callback) callback(this._map);
+        },
+        // 添加鼠标绘制类
+        addDrawing: function(callback) {
+            var me = this;
+            var styleOptions = {
+                strokeColor: "blue", //边线颜色。
+                fillColor: "", //填充颜色。当参数为空时，圆形将没有填充效果。
+                strokeWeight: 3, //边线的宽度，以像素为单位。
+                strokeOpacity: 0.8, //边线透明度，取值范围0 - 1。
+                fillOpacity: 0.6, //填充的透明度，取值范围0 - 1。
+                strokeStyle: 'solid' //边线的样式，solid或dashed。
+            };
+            var drawingManager = new BMapLib.DrawingManager(this._map, {
+                isOpen: false, //是否开启绘制模式
+                enableDrawingTool: true, //是否显示工具栏
+                drawingToolOptions: {
+                    anchor: BMAP_ANCHOR_TOP_LEFT, //位置
+                    offset: new BMap.Size(120, 22), //偏离值
+                    drawingModes: [BMAP_DRAWING_RECTANGLE]
+                },
+                rectangleOptions: styleOptions //矩形的样式
+            });
+            drawingManager.addEventListener('overlaycomplete', function(e) {
+                var maxLng = 0,
+                    maxLat = 0,
+                    minLng = 0,
+                    minLat = 0;
+                var overlay = e.overlay;
+                me._map.removeOverlay(e.overlay);
+                drawingManager.close();
+                var points = overlay.getPath();
+                if (points.length > 0) {
+                    var lngs = _.map(points, 'lng');
+                    var lats = _.map(points, 'lat');
+                    maxLng = _.max(lngs);
+                    maxLat = _.max(lats);
+                    minLng = _.min(lngs);
+                    minLat = _.min(lats);
+                }
+                if (typeof(callback) == "function") {
+                    callback({ MinLng: minLng, MinLat: minLat, MaxLng: maxLng, MaxLat: maxLat });
+                }
+            });
+
         },
         // 清除所有覆盖物
         clearOverlays: function() {

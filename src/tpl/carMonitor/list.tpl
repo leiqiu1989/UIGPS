@@ -3,7 +3,7 @@
 			var item = data[i];
 
 	%>
-    <tr data-flag="tr_monitor_<%= item.PlateNo %>">
+    <tr data-flag="tr_monitor_<%= item.PlateNo %>" plateno="<%= item.PlateNo %>" data-vid="<%= item.Vid %>">
         <td>
             <%= i+1 %>
         </td>

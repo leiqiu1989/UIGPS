@@ -2,7 +2,7 @@
     <fieldset class="layui-elem-field layui-field-title">
         <legend>基本信息</legend>
     </fieldset>
-    <div class="layui-form">
+    <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
                 <label class="layui-form-label">车牌号码</label>
@@ -44,7 +44,7 @@
     <fieldset class="layui-elem-field layui-field-title">
         <legend>司机信息</legend>
     </fieldset>
-    <div class="layui-form">
+    <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
                 <label class="layui-form-label">司机姓名</label>
@@ -85,7 +85,7 @@
     <fieldset class="layui-elem-field layui-field-title">
         <legend>GPS设备信息</legend>
     </fieldset>
-    <div class="layui-form">
+    <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
                 <label class="layui-form-label">设备编号</label>

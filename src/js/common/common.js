@@ -25,7 +25,7 @@ define(function(require, exports, module) {
             url: '#carMonitor/index',
             groupname: '位置监控',
             group: 'carmonitor',
-            icon: 'fa fa-map-marker'
+            icon: 'icon-position'
         }, {
             name: '历史位置查询',
             code: '00011',
@@ -43,10 +43,10 @@ define(function(require, exports, module) {
         }, {
             name: '组织用户管理',
             code: '00007',
-            url: '#orgUserManager/index',
+            url: '#userManager/index',
             groupname: '组织机构',
             group: 'users',
-            icon: 'fa fa-users'
+            icon: 'icon-org'
         }, {
             name: '角色管理',
             code: '00006',
@@ -55,42 +55,42 @@ define(function(require, exports, module) {
             group: 'users',
             icon: ''
         },
-        {
-            name: '订单管理',
-            code: '00018',
-            url: '#orderManager/index',
-            groupname: '订单管理',
-            group: 'order',
-            icon: 'fa fa-list'
-        }, {
-            name: '投诉管理',
-            code: '00009',
-            url: '#complaintManager/index',
-            groupname: '订单管理',
-            group: 'order',
-            icon: 'fa fa-list'
-        }, {
-            name: '坐席管理',
-            code: '00010',
-            url: '#seatsManager/index',
-            groupname: '订单管理',
-            group: 'order',
-            icon: 'fa fa-list'
-        }, {
-            name: '车辆订单配置',
-            code: '00012',
-            url: '#carOrderConfig/index',
-            groupname: '订单管理',
-            group: 'order',
-            icon: 'fa fa-list'
-        },
+        // {
+        //     name: '订单管理',
+        //     code: '00018',
+        //     url: '#orderManager/index',
+        //     groupname: '订单管理',
+        //     group: 'order',
+        //     icon: 'fa fa-list'
+        // }, {
+        //     name: '投诉管理',
+        //     code: '00009',
+        //     url: '#complaintManager/index',
+        //     groupname: '订单管理',
+        //     group: 'order',
+        //     icon: 'fa fa-list'
+        // }, {
+        //     name: '坐席管理',
+        //     code: '00010',
+        //     url: '#seatsManager/index',
+        //     groupname: '订单管理',
+        //     group: 'order',
+        //     icon: 'fa fa-list'
+        // }, {
+        //     name: '车辆订单配置',
+        //     code: '00012',
+        //     url: '#orderConfig/index',
+        //     groupname: '订单管理',
+        //     group: 'order',
+        //     icon: 'fa fa-list'
+        // },
         {
             name: '车辆管理',
             code: '00005',
             url: '#carManager/index',
             groupname: '车辆信息',
             group: 'resource',
-            icon: 'fa fa-car'
+            icon: 'icon-car'
         }, {
             name: 'GPS设备管理',
             code: '00020',
@@ -246,6 +246,9 @@ define(function(require, exports, module) {
             }
             return keyTime < currentTime ? 'red' : '';
         }
+    });
+    template.helper('odbNull', function(key) {
+        return key ? key : '0';
     });
 
     /*公共js*/
@@ -547,10 +550,10 @@ define(function(require, exports, module) {
             common.removeLocationStorage('historyLocationParams'); //历史位置查询
             common.removeLocationStorage('carManagerParams'); //车辆管理
             common.removeLocationStorage('complaintManagerParams'); //投诉管理
-            common.removeLocationStorage('orgUserManagerParams'); //组织用户
+            common.removeLocationStorage('userManagerParams'); //组织用户
             common.removeLocationStorage('roleManagerSearchParams'); //角色管理
             common.removeLocationStorage('orderManagerSearchParams'); //订单管理
-            common.removeLocationStorage('carOrderConfigParams'); //车辆订单配置
+            common.removeLocationStorage('orderConfigParams'); //车辆订单配置
             common.removeLocationStorage('seatsManagerSearchParams'); // 坐席管理
             common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },

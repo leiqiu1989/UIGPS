@@ -7,17 +7,17 @@ define(function(require, exports, module) {
 
     // 模板
     var tpls = {
-        add: require('../../tpl/orgUserManager/add'),
-        userinfo: require('../../tpl/orgUserManager/userInfo')
+        add: require('../../tpl/userManager/add'),
+        userinfo: require('../../tpl/userManager/userInfo')
     };
 
-    var orgUserAdd = function() {
+    var userAdd = function() {
         this.isEdit = false;
         this.orgId = null;
         this.roles = null;
     };
 
-    $.extend(orgUserAdd.prototype, {
+    $.extend(userAdd.prototype, {
         init: function(id) {
             this.isEdit = !!id;
             this.orgId = id || null;
@@ -46,7 +46,7 @@ define(function(require, exports, module) {
             // 编辑
             if (this.isEdit) {
                 common.loading('show');
-                common.ajax(api.orgUserManager.detail, {
+                common.ajax(api.userManager.detail, {
                     OrgId: me.orgId
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
@@ -65,7 +65,7 @@ define(function(require, exports, module) {
         initSelect: function(el, callback) {
             //获取角色列表
             this.getSelect({
-                url: api.orgUserManager.roles,
+                url: api.userManager.roles,
                 obj: el,
                 key: ['RoleId', 'RoleName']
             }, callback);
@@ -124,11 +124,11 @@ define(function(require, exports, module) {
                 users.push(user);
             }
             params.Users = users;
-            var url = this.isEdit ? api.orgUserManager.update : api.orgUserManager.save;
+            var url = this.isEdit ? api.userManager.update : api.userManager.save;
             common.ajax(url, { OrgUser: JSON.stringify(params) }, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('数据操作成功!', 'success');
-                    common.changeHash('#orgUserManager/index');
+                    common.changeHash('#userManager/index');
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
                     common.layAlert(msg);
@@ -144,7 +144,7 @@ define(function(require, exports, module) {
             });
             // 事件监听
             $('#main-content').on('click', '.js_add_back', function() {
-                    common.changeHash('#orgUserManager/index');
+                    common.changeHash('#userManager/index');
                 })
                 // 新增用户
                 .on('click', '.js-addUser', function() {
@@ -165,6 +165,6 @@ define(function(require, exports, module) {
     });
 
     exports.init = function(param) {
-        new orgUserAdd().init(param.id);
+        new userAdd().init(param.id);
     };
 });

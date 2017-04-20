@@ -31,6 +31,10 @@ define(function(require, exports, module) {
         userPermission: remoteUrl + '/Role/QueryAccountPermission',
         // 发送指令
         sendCode: remoteUrl + '/Command/SendGeneralByVid',
+        // 区域查车
+        areaQuery: remoteUrl + '/position/QueryVehicleByRectangle',
+        // odb信息
+        odbInfo: remoteUrl + '/obd/last',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表
@@ -86,7 +90,7 @@ define(function(require, exports, module) {
             detail: remoteUrl + '/web/contract/template-detail' // 模板详情
         },
         //车辆订单配置模块
-        carOrderConfig: {
+        orderConfig: {
             list: remoteUrl + '/VehicleOrderType/QueryAllVehicleOrderTypeInfo', //列表
             editVehicleOrder: remoteUrl + '/VehicleOrderType/EditVehicleOrderTypeInfo', //对车辆可接收的订单信息进行配置 
             queryVehicelOrder: remoteUrl + '/VehicleOrderType/QueryVehicleOrderTypeInfoByVid' //根据车辆vid编号获取车辆详情 
@@ -108,7 +112,7 @@ define(function(require, exports, module) {
             rolePermission: remoteUrl + '/Role/QueryAllPermission' //角色管理-系统功能Ztree
         },
         // 用户管理
-        orgUserManager: {
+        userManager: {
             list: remoteUrl + '/Org/List',
             save: remoteUrl + '/Org/Create',
             update: remoteUrl + '/Org/Edit',

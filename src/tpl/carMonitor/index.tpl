@@ -89,83 +89,22 @@
     </div>
     <!-- 地图搜索 -->
     <div class="mapTools">
-        <div class="mapRectSearch">选框查询</div>
         <div class="mapInputSearch relative">
             <span>车牌号码</span>
-            <input type="text" />
-            <a href="javascript:void(0)"></a>
+            <input type="text" name="txtCarPlateNo" />
+            <a href="javascript:void(0)" class="js-search-car"></a>
         </div>
-        <div class="mapOBD">
+        <div class="mapOBD js-toggleOBD">
             OBD信息
         </div>
     </div>
     <!-- OBD信息列表 -->
-    <div class="mapOBDInfo hidden">
+    <div id="obdList" class="OBDInfo hidden">
         <div class="obd-Title">
             <span>OBD信息</span>
             <div class="pull-right odb-close">X</div>
         </div>
-
         <div class="obd-Content">
-            <ul>
-                <li>
-                    <span>故障数量</span>
-                    <span>0</span>
-                </li>
-                <li><span>故障码</span>
-                    <span>0</span></li>
-            </ul>
-            <div class="obd-group">
-                车辆
-            </div>
-            <ul>
-                <li>
-                    <span>电瓶电压(v)</span>
-                    <span>0</span>
-                </li>
-                <li><span>发动机负荷(%)</span>
-                    <span>0</span></li>
-                <li><span>发动机转数(RTM)</span>
-                    <span>0</span></li>
-            </ul>
-            <div class="obd-group">
-                燃油
-            </div>
-            <ul>
-                <li>
-                    <span>平均油耗(L/KM)</span>
-                    <span>0</span>
-                </li>
-                <li><span>本次燃油量(L)</span>
-                    <span>0</span></li>
-                <li><span>累计燃油量(RTM)</span>
-                    <span>0</span></li>
-                <li><span>剩余油量(RTM)</span>
-                    <span>0</span></li>
-            </ul>
-            <div class="obd-group">
-                驾驶数据
-            </div>
-            <ul>
-                <li>
-                    <span>本次行驶里程(KM)</span>
-                    <span>0</span>
-                </li>
-                <li><span>本次急刹车</span>
-                    <span>0</span></li>
-                <li><span>本次急转弯</span>
-                    <span>0</span></li>
-                <li><span>本次急减速</span>
-                    <span>0</span></li>
-                <li><span>本次最高车速(KM)</span>
-                    <span>0</span></li>
-                <li><span>本次最高转速(RPM)</span>
-                    <span>0</span></li>
-                <li><span>故障后行驶里程(KM)</span>
-                    <span>0</span></li>
-                <li><span>当前车速(KM/H)</span>
-                    <span>0</span></li>
-            </ul>
         </div>
     </div>
 </div>

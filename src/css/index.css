@@ -726,12 +726,6 @@ dl dd {
 .BMapLabel {
   max-width: inherit !important; }
 
-/*无权限css*/
-.authorize {
-  background: #fdfdfd url("./../img/authorize.png") no-repeat center center;
-  height: 100%;
-  width: 100%; }
-
 .p15 {
   padding: 15px; }
 
@@ -746,7 +740,8 @@ dl dd {
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.98);
   background-color: #fff \9;
-  font-size: 14px; }
+  font-size: 14px;
+  z-index: 1; }
   .monitorList .monitorBar {
     height: 40px;
     line-height: 40px;
@@ -839,7 +834,7 @@ dl dd {
     position: absolute;
     left: 0;
     right: 0;
-    top: 90px;
+    top: 83px;
     bottom: 60px; }
   .vehicle-box .vehicleOK {
     position: absolute;
@@ -933,19 +928,16 @@ dl dd {
   top: 30px;
   left: 18%;
   font-size: 16px; }
-  .mapTools .icon, .mapTools .mapRectSearch, .mapTools .mapOBD {
+  .mapTools .icon, .mapTools .mapOBD {
     display: inline-block;
     padding: 10px;
     padding-left: 40px;
     cursor: pointer;
     color: #555;
     box-shadow: 3px 3px 5px #CFCCC7; }
-  .mapTools .mapRectSearch {
-    background: #fff url("./../img/selecticon.png") no-repeat 10px; }
   .mapTools .mapInputSearch {
     display: inline-block;
     background-color: #fff;
-    margin-left: 15px;
     box-shadow: 3px 3px 5px #CFCCC7; }
     .mapTools .mapInputSearch span {
       color: #555;
@@ -972,31 +964,35 @@ dl dd {
     margin-left: 50px; }
 
 /*OBD信息*/
-.mapOBDInfo {
+.OBDInfo {
   width: 300px;
   position: absolute;
   top: 30px;
   right: 30px;
   background: #fff; }
-  .mapOBDInfo .obd-Title {
+  .OBDInfo .obd-Title {
     border-bottom: 1px solid #ddd;
     padding: 10px;
     font-size: 16px;
     color: #555; }
-    .mapOBDInfo .obd-Title .odb-close {
+    .OBDInfo .obd-Title .odb-close {
       cursor: pointer; }
-    .mapOBDInfo .obd-Title > span {
+    .OBDInfo .obd-Title > span {
       font-weight: 700; }
-  .mapOBDInfo .obd-Content {
-    padding: 10px; }
-    .mapOBDInfo .obd-Content > ul > li {
+  .OBDInfo .obd-Content {
+    padding: 10px;
+    height: 620px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-top-width: 0; }
+    .OBDInfo .obd-Content > ul > li {
       padding: 5px 0;
       color: #666;
       font-size: 14px; }
-      .mapOBDInfo .obd-Content > ul > li > span:last-child {
+      .OBDInfo .obd-Content > ul > li > span:last-child {
         float: right;
         margin-right: 5px; }
-    .mapOBDInfo .obd-Content .obd-group {
+    .OBDInfo .obd-Content .obd-group {
       font-size: 16px;
       color: #333;
       font-weight: 700; }
@@ -1561,7 +1557,7 @@ body {
       height: 40px;
       padding-left: 5px;
       border: 1px solid #ccc; }
-    #login .group-row .icon, #login .group-row .mapTools .mapRectSearch, .mapTools #login .group-row .mapRectSearch, #login .group-row .mapTools .mapOBD, .mapTools #login .group-row .mapOBD {
+    #login .group-row .icon, #login .group-row .mapTools .mapOBD, .mapTools #login .group-row .mapOBD {
       border: 1px solid #ccc;
       border-right: 0;
       float: left;
@@ -2116,7 +2112,10 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
   left: 0;
   width: 53px;
   overflow: hidden;
-  transition: width .2s linear;
+  transition: width .5s linear;
+  -moz-transition: width .5s linear;
+  -webkit-transition: width .5s linear;
+  -o-transition: width .5s linear;
   box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
   opacity: 1;
   z-index: 2; }
@@ -2148,7 +2147,8 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
       display: table;
       border-collapse: collapse;
       border-spacing: 0;
-      color: #959595;
+      border-bottom: 1px solid #ccc;
+      color: #222;
       font-size: 14px;
       text-decoration: none;
       -webkit-transform: translateZ(0) scale(1, 1);
@@ -2166,21 +2166,36 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
       display: none;
       background: #fff;
       font-size: 14px; }
-      .main-menu > ul > li .submenu > li > a {
-        display: block;
-        text-decoration: none;
-        color: #464646;
-        padding: 12px;
-        padding-left: 42px;
-        -webkit-transition: all 0.25s ease;
-        -o-transition: all 0.25s ease;
-        transition: all 0.25s ease; }
-        .main-menu > ul > li .submenu > li > a:hover:not(.active) {
-          background: #eeeeee;
-          color: #464646; }
-        .main-menu > ul > li .submenu > li > a.active {
-          color: #222;
-          font-weight: 700; }
+      .main-menu > ul > li .submenu > li {
+        border-bottom: 1px solid #ccc; }
+        .main-menu > ul > li .submenu > li > a {
+          display: block;
+          text-decoration: none;
+          color: #464646;
+          padding: 12px;
+          padding-left: 42px;
+          -webkit-transition: all 0.25s ease;
+          -o-transition: all 0.25s ease;
+          transition: all 0.25s ease; }
+          .main-menu > ul > li .submenu > li > a:hover:not(.active) {
+            background: #eeeeee;
+            color: #464646; }
+          .main-menu > ul > li .submenu > li > a.active {
+            color: #222;
+            font-weight: 700; }
+  .main-menu .menu-icon {
+    width: 52px;
+    height: 50px;
+    display: inline-block;
+    background-position: center !important; }
+  .main-menu .icon-position {
+    background: url("./../img/position1.png") no-repeat; }
+  .main-menu .icon-car {
+    background: url("./../img/truckicon1.png") no-repeat; }
+  .main-menu .icon-org {
+    background: url("./../img/orgicon1.png") no-repeat; }
+  .main-menu .icon-sys {
+    background: url("./../img/infoicon1.png") no-repeat; }
 
 nav {
   -webkit-user-select: none;

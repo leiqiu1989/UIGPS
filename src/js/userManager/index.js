@@ -6,12 +6,12 @@ define(function(require, exports, module) {
     require('lodash');
     // 模板
     var tpls = {
-        index: require('../../tpl/orgUserManager/index'),
-        list: require('../../tpl/orgUserManager/list')
+        index: require('../../tpl/userManager/index'),
+        list: require('../../tpl/userManager/list')
     };
 
-    function orgUserManager() {}
-    $.extend(orgUserManager.prototype, {
+    function userManager() {}
+    $.extend(userManager.prototype, {
         init: function(param) {
             // 初始化查询条件参数
             this.getParams(param);
@@ -38,13 +38,13 @@ define(function(require, exports, module) {
                 OnlyOrgNo: common.getElValue(':hidden[name="OnlyOrgNo"]'), //所属机构
                 Condition: common.getElValue('input[name="Condition"]') //关键字
             };
-            this.searchParam = common.getParams('orgUserManagerParams', param, newParams, true);
+            this.searchParam = common.getParams('userManagerParams', param, newParams, true);
         },
         deleteUser: function(orgId, confirmText) {
             var me = this;
             common.confirm(confirmText, function() {
                 common.loading('show', '数据正在处理中...');
-                common.ajax(api.orgUserManager.del, {
+                common.ajax(api.userManager.del, {
                     OrgIds: orgId
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
@@ -63,17 +63,17 @@ define(function(require, exports, module) {
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
             // 将查询条件保存到localStorage里面
-            common.setlocationStorage('orgUserManagerParams', JSON.stringify(this.searchParam));
+            common.setlocationStorage('userManagerParams', JSON.stringify(this.searchParam));
             common.loading('show');
-            common.ajax(api.orgUserManager.list, param, function(res) {
+            common.ajax(api.userManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#orgUserList > table > tbody').empty().html(template.compile(tpls.list)({
+                    $('#userManagerList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.PageIndex = currPage;
-                        common.changeHash('#orgUserManager/index/', me.searchParam);
+                        common.changeHash('#userManager/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
@@ -89,21 +89,21 @@ define(function(require, exports, module) {
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
                 me.getParams(true);
-                common.changeHash('#orgUserManager/index/', me.searchParam);
+                common.changeHash('#userManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
-                common.removeLocationStorage('orgUserManagerParams'); // 组织用户管理
+                common.removeLocationStorage('userManagerParams'); // 组织用户管理
                 me.getParams(false);
-                common.changeHash('#orgUserManager/index/', me.searchParam);
+                common.changeHash('#userManager/index/', me.searchParam);
             });
             // 事件监听
             $('#main-content').on('click', '.js_list_add', function() {
-                    common.changeHash('#orgUserManager/edit');
+                    common.changeHash('#userManager/edit');
                 })
                 //编辑车辆
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
                     var id = tr.data('orgid');
-                    common.changeHash('#orgUserManager/edit/', { id: id });
+                    common.changeHash('#userManager/edit/', { id: id });
                 })
                 //批量、单个删除车辆
                 .on('click', '.js_list_delete', function() {
@@ -145,6 +145,6 @@ define(function(require, exports, module) {
     });
 
     exports.init = function(param) {
-        new orgUserManager().init(param);
+        new userManager().init(param);
     };
 });

@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="panel-body no-padding grow ">
-                <div id="orgUserList" class="grid-content">
+                <div id="userManagerList" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
                             <col width="50px" />
