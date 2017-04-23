@@ -167,7 +167,7 @@ define(function(require, exports, module) {
             if (!window.monitorTimer) {
                 window.monitorTimer = setInterval(function() {
                     me.getCarPositionList();
-                }, 15000);
+                }, 315000);
             }
         },
         carDetailInfo: function(id) {
@@ -263,7 +263,7 @@ define(function(require, exports, module) {
                 // 车辆详情
                 .on('click', '.js_car_info', function() {
                     var id = $(this).data('id');
-                    me.carDetailInfo();
+                    me.carDetailInfo(id);
                 })
                 // 地图查询车辆
                 .on('click', '.js-search-car', function() {
