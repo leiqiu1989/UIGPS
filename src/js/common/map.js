@@ -156,7 +156,6 @@ define(function(require, exports, module) {
         },
         // 车辆监控-弹出框
         GetInfoWindow: function(data) {
-            //var stopTime = data.Status.indexOf("ACC开") > -1 ? "0" : data.StopTime;
             var status = '';
             if (data.IsOnline === 0) {
                 status = '离线';
@@ -182,7 +181,7 @@ define(function(require, exports, module) {
                 (data.AlarmInfo ? "<div class='point_info_row'>" +
                     "<div class='point_info_right'>车辆警情：" + data.AlarmInfo + "</div></div>" : "") +
                 "</div>" +
-                "<div class='point_info_addr'>位置：" + data.Location + "</div>" +
+                "<div class='point_info_addr ellipsis' title='" + data.Location + "'>位置：" + data.Location + "</div>" +
                 "<div class='point_btn'>" +
                 "<div class='point_btn_info br' onclick='showVehicleInfo(" + data.Vid + ")'>车辆详细资料</div>" +
                 "<div class='point_btn_info js-car-track' onclick=\"showVehicleTrack('" + data.Vid + "','" + data.PlateNo + "')\">轨迹回放</div>" +
