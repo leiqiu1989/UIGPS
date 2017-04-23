@@ -3,13 +3,13 @@ define("base", [], function() {
 
     var url;
     // 本地开发
-    url = 'http://dev.demo.cn/JHGPS/src';
+    url = 'http://dev.demo.cn/UIGPS/src';
     // 测试地址
     // url = 'http://120.25.212.193:8082';
     // 正式版地址
     // url = 'http://192.168.1.21:8081';
     window.DOMAIN = url;
-
+    window.staticURL = 'http://dev.demo.cn/UIGPS/src/img'
     seajs.config({
         base: basicUrl,
         charset: 'utf-8',
