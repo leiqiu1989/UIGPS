@@ -41,6 +41,9 @@ define(function(require, exports, module) {
             }).on('keyup', 'input[name="username"]', function() {
                 $('input[name="password"]').val('');
             });
+            $('.lang-item').on('click', function() {
+                $(this).addClass('active').siblings().removeClass('active');
+            });
             $('.js-login').on('click', function() {
                 me.submit();
             });
@@ -72,6 +75,9 @@ define(function(require, exports, module) {
                     if (res.status === 'SUCCESS') {
                         // 默认保存一天
                         common.setCookie('username', username, 1);
+                        // 存储语言
+                        var lang = $('.lang-item.active').data('lang');
+                        common.setCookie('lang', lang);
                         // 存储后台返回状态
                         var data = res.content;
                         common.setCookie('accountid', data.AccountId);

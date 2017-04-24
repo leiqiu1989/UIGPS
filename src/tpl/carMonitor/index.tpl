@@ -5,9 +5,9 @@
         <div class="monitorBar clearfix ">
             <div class="monitorOrganizationIcon pull-left js-origin"></div>
             <div class="monitorCarSummary pull-left ">
-                <span class="active ">加载车辆<span class="js-carTotal">0</span></span>
-                <span class="online ">在线<span class="js-onLineTotal">0</span></span>
-                <span class="offline ">离线<span class="js-offLineTotal">0</span></span>
+                <span class="active"><label data-localize="VehicleMonitor.LoadingVehicles">加载车辆</label><span class="js-carTotal">0</span></span>
+                <span class="online"><label data-localize="VehicleMonitor.Online">在线</label><span class="js-onLineTotal">0</span></span>
+                <span class="offline"><label data-localize="VehicleMonitor.Offline">离线</label><span class="js-offLineTotal">0</span></span>
             </div>
             <div class="pull-right ">
                 <a class="foldUp js-foldToggle "></a>
@@ -31,14 +31,14 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th>序号</th>
-                                        <th>操作</th>
-                                        <th>车牌号码</th>
-                                        <th>GPS时间</th>
-                                        <th>速度(Km/h)</th>
-                                        <th>车辆状态</th>
-                                        <th>行驶方向</th>
-                                        <th>位置</th>
+                                        <th data-localize="VehicleMonitor.SerialNumber">序号</th>
+                                        <th data-localize="VehicleMonitor.Operation">操作</th>
+                                        <th data-localize="VehicleMonitor.LicensePlateNumber">车牌号码</th>
+                                        <th data-localize="VehicleMonitor.GPStime">GPS时间</th>
+                                        <th data-localize="VehicleMonitor.Speed">速度(Km/h)</th>
+                                        <th data-localize="VehicleMonitor.VehicleStatus">车辆状态</th>
+                                        <th data-localize="VehicleMonitor.DrivingDirection">行驶方向</th>
+                                        <th data-localize="VehicleMonitor.Location">位置</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -82,7 +82,7 @@
                 <div id="vehicleTree" class="vehicle-tree ztree">
                 </div>
                 <div class="vehicleOK">
-                    <button class="layui-btn layui-btn-small layui-btn-normal w-200 js-vehicle-ok">确 定</button>
+                    <button class="layui-btn layui-btn-small layui-btn-normal w-200 js-vehicle-ok" data-localize="button.OK">确 定</button>
                 </div>
             </div>
         </div>
@@ -90,18 +90,18 @@
     <!-- 地图搜索 -->
     <div class="mapTools">
         <div class="mapInputSearch relative">
-            <span>车牌号码</span>
+            <span data-localize="VehicleMonitor.LicensePlateNumber">车牌号码</span>
             <input type="text" name="txtCarPlateNo" />
             <a href="javascript:void(0)" class="js-search-car"></a>
         </div>
-        <div class="mapOBD js-toggleOBD">
+        <div class="mapOBD js-toggleOBD" data-localize="VehicleMonitor.OBDInfo">
             OBD信息
         </div>
     </div>
     <!-- OBD信息列表 -->
     <div id="obdList" class="OBDInfo hidden">
         <div class="obd-Title">
-            <span>OBD信息</span>
+            <span data-localize="VehicleMonitor.OBDInfo">OBD信息</span>
             <div class="pull-right odb-close">X</div>
         </div>
         <div class="obd-Content">

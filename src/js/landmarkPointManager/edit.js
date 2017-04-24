@@ -94,7 +94,7 @@ define(function(require, exports, module) {
                         common.changeHash('#landmarkPointManager/index');
                     } else {
                         var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
-                        common.alert(msg, 'error');
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });

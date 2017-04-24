@@ -253,17 +253,11 @@ define(function(require, exports, module) {
 
     /*公共js*/
     var common = {
-        niceScroll: function(el, opt) {
-            var option = $.extend({
-                cursorcolor: "#ccc", //#CC0071 光标颜色 
-                cursoropacitymax: 1, //改变不透明度非常光标处于活动状态（scrollabar“可见”状态），范围从1到0 
-                touchbehavior: false, //使光标拖动滚动像在台式电脑触摸设备 
-                cursorwidth: "5px", //像素光标的宽度 
-                cursorborder: "0", //     游标边框css定义 
-                cursorborderradius: "5px", //以像素为光标边界半径 
-                autohidemode: false //是否隐藏滚动条 
-            }, opt || {});
-            $(el).niceScroll(option);
+        translatorLang: function() {
+            var lang = this.getCookie('lang');
+            $("[data-localize]").localize("language", {
+                language: lang
+            });
         },
         getPermission: function(code) {
             var rt = _.find(roleCodeList, function(item, index) {
@@ -291,7 +285,7 @@ define(function(require, exports, module) {
         // 检查日期,interVals(间隔天数)
         checkTime: function(dateTime, ct, interVals) {
             if (!dateTime || !ct) {
-                common.toast('日期不能为空！');
+                common.layMsg('日期不能为空!');
                 return false;
             }
             if (_.isString(ct)) {
@@ -308,13 +302,13 @@ define(function(require, exports, module) {
             if (interVals) {
                 var times = interVals * 24 * 60 * 60 * 1000;
                 if (diffTimes < 0 || diffTimes > times) {
-                    common.toast('时间周期必须小于或等于3天!');
+                    common.layMsg('时间周期必须小于或等于3天!');
                     return false;
                 }
                 return true;
             } else {
                 if (diffTimes < 0) {
-                    common.toast('结束日期必须大于或等于开始日期!');
+                    common.layMsg('结束日期必须大于或等于开始日期!');
                     return false;
                 }
                 return true;
@@ -819,7 +813,7 @@ define(function(require, exports, module) {
         getOrganizationList: function(value) {
             value = $.trim(value);
             if (!value || value.length < 3) {
-                common.toast('至少输入3个字符进行搜索');
+                common.layMsg('至少输入3个字符进行搜索');
                 $('input[name="orgName"]').focus();
                 return false;
             }

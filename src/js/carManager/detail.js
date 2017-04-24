@@ -54,7 +54,7 @@ define(function(require, exports, module) {
                         me.initControl();
                         me.getlastLocation();
                     } else {
-                        common.toast('系统错误，请联系管理员');
+                        common.layMsg('系统错误，请联系管理员');
                         common.changeHash('#carManager/index');
                     }
                 });
@@ -93,7 +93,7 @@ define(function(require, exports, module) {
                         $('.js_detail_state').text(stateTxt);
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });
@@ -141,7 +141,7 @@ define(function(require, exports, module) {
             var me = this;
             var historyUrl = api.carManager.historyLocation;
             if (!this.glo_uniqueIds) {
-                common.toast('参数异常,未能正确获取车辆轨迹数据!');
+                common.layMsg('参数异常,未能正确获取车辆轨迹数据!');
                 return false;
             } else {
                 var returnValue = this.getDateParams();
@@ -160,7 +160,7 @@ define(function(require, exports, module) {
                         me.drawCarTrack(historyData, []);
                     } else {
                         var msg = historyResp.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });
@@ -173,7 +173,7 @@ define(function(require, exports, module) {
             var me = this;
             var url = api.carManager.sendGPS;
             if (!this.glo_uniqueIds) {
-                common.toast('GPS设备编号异常,不能进行该操作!');
+                common.layMsg('GPS设备编号异常,不能进行该操作!');
                 return false;
             }
             var param = {
@@ -185,16 +185,16 @@ define(function(require, exports, module) {
             } else if (type === 'ET-08S') {
                 param.avlType = 0;
             } else {
-                common.alert('设备类型不符合，不能发送！', 'error', true, function() {});
+                common.layMsg('设备类型不符合，不能发送!');
                 return false;
             }
             common.loading('show');
             common.ajax(url, param, function(res) {
                 if (res.status === 'OK') {
-                    common.toast('GPS发送成功！', 'success');
+                    common.layMsg('GPS发送成功！', 'success');
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -214,7 +214,7 @@ define(function(require, exports, module) {
                         }
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });
@@ -235,7 +235,7 @@ define(function(require, exports, module) {
                 })
                 .on('click', '.js_detail_stop', function() {
                     me.stopCar(me.glo_truckId, '确定要停用该车辆吗？', function() {
-                        common.toast('数据操作成功！', 'success');
+                        common.layMsg('数据操作成功!');
                     });
                 })
                 .on('click', '.js_detail_refresh', function() {

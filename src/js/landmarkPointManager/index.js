@@ -49,7 +49,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -66,7 +66,7 @@ define(function(require, exports, module) {
                         me.getData();
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });
@@ -104,7 +104,7 @@ define(function(require, exports, module) {
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.toast('请选择要删除的地标点！');
+                            common.layMsg('请选择要删除的地标点!');
                             return false;
                         }
                         confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;条数据，是否对其进行删除？';

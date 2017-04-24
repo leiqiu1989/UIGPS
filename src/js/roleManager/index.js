@@ -286,11 +286,11 @@ define(function(require, exports, module) {
             common.loading('show');
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.toast('数据操作成功', 'success');
+                    common.layMsg('数据操作成功', 'success');
                     me.getData();
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
-                    common.layMsg(msg, 'error');
+                    common.layMsg(msg);
                 }
                 common.loading();
             });

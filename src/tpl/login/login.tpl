@@ -1,17 +1,17 @@
 <div class="login-top">
-    <div class="login-icon">车辆智能管理系统</div>
+    <div class="login-icon">卓越智驾</div>
     <div class="login-language">
-        <div class="lang-item active">中文</div>
-        <div class="lang-item">English</div>
+        <div class="lang-item active" data-lang="zh">中文</div>
+        <div class="lang-item" data-lang="en">English</div>
     </div>
 </div>
 <div class="login-body">
     <div class="login-center">
         <div id="imgSilder">
             <div id="slider">
-                <a href="javascript:void(0)"><img src="<%= staticURL+'/1CAR.png' %>" /></a>
-                <a href="javascript:void(0)"><img src="<%= staticURL+'/2MOTO.png' %>" /></a>
-                <a href="javascript:void(0)"><img src="<%= staticURL+'/3NEWOBD.png' %>" /></a>
+                <a href="javascript:void(0)"><img src="<%= staticURL+'/img/1CAR.png' %>" /></a>
+                <a href="javascript:void(0)"><img src="<%= staticURL+'/img/2MOTO.png' %>" /></a>
+                <a href="javascript:void(0)"><img src="<%= staticURL+'/img/3NEWOBD.png' %>" /></a>
             </div>
         </div>
         <div id="login">

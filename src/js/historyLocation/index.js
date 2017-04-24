@@ -168,7 +168,7 @@ define(function(require, exports, module) {
                 secondEl = '.js-secondPoint';
             } else {
                 this.clearOverLay();
-                common.toast('标注数据异常!');
+                common.layMsg('标注数据异常!');
                 return false;
             }
             $(firstEl).eq(0).val(firstItem.minLng);
@@ -230,7 +230,7 @@ define(function(require, exports, module) {
             var startDate = $('input[name="startDate"]').val();
             var endDate = $('input[name="endDate"]').val();
             if (!this.overlays.length) {
-                common.toast('请在地图上进行区域画框!');
+                common.layMsg('请在地图上进行区域画框!');
                 return false;
             }
             if (common.checkTime(endDate, startDate)) {
@@ -262,7 +262,7 @@ define(function(require, exports, module) {
                         });
                     }
                 } else {
-                    common.toast('参数异常,请联系管理员!');
+                    common.layMsg('参数异常,请联系管理员!');
                     return false;
                 }
                 // 查询参数保存
@@ -276,7 +276,7 @@ define(function(require, exports, module) {
                         }));
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });

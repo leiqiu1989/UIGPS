@@ -1,6 +1,6 @@
 <div class="panel panel-transparent no-margin full">
     <div class="panel-heading">
-        <h3 class="panel-title">
+        <h3 class="panel-title" data-localize="HistoryLocation.QueryHistoryLocation">
             历史位置查询
         </h3>
     </div>
@@ -9,24 +9,26 @@
             <div class="col-sm-4">
                 <div class="panel panel-transparent no-margin">
                     <div class="panel-heading clearfix">
-                        <h3 class="panel-title pull-left">
+                        <h3 class="panel-title pull-left" data-localize="HistoryLocation.Geofence1">
                             区域1
                         </h3>
                         <div class="pull-right">
-                            <a class="layui-btn layui-btn-small layui-btn-normal js-clear-overlay">清空所有数据</a>
+                            <a class="layui-btn layui-btn-small layui-btn-normal js-clear-overlay" data-localize="HistoryLocation.ClearAllData">
+                                清空所有数据
+                            </a>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小经度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MinimumLongitude">最小经度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小维度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MinimumLatitude">最小维度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
@@ -34,13 +36,13 @@
                             </div>
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大经度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MaximumLongitude">最大经度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大维度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MaximumLatitude">最大维度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
@@ -51,7 +53,7 @@
                 </div>
                 <div class="panel panel-transparent no-margin">
                     <div class="panel-heading clearfix">
-                        <h3 class="panel-title pull-left w-150">
+                        <h3 class="panel-title pull-left w-150" data-localize="HistoryLocation.Geofence2">
                             区域2
                         </h3>
                     </div>
@@ -59,13 +61,13 @@
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小经度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MinimumLongitude">最小经度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小维度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MinimumLatitude">最小维度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
@@ -73,13 +75,13 @@
                             </div>
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大经度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MaximumLongitude">最大经度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大维度</label>
+                                    <label class="layui-form-label" data-localize="HistoryLocation.MaximumLatitude">最大维度</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
@@ -89,22 +91,17 @@
                     </div>
                 </div>
                 <div class="panel panel-transparent no-margin">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            时间
-                        </h3>
-                    </div>
                     <div class="panel-body">
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">开始时间</label>
+                                    <label class="layui-form-label" data-localize="time.StartTime">开始时间</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="startDate" autocomplete="off" class="layui-input" />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">结束时间</label>
+                                    <label class="layui-form-label" data-localize="time.EndTime">结束时间</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="endDate" autocomplete="off" class="layui-input" />
                                     </div>
@@ -146,11 +143,11 @@
                                         </colgroup>
                                         <thead>
                                             <tr>
-                                                <th>序号</th>
-                                                <th>车牌号码</th>
-                                                <th>在区域1的时间</th>
-                                                <th>在区域2的时间</th>
-                                                <th>操作</th>
+                                                <th data-localize="HistoryLocation.SerialNumber">序号</th>
+                                                <th data-localize="HistoryLocation.LicensePlateNumber">车牌号码</th>
+                                                <th data-localize="HistoryLocation.SpentTimeOnGeofence1">在区域1的时间</th>
+                                                <th data-localize="HistoryLocation.SpentTimeonGeofence2">在区域2的时间</th>
+                                                <th data-localize="HistoryLocation.Operation">操作</th>
                                             </tr>
                                         </thead>
                                     </table>

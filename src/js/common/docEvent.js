@@ -37,12 +37,11 @@ define(function(require, exports, module) {
                             var newpwd = $.trim($('#frmChangePwd input[name="newpwd"]').val());
                             common.ajax(api.modifypwd, { oldpwd: oldpwd, newpwd: newpwd }, function(res) {
                                 if (res && res.status == 'SUCCESS') {
-                                    common.alert('数据操作成功', '', true, function() {
-                                        common.clearData();
-                                        common.changeHash('#login/login');
-                                    });
+                                    common.layMsg('数据操作成功!');
+                                    common.clearData();
+                                    common.changeHash('#login/login');
                                 } else {
-                                    common.toast(res.errorMsg || '密码修改失败!');
+                                    common.layMsg(res.errorMsg || '密码修改失败!');
                                 }
                             });
                             _dialog.close();

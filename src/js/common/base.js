@@ -9,7 +9,7 @@ define("base", [], function() {
     // 正式版地址
     // url = 'http://192.168.1.21:8081';
     window.DOMAIN = url;
-    window.staticURL = 'http://dev.demo.cn/UIGPS/src/img'
+    window.staticURL = 'http://dev.demo.cn/UIGPS/src/'
     seajs.config({
         base: basicUrl,
         charset: 'utf-8',

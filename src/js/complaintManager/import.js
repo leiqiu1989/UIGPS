@@ -46,12 +46,12 @@ define(function(require, exports, module) {
             var url = ifcheck ? api.gpsDevice.checkFile : api.gpsDevice.importFile;
             var file = document.getElementById("importFile"); //文件路径
             if (!file.value.length) {
-                common.toast('请选择文件');
+                common.layMsg('请选择文件');
                 return false;
             }
             var suffix = file.value.substring(file.value.lastIndexOf('.')); //取得文件后缀
             if (suffix !== '.xls') {
-                common.toast('请选择后缀为xls的电子表格文件');
+                common.layMsg('请选择后缀为xls的电子表格文件');
                 return false;
             }
             var st = common.getCookie('st');
@@ -68,16 +68,15 @@ define(function(require, exports, module) {
                     if (data.status == 'OK') {
                         if (!data.content.length) {
                             if (ifcheck) { //校验成功
-                                common.toast('校验成功！可导入', 'success');
+                                common.layMsg('校验成功,可导入', 'success');
                                 $('#importData').html('');
                                 $('.js_import_import').removeClass('disabled');
                             } else { //上传成功
-                                common.alert('数据添加成功', '', true, function() {
-                                    common.changeHash('#gpsDevice/index');
-                                });
+                                common.layMsg('数据添加成功!');
+                                common.changeHash('#gpsDevice/index');
                             }
                         } else {
-                            common.toast('上传数据有错误');
+                            common.layMsg('上传数据有错误');
                             $('#importData').html(template.compile(tpls.importList)(data));
                         }
                     } else {
@@ -85,12 +84,11 @@ define(function(require, exports, module) {
                             data.errorCode == '120010' ||
                             data.errorCode == '120002' ||
                             data.errorCode == '50002') {
-                            common.alert(data.errorMsg, 'error', true, function() {
-                                common.clearData();
-                                window.location.hash = '#login/login';
-                            });
+                            common.layMsg(data.errorMsg);
+                            common.clearData();
+                            window.location.hash = '#login/login';
                         } else {
-                            common.alert(data.errorMsg, 'error', true);
+                            common.layMsg(data.errorMsg);
                         }
                     }
                 }

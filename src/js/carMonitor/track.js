@@ -57,7 +57,7 @@ define(function(require, exports, module) {
                 } else {
                     common.loading();
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
             common.initDateTime('#startDate', null, true, 'yyyy-MM-dd 00:00');
@@ -99,7 +99,7 @@ define(function(require, exports, module) {
             var me = this;
             var vid = $(':hidden[name="Vid"]').val();
             if (!vid) {
-                common.toast('该车没有绑定gps编号!');
+                common.layMsg('该车没有绑定gps编号!');
                 return false;
             }
             var startDate = $('#startDate').val();
