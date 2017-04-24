@@ -47,72 +47,66 @@ body {
 }
 
 .login-body {
-    position: absolute;
-    top: 100px;
-    left: 0;
-    right: 0;
-    height: 500px;
-    #imgSilder {
-        position: absolute;
-        top: 4%;
-        left: 22.5%;
-        width: 750px;
-        height: 455px;
-    }
-    #login {
-        position: absolute;
-        top: 4%;
-        right: 17.4%;
-        width: 450px;
-        height: 455px;
-        background-color: #fafafa;
-        border: 1px solid #efefef;
-        border-bottom: 2px solid #ddd;
-        #header {
-            font-size: 21px;
-            color: #333;
-            letter-spacing: 2px;
-            padding: 20px;
-            border-bottom: 1px solid #ddd;
+    margin: 50px 0;
+    height: 455px;
+    .login-center {
+        width: 1200px;
+        height: 100%;
+        margin: 0 auto;
+        #imgSilder {
+            float: left;
+            width: 750px;
+            height: 455px;
         }
-        #content {
-            padding: 20px;
-            a {
-                cursor: pointer;
+        #login {
+            float: left;
+            width: 450px;
+            height: 455px;
+            background-color: #fafafa;
+            border: 1px solid #efefef;
+            #header {
+                font-size: 21px;
+                color: #333;
+                letter-spacing: 2px;
+                padding: 20px;
+                border-bottom: 1px solid #ddd;
             }
-            a:hover {
-                text-decoration: none;
-            }
-            .login-btn {
-                display: block;
-                width: 100%;
-                font-size: 16px;
-                color: #fff;
-                background: #2d3741;
-                text-align: center;
-                padding: 10px 0;
-            }
-            .login-btn-disabled {
-                pointer-events: none;
-                cursor: not-allowed;
-                filter: alpha(opacity=65);
-                -webkit-box-shadow: none;
-                box-shadow: none;
-                opacity: .65;
-            }
-            .login-forgetpwd {
-                display: block;
-                text-align: right;
+            #content {
+                padding: 20px;
+                a {
+                    cursor: pointer;
+                }
+                a:hover {
+                    text-decoration: none;
+                }
+                .login-btn {
+                    display: block;
+                    width: 100%;
+                    font-size: 16px;
+                    color: #fff;
+                    background: #2d3741;
+                    text-align: center;
+                    padding: 10px 0;
+                }
+                .login-btn-disabled {
+                    pointer-events: none;
+                    cursor: not-allowed;
+                    filter: alpha(opacity=65);
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    opacity: .65;
+                }
+                .login-forgetpwd {
+                    display: block;
+                    text-align: right;
+                }
             }
         }
     }
 }
 
 .login-code {
-    position: absolute;
-    bottom: 150px;
-    left: 0;
-    right: 0;
+    width: 100%;
     padding: 20px;
     text-align: center;
     .code {
@@ -134,6 +128,7 @@ body {
     bottom: 0;
     right: 0;
     left: 0;
+    z-index: 1;
     .item {
         text-align: center;
         &:first-child {
