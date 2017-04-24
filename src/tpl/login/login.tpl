@@ -6,48 +6,50 @@
     </div>
 </div>
 <div class="login-body">
-    <div id="imgSilder">
-        <div id="slider">
-            <a href="javascript:void(0)"><img src="<%= staticURL+'/1CAR.png' %>" /></a>
-            <a href="javascript:void(0)"><img src="<%= staticURL+'/2MOTO.png' %>" /></a>
-            <a href="javascript:void(0)"><img src="<%= staticURL+'/3NEWOBD.png' %>" /></a>
+    <div class="login-center">
+        <div id="imgSilder">
+            <div id="slider">
+                <a href="javascript:void(0)"><img src="<%= staticURL+'/1CAR.png' %>" /></a>
+                <a href="javascript:void(0)"><img src="<%= staticURL+'/2MOTO.png' %>" /></a>
+                <a href="javascript:void(0)"><img src="<%= staticURL+'/3NEWOBD.png' %>" /></a>
+            </div>
         </div>
-    </div>
-    <div id="login">
-        <div id="header">
-            登陆管理平台
-        </div>
-        <div id="content">
-            <div class="layui-form auto-label-width">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">用户名</label>
-                    <div class="layui-input-block">
-                        <input class="layui-input" maxlength="20" name="username" required type="text" />
+        <div id="login">
+            <div id="header">
+                登陆管理平台
+            </div>
+            <div id="content">
+                <div class="layui-form auto-label-width">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" maxlength="20" name="username" required type="text" />
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;码</label>
-                    <div class="layui-input-block">
-                        <input class="layui-input" maxlength="20" name="password" required type="password" />
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;码</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input" maxlength="20" name="password" required type="password" />
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">类&nbsp;&nbsp;&nbsp;型</label>
-                    <div class="layui-input-block">
-                        <select name="userType">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类&nbsp;&nbsp;&nbsp;型</label>
+                        <div class="layui-input-block">
+                            <select name="userType">
                             <option value="1">个人账户</option>
                             <option value="2">企业账户</option>
                         </select>
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <a class="login-btn js-login">登 陆</a>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <a class="login-btn js-login">登 陆</a>
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <a class="login-forgetpwd">忘记密码?</a>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <a class="login-forgetpwd">忘记密码?</a>
+                        </div>
                     </div>
                 </div>
             </div>
