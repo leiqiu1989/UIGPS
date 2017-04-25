@@ -1,0 +1,179 @@
+/*轨迹回放*/
+
+@charset 'UTF-8';
+.track-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    #trackToolBar {
+        position: absolute;
+        top: 40px;
+        width: 100%;
+        .track-back {
+            cursor: pointer;
+            position: absolute;
+            left: 120px;
+            background-image: url(./../img/icon_back.png);
+            background-repeat: no-repeat;
+            background-position: center 10px;
+            width: 52px;
+            height: 52px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 75px;
+            font-size: 14px;
+            background-color: #1E9FFF;
+            color: white;
+        }
+        .track-search {
+            position: absolute;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            line-height: 30px;
+            left: 200px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+    .track-list {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        z-index: 3000;
+        .track-range {
+            height: 15px;
+            width: 100%;
+            background-repeat: repeat;
+            background-image: url(./../img/track_op_1.png);
+            .track-process {
+                height: 15px;
+                width: 1%;
+                position: relative;
+                z-index: 100;
+                background-color: #1E9FFF;
+                .track-range-point {
+                    width: 24px;
+                    height: 24px;
+                    background-image: url(./../img/icon_timenote.png);
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    right: -5px;
+                    top: -5.5px;
+                    position: absolute;
+                    cursor: pointer;
+                }
+            }
+        }
+        .track-play {
+            width: 100%;
+            height: 58px;
+            background-repeat: repeat;
+            background-image: url(./../img/track_op_2.png);
+            position: relative;
+            .trackPlay-btn {
+                width: 54px;
+                height: 54px;
+                background-image: url(./../img/btn_play.png);
+                background-repeat: no-repeat;
+                background-position: center;
+                position: absolute;
+                left: 45px;
+                top: 2px;
+                display: block;
+                cursor: pointer;
+            }
+            .track-time {
+                color: white;
+                font-size: 16px;
+                margin-left: 15px;
+                line-height: 58px;
+                position: relative;
+                left: 112px;
+            }
+            .track-speed-slow {
+                left: 150px;
+                position: relative;
+                font-size: 14px;
+                color: #fff;
+            }
+            .track-speed-side {
+                display: inline-block;
+                width: 100px;
+                height: 8px;
+                border-radius: 10px;
+                position: relative;
+                left: 160px;
+                background-color: #B4B4B4;
+                .track-speed-width {
+                    position: absolute;
+                    width: 50%;
+                    height: 100%;
+                    border-radius: 10px;
+                    left: 0;
+                    top: 0;
+                    background-color: #1E9FFF;
+                    .track-speed-point {
+                        width: 16px;
+                        height: 16px;
+                        position: absolute;
+                        background-image: url(./../img/icon_playspeed.png);
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        right: -5px;
+                        top: -4px;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .track-speed-fast {
+                left: 170px;
+                position: relative;
+                font-size: 14px;
+                color: #fff;
+            }
+        }
+    }
+    .track-list-info {
+        height: auto;
+        width: 100%;
+        background-color: #fff;
+        .track-list-info-choice {
+            width: 100%;
+            height: 48px;
+            line-height: 48px;
+            position: relative;
+            border: 1px solid #ccc;
+            span.track-list-info-choice-point {
+                cursor: pointer;
+                position: relative;
+                left: 50px;
+                padding-left: 20px;
+                background: url('./../img/icon_pathway2.png') no-repeat;
+            }
+            span.track-list-info-toggle {
+                position: absolute;
+                right: 58px;
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                background-position: center;
+                background-image: url(./../img/icon1_packup.png);
+                background-repeat: no-repeat;
+                cursor: pointer;
+                top: 9px;
+            }
+            span.track-list-info-toggle.active {
+                background-image: url(./../img/icon1_more.png)
+            }
+        }
+    }
+    .track-list-data {
+        display: none;
+        height: 300px;
+        width: 100%;
+    }
+}

@@ -1,0 +1,145 @@
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+}
+
+.login-top {
+    background: #2d3741;
+    height: 80px;
+    line-height: 80px;
+    .login-icon {
+        position: absolute;
+        top: 21px;
+        left: 20%;
+        height: 39px;
+        font-size: 16px;
+        line-height: 39px;
+        color: #fff;
+        letter-spacing: 3px;
+        padding-left: 55px;
+        background: url('./../img/logo.png') no-repeat;
+    }
+    .login-language {
+        color: #fff;
+        position: absolute;
+        right: 20%;
+        height: 35px;
+        line-height: 35px;
+        top: 20px;
+        font-size: 0;
+        .lang-item {
+            cursor: pointer;
+            width: 100px;
+            display: inline-block;
+            height: 100%;
+            border: 1px solid #000;
+            text-align: center;
+            font-size: 12px;
+            &.active {
+                background: #354350;
+            }
+            &:last-child {
+                border-left-width: 0;
+            }
+        }
+    }
+}
+
+.login-body {
+    margin: 50px 0;
+    height: 455px;
+    .login-center {
+        width: 1200px;
+        height: 100%;
+        margin: 0 auto;
+        #imgSilder {
+            float: left;
+            width: 750px;
+            height: 455px;
+        }
+        #login {
+            float: left;
+            width: 450px;
+            height: 455px;
+            background-color: #fafafa;
+            border: 1px solid #efefef;
+            #header {
+                font-size: 21px;
+                color: #333;
+                letter-spacing: 2px;
+                padding: 20px;
+                border-bottom: 1px solid #ddd;
+            }
+            #content {
+                padding: 20px;
+                a {
+                    cursor: pointer;
+                }
+                a:hover {
+                    text-decoration: none;
+                }
+                .login-btn {
+                    display: block;
+                    width: 100%;
+                    font-size: 16px;
+                    color: #fff;
+                    background: #2d3741;
+                    text-align: center;
+                    padding: 10px 0;
+                }
+                .login-btn-disabled {
+                    pointer-events: none;
+                    cursor: not-allowed;
+                    filter: alpha(opacity=65);
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    opacity: .65;
+                }
+                .login-forgetpwd {
+                    display: block;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+.login-code {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    .code {
+        display: inline-block;
+        width: 101px;
+        margin-right: 50px;
+        padding-top: 121px;
+        background: url('./../img/qrcode.png') no-repeat;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.login-footer {
+    height: 150px;
+    background: #fafafa;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    .item {
+        text-align: center;
+        &:first-child {
+            padding-top: 40px;
+        }
+        &:last-child {
+            padding-top: 20px;
+        }
+        span {
+            display: inline-block;
+            padding: 0 10px;
+        }
+    }
+}
