@@ -4,17 +4,17 @@
         <div class="track-back js-track-back">返 回</div>
         <div class="track-search">
             <div class="inline-block">
-                <span>车牌牌照：</span>
+                <span>车牌号码</span>
                 <input type="hidden" name="Vid" />
                 <select class="form-control w-200" name="selectCarList" data-placeholder="请选择...">
                 </select>
             </div>
             <div class="inline-block ml10">
-                <span>开始时间：</span>
+                <span>开始时间</span>
                 <input type="text" class="normalText" id="startDate" readonly />
             </div>
             <div class="inline-block ml10">
-                <span>结束时间：</span>
+                <span>结束时间</span>
                 <input type="text" class="normalText" id="endDate" readonly />
             </div>
             <div class="inline-block ml10">

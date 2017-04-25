@@ -35,7 +35,10 @@
     </div>
     <% if(addPermission){ %>
         <div class="panel-toolbar">
-            <button class="layui-btn layui-btn-small layui-btn-normal js_list_add"> <i class="fa fa-plus"></i> 新 增 </button>
+            <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
+                <i class="fa fa-plus"></i>
+                新 增
+            </button>
         </div>
         <% } %>
             <div class="panel-body no-padding grow">

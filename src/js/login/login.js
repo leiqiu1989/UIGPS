@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
     $.extend(login.prototype, {
         init: function() {
-            $('#admin').empty().html(template.compile(tpl)({ staticURL: window.staticURL }));
+            $('#admin').empty().html(template.compile(tpl)({ staticURL: window.DOMAIN }));
             common.layUIForm();
             $('#slider').vmcSlider({
                 width: 750,
@@ -40,6 +40,9 @@ define(function(require, exports, module) {
                 }
             }).on('keyup', 'input[name="username"]', function() {
                 $('input[name="password"]').val('');
+            });
+            $('.lang-item').on('click', function() {
+                $(this).addClass('active').siblings().removeClass('active');
             });
             $('.js-login').on('click', function() {
                 me.submit();

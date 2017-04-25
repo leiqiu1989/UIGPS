@@ -1,9 +1,9 @@
 define("base", [], function() {
     var basicUrl = './js';
 
-    var url = 'http://192.168.1.21:8081';
-    window.DOMAIN = url;
-    window.staticURL = 'http://192.168.1.21:8081/img'
+
+    window.DOMAIN = 'http://192.168.1.21:8081';
+
     seajs.config({
         base: basicUrl,
         charset: 'utf-8',

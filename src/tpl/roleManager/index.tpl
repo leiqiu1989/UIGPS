@@ -13,7 +13,7 @@
                 </div>
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-normal js_search">查 询</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">重置</button>
+                    <button class="layui-btn layui-btn-primary js_list_reset" 重 置</button>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
     <div class="panel-toolbar">
         <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
             <i class="fa fa-plus"></i>
-            新增
+            新 增
         </button>
     </div>
     <div class="panel-body no-padding grow">

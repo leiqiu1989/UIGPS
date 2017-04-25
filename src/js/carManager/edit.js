@@ -106,7 +106,6 @@ define(function(require, exports, module) {
                 if (vehicleTypeLen && brandLen && colorLen && equipmentLen) {
                     clearInterval(timer);
                     common.layUIForm();
-                    callback && callback();
                 }
             }, 100);
         },
@@ -153,7 +152,7 @@ define(function(require, exports, module) {
                 me.orgId = orgId;
             });
             // add event listen
-            $('#main-content').off().on('click', '.js_add_cancel', function() {
+            $('#main-content').on('click', '.js_add_cancel', function() {
                 common.changeHash('#carManager/index');
             });
         }

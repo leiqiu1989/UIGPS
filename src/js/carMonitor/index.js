@@ -48,7 +48,7 @@ define(function(require, exports, module) {
                     me.initCarMonitorList(data);
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -88,7 +88,7 @@ define(function(require, exports, module) {
                     $('#obdList').removeClass('hidden');
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
         },
@@ -142,7 +142,7 @@ define(function(require, exports, module) {
                     common.searchTree();
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
         },
@@ -167,7 +167,7 @@ define(function(require, exports, module) {
             if (!window.monitorTimer) {
                 window.monitorTimer = setInterval(function() {
                     me.getCarPositionList();
-                }, 315000);
+                }, 15000);
             }
         },
         carDetailInfo: function(id) {
@@ -185,7 +185,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
             });
         },
@@ -203,7 +203,7 @@ define(function(require, exports, module) {
                         me.initCarMonitorList(data, true);
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });

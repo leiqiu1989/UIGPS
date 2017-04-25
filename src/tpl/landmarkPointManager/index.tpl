@@ -8,12 +8,12 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">地标名称</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input w-200" name="landMarkName" placeholder="请输入地标名称" value="<%= searchValue.landMarkName %>" />
+                        <input type="text" class="layui-input w-200" name="landMarkName" placeholder="" value="<%= searchValue.landMarkName %>" />
                     </div>
                 </div>
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-normal js_list_search">查 询</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">重置</button>
+                    <button class="layui-btn layui-btn-primary js_list_reset">重 置</button>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@
     <div class="panel-toolbar">
         <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
             <i class="fa fa-plus"></i>
-            新增
+            新 增
         </button>
     </div>
     <div class="panel-body grow no-padding">

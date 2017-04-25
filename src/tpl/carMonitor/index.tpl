@@ -5,9 +5,9 @@
         <div class="monitorBar clearfix ">
             <div class="monitorOrganizationIcon pull-left js-origin"></div>
             <div class="monitorCarSummary pull-left ">
-                <span class="active ">加载车辆<span class="js-carTotal">0</span></span>
-                <span class="online ">在线<span class="js-onLineTotal">0</span></span>
-                <span class="offline ">离线<span class="js-offLineTotal">0</span></span>
+                <span class="active">加载车辆<span class="js-carTotal">0</span></span>
+                <span class="online">在线<span class="js-onLineTotal">0</span></span>
+                <span class="offline">离线<span class="js-offLineTotal">0</span></span>
             </div>
             <div class="pull-right ">
                 <a class="foldUp js-foldToggle "></a>

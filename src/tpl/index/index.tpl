@@ -1,10 +1,10 @@
 <div class="admin-header clearfix">
     <div class="pull-left admin-title">
-        车辆智能管理系统
+        卓越智驾
     </div>
     <div class="pull-right user-info">
         <div class="pull-left user-name">
-            欢迎您,&nbsp;&nbsp;<span class="ja_userName"></span>
+            <label>欢迎</label>,&nbsp;&nbsp;<span class="ja_userName"></span>
         </div>
         <div class="pull-left">
             <a class="user-logout js_logout">退出</a>

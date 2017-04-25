@@ -49,10 +49,10 @@ define(function(require, exports, module) {
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         me.getData();
-                        common.toast('删除用户成功!', 'success');
+                        common.layMsg('删除用户成功!', 'success');
                     } else {
                         var msg = res.errorMsg || '系统出错，请联系管理员！';
-                        common.toast(msg);
+                        common.layMsg(msg);
                     }
                     common.loading();
                 });
@@ -77,7 +77,7 @@ define(function(require, exports, module) {
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.toast(msg);
+                    common.layMsg(msg);
                 }
                 common.loading();
             });
@@ -114,7 +114,7 @@ define(function(require, exports, module) {
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.toast('请选择要删除的用户！');
+                            common.layMsg('请选择要删除的用户!');
                             return false;
                         }
                         confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;个用户，是否进行删除？';

@@ -13,7 +13,9 @@
                             区域1
                         </h3>
                         <div class="pull-right">
-                            <a class="layui-btn layui-btn-small layui-btn-normal js-clear-overlay">清空所有数据</a>
+                            <a class="layui-btn layui-btn-small layui-btn-normal js-clear-overlay">
+                                清空所有数据
+                            </a>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -89,11 +91,6 @@
                     </div>
                 </div>
                 <div class="panel panel-transparent no-margin">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            时间
-                        </h3>
-                    </div>
                     <div class="panel-body">
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
@@ -104,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">结束时间</label>
+                                    <label class="layui-form-label" 结束时间</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="endDate" autocomplete="off" class="layui-input" />
                                     </div>

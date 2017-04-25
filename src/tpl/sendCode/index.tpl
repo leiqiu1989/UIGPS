@@ -1,6 +1,6 @@
 <div class="panel panel-transparent full">
     <div class="panel-heading">
-        <h3 class="panel-title">指定发送</h3>
+        <h3 class="panel-title">指令发送</h3>
     </div>
     <div class="panel-body">
         <div class="row">

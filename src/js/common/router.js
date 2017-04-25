@@ -1,4 +1,6 @@
 define(function(require, exports, module) {
+    var common = require('common');
+
     function router() {}
 
     $.extend(router.prototype, {

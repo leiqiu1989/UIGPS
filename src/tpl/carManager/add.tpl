@@ -9,7 +9,7 @@
             <div class="layui-form auto-label-width">
                 <div class="panel panel-transparent">
                     <div class="panel-heading">
-                        <h3 class="panel-title"> <i class="fa fa-comment"></i> 车辆资料
+                        <h3 class="panel-title"> <i class="fa fa-comment"></i>车辆资料
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -81,7 +81,7 @@
                 <div id="driveInfo" class="panel panel-transparent">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i> 司机资料
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>司机资料
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -209,8 +209,8 @@
                             <div class="col-sm-6">
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <input type="button" class="layui-btn layui-btn-normal js_add_save" value="保 存"></input>
-                                        <input type="button" class="layui-btn layui-btn-primary js_add_cancel" value="取 消"></input>
+                                        <button type="button" class="layui-btn layui-btn-normal js_add_save">保 存</button>
+                                        <button type="button" class="layui-btn layui-btn-primary js_add_cancel">取 消</button>
                                     </div>
                                 </div>
                             </div>
