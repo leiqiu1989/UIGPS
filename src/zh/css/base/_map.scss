@@ -1,0 +1,382 @@
+@charset 'UTF-8';
+.anchorBL {
+    display: none;
+}
+
+// 地图监控车辆列表
+.monitorList {
+    position: absolute;
+    left: 0px;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    background-color: #fff \9;
+    font-size: 14px;
+    z-index: 1;
+    .monitorBar {
+        height: 40px;
+        line-height: 40px;
+        background: #363f44;
+        .monitorOrganizationIcon {
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            background: url('./../img/moreicon.png') no-repeat center;
+        }
+        .monitorCarSummary {
+            >span {
+                cursor: default;
+                display: inline-block;
+                padding: 0 10px;
+                height: 40px;
+                line-height: 40px;
+                border-right: 1px solid #B6C0C9;
+                &.active {
+                    color: #fff;
+                    background: #4b83be;
+                }
+                &.online {
+                    color: #0cb573;
+                }
+                &.offline {
+                    color: #8e949f;
+                }
+                &:first-child {
+                    border-left: 1px solid #B6C0C9;
+                    border-right: 1px solid #B6C0C9;
+                }
+                >span {
+                    display: inline-block;
+                    padding-left: 10px;
+                    font-size: 16px;
+                }
+            }
+        }
+        .monitorCarSearch {
+            margin-left: 20px;
+            width: 370px;
+            >div input[type="text"] {
+                height: 28px;
+            }
+        }
+        .fold {
+            display: inline-block;
+            margin-right: 20px;
+            cursor: pointer;
+            width: 14px;
+            height: 13px;
+        }
+        .foldDown {
+            @extend .fold;
+            background: url('./../img/icon1_more.png') no-repeat center;
+        }
+        .foldUp {
+            @extend .fold;
+            background: url('./../img/icon1_packup.png') no-repeat center;
+        }
+    }
+    .monitorBody {
+        display: none;
+        height: 300px;
+        width: 100%;
+    }
+}
+
+.status {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    color: #fff;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.carOpen {
+    @extend .status;
+    background-color: #4f95ff;
+}
+
+.carClose {
+    @extend .status;
+    background-color: #ff6666;
+}
+
+.engine {
+    color: #7A7A7A;
+}
+
+// 地图监控组织列表
+.vehicle-box {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 41px;
+    width: 355px;
+    overflow: hidden;
+    border-right: 1px solid #c9c9c9;
+    border-bottom: 1px solid #c9c9c9;
+    background-color: rgba(255, 255, 255, 0.98);
+    background-color: #fff \9;
+    z-index: 1;
+    .vehicle-close {
+        cursor: pointer;
+        position: relative;
+        top: 2px;
+    }
+    .vehicle-tree {
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        overflow-y: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 86px;
+        bottom: 60px;
+    }
+    .vehicleOK {
+        position: absolute;
+        bottom: 13px;
+        left: 60px;
+    }
+}
+
+.normalText {
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    padding: 3px 6px;
+    font-size: 12px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+
+.monitor-active {
+    background-color: #ddd;
+}
+
+.pause {
+    background-image: url(./../img/btn_Paused.png) !important;
+}
+
+
+/*历史位置查询*/
+
+#historyMap {
+    height: 450px;
+    max-height: 450px;
+    width: 100%;
+}
+
+.historyLocList {
+    border-top: 1px solid #eee;
+    height: 350px;
+}
+
+
+/*地图信息框样式*/
+
+.point_info {
+    display: inline-block;
+}
+
+.point_info_title {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.point_title_left {
+    display: inline-block;
+    width: 200px;
+    padding-left: 10px;
+}
+
+.point_info_row {
+    margin: 12px 0;
+    color: #666;
+    line-height: 18px;
+}
+
+.point_info_row_s {
+    font-size: 12px;
+    color: #666;
+}
+
+.point_info_left {
+    display: inline-block;
+    width: 190px;
+    padding-left: 25px;
+}
+
+.point_info_right {
+    display: inline-block;
+    padding-left: 25px;
+}
+
+.point_info_addr {
+    padding: 10px 20px 10px 35px;
+    border-top: 1px solid #c9c9c9;
+    border-bottom: 1px solid #c9c9c9;
+    background: url(./../img/position.png) no-repeat scroll 10px 9px;
+}
+
+.point_btn {
+    margin-top: 11px;
+    line-height: 20px;
+    color: #777;
+    text-align: center;
+}
+
+.point_btn_info {
+    display: inline-block;
+    padding: 0 24px 0 26px;
+    cursor: pointer;
+    color: #4F95FF;
+}
+
+.point_btn_info.br {
+    border-right: 1px solid #c9c9c9;
+}
+
+
+/*地图工具栏*/
+
+.mapTools {
+    position: absolute;
+    top: 30px;
+    left: 18%;
+    font-size: 16px;
+    .icon {
+        display: inline-block;
+        padding: 10px;
+        // width: 70px;
+        padding-left: 40px;
+        cursor: pointer;
+        color: #555;
+        box-shadow: 3px 3px 5px #CFCCC7;
+    }
+    .mapInputSearch {
+        display: inline-block;
+        background-color: #fff;
+        box-shadow: 3px 3px 5px #CFCCC7;
+        span {
+            color: #555;
+            padding: 10px;
+            display: inline-block;
+            &:after {
+                content: '|';
+                padding-left: 10px;
+            }
+        }
+        input[type="text"] {
+            height: 40px;
+            padding-left: 5px;
+            border: 0;
+        }
+        a {
+            display: block;
+            width: 40px;
+            height: 42px;
+            background: #4b83be url('./../img/search.png') no-repeat center;
+            position: absolute;
+            top: 0px;
+            right: -40px;
+            box-shadow: 3px 3px 5px #CFCCC7;
+        }
+    }
+    .mapOBD {
+        @extend .icon;
+        background: #fff url('./../img/messageicon.png') no-repeat 10px;
+        margin-left: 50px;
+    }
+}
+
+
+/*OBD信息*/
+
+.OBDInfo {
+    width: 300px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #fff;
+    .obd-Title {
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        font-size: 16px;
+        color: #555;
+        .odb-close {
+            cursor: pointer;
+        }
+        >span {
+            font-weight: 700;
+        }
+    }
+    .obd-Content {
+        padding: 10px;
+        height: 620px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-top-width: 0;
+        >ul>li {
+            padding: 5px 0;
+            color: #666;
+            font-size: 14px;
+            >span:last-child {
+                float: right;
+                margin-right: 5px;
+            }
+        }
+        .obd-group {
+            font-size: 16px;
+            color: #333;
+            font-weight: 700;
+        }
+    }
+}
+
+.mapToolbar {
+    position: absolute;
+    top: 30px;
+    left: 90px;
+    z-index: 1;
+    .mapText {
+        line-height: 30px;
+        width: 300px;
+        height: 30px;
+        padding-left: 5px;
+        border: 1px solid #ddd;
+        box-shadow: 1px 1px 5px #a19f9e;
+    }
+    .mapBtn {
+        display: block;
+        float: right;
+        padding: 6px 12px;
+        border: 1px solid #4fa0fb;
+        box-shadow: 1px 1px 5px #4fa0fb;
+    }
+    .mapBtnSearch {
+        width: 12px;
+        height: 30px;
+        margin-right: 30px;
+        background: #4fa0fb url(./../img/seek.png) no-repeat 50% center;
+        @extend .mapBtn;
+    }
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+    .mapBtnText {
+        height: 30px;
+        margin-right: 15px;
+        color: #fff;
+        background-color: #4fa0fb;
+        @extend .mapBtn;
+    }
+}
