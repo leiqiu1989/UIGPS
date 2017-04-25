@@ -55,7 +55,6 @@ define(function(require, exports, module) {
                         if ($('.admin-sidebar').size() < 1) {
                             require.async('./../tpl/index/index', function(tpl) {
                                 $('#admin').empty().html(template.compile(tpl)());
-                                common.translatorLang();
                                 // 获取用户配置权限，初始化菜单
                                 common.getUserMenu(function(data) {
                                     if (data.length > 0) {

@@ -55,35 +55,6 @@ define(function(require, exports, module) {
             group: 'users',
             icon: ''
         },
-        // {
-        //     name: '订单管理',
-        //     code: '00018',
-        //     url: '#orderManager/index',
-        //     groupname: '订单管理',
-        //     group: 'order',
-        //     icon: 'fa fa-list'
-        // }, {
-        //     name: '投诉管理',
-        //     code: '00009',
-        //     url: '#complaintManager/index',
-        //     groupname: '订单管理',
-        //     group: 'order',
-        //     icon: 'fa fa-list'
-        // }, {
-        //     name: '坐席管理',
-        //     code: '00010',
-        //     url: '#seatsManager/index',
-        //     groupname: '订单管理',
-        //     group: 'order',
-        //     icon: 'fa fa-list'
-        // }, {
-        //     name: '车辆订单配置',
-        //     code: '00012',
-        //     url: '#orderConfig/index',
-        //     groupname: '订单管理',
-        //     group: 'order',
-        //     icon: 'fa fa-list'
-        // },
         {
             name: '车辆管理',
             code: '00005',
@@ -253,12 +224,6 @@ define(function(require, exports, module) {
 
     /*公共js*/
     var common = {
-        translatorLang: function() {
-            var lang = this.getCookie('lang');
-            $("[data-localize]").localize("language", {
-                language: lang
-            });
-        },
         getPermission: function(code) {
             var rt = _.find(roleCodeList, function(item, index) {
                 return item === code;

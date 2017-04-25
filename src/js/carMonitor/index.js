@@ -85,7 +85,6 @@ define(function(require, exports, module) {
                     $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
                         data: data
                     }));
-                    common.translatorLang();
                     $('#obdList').removeClass('hidden');
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';

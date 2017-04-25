@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="layui-form-item">
-                                <label class="layui-form-label" data-localize="PunctuationManagement.Remark">备 注</label>
+                                <label class="layui-form-label">备 注</label>
                                 <div class="layui-input-block">
                                     <textarea placeholder="请输入内容" name="Remark" class="layui-textarea">
                                             <%= data.Remark %>
@@ -44,8 +44,8 @@
                             </div>
                             <div class="layui-form-item">
                                 <div class="layui-input-block">
-                                    <button class="layui-btn layui-btn-normal js-save" data-localize="button.Save">保 存</button>
-                                    <button class="layui-btn layui-btn-primary js-cancel" data-localize="button.Cancel">取 消</button>
+                                    <button class="layui-btn layui-btn-normal js-save">保 存</button>
+                                    <button class="layui-btn layui-btn-primary js-cancel">取 消</button>
                                 </div>
                             </div>
                         </div>
@@ -55,8 +55,8 @@
             <div class="col-sm-8">
                 <div class="mapToolbar">
                     <input type="text" class="mapText" name="searchTxt" placeholder="输入地址定位" />
-                    <a href="javascript:" class="mapBtn mapBtnText js_mark_point_clear" data-localize="PunctuationManagement.Remove">清除标注</a>
-                    <a href="javascript:" class="mapBtn mapBtnText js_mark_point" data-localize="PunctuationManagement.RemarkthePunctuation">标注地标点</a>
+                    <a href="javascript:" class="mapBtn mapBtnText js_mark_point_clear">清除标注</a>
+                    <a href="javascript:" class="mapBtn mapBtnText js_mark_point">标注地标点</a>
                     <a href="javascript:" class="mapBtn mapBtnSearch js_search_map"></a>
                 </div>
                 <div id="landMarkPointMap" style="width:100%;height:600px;" class="full">

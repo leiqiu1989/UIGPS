@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
     $.extend(login.prototype, {
         init: function() {
-            $('#admin').empty().html(template.compile(tpl)({ staticURL: window.staticURL }));
+            $('#admin').empty().html(template.compile(tpl)({ staticURL: window.DOMAIN }));
             common.layUIForm();
             $('#slider').vmcSlider({
                 width: 750,
@@ -75,9 +75,6 @@ define(function(require, exports, module) {
                     if (res.status === 'SUCCESS') {
                         // 默认保存一天
                         common.setCookie('username', username, 1);
-                        // 存储语言
-                        var lang = $('.lang-item.active').data('lang');
-                        common.setCookie('lang', lang);
                         // 存储后台返回状态
                         var data = res.content;
                         common.setCookie('accountid', data.AccountId);

@@ -72,11 +72,6 @@ define(function(require, exports, module) {
                     if (o) {
                         //运行当前模块
                         o.init(param);
-                        // 翻译
-                        common.translatorLang();
-                        setTimeout(function() {
-
-                        }, 500);
                     } else {
                         console.log('模块加载失败！');
                     }
