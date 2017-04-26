@@ -292,6 +292,7 @@ define(function(require, exports, module) {
                         btn: [],
                         content: tpls.directive,
                         success: function(el) {
+                            common.layUIForm();
                             $(el).find('.js-setInterval').on('click', function() {
                                 var interval = $.trim($('input[name="txtInterval"]').val());
                                 if (interval && /^\d*$/.test(interval) && interval >= 2 && interval <= 3000) {

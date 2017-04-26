@@ -415,10 +415,17 @@
 .auto-label-width .layui-inline > label {
   width: auto; }
 
+.label-width-100 .layui-form-item > label,
+.label-width-100 .layui-inline > label {
+  width: 100px; }
+
 .layui-form-inline .layui-form-item {
   margin-bottom: 0; }
   .layui-form-inline .layui-form-item .layui-inline {
     margin-bottom: 0; }
+
+.layui-input-block-button {
+  margin-left: 85px; }
 
 label.required:before {
   content: "\2a";
@@ -495,6 +502,9 @@ label.required:before {
 
 .overflow-x-h {
   overflow-x: hidden !important; }
+
+.w-70 {
+  width: 70px !important; }
 
 .w-100 {
   width: 100px !important; }
