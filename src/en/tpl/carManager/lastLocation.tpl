@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">GPS时间</label>
+				<label class="col-sm-5 control-label">GPS Time</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap" title="<%= location.locationTime %>">
 						<%= location.locationTime %>
@@ -12,7 +12,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">行驶速度</label>
+				<label class="col-sm-5 control-label">Speed</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap">
 						<%= location.speed %>Km/h
@@ -22,7 +22,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">行驶方向</label>
+				<label class="col-sm-5 control-label">Direction</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap">
 						<%= location.directionName %>
@@ -32,7 +32,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">车辆状态</label>
+				<label class="col-sm-5 control-label">Status</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap">
 						<%= location.status %>
@@ -44,7 +44,7 @@
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">车辆警情</label>
+				<label class="col-sm-5 control-label">Alarm</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap" title="<%= location.alarmDesc %>">
 						<%= location.alarmDesc %>
@@ -54,7 +54,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">当日里程</label>
+				<label class="col-sm-5 control-label">Day mileage</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap">
 						<%= location.mileage %>Km
@@ -64,7 +64,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">累计里程</label>
+				<label class="col-sm-5 control-label">Accumulating mileage</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap">
 						<%= location.totalMileage %>Km
@@ -74,7 +74,7 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label class="col-sm-5 control-label">车辆位置</label>
+				<label class="col-sm-5 control-label">Location</label>
 				<div class="col-sm-7">
 					<label class="control-label-text-bootstrap" title="<%= location.location %>">
 						<%= location.location %>

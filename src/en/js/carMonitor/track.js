@@ -56,7 +56,7 @@ define(function(require, exports, module) {
                     me.getHistory();
                 } else {
                     common.loading();
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
             });
@@ -99,7 +99,7 @@ define(function(require, exports, module) {
             var me = this;
             var vid = $(':hidden[name="Vid"]').val();
             if (!vid) {
-                common.layMsg('该车没有绑定gps编号!');
+                common.layMsg('This car have no binding GPS number!');
                 return false;
             }
             var startDate = $('#startDate').val();

@@ -413,12 +413,18 @@
 
 .auto-label-width .layui-form-item > label,
 .auto-label-width .layui-inline > label {
-  width: auto; }
+  width: 140px; }
+.auto-label-width .layui-form-item .layui-input-block,
+.auto-label-width .layui-inline .layui-input-block {
+  margin-left: 140px; }
 
 .layui-form-inline .layui-form-item {
   margin-bottom: 0; }
   .layui-form-inline .layui-form-item .layui-inline {
     margin-bottom: 0; }
+
+.layui-input-block-button {
+  margin-left: 85px; }
 
 label.required:before {
   content: "\2a";
@@ -495,6 +501,9 @@ label.required:before {
 
 .overflow-x-h {
   overflow-x: hidden !important; }
+
+.w-70 {
+  width: 70px !important; }
 
 .w-100 {
   width: 100px !important; }
@@ -839,7 +848,7 @@ dl dd {
     position: absolute;
     left: 0;
     right: 0;
-    top: 86px;
+    top: 83px;
     bottom: 60px; }
   .vehicle-box .vehicleOK {
     position: absolute;
@@ -970,7 +979,7 @@ dl dd {
 
 /*OBD信息*/
 .OBDInfo {
-  width: 300px;
+  width: 380px;
   position: absolute;
   top: 30px;
   right: 30px;
@@ -1607,7 +1616,7 @@ body {
   text-align: center; }
   .login-code .code {
     display: inline-block;
-    width: 101px;
+    width: 110px;
     margin-right: 50px;
     padding-top: 121px;
     background: url("./../img/qrcode.png") no-repeat; }
@@ -1615,7 +1624,7 @@ body {
       margin-right: 0; }
 
 .login-footer {
-  height: 150px;
+  height: 100px;
   background: #fafafa;
   position: absolute;
   bottom: 0;
@@ -1623,11 +1632,8 @@ body {
   left: 0;
   z-index: 1; }
   .login-footer .item {
-    text-align: center; }
-    .login-footer .item:first-child {
-      padding-top: 40px; }
-    .login-footer .item:last-child {
-      padding-top: 20px; }
+    text-align: center;
+    line-height: 100px; }
     .login-footer .item span {
       display: inline-block;
       padding: 0 10px; }

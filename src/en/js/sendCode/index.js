@@ -32,9 +32,9 @@ define(function(require, exports, module) {
             common.loading('show');
             common.ajax(api.sendCode, param, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.layMsg('指令发送成功!');
+                    common.layMsg('SUCCESS!');
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -55,10 +55,10 @@ define(function(require, exports, module) {
                         };
                         me.sendCodeByVids(param);
                     } else {
-                        common.layAlert('不能为空且只能输入整数（2-3000）以内的整数!');
+                        common.layAlert('Can not be empty and can only enter integers (2-3000) or less!');
                     }
                 } else {
-                    common.layAlert('请勾选需要发送指令的车辆!');
+                    common.layAlert('Please select the vehicle that needs to send the command!');
                 }
             }).on('click', '.js-setMessage', function() {
                 var message = $.trim($('textarea[name="txtMessage"]').val());
@@ -72,10 +72,10 @@ define(function(require, exports, module) {
                         };
                         me.sendCodeByVids(param);
                     } else {
-                        common.layAlert('不能为空，且长度必须在50个字符以内!');
+                        common.layAlert('Can not be empty, and the length must be within 50 characters!');
                     }
                 } else {
-                    common.layAlert('请勾选需要发送指令的车辆!');
+                    common.layAlert('Please select the vehicle that needs to send the command!');
                 }
             });
         },
@@ -112,7 +112,7 @@ define(function(require, exports, module) {
                     var treeObj = $.fn.zTree.getZTreeObj("vehicleTree");
                     treeObj.expandAll(true);
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();

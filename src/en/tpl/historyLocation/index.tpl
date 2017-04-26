@@ -1,7 +1,7 @@
 <div class="panel panel-transparent no-margin full">
     <div class="panel-heading">
         <h3 class="panel-title">
-            历史位置查询
+            Query History Location
         </h3>
     </div>
     <div class="panel-body">
@@ -10,11 +10,11 @@
                 <div class="panel panel-transparent no-margin">
                     <div class="panel-heading clearfix">
                         <h3 class="panel-title pull-left">
-                            区域1
+                            Geofence 1
                         </h3>
                         <div class="pull-right">
                             <a class="layui-btn layui-btn-small layui-btn-normal js-clear-overlay">
-                                清空所有数据
+                                Clear All Data
                             </a>
                         </div>
                     </div>
@@ -22,13 +22,13 @@
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小经度</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Longitude">Minimum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小维度</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Latitude">Minimum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
@@ -36,13 +36,13 @@
                             </div>
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大经度</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Longitude">Maximum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大维度</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Latitude">Maximum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
@@ -61,13 +61,13 @@
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小经度</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Longitude">Minimum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最小维度</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Latitude">Minimum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
@@ -75,13 +75,13 @@
                             </div>
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大经度</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Longitude">Maximum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">最大维度</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Latitude">Maximum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
@@ -95,13 +95,13 @@
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">开始时间</label>
+                                    <label class="layui-form-label">Start Time</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="startDate" autocomplete="off" class="layui-input" />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label" 结束时间</label>
+                                    <label class="layui-form-label"> End Time</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="endDate" autocomplete="off" class="layui-input" />
                                     </div>
@@ -115,7 +115,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="col-sm-offset-4 col-sm-8">
-                                    <button class="layui-btn layui-btn-small layui-btn-normal w-200 js-search">查 询</button>
+                                    <button class="layui-btn layui-btn-small layui-btn-normal w-200 js-search">Query</button>
                                 </div>
                             </div>
                         </div>
@@ -143,11 +143,11 @@
                                         </colgroup>
                                         <thead>
                                             <tr>
-                                                <th>序号</th>
-                                                <th>车牌号码</th>
-                                                <th>在区域1的时间</th>
-                                                <th>在区域2的时间</th>
-                                                <th>操作</th>
+                                                <th>Serial</th>
+                                                <th>License</th>
+                                                <th>Spent Time on Geofence 1</th>
+                                                <th>Spent Time on Geofence 2</th>
+                                                <th>Operation</th>
                                             </tr>
                                         </thead>
                                     </table>

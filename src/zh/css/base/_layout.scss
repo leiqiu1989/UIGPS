@@ -130,6 +130,15 @@
     }
 }
 
+.label-width-100 {
+    .layui-form-item,
+    .layui-inline {
+        >label {
+            width: 100px;
+        }
+    }
+}
+
 .layui-form-inline {
     .layui-form-item {
         margin-bottom: 0;
@@ -137,6 +146,10 @@
             margin-bottom: 0;
         }
     }
+}
+
+.layui-input-block-button {
+    margin-left: 85px;
 }
 
 label.required:before {

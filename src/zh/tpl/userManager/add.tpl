@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <% } %>
-                                    <div class="row">
+                                    <div class="row operator-row">
                                         <div class="col-sm-2">
                                             <div class="layui-form-item">
                                                 <div class="layui-input-block">

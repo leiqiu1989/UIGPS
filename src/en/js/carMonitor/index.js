@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                     var data = res.content || [];
                     me.initCarMonitorList(data);
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -87,7 +87,7 @@ define(function(require, exports, module) {
                     }));
                     $('#obdList').removeClass('hidden');
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
             });
@@ -141,7 +141,7 @@ define(function(require, exports, module) {
                     // tree查询
                     common.searchTree();
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
             });
@@ -152,7 +152,7 @@ define(function(require, exports, module) {
             var offLineCount = 0;
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                if (item.VehicleStatus === '离线') {
+                if (item.VehicleStatus === 'Offline') {
                     offLineCount += 1;
                 } else {
                     onlineCount += 1;
@@ -179,12 +179,12 @@ define(function(require, exports, module) {
                         data: data
                     });
                     common.layUI({
-                        title: '车辆详情',
+                        title: 'Vechile Info.',
                         area: '700px',
                         content: html
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
             });
@@ -202,7 +202,7 @@ define(function(require, exports, module) {
                         var data = res.content || [];
                         me.initCarMonitorList(data, true);
                     } else {
-                        var msg = res.errorMsg || '系统出错，请联系管理员！';
+                        var msg = res.errorMsg || 'System error, please contact the administrator!';
                         common.layMsg(msg);
                     }
                     common.loading();
@@ -217,7 +217,7 @@ define(function(require, exports, module) {
                 if (res && res.status === 'SUCCESS') {
                     if (callback) callback();
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layAlert(msg, { icon: 2 });
                 }
                 common.loading();
@@ -286,12 +286,13 @@ define(function(require, exports, module) {
                         Vids: vid,
                     };
                     common.layUI({
-                        title: '指 令',
+                        title: 'Commands',
                         area: '700px',
                         id: 'directForm',
                         btn: [],
                         content: tpls.directive,
                         success: function(el) {
+                            common.layUIForm();
                             $(el).find('.js-setInterval').on('click', function() {
                                 var interval = $.trim($('input[name="txtInterval"]').val());
                                 if (interval && /^\d*$/.test(interval) && interval >= 2 && interval <= 3000) {
@@ -301,7 +302,7 @@ define(function(require, exports, module) {
                                         layer.closeAll();
                                     });
                                 } else {
-                                    common.layAlert('不能为空且只能输入整数（2-3000）以内的整数!');
+                                    common.layAlert('Can not be empty and can only enter integers (2-3000) or less!');
                                 }
                             });
                             // 短消息
@@ -314,7 +315,7 @@ define(function(require, exports, module) {
                                         layer.closeAll();
                                     });
                                 } else {
-                                    common.layAlert('不能为空，且长度必须在50个字符以内!');
+                                    common.layAlert('Can not be empty, and the length must be within 50 characters!');
                                 }
                             });
                         }
