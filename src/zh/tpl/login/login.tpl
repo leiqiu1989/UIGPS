@@ -1,9 +1,5 @@
 <div class="login-top">
     <div class="login-icon">卓越智驾</div>
-    <div class="login-language">
-        <div class="lang-item active" data-lang="zh">中文</div>
-        <div class="lang-item" data-lang="en">English</div>
-    </div>
 </div>
 <div class="login-body">
     <div class="login-center">

@@ -3,8 +3,7 @@ define(function(require, exports, module) {
 
     //datapicker
     var datapicker = require('datepicker');
-    //dialog
-    var dialog = require('dialog');
+
     var api = require('api');
     var page = require('page');
     require('lodash');

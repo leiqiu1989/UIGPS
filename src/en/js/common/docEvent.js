@@ -22,38 +22,38 @@ define(function(require, exports, module) {
                 common.clearData();
                 window.location.hash = "#login/login";
             }).on('click', '.js_changpwd', function() {
-                common.autoAdaptionDialog(tpls.changpwd, {
-                    title: '修改密码'
-                }, function(_dialog) {
-                    $('input[name="oldpwd"]').focus();
-                    $('#btnCancel').on('click', function() {
-                        _dialog.close();
-                    });
-                    validate('#frmChangePwd', {
-                        subBtn: '#btnOK',
-                        promptPos: 'inline',
-                        submit: function() {
-                            var oldpwd = $.trim($('#frmChangePwd input[name="oldpwd"]').val());
-                            var newpwd = $.trim($('#frmChangePwd input[name="newpwd"]').val());
-                            common.ajax(api.modifypwd, { oldpwd: oldpwd, newpwd: newpwd }, function(res) {
-                                if (res && res.status == 'SUCCESS') {
-                                    common.layMsg('SUCCESS!');
-                                    common.clearData();
-                                    common.changeHash('#login/login');
-                                } else {
-                                    common.layMsg(res.errorMsg || 'Password modification failed!');
-                                }
-                            });
-                            _dialog.close();
-                        },
-                        reg: {
-                            'letternum': /^[0-9a-zA-Z]{8,16}$/
-                        },
-                        errorMsg: {
-                            'letternum': 'Can only enter letters and numbers (length 8-16)'
-                        }
-                    });
-                });
+                // common.autoAdaptionDialog(tpls.changpwd, {
+                //     title: '修改密码'
+                // }, function(_dialog) {
+                //     $('input[name="oldpwd"]').focus();
+                //     $('#btnCancel').on('click', function() {
+                //         _dialog.close();
+                //     });
+                //     validate('#frmChangePwd', {
+                //         subBtn: '#btnOK',
+                //         promptPos: 'inline',
+                //         submit: function() {
+                //             var oldpwd = $.trim($('#frmChangePwd input[name="oldpwd"]').val());
+                //             var newpwd = $.trim($('#frmChangePwd input[name="newpwd"]').val());
+                //             common.ajax(api.modifypwd, { oldpwd: oldpwd, newpwd: newpwd }, function(res) {
+                //                 if (res && res.status == 'SUCCESS') {
+                //                     common.layMsg('SUCCESS!');
+                //                     common.clearData();
+                //                     common.changeHash('#login/login');
+                //                 } else {
+                //                     common.layMsg(res.errorMsg || 'Password modification failed!');
+                //                 }
+                //             });
+                //             _dialog.close();
+                //         },
+                //         reg: {
+                //             'letternum': /^[0-9a-zA-Z]{8,16}$/
+                //         },
+                //         errorMsg: {
+                //             'letternum': 'Can only enter letters and numbers (length 8-16)'
+                //         }
+                //     });
+                // });
             });
         }
     });

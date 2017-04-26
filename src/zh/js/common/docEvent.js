@@ -22,38 +22,38 @@ define(function(require, exports, module) {
                 common.clearData();
                 window.location.hash = "#login/login";
             }).on('click', '.js_changpwd', function() {
-                common.autoAdaptionDialog(tpls.changpwd, {
-                    title: '修改密码'
-                }, function(_dialog) {
-                    $('input[name="oldpwd"]').focus();
-                    $('#btnCancel').on('click', function() {
-                        _dialog.close();
-                    });
-                    validate('#frmChangePwd', {
-                        subBtn: '#btnOK',
-                        promptPos: 'inline',
-                        submit: function() {
-                            var oldpwd = $.trim($('#frmChangePwd input[name="oldpwd"]').val());
-                            var newpwd = $.trim($('#frmChangePwd input[name="newpwd"]').val());
-                            common.ajax(api.modifypwd, { oldpwd: oldpwd, newpwd: newpwd }, function(res) {
-                                if (res && res.status == 'SUCCESS') {
-                                    common.layMsg('数据操作成功!');
-                                    common.clearData();
-                                    common.changeHash('#login/login');
-                                } else {
-                                    common.layMsg(res.errorMsg || '密码修改失败!');
-                                }
-                            });
-                            _dialog.close();
-                        },
-                        reg: {
-                            'letternum': /^[0-9a-zA-Z]{8,16}$/
-                        },
-                        errorMsg: {
-                            'letternum': '只能输入字母和数字(长度8-16)'
-                        }
-                    });
-                });
+                // common.autoAdaptionDialog(tpls.changpwd, {
+                //     title: '修改密码'
+                // }, function(_dialog) {
+                //     $('input[name="oldpwd"]').focus();
+                //     $('#btnCancel').on('click', function() {
+                //         _dialog.close();
+                //     });
+                //     validate('#frmChangePwd', {
+                //         subBtn: '#btnOK',
+                //         promptPos: 'inline',
+                //         submit: function() {
+                //             var oldpwd = $.trim($('#frmChangePwd input[name="oldpwd"]').val());
+                //             var newpwd = $.trim($('#frmChangePwd input[name="newpwd"]').val());
+                //             common.ajax(api.modifypwd, { oldpwd: oldpwd, newpwd: newpwd }, function(res) {
+                //                 if (res && res.status == 'SUCCESS') {
+                //                     common.layMsg('数据操作成功!');
+                //                     common.clearData();
+                //                     common.changeHash('#login/login');
+                //                 } else {
+                //                     common.layMsg(res.errorMsg || '密码修改失败!');
+                //                 }
+                //             });
+                //             _dialog.close();
+                //         },
+                //         reg: {
+                //             'letternum': /^[0-9a-zA-Z]{8,16}$/
+                //         },
+                //         errorMsg: {
+                //             'letternum': '只能输入字母和数字(长度8-16)'
+                //         }
+                //     });
+                // });
             });
         }
     });

@@ -1617,7 +1617,7 @@ body {
   text-align: center; }
   .login-code .code {
     display: inline-block;
-    width: 101px;
+    width: 110px;
     margin-right: 50px;
     padding-top: 121px;
     background: url("./../img/qrcode.png") no-repeat; }
@@ -1625,7 +1625,7 @@ body {
       margin-right: 0; }
 
 .login-footer {
-  height: 150px;
+  height: 100px;
   background: #fafafa;
   position: absolute;
   bottom: 0;
@@ -1633,11 +1633,8 @@ body {
   left: 0;
   z-index: 1; }
   .login-footer .item {
-    text-align: center; }
-    .login-footer .item:first-child {
-      padding-top: 40px; }
-    .login-footer .item:last-child {
-      padding-top: 20px; }
+    text-align: center;
+    line-height: 100px; }
     .login-footer .item span {
       display: inline-block;
       padding: 0 10px; }

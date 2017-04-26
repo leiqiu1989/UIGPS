@@ -5,7 +5,7 @@
             <div class="layui-input-inline">
                 <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="" value="0.00" />
             </div>
-            <div class="layui-input-inline w-70">
+            <div class="layui-input-inline">
                 <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -23,7 +23,7 @@
                     <option value="5">5</option>
                 </select>
             </div>
-            <div class="layui-input-inline w-70">
+            <div class="layui-input-inline">
                 <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -35,7 +35,7 @@
             <div class="layui-input-inline">
                 <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="" />
             </div>
-            <div class="layui-input-inline w-70">
+            <div class="layui-input-inline">
                 <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -45,22 +45,22 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Vehicle Safety</label>
             <div class="layui-input-block layui-input-block-button">
-                <button class="layui-btn layui-btn-normal w-100 js-setInterval">Arm</button>
-                <button class="layui-btn layui-btn-normal w-100 js-setInterval">Disarm</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Arm</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Disarm</button>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">Fuel Control</label>
             <div class="layui-input-block layui-input-block-button">
-                <button class="layui-btn layui-btn-normal w-100 js-setInterval">Fuel Cut</button>
-                <button class="layui-btn layui-btn-normal w-100 js-setInterval">Fuel Recovery</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Fuel Cut</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Fuel Recovery</button>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">Geofence</label>
             <div class="layui-input-block layui-input-block-button">
-                <button class="layui-btn layui-btn-normal w-100 js-setInterval">Open</button>
-                <button class="layui-btn layui-btn-normal w-100 js-setInterval">Close</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Open</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Close</button>
             </div>
         </div>
     </div>
@@ -126,7 +126,7 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal js-setInterval w-100">Setting</button>
+                <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
         </div>
     </div>
