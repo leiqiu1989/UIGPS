@@ -2,6 +2,7 @@ define("base", [], function() {
     var basicUrl = './js';
 
     window.DOMAIN = 'http://dev.demo.cn/UIGPS/src/zh';
+
     seajs.config({
         base: basicUrl,
         charset: 'utf-8',

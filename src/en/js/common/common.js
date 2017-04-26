@@ -237,7 +237,7 @@ define(function(require, exports, module) {
             var currentDate = new Date().format(defValueformat);
             timePickerBool = (timePickerBool === undefined || timePickerBool === null) ? true : timePickerBool;
             var opts = {
-                lang: 'ch',
+                lang: 'en',
                 value: hasDefValue ? currentDate : null,
                 timepicker: timePickerBool,
                 format: formatStyle,
@@ -358,7 +358,7 @@ define(function(require, exports, module) {
         initBetweenDateTime: function(startEl, endEl, interVals) {
             var currentDate = new Date().format('yyyy/MM/dd H:m');
             var opts = {
-                lang: 'ch',
+                lang: 'en',
                 timepicker: true,
                 format: 'Y/m/d H:i'
             };

@@ -1,7 +1,7 @@
 define("base", [], function() {
     var basicUrl = './js';
 
-    window.DOMAIN = 'http://192.168.1.21:8081';
+    window.DOMAIN = 'http://dev.demo.cn/UIGPS/src/en';
 
     seajs.config({
         base: basicUrl,
