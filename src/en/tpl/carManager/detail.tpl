@@ -7,7 +7,7 @@
 						<div class="panel-heading">
 							<h3 class="panel-title">
 								<ol class="breadcrumb no-padding no-margin bg-white">
-								  <li>车辆信息</li>
+								  <li>Vehicle Info.</li>
 								  <li class="active js_carName"><%= carInfo.plateNumber %></li>
 								</ol>
 							</h3>
@@ -22,15 +22,15 @@
 								<div class="form-group btn-toolbar">
 									<a class="btn-operator js_detail_stop">
 										<i class="fa fa-star-o"></i>
-										停用
+										Disabled
 									</a>
 									<a class="btn-operator js_detail_edit">
 										<i class="fa fa-pencil-square-o"></i>
-										编辑
+										Edit
 									</a>
 									<a class="btn-operator js_detail_back">
 										<i class="fa fa-reply"></i>
-										返回
+										Back
 									</a>
 								</div>
 							</div>
@@ -40,13 +40,13 @@
 								<div class="panel-heading no-padding">
 									<ul id="nav-carDetail" class="nav nav-tabs tab-space-4 tab-styled">
 										<li class="active">
-											<a data-toggle="tab" navId="#nav-carInfo" href="javascript:">车辆信息</a>
+											<a data-toggle="tab" navId="#nav-carInfo" href="javascript:">Vehicle Info.</a>
 										</li>
 										<li>
-											<a data-toggle="tab" navId="#nav-carTrack" href="javascript:">行程轨迹</a>
+											<a data-toggle="tab" navId="#nav-carTrack" href="javascript:">Trajectory</a>
 										</li>
 										<li>
-											<a data-toggle="tab" navId="#nav-deviceInit" href="javascript:">设备初始化</a>
+											<a data-toggle="tab" navId="#nav-deviceInit" href="javascript:">Device initialization</a>
 										</li>
 									</ul>
 								</div>
@@ -56,10 +56,10 @@
 											<div class="panel panel-transparent no-margin">
 												<div class="panel-heading">
 													<h3 class="panel-title">
-														位置数据
+														Location
 														<a href="javascript:" class="p15-lr f12 js_detail_refresh">
 															<i class="fa fa-refresh"></i>
-															刷新
+															Refresh
 														</a>
 													</h3>
 												</div>
@@ -67,14 +67,14 @@
 											</div>
 											<div class="panel panel-transparent no-margin">
 												<div class="panel-heading">
-													<h3 class="panel-title">基础资料</h3>
+													<h3 class="panel-title">Base Info.</h3>
 												</div>
 												<div class="panel-body">
 													<form class="form-horizontal">
 														<div class="row">
 															<div class="col-sm-3">
 																<div class="form-group">
-																	<label class="col-sm-5 control-label">所属机构</label>
+																	<label class="col-sm-5 control-label">Subordinate</label>
 																	<div class="col-sm-7">
 																		<label class="control-label-text-bootstrap" title="<%= carInfo.orgName %>">
 																			<%= carInfo.orgName %>
@@ -84,7 +84,7 @@
 															</div>
 															<div class="col-sm-3">
 																<div class="form-group">
-																	<label class="col-sm-5 control-label">车牌颜色</label>
+																	<label class="col-sm-5 control-label">Color</label>
 																	<div class="col-sm-7">
 																		<label class="control-label-text-bootstrap">
 																			<%= plateNumberColorDesc(carInfo.plateNumberColor) %>
@@ -94,7 +94,7 @@
 															</div>
 															<div class="col-sm-3">
 																<div class="form-group">
-																	<label class="col-sm-5 control-label">车辆品牌</label>
+																	<label class="col-sm-5 control-label">Vehicle Brand</label>
 																	<div class="col-sm-7">
 																		<label class="control-label-text-bootstrap">
 																			<%= carInfo.vehicleBrand %>
@@ -104,7 +104,7 @@
 															</div>
 															<div class="col-sm-3">
 																<div class="form-group">
-																	<label class="col-sm-5 control-label">车辆类型</label>
+																	<label class="col-sm-5 control-label">Vehicle Type</label>
 																	<div class="col-sm-7">
 																		<label class="control-label-text-bootstrap">
 																			<%= carInfo.truckType %>
@@ -182,7 +182,7 @@
 											</div>
 											<div class="panel panel-transparent no-margin">
 												<div class="panel-heading">
-													<h3 class="panel-title">司机信息</h3>
+													<h3 class="panel-title">Driver Info.</h3>
 												</div>
 												<div class="panel-body">
 													<form class="form-horizontal">

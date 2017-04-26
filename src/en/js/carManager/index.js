@@ -81,7 +81,7 @@ define(function(require, exports, module) {
                         common.changeHash('#carManager/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -91,7 +91,7 @@ define(function(require, exports, module) {
         deleteCar: function(truckId, confirmText, callback) {
             var me = this;
             common.layConfirm(confirmText, function() {
-                common.loading('show', '数据正在处理中...');
+                common.loading('show', 'Data processing…');
                 common.ajax(api.carManager.delete, {
                     ArrVid: truckId
                 }, function(res) {
@@ -102,7 +102,7 @@ define(function(require, exports, module) {
                             me.getData();
                         }
                     } else {
-                        var msg = res.errorMsg || '系统出错，请联系管理员！';
+                        var msg = res.errorMsg || 'System error, please contact the administrator!';
                         common.layMsg(msg);
                     }
                     common.loading();
@@ -154,14 +154,14 @@ define(function(require, exports, module) {
                     var truckId = $(this).closest('tr').data('truckid');
                     var confirmText = '';
                     if (truckId) {
-                        confirmText = '确定要删除该车辆吗？';
+                        confirmText = 'Sure you to delete the vehicle?';
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.layAlert('请选择要删除的车辆！');
+                            common.layAlert('Please select a vehicle to delete!');
                             return false;
                         }
-                        confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;辆车，是否对车辆进行删除？';
+                        confirmText = 'Have chosen&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;car,do you want to delete?';
                         var array = [];
                         $.each(chks, function(i, item) {
                             array.push($(item).closest('tr').data('truckid'));

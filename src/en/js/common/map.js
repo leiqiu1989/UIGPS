@@ -158,33 +158,33 @@ define(function(require, exports, module) {
         GetInfoWindow: function(data) {
             var status = '';
             if (data.IsOnline === 0) {
-                status = '离线';
-            } else if (data.Status.indexOf('ACC开') > -1 || data.IsOnline == 1) {
-                status = '发动机开';
-            } else if (data.Status.indexOf('ACC关') - 1) {
-                status = 'ACC关';
+                status = 'Offline';
+            } else if (data.Status.indexOf('ACC ON') > -1 || data.IsOnline == 1) {
+                status = 'Engine Start';
+            } else if (data.Status.indexOf('ACC OFF') - 1) {
+                status = 'ACC OFF';
             } else {
-                status = '未知状态';
+                status = 'Unknown state';
             }
             return "<div class='point_info_title'>" +
-                "<div class='point_title_left'>车牌号：" + data.PlateNo + "</div>" +
+                "<div class='point_title_left'>License：" + data.PlateNo + "</div>" +
                 "<div style='display:inline-block'>" + data.GpsTime + "</div>" +
                 "</div>" +
                 "<div class='point_info_row'>" +
-                "<div class='point_info_left'>车辆状态：" + status + "</div>" +
-                "<div class='point_info_right'>速度：" + data.Speed + "公里/小时</div>" +
+                "<div class='point_info_left'>Status：" + status + "</div>" +
+                "<div class='point_info_right'>Speed：" + data.Speed + "km/h</div>" +
                 "</div>" +
                 "<div class='point_info_row'>" +
-                "<div class='point_info_left'>停车时长：" + 0 + "</div>" +
-                "<div class='point_info_right'>方向：" + data.DirectionDesc + "</div>" +
+                "<div class='point_info_left'>Parking Duration：" + 0 + "</div>" +
+                "<div class='point_info_right'>Direction：" + data.DirectionDesc + "</div>" +
                 "</div>" +
                 (data.AlarmInfo ? "<div class='point_info_row'>" +
-                    "<div class='point_info_right'>车辆警情：" + data.AlarmInfo + "</div></div>" : "") +
+                    "<div class='point_info_right'>Alarm：" + data.AlarmInfo + "</div></div>" : "") +
                 "</div>" +
-                "<div class='point_info_addr ellipsis' title='" + data.Location + "'>位置：" + data.Location + "</div>" +
+                "<div class='point_info_addr ellipsis' title='" + data.Location + "'>Location：" + data.Location + "</div>" +
                 "<div class='point_btn'>" +
-                "<div class='point_btn_info br' onclick='showVehicleInfo(" + data.Vid + ")'>车辆详细资料</div>" +
-                "<div class='point_btn_info js-car-track' onclick=\"showVehicleTrack('" + data.Vid + "','" + data.PlateNo + "')\">轨迹回放</div>" +
+                "<div class='point_btn_info br' onclick='showVehicleInfo(" + data.Vid + ")'>Vehicle Info.</div>" +
+                "<div class='point_btn_info js-car-track' onclick=\"showVehicleTrack('" + data.Vid + "','" + data.PlateNo + "')\">History Playback</div>" +
                 "</div>";
         },
         getMap: function() {
@@ -402,7 +402,7 @@ define(function(require, exports, module) {
                 offset: new BMap.Size(5, -55)
             }
             var label = new BMap.Label(
-                "时间：" + point.GpsTime + "<br/>" + "速度：" + point.Speed + "km/h", label_position
+                "Time：" + point.GpsTime + "<br/>" + "Speed：" + point.Speed + "km/h", label_position
             );
             label.setStyle({
                 color: "#333",
@@ -430,7 +430,7 @@ define(function(require, exports, module) {
             var clickedMarker = new BMap.Marker(new BMap.Point(point.Lng, point.Lat), {
                 icon: new BMap.Icon(window.DOMAIN + "/img/icon_pathway.png", new BMap.Size(16, 16))
             });
-            var sContent = "<div class='mapCarItem'>车牌：" + point.PlateNo + "</div>" + "<div class='mapCarItem'>时间：" + point.GpsTime + "</div>" + "<div class='mapCarItem'>速度：" + point.Speed + "km/h</div>" + "<div class='mapCarItem'><div class='pull-left'>位置：</div><div style='margin-left:36px;max-height: 37px;overflow: hidden;' title='" + point.Location + "'>" + point.Location + "</div></div>";
+            var sContent = "<div class='mapCarItem'>License：" + point.PlateNo + "</div>" + "<div class='mapCarItem'>Time：" + point.GpsTime + "</div>" + "<div class='mapCarItem'>Speed：" + point.Speed + "km/h</div>" + "<div class='mapCarItem'><div class='pull-left'>Location：</div><div style='margin-left:36px;max-height: 37px;overflow: hidden;' title='" + point.Location + "'>" + point.Location + "</div></div>";
             var opts = {
                 width: 300, // 信息窗口宽度
                 height: 100, // 信息窗口高度
@@ -461,7 +461,7 @@ define(function(require, exports, module) {
                 "<div class='mapCarItem'>停留时长：" + stopPoint.duration + "</div>" +
                 "<div class='mapCarItem'><div class='pull-left'>停留位置：</div><div style='margin-left:60px;' title='" + stopPoint.location + "'>" + stopPoint.location + "</div></div>";
             var opts = {
-                width: 300, // 信息窗口宽度=
+                width: 300, // 信息窗口宽度
                 height: 120, // 信息窗口高度
                 title: "", // 信息窗口标题
                 enableMessage: false //设置允许信息窗发送短息

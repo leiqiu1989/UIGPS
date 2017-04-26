@@ -25,7 +25,7 @@ define(function(require, exports, module) {
         },
         renderHtml: function(data) {
             var me = this;
-            var title = data ? '编辑组织用户' : '新增组织用户';
+            var title = data ? 'Edit' : 'Add';
             data = data || {};
             data.Users = data.Users || [];
             $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data, isEdit: this.isEdit }));
@@ -53,7 +53,7 @@ define(function(require, exports, module) {
                         var data = res.content;
                         me.renderHtml(data);
                     } else {
-                        var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                        var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                         common.layAlert(msg, 'error');
                     }
                     common.loading();
@@ -75,7 +75,7 @@ define(function(require, exports, module) {
             var obj = {
                 url: opt.url,
                 params: opt.params || {},
-                errorMsg: opt.errorMsg || '请求错误，未请求到数据',
+                errorMsg: opt.errorMsg || 'Request error, no data requested',
                 key: opt.key || ['id', 'name'],
                 $objs: opt.obj
             };
@@ -109,7 +109,7 @@ define(function(require, exports, module) {
                     'pwd': /^[a-zA-Z0-9]{8,16}$/
                 },
                 errorMsg: {
-                    'pwd': '密码为字母和数字,长度(8-16)'
+                    'pwd': 'Password can only use letters and numbers, length (8-16)'
                 }
             });
         },
@@ -127,10 +127,10 @@ define(function(require, exports, module) {
             var url = this.isEdit ? api.userManager.update : api.userManager.save;
             common.ajax(url, { OrgUser: JSON.stringify(params) }, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.layMsg('数据操作成功!', 'success');
+                    common.layMsg('SUCCESS!', 'success');
                     common.changeHash('#userManager/index');
                 } else {
-                    var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                    var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                     common.layAlert(msg);
                 }
             });
@@ -152,7 +152,7 @@ define(function(require, exports, module) {
                         $('#frmUserList div.row:first').after(template.compile(tpls.userinfo)({ roles: me.roles }));
                         common.layUIForm();
                     } else {
-                        common.layMsg('最多只能绑定5个用户!');
+                        common.layMsg('It can bound 5 users at most!');
                         return false;
                     }
                 })

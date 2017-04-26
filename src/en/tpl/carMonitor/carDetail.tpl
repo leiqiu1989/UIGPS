@@ -1,17 +1,17 @@
 <div class="p15">
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>基本信息</legend>
+        <legend>Base Info.</legend>
     </fieldset>
     <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">车牌号码</label>
+                <label class="layui-form-label">License</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Vehicle.PlateNo %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">车牌颜色</label>
+                <label class="layui-form-label">Color</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Vehicle.ColorString %>" />
                 </div>
@@ -19,13 +19,13 @@
         </div>
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">车辆品牌</label>
+                <label class="layui-form-label">Vehicle Brand</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Vehicle.BrandString %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">车辆类型</label>
+                <label class="layui-form-label">Vehicle Type</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Vehicle.VehicleTypeString %>" />
                 </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">购车日期</label>
+                <label class="layui-form-label">Purchase Date</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Vehicle.BuyDate %>" />
                 </div>
@@ -47,13 +47,13 @@
     <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">司机姓名</label>
+                <label class="layui-form-label">Driver Name</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Driver.DriverName %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">联系电话</label>
+                <label class="layui-form-label">Contact Number</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Driver.PhoneNo %>" />
                 </div>
@@ -62,20 +62,20 @@
 
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">紧急电话</label>
+                <label class="layui-form-label">Emergency Contact Number</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Driver.UrgencyContactPhone %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">身份证</label>
+                <label class="layui-form-label">ID Card NO.</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Driver.IDCard %>" />
                 </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">家庭住址</label>
+            <label class="layui-form-label">Family Address</label>
             <div class="layui-input-block">
                 <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Driver.HomeAddress %>" />
             </div>
@@ -88,13 +88,13 @@
     <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">设备编号</label>
+                <label class="layui-form-label">Device NO.</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Equipment.EquipmentNo %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">设备类型</label>
+                <label class="layui-form-label">Device Type</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Equipment.EquipmentType %>" />
                 </div>
@@ -102,13 +102,13 @@
         </div>
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">设备名称</label>
+                <label class="layui-form-label">Device Name</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Equipment.DeviceName %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">SIM卡号</label>
+                <label class="layui-form-label">SIM Card NO.</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Simcard.SimCardNo %>" />
                 </div>
@@ -116,13 +116,13 @@
         </div>
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">入网时间</label>
+                <label class="layui-form-label">Service Time</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Simcard.STime %>" />
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">到期时间</label>
+                <label class="layui-form-label">Expiration Time</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Simcard.ETime %>" />
                 </div>

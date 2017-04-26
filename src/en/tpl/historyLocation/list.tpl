@@ -26,7 +26,7 @@
             </td>
             <td>
                 <a class="td-a js_track_replay" data-id="<%= item.Vid %>" 
-                    data-ftime="<%= item.FGpsTime %>" data-ttime="<%= item.TGpsTime %>" data-plate="<%= item.PlateNo %>">轨迹回放</a>
+                    data-ftime="<%= item.FGpsTime %>" data-ttime="<%= item.TGpsTime %>" data-plate="<%= item.PlateNo %>">History Playback</a>
             </td>	
         </tr>
         <% } } %>

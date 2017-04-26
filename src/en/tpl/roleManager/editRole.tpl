@@ -4,21 +4,21 @@
             <div class="col-sm-7">
                 <div id="frmaddRole" class="layui-form auto-label-width">
                     <div class="layui-form-item">
-                        <label class="layui-form-label required">角色名称</label>
+                        <label class="layui-form-label required">Role Name</label>
                         <div class="layui-input-block">
                             <input type="text" name="RoleName" maxlength="50" required class="layui-input" />
                         </div>
                     </div>
                     <div class="layui-form-item">
-                        <label class="layui-form-label">备 注</label>
+                        <label class="layui-form-label">Remark</label>
                         <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" name="Remark" class="layui-textarea"></textarea>
+                            <textarea placeholder="Please input something" name="Remark" class="layui-textarea"></textarea>
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <button class="layui-btn layui-btn-normal js_add_save">保 存</button>
-                            <button class="layui-btn layui-btn-primary js_add_cancel">取 消</button>
+                            <button class="layui-btn layui-btn-normal js_add_save">Save</button>
+                            <button class="layui-btn layui-btn-primary js_add_cancel">Cancel</button>
                         </div>
                     </div>
                 </div>

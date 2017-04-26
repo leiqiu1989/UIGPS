@@ -48,7 +48,7 @@ define(function(require, exports, module) {
                         common.changeHash('#landmarkPointManager/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -58,14 +58,14 @@ define(function(require, exports, module) {
         deleteLandMarkPoint: function(id, confirmText) {
             var me = this;
             common.confirm(confirmText, function() {
-                common.loading('show', '数据正在处理中...');
+                common.loading('show', 'Data processing…');
                 common.ajax(api.landMarkPointManager.del, {
                     KeyIds: id
                 }, function(res) {
                     if (res && res.status === 'SUCCESS') {
                         me.getData();
                     } else {
-                        var msg = res.errorMsg || '系统出错，请联系管理员！';
+                        var msg = res.errorMsg || 'System error, please contact the administrator!';
                         common.layMsg(msg);
                     }
                     common.loading();
@@ -100,14 +100,14 @@ define(function(require, exports, module) {
                     var id = $(this).closest('tr').data('id');
                     var confirmText = '';
                     if (id) {
-                        confirmText = '确定要删除该地标点吗？';
+                        confirmText = 'Sure to delete the label?';
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.layMsg('请选择要删除的地标点!');
+                            common.layMsg('Please select the label to delete!');
                             return false;
                         }
-                        confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;条数据，是否对其进行删除？';
+                        confirmText = 'Have chosen&nbsp;<span class="red">' + chks.size() + '</span>&nbsp; data,sure to delete?';
                         var array = [];
                         $.each(chks, function(i, item) {
                             array.push($(item).closest('tr').data('id'));

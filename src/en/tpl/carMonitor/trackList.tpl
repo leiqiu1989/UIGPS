@@ -13,12 +13,12 @@
             <%= item.Speed %>
         </td>
         <td>
-            <% if(item.Status.indexOf('ACC开')){ %>
-                <span class="engine">发动机</span>&nbsp;<span class="carOpen">开</span>
-                <% } else if(item.Status.indexOf('ACC关')){ %>
-                    <span class="engine">发动机</span>&nbsp;<span class="carClose">关</span>
+            <% if(item.Status.indexOf('ACC ON')){ %>
+                <span class="engine">Engine Start</span>
+                <% } else if(item.Status.indexOf('ACC OFF')){ %>
+                    <span class="engine">Engine Stop</span>
                     <% } else{ %>
-                        <span class="engine">未知状态</span>
+                        <span class="engine">Unknown state</span>
                         <% } %>
         </td>
         <td>

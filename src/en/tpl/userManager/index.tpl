@@ -1,27 +1,27 @@
 <div class="panel panel-transparent flexbox">
     <div class="panel-heading">
-        <h3 class="panel-title">组织用户</h3>
+        <h3 class="panel-title">User</h3>
     </div>
     <div class="panel-toolbar">
         <div class="layui-form auto-label-width layui-form-inline">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">关键字</label>
+                    <label class="layui-form-label">Key Word</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input w-300" name="landMarkName" placeholder="组织名称、用户名、联系人、联系电话搜索" value="<%= searchValue.Condition %>" />
+                        <input type="text" class="layui-input w-300" name="landMarkName" placeholder="Search by organization name, user, contact, phone number" value="<%= searchValue.Condition %>" />
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">所属机构</label>
+                    <label class="layui-form-label">Subordinate</label>
                     <div class="layui-input-block">
                         <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="至少输入3个字符搜索" value="<%= searchValue.orgName%>" />
+                        <input type="text" class="layui-input w-200" name="orgName" placeholder="please input at least 3 characters to search" value="<%= searchValue.orgName%>" />
                         <ul class="ul-select hidden"></ul>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal js_list_search">查 询</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">重 置</button>
+                    <button class="layui-btn layui-btn-normal js_list_search">Query</button>
+                    <button class="layui-btn layui-btn-primary js_list_reset">Reset</button>
                 </div>
             </div>
         </div>
@@ -53,13 +53,13 @@
                                     <th>
                                         <input type="checkbox" name="checkAll" />
                                     </th>
-                                    <th>组织名称</th>
-                                    <th>所属机构</th>
-                                    <th>管理员</th>
-                                    <th>联系人</th>
-                                    <th>联系电话</th>
-                                    <th>用 户</th>
-                                    <th>操 作</th>
+                                    <th>Organization Name</th>
+                                    <th>Subordinate</th>
+                                    <th>Administrator</th>
+                                    <th>Contact Person</th>
+                                    <th>Contact Number</th>
+                                    <th>User</th>
+                                    <th>Operation</th>
                                 </tr>
                             </thead>
                         </table>

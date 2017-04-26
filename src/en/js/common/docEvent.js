@@ -37,11 +37,11 @@ define(function(require, exports, module) {
                             var newpwd = $.trim($('#frmChangePwd input[name="newpwd"]').val());
                             common.ajax(api.modifypwd, { oldpwd: oldpwd, newpwd: newpwd }, function(res) {
                                 if (res && res.status == 'SUCCESS') {
-                                    common.layMsg('数据操作成功!');
+                                    common.layMsg('SUCCESS!');
                                     common.clearData();
                                     common.changeHash('#login/login');
                                 } else {
-                                    common.layMsg(res.errorMsg || '密码修改失败!');
+                                    common.layMsg(res.errorMsg || 'Password modification failed!');
                                 }
                             });
                             _dialog.close();
@@ -50,7 +50,7 @@ define(function(require, exports, module) {
                             'letternum': /^[0-9a-zA-Z]{8,16}$/
                         },
                         errorMsg: {
-                            'letternum': '只能输入字母和数字(长度8-16)'
+                            'letternum': 'Can only enter letters and numbers (length 8-16)'
                         }
                     });
                 });

@@ -46,7 +46,7 @@ define(function(require, exports, module) {
                         common.changeHash('#orderManager/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -79,7 +79,7 @@ define(function(require, exports, module) {
             debugger;
             var me = this;
             id = id || null;
-            var title = id ? '新增角色' : '编辑角色';
+            var title = id ? 'Add' : 'Edit';
             common.layUI({
                 title: title,
                 area: '900px',
@@ -130,14 +130,14 @@ define(function(require, exports, module) {
                     var id = $(this).closest('tr').data('id');
                     var confirmText = '';
                     if (id) {
-                        confirmText = '确定要删除角色吗？';
+                        confirmText = 'Sure to delete this user?';
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.layAlert('请选择要删除的角色！');
+                            common.layAlert('Please select the user you want to delete!');
                             return false;
                         }
-                        confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;个角色，是否对角色进行删除？';
+                        confirmText = 'Have selected&nbsp;<span class="red">' + chks.size() + '</span>&nbsp; users,sure to delete?';
                         var array = [];
                         $.each(chks, function(i, item) {
                             array.push($(item).closest('tr').data('id'));
@@ -196,13 +196,13 @@ define(function(require, exports, module) {
                 }
             };
             var $treeContainer = $("#vehicleTree");
-            $treeContainer.html('正在请求数据...');
+            $treeContainer.html('Requesting data ...');
 
             common.ajax(api.roleManager.rolePermission, {}, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var data = res.content || [];
                     if (!res.content || (res.content && !res.content.length)) {
-                        $treeContainer.html('未查询到相关数据');
+                        $treeContainer.html('Data not found');
                         typeof callback === 'function' && callback();
                         return;
                     }
@@ -215,7 +215,7 @@ define(function(require, exports, module) {
                     }
                     typeof callback === 'function' && callback();
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
             });
@@ -286,10 +286,10 @@ define(function(require, exports, module) {
             common.loading('show');
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.layMsg('数据操作成功', 'success');
+                    common.layMsg('SUCCESS', 'success');
                     me.getData();
                 } else {
-                    var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                    var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -299,7 +299,7 @@ define(function(require, exports, module) {
         deleteRole: function(id, confirmText, callback) {
             var me = this;
             common.layConfirm(confirmText, function() {
-                common.loading('show', '数据正在处理中...');
+                common.loading('show', 'Data processing…');
                 common.ajax(api.roleManager.deleteRole, {
                     RoleIds: id
                 }, function(res) {

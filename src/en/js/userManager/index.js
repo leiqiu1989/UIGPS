@@ -43,15 +43,15 @@ define(function(require, exports, module) {
         deleteUser: function(orgId, confirmText) {
             var me = this;
             common.confirm(confirmText, function() {
-                common.loading('show', '数据正在处理中...');
+                common.loading('show', 'Data processing…');
                 common.ajax(api.userManager.del, {
                     OrgIds: orgId
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         me.getData();
-                        common.layMsg('删除用户成功!', 'success');
+                        common.layMsg('SUCCESS!', 'success');
                     } else {
-                        var msg = res.errorMsg || '系统出错，请联系管理员！';
+                        var msg = res.errorMsg || 'System error, please contact the administrator!';
                         common.layMsg(msg);
                     }
                     common.loading();
@@ -76,7 +76,7 @@ define(function(require, exports, module) {
                         common.changeHash('#userManager/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -110,14 +110,14 @@ define(function(require, exports, module) {
                     var ogrId = $(this).closest('tr').data('orgid');
                     var confirmText = '';
                     if (ogrId) {
-                        confirmText = '确定要删除该该用户吗？';
+                        confirmText = 'sure to delete this user?';
                     } else {
                         var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
                         if (chks.size() < 1) {
-                            common.layMsg('请选择要删除的用户!');
+                            common.layMsg('Please select the user you want to delete!');
                             return false;
                         }
-                        confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;个用户，是否进行删除？';
+                        confirmText = 'Have selected&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;users,sure to delete?';
                         var array = [];
                         $.each(chks, function(i, item) {
                             array.push($(item).closest('tr').data('orgid'));

@@ -51,7 +51,7 @@ define(function(require, exports, module) {
         validate: function(username, password) {
             if (!username || !password) {
                 $('.js-login').removeClass('login-btn-disabled');
-                common.layMsg('用户名或者密码不能为空！');
+                common.layMsg('Username or password can not be empty!');
                 $('input[name="username"]').focus();
                 return false;
             }

@@ -1,7 +1,7 @@
 <div class='row'>
     <div class='col-sm-2'>
         <div class="layui-form-item">
-            <label class="layui-form-label required">真实姓名</label>
+            <label class="layui-form-label required">Real Name</label>
             <div class="layui-input-block">
                 <input class="layui-input" required name="RealName" type="text" />
             </div>
@@ -9,7 +9,7 @@
     </div>
     <div class='col-sm-2'>
         <div class="layui-form-item">
-            <label class="layui-form-label required">用户名</label>
+            <label class="layui-form-label required">User</label>
             <div class="layui-input-block">
                 <input class="layui-input" required name="UserName" type="text" />
             </div>
@@ -17,7 +17,7 @@
     </div>
     <div class='col-sm-2'>
         <div class="layui-form-item">
-            <label class="layui-form-label required">密 码</label>
+            <label class="layui-form-label required">Password</label>
             <div class="layui-input-block">
                 <input class="layui-input" name="Pwd" type="password" required />
             </div>
@@ -25,7 +25,7 @@
     </div>
     <div class='col-sm-2'>
         <div class="layui-form-item">
-            <label class="layui-form-label required">联系电话</label>
+            <label class="layui-form-label required">Contact Number</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input" data-type="tel" required name="Phone" />
             </div>
@@ -33,7 +33,7 @@
     </div>
     <div class='col-sm-2'>
         <div class="layui-form-item">
-            <label class="layui-form-label required">角 色</label>
+            <label class="layui-form-label required">Role</label>
             <div class="layui-input-block">
                 <select name="RoleId" required>
                     <% for (var i=0;i< roles.length;i++) { %>

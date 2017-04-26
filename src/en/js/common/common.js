@@ -20,102 +20,102 @@ define(function(require, exports, module) {
     var roleCodeList = null; //角色代码列表
     // 权限数组
     var rolesMenu = [{
-            name: '车辆监控',
+            name: 'Vehicle Monitor',
             code: '00016',
             url: '#carMonitor/index',
-            groupname: '位置监控',
+            groupname: 'Location Monitor',
             group: 'carmonitor',
             icon: 'icon-position'
         }, {
-            name: '历史位置查询',
+            name: 'Query History Location',
             code: '00011',
             url: '#historyLocation/index',
-            groupname: '位置监控',
+            groupname: 'Location Monitor',
             group: 'carmonitor',
             icon: ''
         }, {
-            name: '地标点管理',
+            name: 'Punctuation Management',
             code: '00030',
             url: '#landmarkPointManager/index',
-            groupname: '位置监控',
+            groupname: 'Location Monitor',
             group: 'carmonitor',
             icon: ''
         }, {
-            name: '组织用户管理',
+            name: 'User Management',
             code: '00007',
             url: '#userManager/index',
-            groupname: '组织机构',
+            groupname: 'Organization',
             group: 'users',
             icon: 'icon-org'
         }, {
-            name: '角色管理',
+            name: 'Role Management',
             code: '00006',
             url: '#roleManager/index',
-            groupname: '组织机构',
+            groupname: 'Organization',
             group: 'users',
             icon: ''
         },
         {
-            name: '车辆管理',
+            name: 'Vehicle Management',
             code: '00005',
             url: '#carManager/index',
-            groupname: '车辆信息',
+            groupname: 'Vechile Info.',
             group: 'resource',
             icon: 'icon-car'
         }, {
-            name: 'GPS设备管理',
+            name: 'GPS device management',
             code: '00020',
             url: 'javascript:void(0)',
-            groupname: '车辆信息',
+            groupname: 'Vechile Info.',
             group: 'resource',
             icon: ''
         }, {
-            name: '通讯卡管理',
+            name: 'Address book management',
             code: '00021',
             url: 'javascript:void(0)',
-            groupname: '车辆信息',
+            groupname: 'Vechile Info.',
             group: 'resource',
             icon: ''
         }, {
-            name: '司机管理',
+            name: 'Driver management',
             code: '00022',
             url: 'javascript:void(0)',
-            groupname: '车辆信息',
+            groupname: 'Vechile Info.',
             group: 'resource',
             icon: ''
         }, {
-            name: '指令发送',
+            name: 'Commands Sent',
             code: '00029',
             url: '#sendCode/index',
-            groupname: '车辆信息',
+            groupname: 'Vechile Info.',
             group: 'resource',
             icon: ''
         }, {
             name: '车辆轨迹列表',
             code: '00024',
             url: 'javascript:void(0)',
-            groupname: '报表管理',
+            groupname: 'Report management',
             group: 'report',
             icon: 'fa fa-pie-chart'
         }, {
-            name: '车辆报警报表',
+            name: 'Vehicle alarm report',
             code: '00025',
             url: 'javascript:void(0)',
-            groupname: '报表管理',
+            groupname: 'Report management',
             group: 'report',
             icon: ''
         }, {
-            name: '车辆里程统计',
+            name: 'Vehicle mileage statistics',
             code: '00026',
             url: 'javascript:void(0)',
-            groupname: '报表管理',
+            groupname: 'Report management',
             group: 'report',
             icon: ''
         }, {
-            name: '设备指令记录',
+            name: 'Device command record',
             code: '00027',
             url: 'javascript:void(0)',
-            groupname: '报表管理',
+            groupname: 'Report management',
             group: 'report',
             icon: ''
         }
@@ -150,13 +150,13 @@ define(function(require, exports, module) {
         var processDesc = '';
         switch (key) {
             case 1:
-                processDesc = '未处理';
+                processDesc = 'Unprocessed';
                 break;
             case 2:
-                processDesc = '正在处理';
+                processDesc = 'Processing';
                 break;
             case 3:
-                processDesc = '处理完成';
+                processDesc = 'Processing complete';
                 break;
             default:
                 break;
@@ -167,29 +167,29 @@ define(function(require, exports, module) {
     template.helper('directForm', function(direction) {
         var flags;
         if (direction < 23 || direction > 338) {
-            flags = "北";
+            flags = "North";
         } else if (direction < 68) {
-            flags = "东北";
+            flags = "Northeast";
         } else if (direction < 113) {
-            flags = "东";
+            flags = "East";
         } else if (direction < 157) {
-            flags = "东南";
+            flags = "Southeast";
         } else if (direction < 203) {
-            flags = "南";
+            flags = "South";
         } else if (direction < 248) {
-            flags = "西南";
+            flags = "Southwest";
         } else if (direction < 293) {
-            flags = "西";
+            flags = "West";
         } else {
-            flags = "西北";
+            flags = "Northwest";
         }
         return flags;
     });
     template.helper('userStatus', function(key) {
-        return key == 0 ? '停用' : key == 1 ? '启用' : '';
+        return key == 0 ? 'Disabled' : key == 1 ? 'Enabled' : '';
     });
     template.helper('carStatus', function(key) {
-        return !key ? '' : key == 1 ? '在线' : '离线';
+        return !key ? '' : key == 1 ? 'Online' : 'Offline';
     });
     template.helper('sliceDate', function(date) {
         return date ? date.slice(0, 10) : '';
@@ -198,7 +198,7 @@ define(function(require, exports, module) {
         return !key ? '' : key.substr(key.length - 7);
     });
     template.helper('plateNumberColorDesc', function(key) {
-        return key == 1 ? '蓝牌' : '黄牌';
+        return key == 1 ? 'Blue' : 'Yellow';
     });
     template.helper('formateDate', function(key, format) {
         format = format || 'yyyy/MM/dd';
@@ -250,7 +250,7 @@ define(function(require, exports, module) {
         // 检查日期,interVals(间隔天数)
         checkTime: function(dateTime, ct, interVals) {
             if (!dateTime || !ct) {
-                common.layMsg('日期不能为空!');
+                common.layMsg('Date can not be empty!!');
                 return false;
             }
             if (_.isString(ct)) {
@@ -267,13 +267,13 @@ define(function(require, exports, module) {
             if (interVals) {
                 var times = interVals * 24 * 60 * 60 * 1000;
                 if (diffTimes < 0 || diffTimes > times) {
-                    common.layMsg('时间周期必须小于或等于3天!');
+                    common.layMsg('The time period must be less than or equal to 3 days!');
                     return false;
                 }
                 return true;
             } else {
                 if (diffTimes < 0) {
-                    common.layMsg('结束日期必须大于或等于开始日期!');
+                    common.layMsg('End date must be greater than or equal to start date!');
                     return false;
                 }
                 return true;
@@ -284,8 +284,8 @@ define(function(require, exports, module) {
             options = options || {};
             var defaultOpt = {
                 width: '160px',
-                placeholder_text_single: '请选择...',
-                no_results_text: '未找到匹配项',
+                placeholder_text_single: 'Select...',
+                no_results_text: 'No match is found',
                 disable_search_threshold: 6,
                 search_contains: true,
                 allow_single_deselect: true,
@@ -326,28 +326,28 @@ define(function(require, exports, module) {
             var directionDesc = '',
                 degrees = 0;
             if (direction < 23 || direction > 338) {
-                directionDesc = "北";
+                directionDesc = "North";
                 degrees = 0;
             } else if (direction < 68) {
-                directionDesc = "东北";
+                directionDesc = "Northeast";
                 degrees = 45;
             } else if (direction < 113) {
-                directionDesc = "东";
+                directionDesc = "East";
                 degrees = 90;
             } else if (direction < 157) {
-                directionDesc = "东南";
+                directionDesc = "Southeast";
                 degrees = 135;
             } else if (direction < 203) {
-                directionDesc = "南";
+                directionDesc = "South";
                 degrees = 180;
             } else if (direction < 248) {
-                directionDesc = "西南";
+                directionDesc = "Southwest";
                 degrees = 225;
             } else if (direction < 293) {
-                directionDesc = "西";
+                directionDesc = "West";
                 degrees = 270;
             } else {
-                directionDesc = "西北";
+                directionDesc = "Northwest";
                 degrees = 315;
             }
             data.DirectionDesc = directionDesc;
@@ -389,7 +389,7 @@ define(function(require, exports, module) {
             opts = $.extend({}, {
                 type: 1,
                 shade: 0.5,
-                btn: ['关 闭'],
+                btn: ['Close'],
                 btn1: function() {
                     layer.closeAll();
                 }
@@ -416,7 +416,7 @@ define(function(require, exports, module) {
         },
         layConfirm: function(content, callback) {
             layer.confirm(content, {
-                btn: ['确定', '取消'] //按钮
+                btn: ['OK', 'Cancel'] //按钮
             }, function() {
                 callback && callback();
             }, function() {
@@ -465,7 +465,7 @@ define(function(require, exports, module) {
             var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
             dialog(contentHtml, {
                 buttons: hasOK ? [{
-                    name: '确 定',
+                    name: 'OK',
                     callback: function(d) {
                         if (callback) callback();
                         d.close();
@@ -572,16 +572,16 @@ define(function(require, exports, module) {
             var contentHtml = '<div class="confirmCls">' + content + '</div>';
             dialog(contentHtml, {
                 type: 'confirm',
-                title: '提 示',
+                title: 'Hint',
                 titleClose: true,
                 buttons: [{
-                    name: '确 定',
+                    name: 'OK',
                     callback: function(d) {
                         if (callback) callback();
                         d.close();
                     }
                 }, {
-                    name: '取 消',
+                    name: 'Cancel',
                     callback: function(d) {
                         d.close();
                     }
@@ -880,7 +880,7 @@ define(function(require, exports, module) {
             var obj = {
                 url: opt.url,
                 params: opt.params || {},
-                errorMsg: opt.errorMsg || '请求错误，未请求到数据',
+                errorMsg: opt.errorMsg || 'Request error, no data requested',
                 key: opt.key || ['id', 'name'],
                 $objs: opt.obj,
                 selected: opt.selected,
@@ -946,7 +946,7 @@ define(function(require, exports, module) {
                     }
                     if (callback) callback(array);
                 } else {
-                    var msg = res.errorMsg || '权限获取失败,请联系管理员!';
+                    var msg = res.errorMsg || 'Permission to get failed, please contact the administrator!';
                     this.toast(msg);
                 }
             });

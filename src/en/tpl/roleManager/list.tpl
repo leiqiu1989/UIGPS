@@ -17,10 +17,10 @@
         </td>
         <td>
             <a class="td-operator js_list_edit">
-                <i class="fa fa-pencil-square-o"></i> 编 辑
+                <i class="fa fa-pencil-square-o"></i> Edit
             </a>
             <a class="td-operator js_list_delete">
-                <i class="fa fa-times"></i> 删 除
+                <i class="fa fa-times"></i> Delete
             </a>
         </td>
     </tr>

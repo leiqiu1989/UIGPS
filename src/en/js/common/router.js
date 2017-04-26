@@ -73,7 +73,7 @@ define(function(require, exports, module) {
                         //运行当前模块
                         o.init(param);
                     } else {
-                        console.log('模块加载失败！');
+                        console.log('Module load failed!');
                     }
                 });
             }

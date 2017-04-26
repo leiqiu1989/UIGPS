@@ -9,7 +9,7 @@
             <div class="panel panel-transparent">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <i class="fa fa-comment"></i> 组织资料
+                        <i class="fa fa-comment"></i> Organization
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -17,9 +17,9 @@
                         <div class='row'>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">所属机构</label>
+                                    <label class="layui-form-label required">Subordinate</label>
                                     <div class="layui-input-block">
-                                        <input type="text" class="layui-input" required value="<%= data.ParentOrgName %>" name="orgName" data-nosubmit="true" placeholder="至少输入3个字符搜索" />
+                                        <input type="text" class="layui-input" required value="<%= data.ParentOrgName %>" name="orgName" data-nosubmit="true" placeholder="please input at least 3 characters to search" />
                                         <input type="hidden" name="ParentOrgNo" value="<%= data.ParentOrgNo %>" />
                                         <input type="hidden" name="OrgId" value="<%= data.OrgId %>" />
                                         <ul class="ul-select hidden"></ul>
@@ -28,7 +28,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">组织名称</label>
+                                    <label class="layui-form-label required">Organization Name</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" value="<%= data.OrganizationName %>" required name="OrganizationName" type="text" />
                                     </div>
@@ -36,7 +36,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">联系人</label>
+                                    <label class="layui-form-label">Contact Person</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" value="<%= data.Principal %>" name="Principal" type="text" />
                                     </div>
@@ -44,7 +44,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">联系电话</label>
+                                    <label class="layui-form-label">Contact Number</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" value="<%= data.PrincipalPhone %>" data-type="tel" name="PrincipalPhone" type="text" />
                                     </div>
@@ -54,7 +54,7 @@
                         <div class='row'>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">管理员账号</label>
+                                    <label class="layui-form-label required">Administrator</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" type="text" value="<%= data.Manager %>" autocomplete="off" required name="Manager" />
                                     </div>
@@ -62,7 +62,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">密 码</label>
+                                    <label class="layui-form-label required">Password</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" name="ManagePwd" type="password" value="<%= data.ManagePwd %>" autocomplete="off" data-type="pwd" required />
                                     </div>
@@ -70,7 +70,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">组织地址</label>
+                                    <label class="layui-form-label">Organization Address</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" type="text" value="<%= data.Address %>" name="Address" />
                                     </div>
@@ -80,7 +80,7 @@
                         <div class='row'>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">备注</label>
+                                    <label class="layui-form-label required">Remark</label>
                                     <div class="layui-input-block">
                                         <textarea class="layui-textarea" name="Remark">
 										<%= data.Remark %>
@@ -95,9 +95,9 @@
             <div class="panel panel-transparent">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <i class="fa fa-user-plus"></i> 用户信息
-                        <span class="ml10 user-remind">（组织下最多绑定5个用户）</span>
-                        <span class="ml10"><a class="user-remind-add js-addUser">新增用户</a></span>
+                        <i class="fa fa-user-plus"></i> User Info.
+                        <span class="ml10 user-remind">（It can bound 5 users at most）</span>
+                        <span class="ml10"><a class="user-remind-add js-addUser">Add User</a></span>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -110,7 +110,7 @@
                             <div class='row'>
                                 <div class='col-sm-2'>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label required">真实姓名</label>
+                                        <label class="layui-form-label required">Real Name</label>
                                         <div class="layui-input-block">
                                             <input class="layui-input" value="<%= item.RealName %>" required name="RealName" type="text" />
                                         </div>
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class='col-sm-2'>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label required">用户名</label>
+                                        <label class="layui-form-label required">User</label>
                                         <div class="layui-input-block">
                                             <input class="layui-input" value="<%= item.UserName %>" required name="UserName" type="text" />
                                         </div>
@@ -126,7 +126,7 @@
                                 </div>
                                 <div class='col-sm-2'>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label required">密 码</label>
+                                        <label class="layui-form-label required">Password</label>
                                         <div class="layui-input-block">
                                             <input class="layui-input" name="Pwd" type="password" data-type="pwd" value="<%= item.Pwd %>" required />
                                         </div>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class='col-sm-2'>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label required">联系电话</label>
+                                        <label class="layui-form-label required">Contact Number</label>
                                         <div class="layui-input-block">
                                             <input type="text" class="layui-input" data-type="tel" required value="<%= item.Phone %>" name="Phone" />
                                         </div>
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class='col-sm-2'>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label required">角 色</label>
+                                        <label class="layui-form-label required">Role</label>
                                         <div class="layui-input-block">
                                             <select name="RoleId"></select>
                                         </div>
@@ -153,7 +153,7 @@
                                 <div class='row'>
                                     <div class='col-sm-2'>
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label required">真实姓名</label>
+                                            <label class="layui-form-label required">Real Name</label>
                                             <div class="layui-input-block">
                                                 <input class="layui-input" value="<%= data.RealName %>" required name="RealName" type="text" />
                                             </div>
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class='col-sm-2'>
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label required">用户名</label>
+                                            <label class="layui-form-label required">User</label>
                                             <div class="layui-input-block">
                                                 <input class="layui-input" value="<%= data.UserName %>" required name="UserName" type="text" />
                                             </div>
@@ -169,7 +169,7 @@
                                     </div>
                                     <div class='col-sm-2'>
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label required">密 码</label>
+                                            <label class="layui-form-label required">Password</label>
                                             <div class="layui-input-block">
                                                 <input class="layui-input" name="Pwd" type="password" data-type="pwd" value="<%= data.Pwd %>" required />
                                             </div>
@@ -177,7 +177,7 @@
                                     </div>
                                     <div class='col-sm-2'>
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label required">联系电话</label>
+                                            <label class="layui-form-label required">Contact Number</label>
                                             <div class="layui-input-block">
                                                 <input type="text" class="layui-input" data-type="tel" required value="<%= data.Phone %>" name="Phone" />
                                             </div>
@@ -185,7 +185,7 @@
                                     </div>
                                     <div class='col-sm-2'>
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label required">角 色</label>
+                                            <label class="layui-form-label required">Role</label>
                                             <div class="layui-input-block">
                                                 <select name="RoleId">
 													<option value="0">写作</option>
@@ -200,8 +200,8 @@
                                         <div class="col-sm-2">
                                             <div class="layui-form-item">
                                                 <div class="layui-input-block">
-                                                    <button class="layui-btn layui-btn-normal js_add_save">保 存</button>
-                                                    <button class="layui-btn layui-btn-primary js_add_back">取 消</button>
+                                                    <button class="layui-btn layui-btn-normal js_add_save">Save</button>
+                                                    <button class="layui-btn layui-btn-primary js_add_back">Cancel</button>
                                                 </div>
                                             </div>
                                         </div>

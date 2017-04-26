@@ -37,7 +37,7 @@ define(function(require, exports, module) {
                 Simcard: data.Simcard || {},
                 Vehicle: data.Vehicle || {}
             });
-            $('#main-content').empty().html(template.compile(tpls.add)({ title: (this.isEdit ? '编辑车辆' : '新增车辆'), data: this.obj }));
+            $('#main-content').empty().html(template.compile(tpls.add)({ title: (this.isEdit ? 'Edit' : 'Add'), data: this.obj }));
             this.initSelect(this.obj);
             this.validate();
             this.event();
@@ -137,10 +137,10 @@ define(function(require, exports, module) {
             }
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.layMsg('数据操作成功!');
+                    common.layMsg('Data is successful!');
                     common.changeHash('#carManager/index');
                 } else {
-                    var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                    var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                     common.layMsg(msg);
                 }
             });

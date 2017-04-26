@@ -41,7 +41,7 @@ define(function(require, exports, module) {
         },
         initPage: function() {
             var me = this;
-            var title = this.isEdit ? '编辑地标点' : '新增地标点';
+            var title = this.isEdit ? 'Edit' : 'Add';
             if (this.isEdit) {
                 common.ajax(api.landMarkPointManager.detail, {
                     LandMarkId: this.id
@@ -67,7 +67,7 @@ define(function(require, exports, module) {
                 // 编辑
                 me.markTool = new BMapLib.MarkerTool(map._map, {
                     autoClose: true,
-                    followText: '选择要标注的区域',
+                    followText: 'Select the area to label',
                 });
                 map._map.panTo(point);
                 me.markTool.markPoint(point);
@@ -90,16 +90,16 @@ define(function(require, exports, module) {
                 common.loading('show');
                 common.ajax(url, params, function(res) {
                     if (res && res.status === 'SUCCESS') {
-                        common.layMsg('数据操作成功');
+                        common.layMsg('SUCCESS');
                         common.changeHash('#landmarkPointManager/index');
                     } else {
-                        var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                        var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                         common.layMsg(msg);
                     }
                     common.loading();
                 });
             } else {
-                common.layAlert('请在地图上面标注地标点!');
+                common.layAlert('Please mark the markup above the map!');
                 return false;
             }
         },
@@ -140,7 +140,7 @@ define(function(require, exports, module) {
             if (!this.markTool) {
                 this.markTool = new BMapLib.MarkerTool(map._map, {
                     autoClose: true,
-                    followText: '选择要标注的区域',
+                    followText: 'Select the area to label',
                 });
             }
             map._map.panTo(mapPoints[0]);
@@ -186,7 +186,7 @@ define(function(require, exports, module) {
             }).on('click', '.js_search_map', function() {
                 var searchTxt = $('input[name="searchTxt"]').val();
                 if (!$.trim(searchTxt)) {
-                    common.layAlert('请输入查询条件！', { icon: 2 });
+                    common.layAlert('Please enter the query conditions!', { icon: 2 });
                     return false;
                 }
                 if (me.markTool) {
@@ -198,7 +198,7 @@ define(function(require, exports, module) {
                     $(this).addClass('disabled');
                     me.markTool = new BMapLib.MarkerTool(map._map, {
                         autoClose: true,
-                        followText: '选择要标注的区域'
+                        followText: 'Select the area to label'
                     });
                     me.markToolEvent();
                     me.markTool.open();

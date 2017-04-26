@@ -168,7 +168,7 @@ define(function(require, exports, module) {
                 secondEl = '.js-secondPoint';
             } else {
                 this.clearOverLay();
-                common.layMsg('标注数据异常!');
+                common.layMsg('Tag data exception!');
                 return false;
             }
             $(firstEl).eq(0).val(firstItem.minLng);
@@ -230,7 +230,7 @@ define(function(require, exports, module) {
             var startDate = $('input[name="startDate"]').val();
             var endDate = $('input[name="endDate"]').val();
             if (!this.overlays.length) {
-                common.layMsg('请在地图上进行区域画框!');
+                common.layMsg('Please make area on the map！');
                 return false;
             }
             if (common.checkTime(endDate, startDate)) {
@@ -275,7 +275,7 @@ define(function(require, exports, module) {
                             data: data || []
                         }));
                     } else {
-                        var msg = res.errorMsg || '系统出错，请联系管理员！';
+                        var msg = res.errorMsg || 'System error, please contact the administrator!';
                         common.layMsg(msg);
                     }
                     common.loading();

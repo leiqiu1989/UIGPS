@@ -1,6 +1,6 @@
 <div class="panel panel-transparent full">
     <div class="panel-heading">
-        <h3 class="panel-title">指令发送</h3>
+        <h3 class="panel-title">Commands Sent</h3>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -18,7 +18,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label"></label>
                             <div class="layui-input-block">
-                                <button class="layui-btn layui-btn-small layui-btn-normal js-setInterval">设 置</button>
+                                <button class="layui-btn layui-btn-small layui-btn-normal js-setInterval">Setting</button>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -30,7 +30,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label"></label>
                             <div class="layui-input-block">
-                                <button class="layui-btn layui-btn-small layui-btn-normal js-setMessage">设 置</button>
+                                <button class="layui-btn layui-btn-small layui-btn-normal js-setMessage">Setting</button>
                             </div>
                         </div>
                     </div>
