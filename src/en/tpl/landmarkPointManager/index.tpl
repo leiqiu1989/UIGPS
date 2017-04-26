@@ -6,7 +6,7 @@
         <div class="layui-form auto-label-width layui-form-inline">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">Punctuation Name</label>
+                    <label class="layui-form-label ellipsis" title="Punctuation Name">Punctuation Name</label>
                     <div class="layui-input-block">
                         <input type="text" class="layui-input w-200" name="landMarkName" placeholder="" value="<%= searchValue.landMarkName %>" />
                     </div>

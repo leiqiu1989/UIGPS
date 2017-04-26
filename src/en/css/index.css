@@ -413,11 +413,10 @@
 
 .auto-label-width .layui-form-item > label,
 .auto-label-width .layui-inline > label {
-  width: auto; }
-
-.label-width-100 .layui-form-item > label,
-.label-width-100 .layui-inline > label {
-  width: 100px; }
+  width: 140px; }
+.auto-label-width .layui-form-item .layui-input-block,
+.auto-label-width .layui-inline .layui-input-block {
+  margin-left: 140px; }
 
 .layui-form-inline .layui-form-item {
   margin-bottom: 0; }
@@ -849,7 +848,7 @@ dl dd {
     position: absolute;
     left: 0;
     right: 0;
-    top: 86px;
+    top: 83px;
     bottom: 60px; }
   .vehicle-box .vehicleOK {
     position: absolute;
@@ -980,7 +979,7 @@ dl dd {
 
 /*OBD信息*/
 .OBDInfo {
-  width: 300px;
+  width: 380px;
   position: absolute;
   top: 30px;
   right: 30px;

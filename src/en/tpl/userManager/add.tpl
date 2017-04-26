@@ -28,7 +28,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">Organization Name</label>
+                                    <label class="layui-form-label required ellipsis" title="Organization Name">Organization Name</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" value="<%= data.OrganizationName %>" required name="OrganizationName" type="text" />
                                     </div>
@@ -70,7 +70,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Organization Address</label>
+                                    <label class="layui-form-label ellipsis" title="Organization Address">Organization Address</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" type="text" value="<%= data.Address %>" name="Address" />
                                     </div>
@@ -104,7 +104,7 @@
                     <div id="frmUserList" class="layui-form auto-label-width" autocomplete="off">
                         <% 
 							if(isEdit) { 
-								for(var i=0;i<data.Users.length;i++) {
+								for(var i=0;i< data.Users.length;i++) {
 									var item= data.Users[i];
 						%>
                             <div class='row'>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class='col-sm-2'>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label required">Contact Number</label>
+                                        <label class="layui-form-label required ellipsis" title="Contact Number">Contact Number</label>
                                         <div class="layui-input-block">
                                             <input type="text" class="layui-input" data-type="tel" required value="<%= item.Phone %>" name="Phone" />
                                         </div>
@@ -177,7 +177,7 @@
                                     </div>
                                     <div class='col-sm-2'>
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label required">Contact Number</label>
+                                            <label class="layui-form-label required ellipsis" title="Contact Number">Contact Number</label>
                                             <div class="layui-input-block">
                                                 <input type="text" class="layui-input" data-type="tel" required value="<%= data.Phone %>" name="Phone" />
                                             </div>
@@ -196,7 +196,7 @@
                                     </div>
                                 </div>
                                 <% } %>
-                                    <div class="row">
+                                    <div class="row operator-row">
                                         <div class="col-sm-2">
                                             <div class="layui-form-item">
                                                 <div class="layui-input-block">

@@ -20,14 +20,14 @@
                         <div class="table-head-warp ">
                             <table class="grid-table ">
                                 <colgroup>
-                                    <col width="50px " />
+                                    <col width="60px " />
+                                    <col width="15% " />
                                     <col width="10% " />
                                     <col width="8% " />
-                                    <col width="12% " />
+                                    <col width="8% " />
                                     <col width="10% " />
-                                    <col width="12% " />
-                                    <col width="10% " />
-                                    <col width="35% " />
+                                    <col width="8% " />
+                                    <col />
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -49,14 +49,14 @@
                     <div id="carMonitorList" class="grid-content">
                         <table class="grid-table ">
                             <colgroup>
-                                <col width="50px " />
+                                <col width="60px " />
+                                <col width="15% " />
                                 <col width="10% " />
                                 <col width="8% " />
-                                <col width="12% " />
+                                <col width="8% " />
                                 <col width="10% " />
-                                <col width="12% " />
-                                <col width="10% " />
-                                <col width="35% " />
+                                <col width="8% " />
+                                <col />
                             </colgroup>
                             <tbody>
                             </tbody>
@@ -76,7 +76,7 @@
                 </div>
             </div>
             <div class="panel-toolbar">
-                <input type="text" class="normalText w-300" name="searchTreeText" id="searchTreeText" placeholder="请输入车牌号或组织名查找" />
+                <input type="text" class="normalText w-300" name="searchTreeText" id="searchTreeText" placeholder="Please enter the License or Organization" />
             </div>
             <div class="panel-body">
                 <div id="vehicleTree" class="vehicle-tree ztree">

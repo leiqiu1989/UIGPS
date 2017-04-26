@@ -22,13 +22,13 @@
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Minimum Longitude</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Longitude">Minimum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Minimum Latitude</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Latitude">Minimum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
@@ -36,13 +36,13 @@
                             </div>
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Maximum Longitude</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Longitude">Maximum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Maximum Latitude</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Latitude">Maximum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-firstPoint" disabled />
                                     </div>
@@ -61,13 +61,13 @@
                         <div class="layui-form auto-label-width">
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Minimum Longitude</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Longitude">Minimum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Minimum Latitude</label>
+                                    <label class="layui-form-label ellipsis" title="Minimum Latitude">Minimum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
@@ -75,13 +75,13 @@
                             </div>
                             <div class="layui-form-row clearfix">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Maximum Longitude</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Longitude">Maximum Longitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Maximum Latitude</label>
+                                    <label class="layui-form-label ellipsis" title="Maximum Latitude">Maximum Latitude</label>
                                     <div class="layui-input-block">
                                         <input type="text" autocomplete="off" class="layui-input js-secondPoint" disabled />
                                     </div>
@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label" End Time</label>
+                                    <label class="layui-form-label"> End Time</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="endDate" autocomplete="off" class="layui-input" />
                                     </div>

@@ -3,7 +3,7 @@
                 var item = data[i];
         %>
     <tr>
-        <td>
+        <td class="align-center">
             <%= i+1 %>
         </td>
         <td>

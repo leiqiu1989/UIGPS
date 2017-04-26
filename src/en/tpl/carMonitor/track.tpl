@@ -53,7 +53,7 @@
                             <div class="table-head-warp ">
                                 <table class="grid-table ">
                                     <colgroup>
-                                        <col width="50px">
+                                        <col width="60px">
                                         <col width="10%">
                                         <col width="10%">
                                         <col width="10%">
@@ -80,7 +80,7 @@
                         <div id="track-history-list" class="grid-content">
                             <table class="grid-table ">
                                 <colgroup>
-                                    <col width="50px">
+                                    <col width="60px">
                                     <col width="10%">
                                     <col width="10%">
                                     <col width="10%">

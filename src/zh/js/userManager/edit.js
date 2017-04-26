@@ -148,11 +148,15 @@ define(function(require, exports, module) {
                 })
                 // 新增用户
                 .on('click', '.js-addUser', function() {
-                    if ($('#frmUserList div.row:not(:last)').size() < 5) {
-                        $('#frmUserList div.row:first').after(template.compile(tpls.userinfo)({ roles: me.roles }));
+                    if ($('#frmUserList div.row:not(.operator-row)').size() < 5) {
+                        if ($('#frmUserList div.row:not(.operator-row)').size() < 1) {
+                            $('#frmUserList div.row').before(template.compile(tpls.userinfo)({ roles: me.roles }));
+                        } else {
+                            $('#frmUserList div.row:first').after(template.compile(tpls.userinfo)({ roles: me.roles }));
+                        }
                         common.layUIForm();
                     } else {
-                        common.layMsg('最多只能绑定5个用户!');
+                        common.layMsg('It can bound 5 users at most!');
                         return false;
                     }
                 })

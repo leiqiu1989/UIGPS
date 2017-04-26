@@ -1,5 +1,5 @@
 <div class="p15">
-    <div class="layui-form label-width-100">
+    <div class="layui-form auto-label-width">
         <div class="layui-form-item">
             <label class="layui-form-label">Mileage Setting</label>
             <div class="layui-input-inline">
@@ -8,12 +8,15 @@
             <div class="layui-input-inline">
                 <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
-            <div class="layui-form-mid layui-word-aux">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
                 The setting is only effective when the vehicle is in idle state,unit:km
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Shock Sensitivity Setting</label>
+            <label class="layui-form-label ellipsis" title="Shock Sensitivity Setting">Shock Sensitivity Setting</label>
             <div class="layui-input-inline">
                 <select name="sensitivity">
                     <option value="1">1</option>
@@ -26,19 +29,25 @@
             <div class="layui-input-inline">
                 <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
-            <div class="layui-form-mid layui-word-aux">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
                 Sensitivity level 1-5, 1 is the highest sensitivity level.
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">Overspeed Value Setting</label>
+            <label class="layui-form-label ellipsis" title="Overspeed Value Setting">Overspeed Value Setting</label>
             <div class="layui-input-inline">
                 <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="" />
             </div>
             <div class="layui-input-inline">
                 <button class="layui-btn layui-btn-normal js-setInterval">Setting</button>
             </div>
-            <div class="layui-form-mid layui-word-aux">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
                 Unit:km/h,Less than 150km/h,More than 40km/h
             </div>
         </div>

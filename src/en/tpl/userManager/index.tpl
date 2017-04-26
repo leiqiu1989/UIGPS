@@ -8,14 +8,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">Key Word</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input w-300" name="landMarkName" placeholder="Search by organization name, user, contact, phone number" value="<%= searchValue.Condition %>" />
+                        <input type="text" class="layui-input w-400" name="landMarkName" placeholder="Search by organization name, user, contact, phone number" value="<%= searchValue.Condition %>" />
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">Subordinate</label>
                     <div class="layui-input-block">
                         <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="please input at least 3 characters to search" value="<%= searchValue.orgName%>" />
+                        <input type="text" class="layui-input w-300" name="orgName" placeholder="please input at least 3 characters to search" value="<%= searchValue.orgName%>" />
                         <ul class="ul-select hidden"></ul>
                     </div>
                 </div>

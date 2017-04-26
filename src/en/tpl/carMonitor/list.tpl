@@ -4,7 +4,7 @@
 
 	%>
     <tr data-flag="tr_monitor_<%= item.PlateNo %>" plateno="<%= item.PlateNo %>" data-vid="<%= item.Vid %>">
-        <td>
+        <td class="align-center">
             <%= i+1 %>
         </td>
         <td>

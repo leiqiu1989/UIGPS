@@ -125,16 +125,10 @@
     .layui-form-item,
     .layui-inline {
         >label {
-            width: auto;
+            width: 140px;
         }
-    }
-}
-
-.label-width-100 {
-    .layui-form-item,
-    .layui-inline {
-        >label {
-            width: 100px;
+        .layui-input-block {
+            margin-left: 140px;
         }
     }
 }

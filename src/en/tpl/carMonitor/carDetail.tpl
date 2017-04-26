@@ -1,6 +1,6 @@
 <div class="p15">
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>Base Info.</legend>
+        <legend>Base Info</legend>
     </fieldset>
     <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
@@ -42,7 +42,7 @@
 
     </div>
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>司机信息</legend>
+        <legend>Driver Info</legend>
     </fieldset>
     <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
@@ -62,7 +62,7 @@
 
         <div class="layui-form-row clearfix">
             <div class="layui-form-item">
-                <label class="layui-form-label">Emergency Contact Number</label>
+                <label class="layui-form-label ellipsis" title="Emergency Contact Number">Emergency Contact Number</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Driver.UrgencyContactPhone %>" />
                 </div>
@@ -83,7 +83,7 @@
 
     </div>
     <fieldset class="layui-elem-field layui-field-title">
-        <legend>GPS设备信息</legend>
+        <legend>GPS Info</legend>
     </fieldset>
     <div class="layui-form auto-label-width">
         <div class="layui-form-row clearfix">
@@ -108,7 +108,7 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">SIM Card NO.</label>
+                <label class="layui-form-label">SIM Card NO</label>
                 <div class="layui-input-block">
                     <input type="text" autocomplete="off" class="layui-input no-border" disabled value="<%= data.Simcard.SimCardNo %>" />
                 </div>

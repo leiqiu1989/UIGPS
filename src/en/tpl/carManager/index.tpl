@@ -1,6 +1,6 @@
 <div class="panel panel-transparent flexbox">
     <div class="panel-heading">
-        <h3 class="panel-title">Vehicle Info.</h3>
+        <h3 class="panel-title">Vehicle Info</h3>
     </div>
     <div class="panel-toolbar">
         <div class="layui-form auto-label-width layui-form-inline">

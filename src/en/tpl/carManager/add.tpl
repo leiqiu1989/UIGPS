@@ -112,7 +112,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Emergency Contact Number</label>
+                                    <label class="layui-form-label ellipsis" title="Emergency Contact Number">Emergency Contact Number</label>
                                     <div class="layui-input-block">
                                         <input type="text" data-type="tel" value="<%= data.Driver.UrgencyContactPhone%>" class="layui-input" maxlength="20" name="UrgencyContactPhone" />
                                     </div>
@@ -168,7 +168,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">SIM Card Number</label>
+                                    <label class="layui-form-label required ellipsis" title="SIM Card Number">SIM Card Number</label>
                                     <div class="layui-input-block">
                                         <input type="text" maxlength="20" value="<%= data.Simcard.SimCardNo%>" class="layui-input" name="SimCardNo" required />
                                     </div>
