@@ -33,7 +33,7 @@ gulp.task('transport', function() {
         .pipe(transport())
         .pipe(concatSeajs({
             alias: {
-                page: 'plugin/page.js',
+                page: 'plugin/page.min.js',
                 datepicker: 'plugin/jquery.datetimepicker.js',
                 ajaxform: 'plugin/jquery.form.js',
                 lodash: 'plugin/lodash.min.js',
@@ -43,8 +43,7 @@ gulp.task('transport', function() {
                 eventWrapper: 'plugin/EventWrapper.min.js',
                 marktool: 'plugin/MarkerTool.js',
                 draw: 'plugin/DrawingManager.js',
-                dialog: 'plugin/_dialog.js',
-                validate: 'plugin/validate.js',
+                validate: 'plugin/validate.min.js',
                 chosen: 'plugin/chosen.jquery.min.js',
                 docEvent: 'common/docEvent.js',
                 app: 'app.js',
@@ -116,7 +115,7 @@ gulp.task('transport-en', function() {
         .pipe(transport())
         .pipe(concatSeajs({
             alias: {
-                page: 'plugin/page.js',
+                page: 'plugin/page.min.js',
                 datepicker: 'plugin/jquery.datetimepicker.js',
                 ajaxform: 'plugin/jquery.form.js',
                 lodash: 'plugin/lodash.min.js',
@@ -126,8 +125,7 @@ gulp.task('transport-en', function() {
                 eventWrapper: 'plugin/EventWrapper.min.js',
                 marktool: 'plugin/MarkerTool.js',
                 draw: 'plugin/DrawingManager.js',
-                dialog: 'plugin/_dialog.js',
-                validate: 'plugin/validate.js',
+                validate: 'plugin/validate.min.js',
                 chosen: 'plugin/chosen.jquery.min.js',
                 docEvent: 'common/docEvent.js',
                 app: 'app.js',
