@@ -251,7 +251,7 @@ define(function(require, exports, module) {
                             // 超速设置
                             $(el).find('.js-speeding').on('click', function() {
                                 var speeding = $.trim($('input[name="txtSpeeding"]').val());
-                                if (speeding && /^\d*$/.test(speeding) && speeding > 40 && interval < 150) {
+                                if (speeding && /^\d*$/.test(speeding) && speeding > 40 && speeding < 150) {
                                     var param = {
                                         vid: vid,
                                         MaxSpeed: speeding
