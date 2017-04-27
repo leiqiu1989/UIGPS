@@ -33,7 +33,7 @@ gulp.task('transport', function() {
         .pipe(transport())
         .pipe(concatSeajs({
             alias: {
-                page: 'plugin/page.min.js',
+                page: 'plugin/page.js',
                 datepicker: 'plugin/jquery.datetimepicker.js',
                 ajaxform: 'plugin/jquery.form.js',
                 lodash: 'plugin/lodash.min.js',
