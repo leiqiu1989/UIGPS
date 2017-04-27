@@ -61,7 +61,7 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">Time Zone</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" value="<%= data.Vehicle.Navigation%>" maxlength="20" name="Navigation" type="text" />
+                                        <input class="layui-input" value="<%= data.Vehicle.TimeZone%>" required max="12" min="-12" data-type="timezone" name="TimeZone" type="text" />
                                     </div>
                                 </div>
                             </div>

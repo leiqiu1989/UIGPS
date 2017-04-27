@@ -54,7 +54,7 @@ define(function(require, exports, module) {
                         me.initControl();
                         me.getlastLocation();
                     } else {
-                        common.layMsg('系统错误，请联系管理员');
+                        common.layMsg('System error, please contact the administrator!');
                         common.changeHash('#carManager/index');
                     }
                 });
@@ -141,7 +141,7 @@ define(function(require, exports, module) {
             var me = this;
             var historyUrl = api.carManager.historyLocation;
             if (!this.glo_uniqueIds) {
-                common.layMsg('参数异常,Parameter incorrect,failed to get the vehicle trajectory data!未能正确获取车辆轨迹数据!');
+                common.layMsg('Parameter incorrect,failed to get the vehicle trajectory data!');
                 return false;
             } else {
                 var returnValue = this.getDateParams();

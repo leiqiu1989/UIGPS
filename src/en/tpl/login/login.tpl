@@ -62,8 +62,8 @@
 </div>
 <div class="login-footer">
     <div class="item">
-        <span>Service tel：0755-88277178</span>
-        <span>Business mail：admin@etgps.cn</span>
+        <span>Service tel：0755-89330236</span>
+        <span>Business mail：375255438@qq.com</span>
         <span>All right reserved：Smart Tracking</span>
     </div>
 </div>
