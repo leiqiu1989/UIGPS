@@ -15,11 +15,11 @@
         <td title="<%= item.ColorString %>">
             <%= item.ColorString %>
         </td>
-        <td title="<%= item.OrgNo %>">
-            <%= item.OrgNo %>
+        <td title="<%= item.OrgName %>">
+            <%= item.OrgName %>
         </td>
-        <td title="<%= EquipmentNo %>">
-            <%= EquipmentNo %>
+        <td title="<%= item.EquipmentNo %>">
+            <%= item.EquipmentNo %>
         </td>
         <td title="<%= item.SimCardNo %>">
             <%= item.SimCardNo %>
