@@ -28,8 +28,22 @@ define(function(require, exports, module) {
         historyQuery: remoteUrl + '/Position/QueryAcrossHistory',
         // 用户权限
         userPermission: remoteUrl + '/Role/QueryAccountPermission',
-        // 发送指令
-        sendCode: remoteUrl + '/Command/SendGeneralByVid',
+        // 指令初始值
+        directiveInfo: remoteUrl + '/command/param',
+        // 里程设置
+        setMilage: remoteUrl + '/Command/distance-set',
+        // 灵敏度设置
+        setSensitivity: remoteUrl + '/command/sensitivity-set',
+        // 超速设置
+        setSpeeding: remoteUrl + '/command/maxspeed-set',
+        // 设防、撤防
+        setSecurity: remoteUrl + '/command/security-set',
+        // 油电打开、关闭
+        setOilelectricity: remoteUrl + '/command/oilelectricity-set',
+        // 围栏打开、关闭
+        setArea: remoteUrl + '/command/area-enable',
+        // 设置报警电话
+        setNoticecenter: remoteUrl + '/command/noticecenter-change',
         // 区域查车
         areaQuery: remoteUrl + '/position/QueryVehicleByRectangle',
         // odb信息

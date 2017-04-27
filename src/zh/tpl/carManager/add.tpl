@@ -59,9 +59,9 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">导航屏</label>
+                                    <label class="layui-form-label required">时区</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" value="<%= data.Vehicle.Navigation%>" maxlength="20" name="Navigation" type="text" />
+                                        <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" required max="12" min="-12" data-type="timezone" name="TimeZone" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label required">身份证号码</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" data-type="idcard" value="<%= data.Driver.IDCard%>" required maxlength="20" name="IDCard" type="text" />
+                                        <input class="layui-input" data-type="idCard" value="<%= data.Driver.IDCard%>" required maxlength="20" name="IDCard" type="text" />
                                     </div>
                                 </div>
                             </div>

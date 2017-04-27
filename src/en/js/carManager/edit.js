@@ -118,10 +118,10 @@ define(function(require, exports, module) {
                     me.submitForm();
                 },
                 reg: {
-                    'idcard': /^\d{17}[\d|x]|\d{15}$/
+                    'timezone': /^(-|\+)?\d+$/
                 },
                 errorMsg: {
-                    'idcard': '请输入正确的身份证号'
+                    'timezone': 'Only positive and negative integers (-12 to 12)'
                 }
             });
         },

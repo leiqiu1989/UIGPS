@@ -62,38 +62,12 @@
 </div>
 <div class="login-footer">
     <div class="item">
-        <span>客服电话：0755-88277178</span>
-        <span>企业邮箱：admin@etgps.cn</span>
-        <span>版权所有：深圳市易特科技有限公司</span>
+        <span>客服电话：0755-89330236</span>
+        <span>企业邮箱：375255438@qq.com</span>
+        <span>版权所有：深圳市长胜卓越电子科技有限公司</span>
     </div>
     <div class="item">
         <span>@ 2016 itte.com 版权所有</span>
         <span>ICP证：粤B2-20140901</span>
     </div>
 </div>
-
-<!--<div id="logo-icon">
-</div>
-<div id="login">
-    <div id="header">
-        用户登录
-    </div>
-    <div id="content">
-        <div class="group-row row-line">
-            <label class="icon icon-user"></label>
-            <input type="text" name="username" placeholder="请输入用户名" />
-        </div>
-        <div class="group-row row-line">
-            <label class="icon icon-password"></label>
-            <input type="password" name="password" placeholder="请输入密码" />
-        </div>
-        <div class="group-row">
-            <a href="javascript:" class="login-btn" id="btn-login">
-				登 录
-			</a>
-        </div>
-        <div class="group-row">
-            <label id="js_remember" class="remember-check"><span>记住我</span></label>
-        </div>
-    </div>
-</div>-->

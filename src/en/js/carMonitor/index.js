@@ -189,6 +189,140 @@ define(function(require, exports, module) {
                 }
             });
         },
+        // 指令设置公共函数
+        setDirective: function(url, param, callback) {
+            common.loading('show');
+            common.ajax(url, param, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    if (callback) {
+                        callback();
+                    } else {
+                        common.layMsg('Setup is successful!');
+                    }
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layAlert(msg, { icon: 2 });
+                }
+            }).always(function() {
+                common.loading();
+            });
+        },
+        // 获取指令默认值
+        getDirectiveInfo: function(vid) {
+            var me = this;
+            common.loading('show');
+            common.ajax(api.directiveInfo, { vid: vid }, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var content = res.content;
+                    var html = template.compile(tpls.directive)({
+                        data: content
+                    });
+                    common.layUI({
+                        title: 'Commands',
+                        area: '700px',
+                        id: 'directForm',
+                        btn: [],
+                        content: html,
+                        success: function(el) {
+                            common.layUIForm();
+                            $('select[name="sensitivity"]').val(content.Sensitivity || 3);
+                            // 里程设置
+                            $(el).find('.js-setMilage').on('click', function() {
+                                var milage = $.trim($('input[name="txtMilage"]').val());
+                                if (/^\d+(\.\d{1,2})?$/.test(milage) && milage >= 0 && milage <= 999999.99) {
+                                    var param = {
+                                        vid: vid,
+                                        Distance: milage
+                                    };
+                                    me.setDirective(api.setMilage, param);
+                                } else {
+                                    common.layAlert('only a number within (0-999999.99)!');
+                                }
+                            });
+                            // 灵敏度
+                            $(el).find('.js-sensitivity').on('click', function() {
+                                var sensitivity = $('select[name="sensitivity"]').val();
+                                var param = {
+                                    vid: vid,
+                                    Sensitivity: sensitivity
+                                };
+                                me.setDirective(api.setSensitivity, param);
+                            });
+                            // 超速设置
+                            $(el).find('.js-speeding').on('click', function() {
+                                var speeding = $.trim($('input[name="txtSpeeding"]').val());
+                                if (speeding && /^\d*$/.test(speeding) && speeding > 40 && interval < 150) {
+                                    var param = {
+                                        vid: vid,
+                                        MaxSpeed: speeding
+                                    };
+                                    me.setDirective(api.setSpeeding, param);
+                                } else {
+                                    common.layAlert('only an integer within (40-150)');
+                                }
+                            });
+                            // 设防、撤防
+                            $(el).find('.js-arm').on('click', function() {
+                                var enable = parseInt($(this).attr('data-enable'));
+                                var param = {
+                                    vid: vid,
+                                    Enable: enable
+                                };
+                                me.setDirective(api.setSecurity, param);
+                            });
+                            // 恢复、断开油电
+                            $(el).find('.js-fuel').on('click', function() {
+                                var enable = parseInt($(this).attr('data-enable'));
+                                var param = {
+                                    vid: vid,
+                                    Enable: enable
+                                };
+                                me.setDirective(api.setOilelectricity, param);
+                            });
+                            // 围栏打开或关闭
+                            $(el).find('.js-fence').on('click', function() {
+                                var enable = parseInt($(this).attr('data-enable'));
+                                var param = {
+                                    vid: vid,
+                                    Enable: enable
+                                };
+                                me.setDirective(api.setArea, param);
+                            });
+                            // 报警电话设置
+                            $(el).find('.js-alarmPhone').on('click', function() {
+                                var rows = $('#setAlarmPhone .layui-form-row')
+                                var array = [];
+                                $.each(rows, function(index, item) {
+                                    var keyId = $(item).attr('keyId');
+                                    array.push({
+                                        KeyId: keyId,
+                                        Vid: vid,
+                                        FullName: $.trim($(item).find('input[name="FullName"]').val()),
+                                        Phone: $.trim($(item).find('input[name="Phone"]').val())
+                                    });
+                                });
+                                common.loading('show');
+                                common.ajax(api.setNoticecenter, { NoticeCenter: JSON.stringify(array) }, function(res) {
+                                    if (res && res.status === 'SUCCESS') {
+                                        common.layMsg('Setup is successful!');
+                                    } else {
+                                        var msg = res.errorMsg || 'System error, please contact the administrator!';
+                                        common.layAlert(msg, { icon: 2 });
+                                    }
+                                }).always(function() {
+                                    common.loading();
+                                });
+                            });
+                        }
+                    });
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layAlert(msg, { icon: 2 });
+                }
+            }).always(function() {
+                common.loading();
+            });
+        },
         // 获取车辆位置列表
         getCarPositionList: function(arrVids, isloading) {
             var loadStatus = isloading ? 'show' : 'hide';
@@ -208,20 +342,6 @@ define(function(require, exports, module) {
                     common.loading();
                 });
             }
-        },
-        // 发动指令
-        sendCode: function(param, callback) {
-            param = param || {};
-            common.loading('show');
-            common.ajax(api.sendCode, param, function(res) {
-                if (res && res.status === 'SUCCESS') {
-                    if (callback) callback();
-                } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
-                    common.layAlert(msg, { icon: 2 });
-                }
-                common.loading();
-            });
         },
         event: function() {
             var me = this;
@@ -282,44 +402,7 @@ define(function(require, exports, module) {
                 // 指令
                 .on('click', '.js_directive', function() {
                     var vid = $(this).data('id');
-                    var param = {
-                        Vids: vid,
-                    };
-                    common.layUI({
-                        title: 'Commands',
-                        area: '700px',
-                        id: 'directForm',
-                        btn: [],
-                        content: tpls.directive,
-                        success: function(el) {
-                            common.layUIForm();
-                            $(el).find('.js-setInterval').on('click', function() {
-                                var interval = $.trim($('input[name="txtInterval"]').val());
-                                if (interval && /^\d*$/.test(interval) && interval >= 2 && interval <= 3000) {
-                                    param.Cmd = '1013';
-                                    param.Args = interval;
-                                    me.sendCode(param, function() {
-                                        layer.closeAll();
-                                    });
-                                } else {
-                                    common.layAlert('Can not be empty and can only enter integers (2-3000) or less!');
-                                }
-                            });
-                            // 短消息
-                            $(el).find('.js-setMessage').on('click', function() {
-                                var message = $.trim($('textarea[name="txtMessage"]').val());
-                                if (message && message.length > 0 && message.length <= 50) {
-                                    param.Cmd = '1014';
-                                    param.Args = message;
-                                    me.sendCode(param, function() {
-                                        layer.closeAll();
-                                    });
-                                } else {
-                                    common.layAlert('Can not be empty, and the length must be within 50 characters!');
-                                }
-                            });
-                        }
-                    });
+                    me.getDirectiveInfo(vid);
                 })
                 // 轨迹回放
                 .on('click', '.js_track_replay', function() {
