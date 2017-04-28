@@ -253,7 +253,7 @@ define(function(require, exports, module) {
             });
             this.trackMarks.push(marker);
         },
-        bindMonitorListEvent: function(data) {
+        bindMonitorListEvent: function() {
             var me = this;
             $('#carMonitorList tbody tr').on('click', function() {
                 var index = $(this).index();

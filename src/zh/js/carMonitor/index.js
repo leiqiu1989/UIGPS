@@ -66,7 +66,7 @@ define(function(require, exports, module) {
                 map.addTrackMark(data[i]);
             }
             // 绑定监控表格行单击事件
-            map.bindMonitorListEvent(this.getOBDInfo);
+            map.bindMonitorListEvent();
             // 统计
             me.monitorSummary(data);
             if (data.length > 0 && monitorStart) {

@@ -7,14 +7,14 @@ define(function(require, exports, module) {
     require('zTree');
     require('excheck');
     require('exhide');
-    var map = require('map');
+    var map = require('google');
     // 模板
     var tpls = {
-        index: require('../../tpl/carMonitor/index'),
-        carList: require('../../tpl/carMonitor/list'),
-        carDetail: require('../../tpl/carMonitor/carDetail'),
-        directive: require('../../tpl/carMonitor/directive'),
-        odbInfo: require('../../tpl/carMonitor/odb')
+        index: require('../../tpl/carMonitorGoogle/index'),
+        carList: require('../../tpl/carMonitorGoogle/list'),
+        carDetail: require('../../tpl/carMonitorGoogle/carDetail'),
+        directive: require('../../tpl/carMonitorGoogle/directive'),
+        odbInfo: require('../../tpl/carMonitorGoogle/odb')
     };
 
     function carMonitor() {
@@ -28,9 +28,9 @@ define(function(require, exports, module) {
             window.monitorTimer = null;
             $('#main-content').empty().html(template.compile(tpls.index)());
             map.init('monitorMap', null, true);
-            map.addDrawing(function(param) {
-                me.getDrawData(param);
-            });
+            // map.addDrawing(function(param) {
+            //     me.getDrawData(param);
+            // });
             this.initControl();
         },
         // 初始化控件
@@ -47,7 +47,7 @@ define(function(require, exports, module) {
                     var data = res.content || [];
                     me.initCarMonitorList(data);
                 } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
                     common.layMsg(msg);
                 }
                 common.loading();
@@ -87,7 +87,7 @@ define(function(require, exports, module) {
                     }));
                     $('#obdList').removeClass('hidden');
                 } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
                     common.layMsg(msg);
                 }
             });
@@ -141,7 +141,7 @@ define(function(require, exports, module) {
                     // tree查询
                     common.searchTree();
                 } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
                     common.layMsg(msg);
                 }
             });
@@ -152,7 +152,7 @@ define(function(require, exports, module) {
             var offLineCount = 0;
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                if (item.VehicleStatus === 'Offline') {
+                if (item.VehicleStatus === '离线') {
                     offLineCount += 1;
                 } else {
                     onlineCount += 1;
@@ -167,7 +167,7 @@ define(function(require, exports, module) {
             if (!window.monitorTimer) {
                 window.monitorTimer = setInterval(function() {
                     me.getCarPositionList();
-                }, 15000);
+                }, 315000);
             }
         },
         carDetailInfo: function(id) {
@@ -179,12 +179,12 @@ define(function(require, exports, module) {
                         data: data
                     });
                     common.layUI({
-                        title: 'Vechile Info.',
+                        title: '车辆详情',
                         area: '700px',
                         content: html
                     });
                 } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
                     common.layMsg(msg);
                 }
             });
@@ -197,10 +197,10 @@ define(function(require, exports, module) {
                     if (callback) {
                         callback();
                     } else {
-                        common.layMsg('Setup is successful!');
+                        common.layMsg('设置成功!');
                     }
                 } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
                     common.layAlert(msg, { icon: 2 });
                 }
             }).always(function() {
@@ -218,7 +218,7 @@ define(function(require, exports, module) {
                         data: content
                     });
                     common.layUI({
-                        title: 'Commands',
+                        title: '指 令',
                         area: '700px',
                         id: 'directForm',
                         btn: [],
@@ -236,7 +236,7 @@ define(function(require, exports, module) {
                                     };
                                     me.setDirective(api.setMilage, param);
                                 } else {
-                                    common.layAlert('only a number within (0-999999.99)!');
+                                    common.layAlert('只能输入整数（0-999999.99）以内的数字!');
                                 }
                             });
                             // 灵敏度
@@ -258,7 +258,7 @@ define(function(require, exports, module) {
                                     };
                                     me.setDirective(api.setSpeeding, param);
                                 } else {
-                                    common.layAlert('only an integer within (40-150)');
+                                    common.layAlert('只能输入整数（40-150）以内的整数!');
                                 }
                             });
                             // 设防、撤防
@@ -304,9 +304,9 @@ define(function(require, exports, module) {
                                 common.loading('show');
                                 common.ajax(api.setNoticecenter, { NoticeCenter: JSON.stringify(array) }, function(res) {
                                     if (res && res.status === 'SUCCESS') {
-                                        common.layMsg('Setup is successful!');
+                                        common.layMsg('设置成功!');
                                     } else {
-                                        var msg = res.errorMsg || 'System error, please contact the administrator!';
+                                        var msg = res.errorMsg || '系统出错，请联系管理员！';
                                         common.layAlert(msg, { icon: 2 });
                                     }
                                 }).always(function() {
@@ -316,7 +316,7 @@ define(function(require, exports, module) {
                         }
                     });
                 } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
                     common.layAlert(msg, { icon: 2 });
                 }
             }).always(function() {
@@ -336,7 +336,7 @@ define(function(require, exports, module) {
                         var data = res.content || [];
                         me.initCarMonitorList(data, true);
                     } else {
-                        var msg = res.errorMsg || 'System error, please contact the administrator!';
+                        var msg = res.errorMsg || '系统出错，请联系管理员！';
                         common.layMsg(msg);
                     }
                     common.loading();
@@ -355,7 +355,6 @@ define(function(require, exports, module) {
                 .on('click', '.js-origin', function() {
                     $('.vehicle-box').toggle();
                     $('.js-foldToggle').removeClass('foldDown').addClass('foldUp');
-                    map.moveOverView('down');
                     $('.monitorBody').hide();
                 })
                 // 切换OBD
@@ -376,7 +375,6 @@ define(function(require, exports, module) {
                         $(this).removeClass('foldDown').addClass('foldUp');
                         order = 'down';
                     }
-                    map.moveOverView(order);
                     $('.vehicle-box').hide();
                     $('.monitorBody').toggle();
                 })
@@ -415,7 +413,6 @@ define(function(require, exports, module) {
                 .on('click', '.js-vehicle-ok', function() {
                     $('.vehicle-box').hide();
                     $('.js-foldToggle').removeClass('foldUp').addClass('foldDown');
-                    map.moveOverView('up');
                     $('.monitorBody').show();
                     common.stopMonitorTimer();
                     me.getCarPositionList(null, true);
