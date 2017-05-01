@@ -13,8 +13,7 @@ define(function(require, exports, module) {
         index: require('../../tpl/carMonitor/index'),
         carList: require('../../tpl/carMonitor/list'),
         carDetail: require('../../tpl/carMonitor/carDetail'),
-        directive: require('../../tpl/carMonitor/directive'),
-        odbInfo: require('../../tpl/carMonitor/odb')
+        directive: require('../../tpl/carMonitor/directive')
     };
 
     function carMonitor() {
@@ -75,22 +74,8 @@ define(function(require, exports, module) {
             }
             // 获取OBD信息
             if (data && data.length > 0) {
-                this.getOBDInfo(data[0].Vid);
+                common.getOBDInfo(data[0].Vid);
             }
-        },
-        getOBDInfo: function(vid) {
-            common.ajax(api.odbInfo, { vid: vid }, function(res) {
-                if (res && res.status === 'SUCCESS') {
-                    var data = res.content || [];
-                    $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
-                        data: data
-                    }));
-                    $('#obdList').removeClass('hidden');
-                } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
-                    common.layMsg(msg);
-                }
-            });
         },
         initZTree: function() {
             var me = this;

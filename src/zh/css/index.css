@@ -359,7 +359,8 @@
 
 .admin-main {
   left: 53px;
-  right: 0; }
+  right: 0;
+  overflow-y: auto; }
 
 .flexbox {
   display: flex;
