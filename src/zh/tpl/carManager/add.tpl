@@ -75,16 +75,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class='col-sm-3'>
+                            <!--<div class='col-sm-3'>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">车架号</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" maxlength="20" data-type="carEngine" name="TimeZone" type="text" />
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="row">
+                        <!--<div class="row">
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
                                     <label class="layui-form-label">发动机号</label>
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div id="driveInfo" class="panel panel-transparent">
