@@ -502,6 +502,9 @@ label.required:before {
 .overflow-x-h {
   overflow-x: hidden !important; }
 
+.overflow-y-auto {
+  overflow-y: auto; }
+
 .w-70 {
   width: 70px !important; }
 

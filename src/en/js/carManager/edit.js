@@ -118,10 +118,12 @@ define(function(require, exports, module) {
                     me.submitForm();
                 },
                 reg: {
-                    'timezone': /^(-|\+)?\d+$/
+                    'timezone': /^(-|\+)?\d+$/,
+                    'carEngine': /^[0-9A-Za-z]{0,20}$/
                 },
                 errorMsg: {
-                    'timezone': 'Only positive and negative integers (-12 to 12)'
+                    'timezone': 'Only positive and negative integers (-12 to 12)',
+                    'carEngine': 'Can only enter letters and numbers (length 0-20)'
                 }
             });
         },

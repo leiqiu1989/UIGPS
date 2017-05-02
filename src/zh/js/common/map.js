@@ -232,6 +232,10 @@ define(function(require, exports, module) {
                 //将车辆列表中的记录设为选中状态
                 me.selectedMonitorCar = "tr_monitor_" + data.PlateNo;
                 var el = $('tr[data-flag="' + me.selectedMonitorCar + '"]');
+                var vid = $(el).data('vid');
+                if (vid) {
+                    common.getOBDInfo(vid);
+                }
                 $("#carMonitorList tbody tr").removeClass("monitor-active");
                 if (el.hasClass("monitor-active")) {
                     marker.closeInfoWindow();
@@ -253,7 +257,7 @@ define(function(require, exports, module) {
             });
             this.trackMarks.push(marker);
         },
-        bindMonitorListEvent: function(data) {
+        bindMonitorListEvent: function() {
             var me = this;
             $('#carMonitorList tbody tr').on('click', function() {
                 var index = $(this).index();

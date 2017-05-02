@@ -66,7 +66,7 @@ define(function(require, exports, module) {
                 map.addTrackMark(data[i]);
             }
             // 绑定监控表格行单击事件
-            map.bindMonitorListEvent(this.getOBDInfo);
+            map.bindMonitorListEvent();
             // 统计
             me.monitorSummary(data);
             if (data.length > 0 && monitorStart) {
@@ -75,22 +75,8 @@ define(function(require, exports, module) {
             }
             // 获取OBD信息
             if (data && data.length > 0) {
-                this.getOBDInfo(data[0].Vid);
+                common.getOBDInfo(data[0].Vid);
             }
-        },
-        getOBDInfo: function(vid) {
-            common.ajax(api.odbInfo, { vid: vid }, function(res) {
-                if (res && res.status === 'SUCCESS') {
-                    var data = res.content || [];
-                    $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
-                        data: data
-                    }));
-                    $('#obdList').removeClass('hidden');
-                } else {
-                    var msg = res.errorMsg || 'System error, please contact the administrator!';
-                    common.layMsg(msg);
-                }
-            });
         },
         initZTree: function() {
             var me = this;

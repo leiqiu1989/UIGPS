@@ -118,10 +118,12 @@ define(function(require, exports, module) {
                     me.submitForm();
                 },
                 reg: {
-                    'timezone': /^(-|\+)?\d+$/
+                    'timezone': /^(-|\+)?\d+$/,
+                    'carEngine': /^[0-9A-Za-z]{0,20}$/
                 },
                 errorMsg: {
-                    'timezone': '只能输入正数、负数的整数(-12到12)'
+                    'timezone': '只能输入正数、负数的整数(-12到12)',
+                    'carEngine': '只能输入字母和数字,长度最大20位'
                 }
             });
         },

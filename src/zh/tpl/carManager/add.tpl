@@ -1,4 +1,4 @@
-<form id="frmaddCar" class="full">
+<form id="frmaddCar" class="full overflow-y-auto">
     <div class="panel panel-transparent no-margin">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -72,6 +72,24 @@
                                         <input type="text" class="layui-input" value="<%= data.Vehicle.OrgName%>" required name="orgName" data-nosubmit="true" placeholder="至少输入3个字符搜索" />
                                         <input type="hidden" name="OnlyOrgNo" value="<%= data.Vehicle.OrgNo%>" />
                                         <ul class="ul-select hidden"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='col-sm-3'>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">车架号</label>
+                                    <div class="layui-input-block">
+                                        <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" maxlength="20" data-type="carEngine" name="TimeZone" type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class='col-sm-3'>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">发动机号</label>
+                                    <div class="layui-input-block">
+                                        <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" maxlength="20" data-type="carEngine" name="TimeZone" type="text" />
                                     </div>
                                 </div>
                             </div>

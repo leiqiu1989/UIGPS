@@ -3,7 +3,9 @@ define(function(require, exports, module) {
 
     //datapicker
     var datapicker = require('datepicker');
-
+    var tpls = {
+        odbInfo: require('../../tpl/carMonitor/odb')
+    };
     var api = require('api');
     var page = require('page');
     require('lodash');
@@ -228,6 +230,22 @@ define(function(require, exports, module) {
                 return item === code;
             });
             return !!rt;
+        },
+        // 获取obd信息
+        getOBDInfo: function(vid) {
+            var me = this;
+            this.ajax(api.odbInfo, { vid: vid }, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var data = res.content || [];
+                    $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
+                        data: data
+                    }));
+                    $('#obdList').removeClass('hidden');
+                } else {
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    me.layMsg(msg);
+                }
+            });
         },
         // 初始化日期
         initDateTime: function(el, formatStyle, hasDefValue, defValueformat, timePickerBool, minDate, maxDate) {

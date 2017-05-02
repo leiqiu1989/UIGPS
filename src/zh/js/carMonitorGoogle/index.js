@@ -7,13 +7,14 @@ define(function(require, exports, module) {
     require('zTree');
     require('excheck');
     require('exhide');
-    var map = require('map');
+    var map = require('google');
     // 模板
     var tpls = {
-        index: require('../../tpl/carMonitor/index'),
-        carList: require('../../tpl/carMonitor/list'),
-        carDetail: require('../../tpl/carMonitor/carDetail'),
-        directive: require('../../tpl/carMonitor/directive')
+        index: require('../../tpl/carMonitorGoogle/index'),
+        carList: require('../../tpl/carMonitorGoogle/list'),
+        carDetail: require('../../tpl/carMonitorGoogle/carDetail'),
+        directive: require('../../tpl/carMonitorGoogle/directive'),
+        odbInfo: require('../../tpl/carMonitorGoogle/odb')
     };
 
     function carMonitor() {
@@ -27,9 +28,9 @@ define(function(require, exports, module) {
             window.monitorTimer = null;
             $('#main-content').empty().html(template.compile(tpls.index)());
             map.init('monitorMap', null, true);
-            map.addDrawing(function(param) {
-                me.getDrawData(param);
-            });
+            // map.addDrawing(function(param) {
+            //     me.getDrawData(param);
+            // });
             this.initControl();
         },
         // 初始化控件
@@ -74,8 +75,22 @@ define(function(require, exports, module) {
             }
             // 获取OBD信息
             if (data && data.length > 0) {
-                common.getOBDInfo(data[0].Vid);
+                this.getOBDInfo(data[0].Vid);
             }
+        },
+        getOBDInfo: function(vid) {
+            common.ajax(api.odbInfo, { vid: vid }, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var data = res.content || [];
+                    $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
+                        data: data
+                    }));
+                    $('#obdList').removeClass('hidden');
+                } else {
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    common.layMsg(msg);
+                }
+            });
         },
         initZTree: function() {
             var me = this;
@@ -152,7 +167,7 @@ define(function(require, exports, module) {
             if (!window.monitorTimer) {
                 window.monitorTimer = setInterval(function() {
                     me.getCarPositionList();
-                }, 15000);
+                }, 315000);
             }
         },
         carDetailInfo: function(id) {
@@ -340,7 +355,6 @@ define(function(require, exports, module) {
                 .on('click', '.js-origin', function() {
                     $('.vehicle-box').toggle();
                     $('.js-foldToggle').removeClass('foldDown').addClass('foldUp');
-                    map.moveOverView('down');
                     $('.monitorBody').hide();
                 })
                 // 切换OBD
@@ -361,7 +375,6 @@ define(function(require, exports, module) {
                         $(this).removeClass('foldDown').addClass('foldUp');
                         order = 'down';
                     }
-                    map.moveOverView(order);
                     $('.vehicle-box').hide();
                     $('.monitorBody').toggle();
                 })
@@ -400,7 +413,6 @@ define(function(require, exports, module) {
                 .on('click', '.js-vehicle-ok', function() {
                     $('.vehicle-box').hide();
                     $('.js-foldToggle').removeClass('foldUp').addClass('foldDown');
-                    map.moveOverView('up');
                     $('.monitorBody').show();
                     common.stopMonitorTimer();
                     me.getCarPositionList(null, true);
