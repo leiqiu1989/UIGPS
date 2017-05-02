@@ -237,7 +237,7 @@ define(function(require, exports, module) {
             var me = this;
             this.ajax(api.odbInfo, { vid: vid }, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    var data = res.content || [];
+                    var data = res.content || {};
                     $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
                         data: data
                     }));

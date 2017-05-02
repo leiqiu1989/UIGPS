@@ -1,10 +1,10 @@
 <ul>
     <li>
         <span>The Number of Fault</span>
-        <span><%= odbNull(FaultCodeCount) %></span>
+        <span><%= odbNull(data.FaultCodeCount) %></span>
     </li>
     <li><span>Fault Code</span>
-        <span><%= odbNull(FaultCode) %></span></li>
+        <span><%= odbNull(data.FaultCode) %></span></li>
 </ul>
 <div class="obd-group">
     Vehicle
@@ -12,38 +12,38 @@
 <ul>
     <li>
         <span>Battery Voltage(v)</span>
-        <span><%= odbNull(Voltage) %></span>
+        <span><%= odbNull(data.Voltage) %></span>
     </li>
     <li><span>Engine Load(%)</span>
-        <span><%= odbNull(Fdjfh) %></span></li>
+        <span><%= odbNull(data.Fdjfh) %></span></li>
     <li><span>Engine Speed(RPM)</span>
-        <span><%= odbNull(EngineSpeed) %></span></li>
+        <span><%= odbNull(data.EngineSpeed) %></span></li>
     <li><span>Coolant Temperature(℃)</span>
-        <span><%= odbNull(CoolantTmp) %></span></li>
+        <span><%= odbNull(data.CoolantTmp) %></span></li>
     <li><span>Total Mileage(KM)</span>
-        <span><%= odbNull(Bcxslc) %></span></li>
+        <span><%= odbNull(data.Bcxslc) %></span></li>
     <li><span>Engine Running Time(S)</span>
-        <span><%= odbNull(Fdjyxsj) %></span></li>
+        <span><%= odbNull(data.Fdjyxsj) %></span></li>
     <li><span>Environmental Temperature(℃)</span>
-        <span><%= odbNull(Cwhjwd) %></span></li>
+        <span><%= odbNull(data.Cwhjwd) %></span></li>
     <li><span>Advance Angle of Ignition(°)</span>
-        <span><%= odbNull(Dhtqj) %></span></li>
+        <span><%= odbNull(data.Dhtqj) %></span></li>
     <li><span>Throttle Pedal Position(%)</span>
-        <span><%= odbNull(Ymtbwz) %></span></li>
+        <span><%= odbNull(data.Ymtbwz) %></span></li>
     <li><span>Atmospheric Pressure(kPa)</span>
-        <span><%= odbNull(Cwdqyl) %></span></li>
+        <span><%= odbNull(data.Cwdqyl) %></span></li>
     <li><span>Intake Pressure(kPa)</span>
-        <span><%= odbNull(Jqyl) %></span></li>
+        <span><%= odbNull(data.Jqyl) %></span></li>
     <li><span>Throttle Position(%)</span>
-        <span><%= odbNull(Jqmwz) %></span></li>
+        <span><%= odbNull(data.Jqmwz) %></span></li>
     <li><span>Fuel Pressure(kPa)</span>
-        <span><%= odbNull(Ryyl) %></span></li>
+        <span><%= odbNull(data.Ryyl) %></span></li>
     <li><span>Intake Air Temperature(℃)</span>
-        <span><%= odbNull(InletTemp) %></span></li>
+        <span><%= odbNull(data.InletTemp) %></span></li>
     <li><span>Air Mass Flow(g/a)</span>
-        <span><%= odbNull(Kqll) %></span></li>
+        <span><%= odbNull(data.Kqll) %></span></li>
     <li><span>Long-term Fuel Correction(%)</span>
-        <span><%= odbNull(Cqryxz) %></span></li>
+        <span><%= odbNull(data.Cqryxz) %></span></li>
 </ul>
 <div class="obd-group">
     Fuel
@@ -51,15 +51,15 @@
 <ul>
     <li>
         <span>Average Fuel Consumption(L/KM)</span>
-        <span><%= odbNull(Pjyh) %></span>
+        <span><%= odbNull(data.Pjyh) %></span>
     </li>
     <li><span>Fuel Amount(L)</span>
-        <span><%= odbNull(Bcryl) %></span></li>
+        <span><%= odbNull(data.Bcryl) %></span></li>
     <li>
         <Accumulative Fuel Amount(RTM)</span>
-            <span><%= odbNull(Ljryl) %></span></li>
+            <span><%= odbNull(data.Ljryl) %></span></li>
     <li><span>Remaning Fuel(RTM)</span>
-        <span><%= odbNull(Syyl) %></span></li>
+        <span><%= odbNull(data.Syyl) %></span></li>
 </ul>
 <div class="obd-group">
     Driving Data
@@ -67,20 +67,20 @@
 <ul>
     <li>
         <span>Driving Mileage(KM)</span>
-        <span><%= odbNull(Bcxslc) %></span>
+        <span><%= odbNull(data.Bcxslc) %></span>
     </li>
     <li><span>Sudden Brake</span>
-        <span><%= odbNull(Bcjsc) %></span></li>
+        <span><%= odbNull(data.Bcjsc) %></span></li>
     <li><span>Sharp Turn</span>
-        <span><%= odbNull(Bcjzw) %></span></li>
+        <span><%= odbNull(data.Bcjzw) %></span></li>
     <li><span>Rapid Acceleration</span>
-        <span><%= odbNull(Bcjijian) %></span></li>
+        <span><%= odbNull(data.Bcjijian) %></span></li>
     <li><span>Highest Speed(KM)</span>
-        <span><%= odbNull(Bczgcs) %></span></li>
+        <span><%= odbNull(data.Bczgcs) %></span></li>
     <li><span>Highest Engine Speed(RPM)</span>
-        <span><%= odbNull(Bczgzs) %></span></li>
+        <span><%= odbNull(data.Bczgzs) %></span></li>
     <li><span>Driving Mileage After Faults Happened(KM)</span>
-        <span><%= odbNull(Gzhxslc) %></span></li>
+        <span><%= odbNull(data.Gzhxslc) %></span></li>
     <li><span>Current Speed(KM/H)</span>
-        <span><%= odbNull(Speed) %></span></li>
+        <span><%= odbNull(data.Speed) %></span></li>
 </ul>
