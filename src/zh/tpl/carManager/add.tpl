@@ -1,4 +1,4 @@
-<form id="frmaddCar" class="full">
+<form id="frmaddCar" class="full overflow-y-auto">
     <div class="panel panel-transparent no-margin">
         <div class="panel-heading">
             <h3 class="panel-title">

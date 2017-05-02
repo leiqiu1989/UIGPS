@@ -1,4 +1,4 @@
-<form id="frmaddCar" class="full">
+<form id="frmaddCar" class="full overflow-y-auto">
     <div class="panel panel-transparent no-margin">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -9,7 +9,7 @@
             <div class="layui-form auto-label-width">
                 <div class="panel panel-transparent">
                     <div class="panel-heading">
-                        <h3 class="panel-title"> <i class="fa fa-comment"></i>Vehicle Info.
+                        <h3 class="panel-title"> <i class="fa fa-comment"></i>Vehicle Info
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -75,31 +75,31 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--<div class='col-sm-3'>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label ellipsis">Chassis Number</label>
+                                    <div class="layui-input-block">
+                                        <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" maxlength="20" data-type="carEngine" name="TimeZone" type="text" />
+                                    </div>
+                                </div>
+                            </div>-->
+                        </div>
+                        <!--<div class="row">
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Chassis Number</label>
+                                    <label class="layui-form-label ellipsis">Engine Number</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" maxlength="20" data-type="carEngine" name="TimeZone" type="text" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class='col-sm-3'>
-                                <div class="layui-form-item">
-                                    <label class="layui-form-label">Engine Number</label>
-                                    <div class="layui-input-block">
-                                        <input class="layui-input" value="<%= data.Vehicle.TimeZone %>" maxlength="20" data-type="carEngine" name="TimeZone" type="text" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div id="driveInfo" class="panel panel-transparent">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>Driver Info.
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>Driver Info
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -122,7 +122,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">Contact Number</label>
+                                    <label class="layui-form-label required ellipsis">Contact Number</label>
                                     <div class="layui-input-block">
                                         <input class="layui-input" data-type="tel" value="<%= data.Driver.PhoneNo%>" required maxlength="20" name="PhoneNo" data-type="tel" type="text" />
                                     </div>
@@ -154,7 +154,7 @@
                 <div class="panel panel-transparent no-margin">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            <i class="fa fa-wifi" aria-hidden="true"></i> GPS Info.
+                            <i class="fa fa-wifi" aria-hidden="true"></i> GPS Info
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -204,7 +204,7 @@
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">Expiration Time</label>
+                                    <label class="layui-form-label ellipsis">Expiration Time</label>
                                     <div class="layui-input-block">
                                         <input type="text" value="<%= data.Simcard.ETime%>" class="layui-input" readonly name="ETime" />
                                     </div>
