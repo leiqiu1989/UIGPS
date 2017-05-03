@@ -27,10 +27,10 @@ define(function(require, exports, module) {
             // 赋值为null是为了,地图infowindow里面的轨迹回放返回,重新加载导致timer计时器未clear
             window.monitorTimer = null;
             $('#main-content').empty().html(template.compile(tpls.index)());
-            map.init('monitorMap', null, true);
-            // map.addDrawing(function(param) {
-            //     me.getDrawData(param);
-            // });
+            map.init('monitorMap');
+            map.addDrawing(function(param) {
+                me.getDrawData(param);
+            });
             this.initControl();
         },
         // 初始化控件
@@ -63,7 +63,7 @@ define(function(require, exports, module) {
             map.clearData();
             for (var i = 0; i < data.length; i++) {
                 data[i] = common.directForm(data[i]);
-                map.addTrackMark(data[i]);
+                map.addMonitorMark(data[i]);
             }
             // 绑定监控表格行单击事件
             map.bindMonitorListEvent();
@@ -407,7 +407,7 @@ define(function(require, exports, module) {
                     var id = $(this).data('id');
                     var plateNo = $(this).data('plate');
                     common.stopMonitorTimer();
-                    common.changeHash('#carMonitor/track/', { id: id, plateNo: plateNo });
+                    common.changeHash('#carMonitorGoogle/track/', { id: id, plateNo: plateNo });
                 })
                 // 已选组织-确认
                 .on('click', '.js-vehicle-ok', function() {

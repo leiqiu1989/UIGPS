@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     var api = require('api');
     require('lodash');
     require('eventWrapper');
-    var map = require('map');
+    var map = require('google');
     // 模板
     var tpls = {
         track: require('../../tpl/carMonitorGoogle/track'),
@@ -19,6 +19,7 @@ define(function(require, exports, module) {
         this.runtimer = null; // 播放标识
         this.index = 0; // 当前点索引
         this.carMarker = null; //移动车
+        this.infoWindow = null; //移动过程中弹出的窗口
         this.fTime = null;
         this.tTime = null;
         this.isHistoryLocation = null;
@@ -28,7 +29,7 @@ define(function(require, exports, module) {
             $('#admin').empty().html(template.compile(tpls.track)());
             this.id = param.id;
             this.plateNo = param.plateNo;
-            map.init('trackMap', null, false);
+            map.init('trackMap');
             this.fTime = param.ftime || null;
             this.tTime = param.ttime || null;
             this.initControl();
@@ -114,9 +115,15 @@ define(function(require, exports, module) {
                         var data = res.content;
                         $('#track-history-list > table tbody').empty().html(template.compile(tpls.trackList)({ data: data }));
                         if (data && data.length > 0) {
-                            map.driving(data, function() {
+                            for (var i = 0; i < data.length; i++) {
+                                data[i] = common.directForm(data[i]);
+                            }
+                            map.drivingTrackLine(data, function() {
                                 common.loading();
                             });
+
+                        } else {
+                            map.clearTrackMarks();
                         }
                     }
                     common.loading();
@@ -131,7 +138,7 @@ define(function(require, exports, module) {
             history.back();
         },
         reset: function() {
-            map.clearOverlays();
+            map.clearTrackMarks();
             $('.trackPlay-btn').removeClass('pause');
             if (this.runtimer) {
                 clearInterval(this.runtimer);
@@ -139,7 +146,7 @@ define(function(require, exports, module) {
             this.index = 0;
             this.speedtime = null;
             this.carMarker = null;
-            map._map.panTo(map.centerPoint);
+            this.infoWindow = null;
             // 重置速度条
             this.initSpeed();
             //重置进度条
@@ -190,7 +197,7 @@ define(function(require, exports, module) {
                             /*横条距离右边的距离*/
                             var sideRightWidth = sideWidth - $(".track-speed-side .track-speed-width").width();
                             //计算
-                            me.speedtime = sideRightWidth / sideWidth * 2500 + 500;
+                            me.speedtime = sideRightWidth / sideWidth * 1000 + 500;
                             me.runtimer = setInterval(function() {
                                 me.play();
                             }, me.speedtime);
@@ -292,7 +299,7 @@ define(function(require, exports, module) {
                 /*混动条离左边的距离*/
                 var parent_left = slide_width - $(".track-speed-side .track-speed-width").width();
                 //计算
-                var speedsum = parent_left / slide_width * 2500 + 500;
+                var speedsum = parent_left / slide_width * 1000 + 500;
                 //清除计时器
                 //判断是否在播放状态
                 if ($(".trackPlay-btn").hasClass('pause')) { //播放中
@@ -324,36 +331,40 @@ define(function(require, exports, module) {
             });
         },
         addMarkCar: function() {
+            var me = this;
             var _map = map._map;
             var allPoints = map.points;
             var point = allPoints[this.index];
+            var thisLatLng = new google.maps.LatLng(point.Lat, point.Lng);
             // 添加小车
             if (!this.carMarker) {
-                this.carMarker = new BMap.Marker(new BMap.Point(allPoints[0].Lng, allPoints[0].Lat), {
-                    icon: new BMap.Icon(window.DOMAIN + "/img/green_north.png", new BMap.Size(20, 44), {
-                        imageOffset: new BMap.Size(0, 0)
-                    })
+                var img = {
+                    url: window.DOMAIN + "/img/map/green1.png",
+                    size: new google.maps.Size(30, 30),
+                    origin: new google.maps.Point(0, 0)
+                };
+                var stratLatLng = new google.maps.LatLng(allPoints[0].Lat, allPoints[0].Lng);
+                this.carMarker = new google.maps.Marker({
+                    position: stratLatLng,
+                    map: _map,
+                    icon: img
                 });
-                _map.addOverlay(this.carMarker);
+                _map.setZoom(_map.zoom + 1);
+                _map.panTo(stratLatLng);
             }
-
+            me.setIcon(this.carMarker, point.Degrees);
+            this.carMarker.setPosition(thisLatLng);
+            me.setPointCenter(me.index, allPoints);
             var sContent = "<div class='mapCarItem'>车牌：" + point.PlateNo + "</div>" + "<div class='mapCarItem'>时间：" + point.GpsTime + "</div>" + "<div class='mapCarItem'>速度：" + point.Speed + "km/h</div>" + "<div class='mapCarItem'><div class='pull-left'>位置：</div><div style='margin-left:36px;max-height: 37px;overflow: hidden;' title='" + point.Location + "'>" + point.Location + "</div></div>";
             // 创建信息窗口对象
-            var infoWindow = new BMap.InfoWindow(sContent, {
-                width: 300, // 信息窗口宽度
-                height: 100, // 信息窗口高度
-                title: "", // 信息窗口标题
-                enableMessage: false //设置允许信息窗发送短息
+            if (me.infoWindow) {
+                me.infoWindow.close();
+                me.infoWindow = null;
+            }
+            me.infoWindow = new google.maps.InfoWindow({
+                content: sContent
             });
-            this.carMarker.openInfoWindow(infoWindow);
-            this.carMarker.setPosition(new BMap.Point(point.Lng, point.Lat));
-            this.carMarker.setRotation(point.Direction); //设置旋转
-            BMapLib.EventWrapper.clearListeners(_map, 'moveend');
-            BMapLib.EventWrapper.addListenerOnce(_map, 'moveend', function() {
-                _map.panTo(point, {
-                    noAnimation: true
-                });
-            });
+            me.infoWindow.open(_map, this.carMarker);
         },
         changeProgress: function(width) {
             if (width < 1) {
@@ -376,21 +387,46 @@ define(function(require, exports, module) {
             var width = (this.index + 1) / allPoints.length * 100;
             this.changeProgress(width);
             this.index++;
-            //播放到最后一个点归零
+            //播放到最后一个点归零            
             if (this.index == allPoints.length) {
+                var defaultLatLng = new google.maps.LatLng(allPoints[0].Lat, allPoints[0].Lng);
                 this.index = 0;
-                $('.trackPlay-btn').removeClass('p');
-                this.carMarker.setPosition(allPoints[0]);
-                _map.panTo(allPoints[0]);
+                $('.trackPlay-btn').removeClass('pause');
+                this.carMarker.setPosition(defaultLatLng);
+                _map.panTo(defaultLatLng);
                 $('.track-process').css('width', '1%');
                 //设置时间
                 $(".track-time").empty();
                 $('.track-time').text(allPoints[0].GpsTime);
                 if (this.runtimer) {
                     clearInterval(this.runtimer);
-                    _map.panTo(allPoints[0]);
+                    _map.panTo(defaultLatLng);
                 }
-                _map.closeInfoWindow();
+                this.infoWindow.close();
+                this.infoWindow = null;
+            }
+        },
+        setIcon: function(carMarker, degrees) {
+            var currentImg = map.getIconUrl(degrees, true);
+            var markerImg = new google.maps.MarkerImage(currentImg);
+            carMarker.setIcon(markerImg);
+        },
+        setPointCenter: function(index, allPoints) {
+            var mapLatLngBounds = map._map.getBounds();
+            var maxX = mapLatLngBounds.getNorthEast().lng();
+            var maxY = mapLatLngBounds.getNorthEast().lat();
+            var minX = mapLatLngBounds.getSouthWest().lng();
+            var minY = mapLatLngBounds.getSouthWest().lat();
+
+            if (index < allPoints.length - 1) {
+                var nextLat = allPoints[index + 1].lat;
+                var nextLng = allPoints[index + 1].lng;
+                if (nextLat > maxY || nextLng > maxX || nextLat < minY || nextLng < minX) {
+                    var nextLat1 = allPoints[index].lat;
+                    var nextLng1 = allPoints[index].lng;
+                    var _thisLanLng = new google.maps.LatLng(nextLat1, nextLng1);
+                    map._map.panTo(_thisLanLng);
+                }
             }
         }
     });
