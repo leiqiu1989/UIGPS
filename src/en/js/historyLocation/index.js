@@ -4,7 +4,7 @@ define(function(require, exports, module) {
     var validate = require('validate');
     var common = require('common');
     var api = require('api');
-    var map = require('map');
+    var map = require('google');
     require('draw');
     require('lodash');
 
@@ -15,9 +15,8 @@ define(function(require, exports, module) {
     };
 
     var historyLocation = function() {
-        this.initMapTime = null;
         this.drawManager = null;
-        this.pointArray = [];
+        this.bounds = [];
         this.overlays = [];
     };
     $.extend(historyLocation.prototype, {
@@ -28,15 +27,11 @@ define(function(require, exports, module) {
             // 控件初始化
             this.initControl();
             // 地图初始化
-            map.init('historyMap', null, false);
-
-            this.initMapTime = setInterval(function() {
-                if (map.isLoaded) {
-                    clearInterval(me.initMapTime);
-                    me.drawManagerRectangle();
-                    // 获取查询参数
-                    me.getParams();
-                }
+            map.init('historyMap');
+            setTimeout(function() {
+                me.drawManagerRectangle();
+                // 获取查询参数
+                me.getParams();
             }, 500);
             // 事件绑定
             this.event();
@@ -57,41 +52,39 @@ define(function(require, exports, module) {
                 $('.js-secondPoint').eq(3).val(params.RTMaxLat || '');
                 $('input[name="startDate"]').val(params.STime || '');
                 $('input[name="endDate"]').val(params.ETime || '');
-                // 画矩形
-                var styleOptions = {
-                    strokeColor: "#ccc", //边线颜色。
-                    fillColor: "#fff", //填充颜色。当参数为空时，圆形将没有填充效果。
-                    strokeWeight: 1, //边线的宽度，以像素为单位。
-                    strokeOpacity: 0.8, //边线透明度，取值范围0 - 1。
-                    fillOpacity: 0.8, //填充的透明度，取值范围0 - 1。
-                    strokeStyle: 'solid' //边线的样式，solid或dashed。
-                };
+                // 画矩形                
                 var rectangle = params.rectangle;
                 for (var i = 0; i < rectangle.length; i++) {
-                    var points = rectangle[i];
-                    var array = [];
-                    for (var j = 0; j < points.length; j++) {
-                        var arrPoints = points[j].split(',');
-                        var lng = parseFloat(arrPoints[1]);
-                        var lat = parseFloat(arrPoints[0]);
-                        array.push(new BMap.Point(lng, lat));
+                    var lngs = [],
+                        lats = [];
+                    var bounds = rectangle[i];
+                    if (bounds && !_.isArray(bounds)) {
+                        new google.maps.Rectangle({
+                            strokeColor: '#000000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 3,
+                            fillColor: '#ffff00',
+                            fillOpacity: 0.6,
+                            map: map._map,
+                            bounds: bounds
+                        });
+                        lngs.push(bounds.north);
+                        lngs.push(bounds.south);
+                        lats.push(bounds.east);
+                        lats.push(bounds.west);
+                        var maxLng = _.max(lngs);
+                        var maxLat = _.max(lats);
+                        var minLng = _.min(lngs);
+                        var minLat = _.min(lats);
+                        me.overlays.push({
+                            overlay: bounds,
+                            maxLng: maxLng,
+                            maxLat: maxLat,
+                            minLng: minLng,
+                            minLat: minLat
+                        });
+                        me.bounds.push(bounds)
                     }
-                    var polygon = new BMap.Polygon(array, styleOptions); //创建多边形
-                    var lngs = _.map(array, 'lng');
-                    var lats = _.map(array, 'lat');
-                    var maxLng = _.max(lngs);
-                    var maxLat = _.max(lats);
-                    var minLng = _.min(lngs);
-                    var minLat = _.min(lats);
-                    me.overlays.push({
-                        overlay: polygon,
-                        maxLng: maxLng,
-                        maxLat: maxLat,
-                        minLng: minLng,
-                        minLat: minLat
-                    });
-                    me.pointArray.push(_.map(array, function(item) { return item.lat + ',' + item.lng }));
-                    map._map.addOverlay(polygon); //增加多边形    
                 }
                 this.getData();
             }
@@ -99,52 +92,58 @@ define(function(require, exports, module) {
         // 鼠标绘制
         drawManagerRectangle: function() {
             var me = this;
-            var styleOptions = {
-                strokeColor: "#ccc", //边线颜色。
-                fillColor: "#fff", //填充颜色。当参数为空时，圆形将没有填充效果。
-                strokeWeight: 1, //边线的宽度，以像素为单位。
-                strokeOpacity: 0.8, //边线透明度，取值范围0 - 1。
-                fillOpacity: 0.8, //填充的透明度，取值范围0 - 1。
-                strokeStyle: 'solid' //边线的样式，solid或dashed。
-            };
-
-            //实例化鼠标绘制工具
-            this.drawManager = new BMapLib.DrawingManager(map._map, {
-                isOpen: false, //是否开启绘制模式
-                enableDrawingTool: true, //是否显示工具栏
-                drawingToolOptions: {
-                    anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
-                    offset: new BMap.Size(5, 5), //偏离值
-                    drawingModes: [BMAP_DRAWING_RECTANGLE]
+            var drawingManager = new google.maps.drawing.DrawingManager({
+                drawingControl: true,
+                drawingControlOptions: {
+                    position: google.maps.ControlPosition.TOP_RIGHT,
+                    drawingModes: ['rectangle']
                 },
-                rectangleOptions: styleOptions //矩形的样式
+                rectangleOptions: {
+                    fillColor: '#ffff00',
+                    fillOpacity: 0.6,
+                    strokeWeight: 3,
+                    clickable: false,
+                    editable: false,
+                    zIndex: 1
+                }
             });
-            this.drawManager.addEventListener('overlaycomplete', function(e) {
-                me.overlaycomplete(e);
+            //实例化鼠标绘制工具            
+            drawingManager.setMap(map._map);
+            google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
+                var maxLng = 0,
+                    maxLat = 0,
+                    minLng = 0,
+                    minLat = 0;
+                var bounds = rectangle.getBounds();
+                var northEastLatLng = bounds.getNorthEast();
+                var southWestLatLng = bounds.getSouthWest();
+                var northEastLat = northEastLatLng.lat();
+                var northEastLng = northEastLatLng.lng();
+                var southWestLat = southWestLatLng.lat();
+                var southWestLng = southWestLatLng.lng();
+                var lngs = [northEastLng, southWestLng];
+                var lats = [northEastLat, southWestLat];
+                var maxLng = _.max(lngs);
+                var maxLat = _.max(lats);
+                var minLng = _.min(lngs);
+                var minLat = _.min(lats);
+                var boundsObj = {
+                    north: northEastLat,
+                    south: southWestLat,
+                    east: northEastLng,
+                    west: southWestLng
+                }
+                me.overlaycomplete(minLat, maxLat, minLng, maxLng, boundsObj);
             });
+            this.drawManager = drawingManager;
         },
-        overlaycomplete: function(e) {
-            var maxLng = 0,
-                maxLat = 0,
-                minLng = 0,
-                minLat = 0;
-            var overlay = e.overlay;
-            this.drawManager.close();
-            var points = overlay.getPath();
-            if (points.length > 0) {
-                var lngs = _.map(points, 'lng');
-                var lats = _.map(points, 'lat');
-                maxLng = _.max(lngs);
-                maxLat = _.max(lats);
-                minLng = _.min(lngs);
-                minLat = _.min(lats);
-            }
+        overlaycomplete: function(minLat, maxLat, minLng, maxLng, boundsObj) {
             if (this.overlays.length == 2) {
                 var removeLay = this.overlays.splice(0, 1);
-                map._map.removeOverlay(removeLay[0].overlay);
+                removeLay[0].overlay.setMap(null);
             }
             this.overlays.push({
-                overlay: e.overlay,
+                overlay: boundsObj,
                 maxLng: maxLng,
                 maxLat: maxLat,
                 minLng: minLng,
@@ -167,25 +166,23 @@ define(function(require, exports, module) {
                 firstEl = '.js-firstPoint';
                 secondEl = '.js-secondPoint';
             } else {
-                this.clearOverLay();
                 common.layMsg('Tag data exception!');
                 return false;
             }
-            $(firstEl).eq(0).val(firstItem.minLng);
-            $(firstEl).eq(1).val(firstItem.minLat);
-            $(firstEl).eq(2).val(firstItem.maxLng);
-            $(firstEl).eq(3).val(firstItem.maxLat);
+            $(firstEl).eq(0).val(firstItem.minLng.toFixed(6));
+            $(firstEl).eq(1).val(firstItem.minLat.toFixed(6));
+            $(firstEl).eq(2).val(firstItem.maxLng.toFixed(6));
+            $(firstEl).eq(3).val(firstItem.maxLat.toFixed(6));
             if (secondEl) {
-                $(secondEl).eq(0).val(secondItem.minLng);
-                $(secondEl).eq(1).val(secondItem.minLat);
-                $(secondEl).eq(2).val(secondItem.maxLng);
-                $(secondEl).eq(3).val(secondItem.maxLat);
+                $(secondEl).eq(0).val(secondItem.minLng.toFixed(6));
+                $(secondEl).eq(1).val(secondItem.minLat.toFixed(6));
+                $(secondEl).eq(2).val(secondItem.maxLng.toFixed(6));
+                $(secondEl).eq(3).val(secondItem.maxLat.toFixed(6));
             }
-            this.pointArray = [];
+            this.bounds = [];
             // 保存每个矩形的点(最多两个矩形)
             for (var i = 0; i < len; i++) {
-                var points = overlays[i].overlay.getPath();
-                this.pointArray.push(_.map(points, function(item) { return item.lat + ',' + item.lng }));
+                this.bounds.push(overlays[i].overlay);
             }
         },
         clearAllData: function() {
@@ -193,13 +190,12 @@ define(function(require, exports, module) {
             common.removeLocationStorage('historyLocationParams');
             $('.js-firstPoint,.js-secondPoint').val('');
             for (var i = 0; i < this.overlays.length; i++) {
-                map._map.removeOverlay(me.overlays[i].overlay);
+                me.overlays[i].overlay.setMap(null);
             }
             $('#historyLocationList > table > tbody').empty().html(template.compile(tpls.list)({
                 data: []
             }));
-            this.initMapTime = null;
-            this.pointArray = [];
+            this.bounds = [];
             this.overlays = [];
             this.initControl();
         },
@@ -248,17 +244,17 @@ define(function(require, exports, module) {
                         secondPoint = this.overlays[1];
                     }
                     params = $.extend(params, {
-                        RFMinLng: firstPoint.minLng,
-                        RFMinLat: firstPoint.minLat,
-                        RFMaxLng: firstPoint.maxLng,
-                        RFMaxLat: firstPoint.maxLat
+                        RFMinLng: firstPoint.minLng.toFixed(6),
+                        RFMinLat: firstPoint.minLat.toFixed(6),
+                        RFMaxLng: firstPoint.maxLng.toFixed(6),
+                        RFMaxLat: firstPoint.maxLat.toFixed(6)
                     });
                     if (secondPoint) {
                         params = $.extend(params, {
-                            RTMinLng: secondPoint.minLng,
-                            RTMinLat: secondPoint.minLat,
-                            RTMaxLng: secondPoint.maxLng,
-                            RTMaxLat: secondPoint.maxLat
+                            RTMinLng: secondPoint.minLng.toFixed(6),
+                            RTMinLat: secondPoint.minLat.toFixed(6),
+                            RTMaxLng: secondPoint.maxLng.toFixed(6),
+                            RTMaxLat: secondPoint.maxLat.toFixed(6)
                         });
                     }
                 } else {
@@ -266,8 +262,8 @@ define(function(require, exports, module) {
                     return false;
                 }
                 // 查询参数保存
-                params.rectangle = this.pointArray; // 矩形原始点
-                common.setlocationStorage('historyLocationParams', JSON.stringify(params));
+                var searchParams = $.extend(params, { rectangle: this.bounds }); // 矩形原始点
+                common.setlocationStorage('historyLocationParams', JSON.stringify(searchParams));
                 common.ajax(api.historyQuery, params, function(res) {
                     if (res && res.status === 'SUCCESS') {
                         var data = res.content;

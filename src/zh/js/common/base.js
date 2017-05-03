@@ -23,7 +23,6 @@ define("base", [], function() {
             app: 'app.js',
             api: 'common/api',
             map: 'common/map',
-            google: 'common/google',
             constValue: 'common/constValue',
             router: 'common/router.js',
             common: 'common/common.js'

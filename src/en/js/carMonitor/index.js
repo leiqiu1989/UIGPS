@@ -7,7 +7,7 @@ define(function(require, exports, module) {
     require('zTree');
     require('excheck');
     require('exhide');
-    var map = require('map');
+    var map = require('google');
     // 模板
     var tpls = {
         index: require('../../tpl/carMonitor/index'),
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
             // 赋值为null是为了,地图infowindow里面的轨迹回放返回,重新加载导致timer计时器未clear
             window.monitorTimer = null;
             $('#main-content').empty().html(template.compile(tpls.index)());
-            map.init('monitorMap', null, true);
+            map.init('monitorMap');
             map.addDrawing(function(param) {
                 me.getDrawData(param);
             });
@@ -63,7 +63,7 @@ define(function(require, exports, module) {
             map.clearData();
             for (var i = 0; i < data.length; i++) {
                 data[i] = common.directForm(data[i]);
-                map.addTrackMark(data[i]);
+                map.addMonitorMark(data[i]);
             }
             // 绑定监控表格行单击事件
             map.bindMonitorListEvent();
@@ -341,7 +341,6 @@ define(function(require, exports, module) {
                 .on('click', '.js-origin', function() {
                     $('.vehicle-box').toggle();
                     $('.js-foldToggle').removeClass('foldDown').addClass('foldUp');
-                    map.moveOverView('down');
                     $('.monitorBody').hide();
                 })
                 // 切换OBD
@@ -362,7 +361,6 @@ define(function(require, exports, module) {
                         $(this).removeClass('foldDown').addClass('foldUp');
                         order = 'down';
                     }
-                    map.moveOverView(order);
                     $('.vehicle-box').hide();
                     $('.monitorBody').toggle();
                 })
@@ -401,7 +399,6 @@ define(function(require, exports, module) {
                 .on('click', '.js-vehicle-ok', function() {
                     $('.vehicle-box').hide();
                     $('.js-foldToggle').removeClass('foldUp').addClass('foldDown');
-                    map.moveOverView('up');
                     $('.monitorBody').show();
                     common.stopMonitorTimer();
                     me.getCarPositionList(null, true);

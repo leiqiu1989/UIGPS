@@ -101,7 +101,7 @@
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label" 结束时间</label>
+                                    <label class="layui-form-label">结束时间</label>
                                     <div class="layui-input-block">
                                         <input type="text" name="endDate" autocomplete="off" class="layui-input" />
                                     </div>
