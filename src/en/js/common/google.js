@@ -4,6 +4,7 @@ define(function(require, exports, module) {
     require('eventWrapper');
     require('draw');
     require('lodash');
+    require('markerwithlabel');
     var common = require('common');
 
     var map = function() {
@@ -194,12 +195,7 @@ define(function(require, exports, module) {
             var iconUrl = this.getIconUrl(data.Degrees, data.IsOnline);
             var currentPoint = new google.maps.LatLng(data.Lat, data.Lng);
             var icon = { url: iconUrl, size: new google.maps.Size(30, 30) };
-            var marker = new google.maps.Marker({
-                position: currentPoint,
-                map: me._map,
-                icon: icon
-            });
-            marker.setTitle(data.PlateNo);
+            var marker = this.addMarkerLabel(currentPoint, data.PlateNo, icon);
             // 创建信息窗口对象
             var infoWindow = new google.maps.InfoWindow({
                 content: me.getCarMonitorInfoWindow(data)
@@ -227,6 +223,21 @@ define(function(require, exports, module) {
             });
             this.monitorMarks.push(marker);
             this.monitorInfoWindows.push(infoWindow);
+        },
+        addMarkerLabel: function(latlng, content, icon) {
+            var me = this;
+            var marker = new MarkerWithLabel({
+                position: latlng,
+                map: me._map,
+                draggable: false,
+                raiseOnDrag: false,
+                labelContent: content,
+                labelAnchor: new google.maps.Point(38, 0),
+                labelClass: "labels",
+                labelStyle: { opacity: 1, border: '1px solid #000', color: '#333', backgroundColor: "#fff", padding: "5px" },
+                icon: icon
+            });
+            return marker;
         },
         // 车辆监控（列表和地图联动）
         bindMonitorListEvent: function(data) {
@@ -394,15 +405,11 @@ define(function(require, exports, module) {
             if (this.mouseMove_marker) {
                 this.mouseMove_marker.setMap(null);
             }
-            var marker = new google.maps.Marker({
-                position: latlng,
-                map: me._map,
-                icon: {
-                    url: window.DOMAIN + "/img/icon_pathway.png",
-                    size: new google.maps.Size(16, 16),
-                    origin: new google.maps.Point(0, 0)
-                },
-                title: "时间:" + point.GpsTime + " 速度:" + point.Speed + "km/h"
+            var content = "时间:" + point.GpsTime + "<br/>速度:" + point.Speed + "km/h";
+            var marker = this.addMarkerLabel(latlng, content, {
+                url: window.DOMAIN + "/img/icon_pathway.png",
+                size: new google.maps.Size(16, 16),
+                origin: new google.maps.Point(0, 0)
             });
             this.mouseMove_marker = marker;
             google.maps.event.addListener(marker, 'click', function() {

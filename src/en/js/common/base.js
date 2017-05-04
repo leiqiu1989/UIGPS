@@ -19,6 +19,7 @@ define("base", [], function() {
             draw: 'plugin/DrawingManager.js',
             validate: 'plugin/validate.min.js',
             chosen: 'plugin/chosen.jquery.min.js',
+            markerwithlabel: 'plugin/markerWithLabel.js',
             docEvent: 'common/docEvent.js',
             app: 'app.js',
             api: 'common/api',
