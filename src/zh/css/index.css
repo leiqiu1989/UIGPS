@@ -513,13 +513,16 @@ label.required:before {
   width: 100px !important; }
 
 .w-120 {
-  width: 120px; }
+  width: 120px !important; }
+
+.w-130 {
+  width: 130px !important; }
 
 .w-150 {
-  width: 150px; }
+  width: 150px !important; }
 
 .w-200 {
-  width: 200px; }
+  width: 200px !important; }
 
 .w-300 {
   width: 300px !important; }
@@ -688,6 +691,20 @@ dl dt {
   font-weight: initial; }
 dl dd {
   padding: 5px 12px; }
+
+.time-area {
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 5px;
+  cursor: pointer; }
+  .time-area:first-child {
+    padding-left: 10px; }
+  .time-area.active {
+    color: blue; }
+
+.border-right {
+  border-right: 1px solid #ccc; }
 
 /*ul-select样式*/
 .ul-select {
