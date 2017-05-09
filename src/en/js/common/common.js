@@ -65,27 +65,6 @@ define(function(require, exports, module) {
             group: 'resource',
             icon: 'icon-car'
         }, {
-            name: 'GPS device management',
-            code: '00020',
-            url: 'javascript:void(0)',
-            groupname: 'Vechile Info.',
-            group: 'resource',
-            icon: ''
-        }, {
-            name: 'Address book management',
-            code: '00021',
-            url: 'javascript:void(0)',
-            groupname: 'Vechile Info.',
-            group: 'resource',
-            icon: ''
-        }, {
-            name: 'Driver management',
-            code: '00022',
-            url: 'javascript:void(0)',
-            groupname: 'Vechile Info.',
-            group: 'resource',
-            icon: ''
-        }, {
             name: 'Commands Sent',
             code: '00029',
             url: '#sendCode/index',
@@ -148,23 +127,6 @@ define(function(require, exports, module) {
     };
 
     /**********template helper 公共方法***********/
-    template.helper('deviceFaultProcessDesc', function(key) {
-        var processDesc = '';
-        switch (key) {
-            case 1:
-                processDesc = 'Unprocessed';
-                break;
-            case 2:
-                processDesc = 'Processing';
-                break;
-            case 3:
-                processDesc = 'Processing complete';
-                break;
-            default:
-                break;
-        }
-        return processDesc;
-    });
     // 地图方向转换
     template.helper('directForm', function(direction) {
         var flags;
@@ -525,13 +487,9 @@ define(function(require, exports, module) {
             common.setCookie('token', '', -1);
             common.removeLocationStorage('arrVids');
             common.removeLocationStorage('historyLocationParams'); //历史位置查询
-            common.removeLocationStorage('carManagerParams'); //车辆管理
-            common.removeLocationStorage('complaintManagerParams'); //投诉管理
+            common.removeLocationStorage('carManagerParams'); //车辆管理            
             common.removeLocationStorage('userManagerParams'); //组织用户
-            common.removeLocationStorage('roleManagerSearchParams'); //角色管理
-            common.removeLocationStorage('orderManagerSearchParams'); //订单管理
-            common.removeLocationStorage('orderConfigParams'); //车辆订单配置
-            common.removeLocationStorage('seatsManagerSearchParams'); // 坐席管理
+            common.removeLocationStorage('roleManagerSearchParams'); //角色管理            
             common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，

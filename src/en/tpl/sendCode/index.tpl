@@ -9,9 +9,9 @@
                     <div class="layui-form auto-label-width">
                         <div class="layui-form-row clearfix">
                             <div class="layui-form-item">
-                                <label class="layui-form-label required">回传间隔</label>
+                                <label class="layui-form-label required">Return interval</label>
                                 <div class="layui-input-block">
-                                    <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="单位:秒" />
+                                    <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="unit:second" />
                                 </div>
                             </div>
                         </div>
@@ -22,9 +22,9 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label required">短消息</label>
+                            <label class="layui-form-label required">Short message</label>
                             <div class="layui-input-block">
-                                <textarea placeholder="最多只能输入50个字符" maxlength="50" name="txtMessage" class="layui-textarea"></textarea>
+                                <textarea placeholder="You can only enter a maximum of 50 characters" maxlength="50" name="txtMessage" class="layui-textarea"></textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">

@@ -25,8 +25,8 @@ define(function(require, exports, module) {
             this.getData();
         },
         initControl: function() {
-            common.initDateTime('input[name="startTime"]', 'Y-m-d');
-            common.initDateTime('input[name="endTime"]', 'Y-m-d');
+            common.initDateTime('input[name="startTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+            common.initDateTime('input[name="endTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
         },
         getData: function() {
             var me = this;
@@ -78,21 +78,58 @@ define(function(require, exports, module) {
             var me = this;
             // 所属机构事件监听
             common.listenOrganization();
-            // 查询-事件监听
-            $('.panel-toolbar').on('click', '.js_search', function(event) {
-                me.getParams(true);
-                common.changeHash('#roleManager/index/', me.searchParam);
-            }).on('click', '.js_list_reset', function() {
-                common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
-                me.getParams(false);
-                common.changeHash('#roleManager/index/', me.searchParam);
-            });
             // 事件监听
             $('#main-content').off()
+                // 导出
                 .on('click', '.js_list_export', function() {
                     me.exportCarList($(this));
+                })
+                // 查询
+                .on('click', '.js_search', function(event) {
+                    me.getParams(true);
+                    common.changeHash('#roleManager/index/', me.searchParam);
+                })
+                // 重置
+                .on('click', '.js_list_reset', function() {
+                    common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
+                    me.getParams(false);
+                    common.changeHash('#roleManager/index/', me.searchParam);
+                })
+                // 时间切换
+                .on('click', '.time-area', function() {
+                    $(this).siblings().removeClass('active');
+                    $(this).toggleClass('active');
+                    var type = $(this).data('type');
+                    //按周日为一周的最后一天计算
+                    var date = new Date();
+                    var startTime = null;
+                    var endTime = date.format('yyyy-MM-dd');
+                    switch (type) {
+                        case 'week':
+                            var this_day = date.getDay(); //今天是这周的第几天
+                            var step_s = -this_day + 1; //上周日距离今天的天数（负数表示）
+                            if (this_day === 0) {
+                                step_s = -7; // 如果今天是周日
+                            }
+                            // var step_m = 7 - this_day; // 周日距离今天的天数（负数表示）
+                            var thisTime = date.getTime();
+                            startTime = new Date(thisTime + step_s * 24 * 3600 * 1000).format('yyyy-MM-dd');
+                            break;
+                        case 'month':
+                            startTime = new Date(date.getFullYear(), date.getMonth(), 1).format('yyyy-MM-dd');
+                            break;
+                        case 'custom':
+                            startTime = date.format('yyyy-MM-dd');
+                            break;
+                    }
+                    if (type != 'custom') {
+                        $('input[name="startTime"],input[name="endTime"]').datetimepicker('destroy');
+                    } else {
+                        me.initTime();
+                    }
+                    $('input[name="startTime"]').val(startTime);
+                    $('input[name="endTime"]').val(endTime);
                 });
-
         }
     });
 

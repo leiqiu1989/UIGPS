@@ -1016,14 +1016,14 @@ dl dd {
 
 .mapToolbar {
   position: absolute;
-  top: 30px;
-  left: 90px;
+  top: 10px;
+  left: 150px;
   z-index: 1; }
   .mapToolbar .mapText {
-    line-height: 30px;
+    line-height: 32px;
     width: 300px;
-    height: 30px;
-    padding-left: 5px;
+    height: 32px;
+    padding: 0 11px 0 13px;
     border: 1px solid #ddd;
     box-shadow: 1px 1px 5px #a19f9e; }
   .mapToolbar .mapBtn, .mapToolbar .mapBtnSearch, .mapToolbar .mapBtnText {

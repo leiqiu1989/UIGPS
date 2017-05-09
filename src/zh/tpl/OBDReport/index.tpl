@@ -15,10 +15,10 @@
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label border-right">时间</label>
-                    <div class="layui-input-inline w-130">
-                        <span class="time-area">本周</span>
-                        <span class="time-area">本月</span>
-                        <span class="time-area" class="active">自定义</span>
+                    <div class="layui-input-inline w-150">
+                        <span class="time-area" data-type="week">本周</span>
+                        <span class="time-area" data-type="month">本月</span>
+                        <span class="time-area" data-type="custom" class="active">自定义</span>
                     </div>
                     <div class="layui-input-inline w-100">
                         <input type="text" name="startTime" readonly autocomplete="off" class="layui-input" />
@@ -28,8 +28,6 @@
                         <input type="text" name="endTime" readonly autocomplete="off" class="layui-input">
                     </div>
                 </div>
-            </div>
-            <div class="layui-form-item mt10">
                 <div class="layui-inline">
                     <label class="layui-form-label">车牌号码</label>
                     <div class="layui-input-block">

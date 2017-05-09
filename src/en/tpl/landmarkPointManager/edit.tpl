@@ -54,10 +54,7 @@
             </div>
             <div class="col-sm-8">
                 <div class="mapToolbar">
-                    <input type="text" class="mapText" name="searchTxt" placeholder="please input the location address" />
-                    <a href="javascript:" class="mapBtn mapBtnText js_mark_point_clear">Remove</a>
-                    <a href="javascript:" class="mapBtn mapBtnText js_mark_point">Remark the Punctuation</a>
-                    <a href="javascript:" class="mapBtn mapBtnSearch js_search_map"></a>
+                    <input type="text" class="mapText" name="searchTxt" id="searchTxt" placeholder="Enter a location" />
                 </div>
                 <div id="landMarkPointMap" style="width:100%;height:600px;" class="full">
                 </div>

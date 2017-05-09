@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     // 引入模块
     var common = require('common');
     var api = require('api');
-    var map = require('map');
     var validate = require('validate');
 
     require('lodash');

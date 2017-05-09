@@ -4,7 +4,7 @@ define(function(require, exports, module) {
     var common = require('common');
     var api = require('api');
     var validate = require('validate');
-    var map = require('map');
+    var map = require('google');
     require('marktool');
 
     // 模板
@@ -15,7 +15,6 @@ define(function(require, exports, module) {
     var landMarkPointEdit = function() {
         this.id = null;
         this.isEdit = null;
-        this.markTool = null;
         this.mark = null;
     };
 
@@ -29,15 +28,48 @@ define(function(require, exports, module) {
             var me = this;
             data = data || {};
             $('#main-content').empty().html(template.compile(tpls.edit)({ title: title, data: data }));
-            map.init('landMarkPointMap', null, false);
-            this.initMapTime = setInterval(function() {
-                if (map.isLoaded) {
-                    clearInterval(me.initMapTime);
-                    if (data && !$.isEmptyObject(data)) {
-                        me.bindMapData(data.Lng, data.Lat);
-                    }
+            map.init('landMarkPointMap');
+            if (data && !$.isEmptyObject(data)) {
+                me.bindMapData(data.Lat, data.Lng);
+            }
+            this.placeAutoComplete();
+        },
+        placeAutoComplete: function() {
+            var me = this;
+            var _map = map._map;
+            var input = document.getElementById('searchTxt');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+            var marker = new google.maps.Marker({
+                map: _map,
+                anchorPoint: new google.maps.Point(0, -29)
+            });
+            autocomplete.bindTo('bounds', _map);
+            autocomplete.addListener('place_changed', function() {
+                marker.setVisible(false);
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    common.layAlert("No details available for input: '" + place.name + "'");
+                    return;
                 }
-            }, 500);
+                // If the place has a geometry, then present it on a map.
+                if (place.geometry.viewport) {
+                    _map.fitBounds(place.geometry.viewport);
+                } else {
+                    _map.setCenter(place.geometry.location);
+                    _map.setZoom(17); // Why 17? Because it looks good.
+                }
+                marker.setIcon( /** @type {google.maps.Icon} */ ({
+                    url: place.icon,
+                    size: new google.maps.Size(71, 71),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(35, 35)
+                }));
+                marker.setPosition(place.geometry.location);
+                marker.setVisible(true);
+                me.getMapValue(place.geometry.location);
+                me.mark = marker;
+            });
         },
         initPage: function() {
             var me = this;
@@ -56,27 +88,50 @@ define(function(require, exports, module) {
             }
             this.event();
         },
-        bindMapData: function(lng, lat) {
+        bindMapData: function(lat, lng) {
             var me = this;
-            var point = new BMap.Point(lng, lat);
-            var geoc = new BMap.Geocoder();
-            geoc.getLocation(point, function(rs) {
-                var addComp = rs.addressComponents;
-                var address = addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber;
-                common.setElValue('input[name="searchTxt"]', address);
-                // 编辑
-                me.markTool = new BMapLib.MarkerTool(map._map, {
-                    autoClose: true,
-                    followText: 'Select the area to label',
+            lng = 104.123597;
+            lat = 30.600088;
+            var point = new google.maps.LatLng(lat, lng);
+            this.reverseGeocode(lat, lng, function(place) {
+                common.setElValue('input[name="searchTxt"]', place);
+                var marker = new google.maps.Marker({
+                    position: point,
+                    map: map._map,
+                    icon: {
+                        url: 'https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png',
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(35, 35)
+                    }
                 });
+                me.mark = marker;
+                map._map.setZoom(17);
                 map._map.panTo(point);
-                me.markTool.markPoint(point);
-                $('.js_mark_point').addClass('disabled');
+            });
+        },
+        reverseGeocode: function(lat, lng, fn) {
+            var _place = '';
+            var geocoder = new google.maps.Geocoder;
+            var latlng = { lat: parseFloat(lat), lng: parseFloat(lng) };
+            geocoder.geocode({ 'location': latlng }, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        _place = results[0].formatted_address;
+                    }
+                    if (results[1]) {
+                        _place = results[1].formatted_address;
+                    }
+                }
+                if (typeof fn == 'function') {
+                    fn.call(this, _place);
+                }
             });
         },
         submitForm: function() {
             var me = this;
-            if (this.markTool) {
+            if (this.mark) {
                 var url = this.isEdit ? api.landMarkPointManager.update : api.landMarkPointManager.add;
                 var params = {
                     LandMarkName: common.getElValue('input[name="LandMarkName"]'),
@@ -103,69 +158,9 @@ define(function(require, exports, module) {
                 return false;
             }
         },
-        locationSearch: function(searchTxt) {
-            var me = this;
-            // 清除地图所以图层
-            map.clearOverlays();
-            var options = {
-                onSearchComplete: function(result) {
-                    //查询结果状态码
-                    if (localSearch.getStatus() == BMAP_STATUS_SUCCESS) {
-                        var ur = result.ur;
-                        var points = [];
-                        var mapPoints = [];
-                        if (ur.length > 0) {
-                            $.each(ur, function(i, item) {
-                                points.push(item.point);
-                            });
-                        }
-                        if (points.length > 0) {
-                            $.each(points, function(i, item) {
-                                var point = new BMap.Point(item.lng, item.lat);
-                                mapPoints.push(point);
-                            });
-                        }
-                        $('.js_mark_point').addClass('disabled');
-                        me.convertMapSearch(mapPoints); //对结果进行处理
-                    } else {
-                        $('.js_mark_point').removeClass('disabled');
-                    }
-                }
-            };
-            var localSearch = new BMap.LocalSearch(map._map, options);
-            localSearch.search(searchTxt);
-        },
-        convertMapSearch: function(mapPoints) {
-            map.setCenterAndZoom(mapPoints);
-            if (!this.markTool) {
-                this.markTool = new BMapLib.MarkerTool(map._map, {
-                    autoClose: true,
-                    followText: 'Select the area to label',
-                });
-            }
-            map._map.panTo(mapPoints[0]);
-            this.markTool.markPoint(mapPoints[0]);
-            this.markToolEvent();
-            this.getMapValue(mapPoints[0]);
-        },
         getMapValue: function(point) {
-            $('.js-lng').val(point.lng);
-            $('.js-lat').val(point.lat);
-        },
-        markToolEvent: function() {
-            var me = this;
-            me.markTool.addEventListener("markend", function(evt) {
-                //if (!me.mark) {
-                me.mark = evt.marker;
-                me.mark.addEventListener('dragend', function(evt) {
-                    var evtPix = evt.pixel;
-                    var iconPix = new BMap.Pixel(evtPix.x, evtPix.y);
-                    var pt = map._map.pixelToPoint(iconPix);
-                    me.getMapValue(pt);
-                });
-                //}
-                me.getMapValue(evt.marker.point);
-            });
+            $('.js-lng').val(point.lng().toFixed(6));
+            $('.js-lat').val(point.lat().toFixed(6));
         },
         event: function() {
             var me = this;
@@ -175,43 +170,14 @@ define(function(require, exports, module) {
                 var lanMarkName = $.trim($('input[name="LandMarkName"]').val());
                 var remark = $.trim($('input[name="LandMarkName"]').val());
                 if (!lanMarkName || lanMarkName.length > 20) {
-                    common.layAlert('地标点名称不能为空，且最大长度20个字符!', { icon: 2 });
+                    common.layAlert('Name It can not be empty, and the maximum length of 20 characters!', { icon: 2 });
                     return false;
                 }
                 if (remark && remark.length > 50) {
-                    common.layAlert('最大长度50个字符!', { icon: 2 });
+                    common.layAlert('The maximum length of 50 characters!', { icon: 2 });
                     return false;
                 }
                 me.submitForm();
-            }).on('click', '.js_search_map', function() {
-                var searchTxt = $('input[name="searchTxt"]').val();
-                if (!$.trim(searchTxt)) {
-                    common.layAlert('Please enter the query conditions!', { icon: 2 });
-                    return false;
-                }
-                if (me.markTool) {
-                    me.markTool.setPoint(null);
-                }
-                me.locationSearch(searchTxt);
-            }).on('click', '.js_mark_point', function() {
-                if (!$(this).hasClass('disabled')) {
-                    $(this).addClass('disabled');
-                    me.markTool = new BMapLib.MarkerTool(map._map, {
-                        autoClose: true,
-                        followText: 'Select the area to label'
-                    });
-                    me.markToolEvent();
-                    me.markTool.open();
-                } else {
-                    return false;
-                }
-            }).on('click', '.js_mark_point_clear', function() {
-                map.clearOverlays();
-                $('.js_mark_point').removeClass('disabled');
-                $('input[name="searchTxt"]').val('');
-                $('.js-lng,.js-lat').val('');
-                me.markTool = null;
-                me.mark = null;
             });
         }
     });

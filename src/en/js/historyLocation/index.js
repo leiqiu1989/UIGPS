@@ -59,7 +59,7 @@ define(function(require, exports, module) {
                         lats = [];
                     var bounds = rectangle[i];
                     if (bounds && !_.isArray(bounds)) {
-                        new google.maps.Rectangle({
+                        var rectageObj = new google.maps.Rectangle({
                             strokeColor: '#000000',
                             strokeOpacity: 0.8,
                             strokeWeight: 3,
@@ -77,7 +77,8 @@ define(function(require, exports, module) {
                         var minLng = _.min(lngs);
                         var minLat = _.min(lats);
                         me.overlays.push({
-                            overlay: bounds,
+                            bounds: bounds,
+                            rectangle: rectageObj,
                             maxLng: maxLng,
                             maxLat: maxLat,
                             minLng: minLng,
@@ -133,17 +134,18 @@ define(function(require, exports, module) {
                     east: northEastLng,
                     west: southWestLng
                 }
-                me.overlaycomplete(minLat, maxLat, minLng, maxLng, boundsObj);
+                me.overlaycomplete(minLat, maxLat, minLng, maxLng, boundsObj, rectangle);
             });
             this.drawManager = drawingManager;
         },
-        overlaycomplete: function(minLat, maxLat, minLng, maxLng, boundsObj) {
+        overlaycomplete: function(minLat, maxLat, minLng, maxLng, boundsObj, rectangleObj) {
             if (this.overlays.length == 2) {
                 var removeLay = this.overlays.splice(0, 1);
-                removeLay[0].overlay.setMap(null);
+                removeLay[0].rectangle.setMap(null);
             }
             this.overlays.push({
-                overlay: boundsObj,
+                bounds: boundsObj,
+                rectangle: rectangleObj,
                 maxLng: maxLng,
                 maxLat: maxLat,
                 minLng: minLng,
@@ -182,7 +184,7 @@ define(function(require, exports, module) {
             this.bounds = [];
             // 保存每个矩形的点(最多两个矩形)
             for (var i = 0; i < len; i++) {
-                this.bounds.push(overlays[i].overlay);
+                this.bounds.push(overlays[i].bounds);
             }
         },
         clearAllData: function() {
@@ -190,7 +192,7 @@ define(function(require, exports, module) {
             common.removeLocationStorage('historyLocationParams');
             $('.js-firstPoint,.js-secondPoint').val('');
             for (var i = 0; i < this.overlays.length; i++) {
-                me.overlays[i].overlay.setMap(null);
+                me.overlays[i].rectangle.setMap(null);
             }
             $('#historyLocationList > table > tbody').empty().html(template.compile(tpls.list)({
                 data: []
@@ -207,7 +209,7 @@ define(function(require, exports, module) {
         event: function() {
             var me = this;
             $('#main-content').off()
-                // 清除overlay
+                // 清除覆盖物
                 .on('click', '.js-clear-overlay', function() {
                     me.clearAllData();
                 })
@@ -258,7 +260,7 @@ define(function(require, exports, module) {
                         });
                     }
                 } else {
-                    common.layMsg('参数异常,请联系管理员!');
+                    common.layMsg('Abnormal parameters, please contact the administrator!');
                     return false;
                 }
                 // 查询参数保存
