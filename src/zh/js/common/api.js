@@ -93,7 +93,9 @@ define(function(require, exports, module) {
         },
         // 报表管理
         reportManager: {
-            obdReport: remoteUrl + '/obd/report'
+            obdReport: remoteUrl + '/obd/report', // obd报表
+            mileageReport: remoteUrl + '/position/report', // 里程报表
+            alarmReport: remoteUrl + '/alarm/report' // 报警报表
         }
     };
     return api;

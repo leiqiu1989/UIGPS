@@ -209,6 +209,39 @@ define(function(require, exports, module) {
                 }
             });
         },
+        // 日期区间选择
+        initDateRangeChange: function(type) {
+            //按周日为一周的最后一天计算
+            var date = new Date();
+            var startTime = null;
+            var endTime = date.format('yyyy-MM-dd');
+            switch (type) {
+                case 'week':
+                    var this_day = date.getDay(); //今天是这周的第几天
+                    var step_s = -this_day + 1; //上周日距离今天的天数（负数表示）
+                    if (this_day === 0) {
+                        step_s = -7; // 如果今天是周日
+                    }
+                    // var step_m = 7 - this_day; // 周日距离今天的天数（负数表示）
+                    var thisTime = date.getTime();
+                    startTime = new Date(thisTime + step_s * 24 * 3600 * 1000).format('yyyy-MM-dd');
+                    break;
+                case 'month':
+                    startTime = new Date(date.getFullYear(), date.getMonth(), 1).format('yyyy-MM-dd');
+                    break;
+                case 'custom':
+                    startTime = date.format('yyyy-MM-dd');
+                    break;
+            }
+            if (type != 'custom') {
+                $('input[name="startTime"],input[name="endTime"]').datetimepicker('destroy');
+            } else {
+                this.initDateTime('input[name="startTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+                this.initDateTime('input[name="endTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+            }
+            $('input[name="startTime"]').val(startTime);
+            $('input[name="endTime"]').val(endTime);
+        },
         // 初始化日期
         initDateTime: function(el, formatStyle, hasDefValue, defValueformat, timePickerBool, minDate, maxDate) {
             formatStyle = formatStyle || 'Y-m-d H:i';
@@ -342,18 +375,10 @@ define(function(require, exports, module) {
                 format: 'Y/m/d H:i'
             };
             var startOpts = $.extend({}, opts, {
-                maxDate: currentDate,
-                // onChangeDateTime: function(ct, $input) {
-                //     var endTime = $(endEl).val();
-                //     common.checkTime(endTime, ct, interVals);
-                // }
+                maxDate: currentDate
             });
             var endOpts = $.extend({}, opts, {
-                maxDate: currentDate,
-                // onChangeDateTime: function(ct, $input) {
-                //     var startTime = $(startEl).val();
-                //     common.checkTime(ct, startTime, interVals);
-                // }
+                maxDate: currentDate
             });
             $(startEl).datetimepicker(startOpts);
             $(endEl).datetimepicker(endOpts);

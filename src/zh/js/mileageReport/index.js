@@ -6,12 +6,12 @@ define(function(require, exports, module) {
     require('lodash');
     // 模板
     var tpls = {
-        index: require('../../tpl/OBDReport/index'),
-        list: require('../../tpl/OBDReport/list')
+        index: require('../../tpl/mileageReport/index'),
+        list: require('../../tpl/mileageReport/list')
     };
 
-    function obdReport() {}
-    $.extend(obdReport.prototype, {
+    function mileageReport() {}
+    $.extend(mileageReport.prototype, {
         init: function(param) {
             // 初始化查询条件参数
             this.getParams(param);
@@ -35,15 +35,15 @@ define(function(require, exports, module) {
             // 将查询条件保存到localStorage里面
             common.setlocationStorage('obdReportSearchParams', JSON.stringify(this.searchParam));
             common.loading('show');
-            common.ajax(api.reportManager.obdReport, param, function(res) {
+            common.ajax(api.reportManager.mileageReport, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#obdReportList > table > tbody').empty().html(template.compile(tpls.list)({
+                    $('#mileageReportList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.pageNumber = currPage;
-                        common.changeHash('#OBDReport/index/', me.searchParam);
+                        common.changeHash('#mileageReport/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';
@@ -105,9 +105,9 @@ define(function(require, exports, module) {
         }
     });
 
-    var _obdReport = new obdReport();
+    var _mileageReport = new mileageReport();
 
     exports.init = function(param) {
-        _obdReport.init(param);
+        _mileageReport.init(param);
     };
 });

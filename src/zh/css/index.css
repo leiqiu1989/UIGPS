@@ -427,6 +427,9 @@
 .layui-input-block-button {
   margin-left: 85px; }
 
+.layui-input-text {
+  width: 173px; }
+
 label.required:before {
   content: "\2a";
   color: red;
