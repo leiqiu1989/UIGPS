@@ -294,6 +294,11 @@
         background: #fff url('./../img/messageicon.png') no-repeat 10px;
         margin-left: 50px;
     }
+    .mapAlarm {
+        @extend .icon;
+        background: #fff url('./../img/messageicon.png') no-repeat 10px;
+        margin-left: 10px;
+    }
 }
 
 

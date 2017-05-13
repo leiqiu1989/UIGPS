@@ -966,7 +966,7 @@ dl dd {
   top: 30px;
   left: 18%;
   font-size: 16px; }
-  .mapTools .icon, .mapTools .mapOBD {
+  .mapTools .icon, .mapTools .mapOBD, .mapTools .mapAlarm {
     display: inline-block;
     padding: 10px;
     padding-left: 40px;
@@ -1000,6 +1000,9 @@ dl dd {
   .mapTools .mapOBD {
     background: #fff url("./../img/messageicon.png") no-repeat 10px;
     margin-left: 50px; }
+  .mapTools .mapAlarm {
+    background: #fff url("./../img/messageicon.png") no-repeat 10px;
+    margin-left: 10px; }
 
 /*OBD信息*/
 .OBDInfo {

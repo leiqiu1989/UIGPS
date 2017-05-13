@@ -97,6 +97,9 @@
         <div class="mapOBD js-toggleOBD">
             OBD信息
         </div>
+        <div class="mapAlarm js-mapAlarm">
+            报 警
+        </div>
     </div>
     <!-- OBD信息列表 -->
     <div id="obdList" class="OBDInfo hidden">
