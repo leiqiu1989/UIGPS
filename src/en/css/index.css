@@ -688,6 +688,20 @@ dl dt {
 dl dd {
   padding: 5px 12px; }
 
+.time-area {
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 5px;
+  cursor: pointer; }
+  .time-area:first-child {
+    padding-left: 10px; }
+  .time-area.active {
+    color: blue; }
+
+.border-right {
+  border-right: 1px solid #ccc; }
+
 /*ul-select样式*/
 .ul-select {
   font-size: 14px;
@@ -945,7 +959,7 @@ dl dd {
   top: 30px;
   left: 18%;
   font-size: 16px; }
-  .mapTools .icon, .mapTools .mapOBD {
+  .mapTools .icon, .mapTools .mapOBD, .mapTools .mapAlarm {
     display: inline-block;
     padding: 10px;
     padding-left: 40px;
@@ -979,6 +993,9 @@ dl dd {
   .mapTools .mapOBD {
     background: #fff url("./../img/messageicon.png") no-repeat 10px;
     margin-left: 50px; }
+  .mapTools .mapAlarm {
+    background: #fff url("./../img/messageicon.png") no-repeat 10px;
+    margin-left: 10px; }
 
 /*OBD信息*/
 .OBDInfo {
