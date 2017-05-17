@@ -59,7 +59,7 @@
                     <a href="javascript:" class="mapBtn mapBtnText js_mark_point">标注地标点</a>
                     <a href="javascript:" class="mapBtn mapBtnSearch js_search_map"></a>
                 </div>
-                <div id="landMarkPointMap" style="width:100%;height:600px;" class="full">
+                <div id="landMarkPointMap" style="width:100%;height:600px;">
                 </div>
             </div>
         </div>

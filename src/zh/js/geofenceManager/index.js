@@ -80,6 +80,10 @@ define(function(require, exports, module) {
             common.listenOrganization();
             // 事件监听
             $('#main-content').off()
+                // 新增
+                .on('click', '.js_list_add', function() {
+                    common.changeHash('#geofenceManager/add');
+                })
                 // 导出
                 .on('click', '.js_list_export', function() {
                     me.exportCarList($(this));
@@ -97,13 +101,13 @@ define(function(require, exports, module) {
                 // 查询
                 .on('click', '.js_search', function(event) {
                     me.getParams(true);
-                    common.changeHash('#roleManager/index/', me.searchParam);
+                    common.changeHash('#geofenceManager/index/', me.searchParam);
                 })
                 // 重置
                 .on('click', '.js_list_reset', function() {
                     common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
                     me.getParams(false);
-                    common.changeHash('#roleManager/index/', me.searchParam);
+                    common.changeHash('#geofenceManager/index/', me.searchParam);
                 })
                 // 时间切换
                 .on('click', '.time-area', function() {
