@@ -80,6 +80,10 @@ define(function(require, exports, module) {
             common.listenOrganization();
             // 事件监听
             $('#main-content').off()
+                // 新增
+                .on('click', '.js_list_add', function() {
+                    common.changeHash('#geofenceManager/add');
+                })
                 // 导出
                 .on('click', '.js_list_export', function() {
                     me.exportCarList($(this));
@@ -87,7 +91,7 @@ define(function(require, exports, module) {
                 // 开票
                 .on('click', '.js_list_invoice', function() {
                     common.layUI({
-                        title: '开票',
+                        title: 'Invoice',
                         area: '500px',
                         btn: [],
                         content: template.compile(tpls.invoice)({ data: {} }),
