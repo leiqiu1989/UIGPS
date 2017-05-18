@@ -10,6 +10,9 @@ define(function(require, exports, module) {
     var page = require('page');
     require('lodash');
     require('chosen');
+    require('zTree');
+    require('excheck');
+    require('exhide');
     var layer = null;
     layui.use('layer', function() {
         layer = layui.layer;
@@ -808,7 +811,7 @@ define(function(require, exports, module) {
                             html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
                         });
                     }
-                    obj.$objs.html(html);
+                    obj.$objs.append(html);
                     obj.selected && obj.$objs.val(obj.selected);
                     callback && callback();
                 } else {
@@ -865,94 +868,95 @@ define(function(require, exports, module) {
             });
         },
         // 所属机构--tree
-        subordinateTree: function(el) {
+        subordinateTree: function(loadDevice, loadPlateNum, loadSIM, callback) {
+            loadDevice = loadDevice || true;
+            loadPlateNum = loadPlateNum || true;
+            loadSIM = loadSIM || true;
+            var me = this;
             $('.js-Subordinate').on('click', function() {
                 $(this).toggleClass('layui-form-selected');
             });
-            layui.use(['tree'], function() {
-                layui.tree({
-                    elem: '.layui-anim', //指定元素
-                    click: function(item) { //点击节点回调
-                        alert('当前节名称：' + item.name + '<br>全部参数：' + JSON.stringify(item));
+            var ztreeSetting = {
+                view: {
+                    selectedMulti: false,
+                    showIcon: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "OrgId",
+                        pIdKey: "ParentOrgId",
+                        rootPId: null
                     },
-                    nodes: [ //节点
-                        {
-                            name: '常用文件夹',
-                            id: 1,
-                            children: [{
-                                name: '所有未读（设置跳转）',
-                                id: 11
-                            }, {
-                                name: '置顶邮件',
-                                id: 12
-                            }, {
-                                name: '标签邮件',
-                                id: 13
-                            }]
-                        }, {
-                            name: '我的邮箱',
-                            id: 2,
-                            spread: true,
-                            children: [{
-                                name: 'QQ邮箱',
-                                id: 21,
-                                spread: true,
-                                children: [{
-                                    name: '收件箱',
-                                    id: 211,
-                                    children: [{
-                                        name: '所有未读',
-                                        id: 2111
-                                    }, {
-                                        name: '置顶邮件',
-                                        id: 2112
-                                    }, {
-                                        name: '标签邮件',
-                                        id: 2113
-                                    }]
-                                }, {
-                                    name: '已发出的邮件',
-                                    id: 212
-                                }, {
-                                    name: '垃圾邮件',
-                                    id: 213
-                                }]
-                            }, {
-                                name: '阿里云邮',
-                                id: 22,
-                                children: [{
-                                    name: '收件箱',
-                                    id: 221
-                                }, {
-                                    name: '已发出的邮件',
-                                    id: 222
-                                }, {
-                                    name: '垃圾邮件',
-                                    id: 223
-                                }]
-                            }]
-                        }, {
-                            name: '收藏夹',
-                            id: 3,
-                            alias: 'changyong',
-                            children: [{
-                                name: '爱情动作片',
-                                id: 31,
-                                alias: 'love'
-                            }, {
-                                name: '技术栈',
-                                id: 12,
-                                children: [{
-                                    name: '前端',
-                                    id: 121
-                                }, {
-                                    name: '全端',
-                                    id: 122
-                                }]
-                            }]
-                        }
-                    ]
-                });
+                    key: {
+                        name: "OrganizationName"
+                    }
+                },
+                callback: {
+                    onClick: zTreeOnClick
+                }
+            };
+            this.ajax(api.subordinateTree, {}, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var content = res.content || [];
+                    $.fn.zTree.init($("#orgTree"), ztreeSetting, content);
+                    var treeObj = $.fn.zTree.getZTreeObj("orgTree");
+                    treeObj.expandAll(true);
+                }
+            });
+
+            function zTreeOnClick(event, treeId, treeNode) {
+                var name = treeNode.OrganizationName;
+                var orgId = treeNode.OrgId;
+                var orgNo = treeNode.OrgNo;
+                event.stopPropagation();
+                event.preventDefault();
+                $('.js-Subordinate').removeClass('layui-form-selected');
+                $('input[name="txtSubordinate"]').data('orgId', orgId).val(name);
+                callback && callback(orgId, name);
+                // 获取设备编号
+                if (loadDevice) {
+                    me.getDeviceNum(orgNo);
+                }
+                // 获取车辆牌号
+                if (loadPlateNum) {
+                    me.getPlateNum(orgNo);
+                }
+            }
+        },
+        // 获取设备编号
+        getDeviceNum: function(orgNo) {
+            var me = this;
+            this.resetSelect('#selDevice');
+            me.getSelect({
+                url: api.getDevice,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['EquipmentId', 'EquipmentNo'],
+                obj: $('#selDevice')
+            }, function() {
+                me.layUIForm();
+            });
+        },
+        // 重置下拉框和内容
+        resetSelect: function(el) {
+            $(el).children('option:gt(0)').remove();
+            $(el).next().find(':text').val('').end().find('dl').empty();
+        },
+        // 获取车牌号码
+        getPlateNum: function(orgNo) {
+            var me = this;
+            this.resetSelect('#selPlateNumber');
+            me.getSelect({
+                url: api.getLienceList,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['PlateNo', 'PlateNo'],
+                obj: $('#selPlateNumber')
+            }, function() {
+                me.layUIForm();
             });
         }
     };

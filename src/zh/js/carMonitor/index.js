@@ -100,7 +100,6 @@ define(function(require, exports, module) {
                         name: "Name",
                         checked: "IsCheck"
                     }
-
                 }
             };
             common.ajax(api.vehicleList, {}, function(res) {

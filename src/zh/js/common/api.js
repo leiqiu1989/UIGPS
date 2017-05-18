@@ -48,6 +48,12 @@ define(function(require, exports, module) {
         areaQuery: remoteUrl + '/position/QueryVehicleByRectangle',
         // odb信息
         odbInfo: remoteUrl + '/obd/last',
+        // 组织机构列表-tree
+        subordinateTree: remoteUrl + '/ConditionInfo/OrgList',
+        // 获取设备编号-select，根据所属机构编号
+        getDevice: remoteUrl + '/ConditionInfo/DeviceNoList',
+        // 获取车牌号码-select，根据所属机构编号
+        getLienceList: remoteUrl + '/ConditionInfo/LicenseList',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表

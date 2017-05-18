@@ -9,8 +9,11 @@
                     <label class="layui-form-label">所属机构</label>
                     <div class="layui-input-block">
                         <div class="layui-unselect layui-form-select js-Subordinate">
-                            <div class="layui-select-title"><input type="text" placeholder="请选择所属机构" value="" readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i></div>
-                            <dl class="layui-anim layui-anim-upbit layui-box layui-tree">
+                            <div class="layui-select-title">
+                                <input type="text" placeholder="请选择所属机构" value="" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                <i class="layui-edge"></i>
+                            </div>
+                            <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
                             </dl>
                         </div>
                     </div>
@@ -33,7 +36,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">车牌号码</label>
                     <div class="layui-input-block">
-                        <select>
+                        <select id="selPlateNumber" name="selPlateNumber">
                             <option value="">请选择车牌号码</option>
                         </select>
                     </div>
@@ -41,7 +44,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">设备编号</label>
                     <div class="layui-input-block">
-                        <select>
+                        <select id="selDevice" name="selDevice">
                             <option value="">请选择设备编号</option>
                         </select>
                     </div>
