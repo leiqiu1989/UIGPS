@@ -11,6 +11,9 @@ define(function(require, exports, module) {
     var page = require('page');
     require('lodash');
     require('chosen');
+    require('zTree');
+    require('excheck');
+    require('exhide');
     var layer = null;
     layui.use('layer', function() {
         layer = layui.layer;
@@ -817,7 +820,7 @@ define(function(require, exports, module) {
                             html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
                         });
                     }
-                    obj.$objs.html(html);
+                    obj.$objs.append(html);
                     obj.selected && obj.$objs.val(obj.selected);
                     callback && callback();
                 } else {
@@ -873,6 +876,98 @@ define(function(require, exports, module) {
                 }
             });
         },
+        // 所属机构--tree
+        subordinateTree: function(loadDevice, loadPlateNum, loadSIM, callback) {
+            loadDevice = loadDevice || true;
+            loadPlateNum = loadPlateNum || true;
+            loadSIM = loadSIM || true;
+            var me = this;
+            $('.js-Subordinate').on('click', function() {
+                $(this).toggleClass('layui-form-selected');
+            });
+            var ztreeSetting = {
+                view: {
+                    selectedMulti: false,
+                    showIcon: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "OrgId",
+                        pIdKey: "ParentOrgId",
+                        rootPId: null
+                    },
+                    key: {
+                        name: "OrganizationName"
+                    }
+                },
+                callback: {
+                    onClick: zTreeOnClick
+                }
+            };
+            this.ajax(api.subordinateTree, {}, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var content = res.content || [];
+                    $.fn.zTree.init($("#orgTree"), ztreeSetting, content);
+                    var treeObj = $.fn.zTree.getZTreeObj("orgTree");
+                    treeObj.expandAll(true);
+                }
+            });
+
+            function zTreeOnClick(event, treeId, treeNode) {
+                var name = treeNode.OrganizationName;
+                var orgId = treeNode.OrgId;
+                var orgNo = treeNode.OrgNo;
+                event.stopPropagation();
+                event.preventDefault();
+                $('.js-Subordinate').removeClass('layui-form-selected');
+                $('input[name="txtSubordinate"]').data('orgId', orgId).val(name);
+                callback && callback(orgId, name);
+                // 获取设备编号
+                if (loadDevice) {
+                    me.getDeviceNum(orgNo);
+                }
+                // 获取车辆牌号
+                if (loadPlateNum) {
+                    me.getPlateNum(orgNo);
+                }
+            }
+        },
+        // 获取设备编号
+        getDeviceNum: function(orgNo) {
+            var me = this;
+            this.resetSelect('#selDevice');
+            me.getSelect({
+                url: api.getDevice,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['EquipmentId', 'EquipmentNo'],
+                obj: $('#selDevice')
+            }, function() {
+                me.layUIForm();
+            });
+        },
+        // 重置下拉框和内容
+        resetSelect: function(el) {
+            $(el).children('option:gt(0)').remove();
+            $(el).next().find(':text').val('').end().find('dl').empty();
+        },
+        // 获取车牌号码
+        getPlateNum: function(orgNo) {
+            var me = this;
+            this.resetSelect('#selPlateNumber');
+            me.getSelect({
+                url: api.getLienceList,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['PlateNo', 'PlateNo'],
+                obj: $('#selPlateNumber')
+            }, function() {
+                me.layUIForm();
+            });
+        }
     };
     return common;
 });
