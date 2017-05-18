@@ -8,9 +8,11 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">所属机构</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="至少输入3个字符搜索" value="<%= searchValue.orgName%>" />
-                        <ul class="ul-select hidden"></ul>
+                        <div class="layui-unselect layui-form-select js-Subordinate">
+                            <div class="layui-select-title"><input type="text" placeholder="请选择所属机构" value="" readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i></div>
+                            <dl class="layui-anim layui-anim-upbit layui-box layui-tree">
+                            </dl>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -18,28 +20,30 @@
                     <div class="layui-input-inline w-150">
                         <span class="time-area" data-type="week">本周</span>
                         <span class="time-area" data-type="month">本月</span>
-                        <span class="time-area" data-type="custom" class="active">自定义</span>
+                        <span class="time-area active" data-type="custom">自定义</span>
                     </div>
                     <div class="layui-input-inline w-100">
                         <input type="text" name="startTime" readonly autocomplete="off" class="layui-input" />
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline w-100">
-                        <input type="text" name="endTime" readonly autocomplete="off" class="layui-input">
+                        <input type="text" name="endTime" readonly autocomplete="off" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">车牌号码</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
-						</select>
+                        <select>
+                            <option value="">请选择车牌号码</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">设备编号</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
-						</select>
+                        <select>
+                            <option value="">请选择设备编号</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">

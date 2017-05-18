@@ -392,12 +392,6 @@ define(function(require, exports, module) {
             $(startEl).datetimepicker(startOpts);
             $(endEl).datetimepicker(endOpts);
         },
-        dialog: function(content, opts) {
-            dialog(content, $.extend({
-                mask: true,
-                titleClose: true
-            }, opts));
-        },
         layUI: function(opts) {
             opts = $.extend({}, {
                 type: 1,
@@ -434,62 +428,6 @@ define(function(require, exports, module) {
                 callback && callback();
             }, function() {
                 layer.closeAll();
-            });
-        },
-        // 自适应高度的dialog
-        autoAdaptionDialog: function(content, opts, callback) {
-            opts = _.isObject(opts) ? opts : {};
-            var option = $.extend({}, {
-                mask: true,
-                titleClose: true,
-                init: function() {
-                    if (callback) callback(this);
-                },
-                buttons: []
-            }, opts);
-            dialog(content, option);
-            // 通过js更改样式
-            $('.pop-content.alert .content').css({
-                'min-height': 0
-            });
-            $('.pop-content.alert .title').css({
-                'text-align': 'left'
-            });
-        },
-        // 通知提示
-        toast: function(content, type) {
-            type = type || 'error';
-            var isSuccess = type === 'success';
-            var textCls = isSuccess ? 'toastCls toastCls-success' : 'toastCls';
-            var iconCls = isSuccess ? 'fa fa-check-square' : 'fa fa-exclamation-circle';
-            var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
-            dialog(contentHtml, {
-                type: 'toast',
-                toastTime: 2000
-            });
-        },
-        // alert对话框(内容，类型，是否有确定按钮，按钮回调函数)
-        alert: function(content, type, hasOK, callback) {
-            hasOK = hasOK || false;
-            type = type || 'success';
-            var isSuccess = type === 'success';
-            var textCls = isSuccess ? 'alertCls-success' : 'alertCls-error';
-            var iconCls = isSuccess ? 'fa fa-check-square' : 'fa fa-exclamation-circle';
-            var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
-            dialog(contentHtml, {
-                buttons: hasOK ? [{
-                    name: 'OK',
-                    callback: function(d) {
-                        if (callback) callback();
-                        d.close();
-                    }
-                }] : []
-            });
-            // 通过js更改样式
-            $('.pop-content.alert .content').css({
-                'margin-top': 0,
-                'min-height': 0,
-                'padding': 0
             });
         },
         // 序列化参数
@@ -574,31 +512,6 @@ define(function(require, exports, module) {
                 callback: function(page) {
                     if (callback && _.isFunction(callback)) callback(page);
                 }
-            });
-        },
-        // confirm确认框
-        confirm: function(content, callback) {
-            var contentHtml = '<div class="confirmCls">' + content + '</div>';
-            dialog(contentHtml, {
-                type: 'confirm',
-                title: 'Hint',
-                titleClose: true,
-                buttons: [{
-                    name: 'OK',
-                    callback: function(d) {
-                        if (callback) callback();
-                        d.close();
-                    }
-                }, {
-                    name: 'Cancel',
-                    callback: function(d) {
-                        d.close();
-                    }
-                }]
-            });
-            // 通过js更改样式
-            $('.pop-content.confirm .content').css({
-                'min-height': 0
             });
         },
         // 遮罩层

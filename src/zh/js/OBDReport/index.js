@@ -27,6 +27,8 @@ define(function(require, exports, module) {
         initControl: function() {
             common.initDateTime('input[name="startTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
             common.initDateTime('input[name="endTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+            common.subordinateTree();
+            common.layUIForm();
         },
         getData: function() {
             var me = this;

@@ -18,6 +18,12 @@ define(function(require, exports, module) {
                 if (target.closest('ul.ul-select').size() < 1) {
                     $('ul.ul-select').addClass('hidden');
                 }
+                // 所属机构-tree
+                if (target.closest('div.js-Subordinate').size() == 1) {
+                    $('div.js-Subordinate').addClass('layui-form-selected');
+                } else {
+                    $('div.js-Subordinate').removeClass('layui-form-selected');
+                }
             }).on('click', '.js_logout', function() {
                 common.clearData();
                 window.location.hash = "#login/login";

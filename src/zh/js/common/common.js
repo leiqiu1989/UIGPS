@@ -383,12 +383,6 @@ define(function(require, exports, module) {
             $(startEl).datetimepicker(startOpts);
             $(endEl).datetimepicker(endOpts);
         },
-        dialog: function(content, opts) {
-            dialog(content, $.extend({
-                mask: true,
-                titleClose: true
-            }, opts));
-        },
         layUI: function(opts) {
             opts = $.extend({}, {
                 type: 1,
@@ -425,62 +419,6 @@ define(function(require, exports, module) {
                 callback && callback();
             }, function() {
                 layer.closeAll();
-            });
-        },
-        // 自适应高度的dialog
-        autoAdaptionDialog: function(content, opts, callback) {
-            opts = _.isObject(opts) ? opts : {};
-            var option = $.extend({}, {
-                mask: true,
-                titleClose: true,
-                init: function() {
-                    if (callback) callback(this);
-                },
-                buttons: []
-            }, opts);
-            dialog(content, option);
-            // 通过js更改样式
-            $('.pop-content.alert .content').css({
-                'min-height': 0
-            });
-            $('.pop-content.alert .title').css({
-                'text-align': 'left'
-            });
-        },
-        // 通知提示
-        toast: function(content, type) {
-            type = type || 'error';
-            var isSuccess = type === 'success';
-            var textCls = isSuccess ? 'toastCls toastCls-success' : 'toastCls';
-            var iconCls = isSuccess ? 'fa fa-check-square' : 'fa fa-exclamation-circle';
-            var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
-            dialog(contentHtml, {
-                type: 'toast',
-                toastTime: 2000
-            });
-        },
-        // alert对话框(内容，类型，是否有确定按钮，按钮回调函数)
-        alert: function(content, type, hasOK, callback) {
-            hasOK = hasOK || false;
-            type = type || 'success';
-            var isSuccess = type === 'success';
-            var textCls = isSuccess ? 'alertCls-success' : 'alertCls-error';
-            var iconCls = isSuccess ? 'fa fa-check-square' : 'fa fa-exclamation-circle';
-            var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
-            dialog(contentHtml, {
-                buttons: hasOK ? [{
-                    name: '确 定',
-                    callback: function(d) {
-                        if (callback) callback();
-                        d.close();
-                    }
-                }] : []
-            });
-            // 通过js更改样式
-            $('.pop-content.alert .content').css({
-                'margin-top': 0,
-                'min-height': 0,
-                'padding': 0
             });
         },
         // 序列化参数
@@ -565,31 +503,6 @@ define(function(require, exports, module) {
                 callback: function(page) {
                     if (callback && _.isFunction(callback)) callback(page);
                 }
-            });
-        },
-        // confirm确认框
-        confirm: function(content, callback) {
-            var contentHtml = '<div class="confirmCls">' + content + '</div>';
-            dialog(contentHtml, {
-                type: 'confirm',
-                title: '提 示',
-                titleClose: true,
-                buttons: [{
-                    name: '确 定',
-                    callback: function(d) {
-                        if (callback) callback();
-                        d.close();
-                    }
-                }, {
-                    name: '取 消',
-                    callback: function(d) {
-                        d.close();
-                    }
-                }]
-            });
-            // 通过js更改样式
-            $('.pop-content.confirm .content').css({
-                'min-height': 0
             });
         },
         // 遮罩层
@@ -951,6 +864,97 @@ define(function(require, exports, module) {
                 }
             });
         },
+        // 所属机构--tree
+        subordinateTree: function(el) {
+            $('.js-Subordinate').on('click', function() {
+                $(this).toggleClass('layui-form-selected');
+            });
+            layui.use(['tree'], function() {
+                layui.tree({
+                    elem: '.layui-anim', //指定元素
+                    click: function(item) { //点击节点回调
+                        alert('当前节名称：' + item.name + '<br>全部参数：' + JSON.stringify(item));
+                    },
+                    nodes: [ //节点
+                        {
+                            name: '常用文件夹',
+                            id: 1,
+                            children: [{
+                                name: '所有未读（设置跳转）',
+                                id: 11
+                            }, {
+                                name: '置顶邮件',
+                                id: 12
+                            }, {
+                                name: '标签邮件',
+                                id: 13
+                            }]
+                        }, {
+                            name: '我的邮箱',
+                            id: 2,
+                            spread: true,
+                            children: [{
+                                name: 'QQ邮箱',
+                                id: 21,
+                                spread: true,
+                                children: [{
+                                    name: '收件箱',
+                                    id: 211,
+                                    children: [{
+                                        name: '所有未读',
+                                        id: 2111
+                                    }, {
+                                        name: '置顶邮件',
+                                        id: 2112
+                                    }, {
+                                        name: '标签邮件',
+                                        id: 2113
+                                    }]
+                                }, {
+                                    name: '已发出的邮件',
+                                    id: 212
+                                }, {
+                                    name: '垃圾邮件',
+                                    id: 213
+                                }]
+                            }, {
+                                name: '阿里云邮',
+                                id: 22,
+                                children: [{
+                                    name: '收件箱',
+                                    id: 221
+                                }, {
+                                    name: '已发出的邮件',
+                                    id: 222
+                                }, {
+                                    name: '垃圾邮件',
+                                    id: 223
+                                }]
+                            }]
+                        }, {
+                            name: '收藏夹',
+                            id: 3,
+                            alias: 'changyong',
+                            children: [{
+                                name: '爱情动作片',
+                                id: 31,
+                                alias: 'love'
+                            }, {
+                                name: '技术栈',
+                                id: 12,
+                                children: [{
+                                    name: '前端',
+                                    id: 121
+                                }, {
+                                    name: '全端',
+                                    id: 122
+                                }]
+                            }]
+                        }
+                    ]
+                });
+            });
+        }
     };
     return common;
 });
