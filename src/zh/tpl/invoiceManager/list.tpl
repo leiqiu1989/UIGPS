@@ -1,40 +1,43 @@
 <% if(data && data.length >	0) {
 		for(var i = 0 , len = data.length; i < len; i++) {
 			var item = data[i];
+            var statusDesc= item.IsOpen == 1 ? 'Make Out an Invoice' : 'Not Invoiced';
 	%>
-    <tr>
+    <tr data-plateNo="<%= item.PlateNo %>" data-id="<%= item.Id %>" data-equipmentNo="<%= item.EquipmentNo %>" data-payTime="<%= item.PayTime %>" data-fee="<%= item.Fee %>">
         <td>
-            <%= item.Index %>
+            <%= item.Id %>
+        </td>
+        <td title="<%= item.EquipmentNo %>">
+            <%= item.EquipmentNo %>
         </td>
         <td title="<%= item.PlateNo %>">
             <%= item.PlateNo %>
         </td>
-        <td title="<%= item.Vid %>">
-            <%= item.Vid %>
+        <td title="<%= item.OrganizationName %>">
+            <%= item.OrganizationName %>
         </td>
-        <td title="<%= item.OrgName %>">
-            <%= item.OrgName %>
+        <td title="<%= item.PayTime %>">
+            <%= item.PayTime %>
         </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Fee %>">
+            <%= item.Fee %>
         </td>
-        <td title="<%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= statusDesc %>">
+            <%= statusDesc %>
+        </td>
+        <td title="<%= item.InvoiceTime %>">
+            <%= item.InvoiceTime %>
+        </td>
+        <td title="<%= item.Title %>">
+            <%= item.Title %>
+        </td>
+        <td title="<%= item.Drawer %>">
+            <%= item.Drawer %>
         </td>
         <td>
-            <%= item.Index %>
-        </td>
-        <td title="<%= item.PlateNo %>">
-            <%= item.PlateNo %>
-        </td>
-        <td title="<%= item.Vid %>">
-            <%= item.Vid %>
-        </td>
-        <td title="<%= item.OrgName %>">
-            <%= item.OrgName %>
-        </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
+            <% if(item.IsOpen !==1 ){ %>
+                <a class="td-operator js_list_invoice">开 票</a>
+                <% } %>
         </td>
     </tr>
     <% } } %>

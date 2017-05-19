@@ -54,6 +54,8 @@ define(function(require, exports, module) {
         getDevice: remoteUrl + '/ConditionInfo/DeviceNoList',
         // 获取车牌号码-select，根据所属机构编号
         getLienceList: remoteUrl + '/ConditionInfo/LicenseList',
+        // 获取SIM卡号码-select，根据所属机构编号
+        getSIMList: remoteUrl + '/ConditionInfo/SimList',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表
@@ -98,10 +100,22 @@ define(function(require, exports, module) {
             detail: remoteUrl + '/LandMark/QueryDetailById'
         },
         // 报表管理
-        reportManager: {
-            obdReport: remoteUrl + '/obd/report', // obd报表
-            mileageReport: remoteUrl + '/position/report', // 里程报表
-            alarmReport: remoteUrl + '/alarm/report' // 报警报表
+        reportManager: {},
+        // 发票管理
+        invoiceManager: {
+            list: remoteUrl + '/Invoice/QueryInvoiceList',
+            openInvoice: remoteUrl + '/Invoice/OpenInvoice',
+            export: remoteUrl + '/Invoice/Export'
+        },
+        // 服务到期管理
+        serverDueManager: {
+            list: remoteUrl + '/Simcard/QuerySimcardList',
+            export: remoteUrl + '/Simcard/Export'
+        },
+        // 续费记录管理
+        renewLogManager: {
+            list: remoteUrl + '/Recharge/QueryRechargeList',
+            export: remoteUrl + '/Recharge/Export'
         }
     };
     return api;

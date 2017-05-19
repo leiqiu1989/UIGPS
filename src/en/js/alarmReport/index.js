@@ -49,7 +49,7 @@ define(function(require, exports, module) {
                         common.changeHash('#alarmReport/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                 }
                 common.loading();

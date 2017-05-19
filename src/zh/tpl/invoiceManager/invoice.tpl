@@ -7,38 +7,39 @@
                         <div class='row'>
                             <div class="layui-form auto-label-width">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">车牌号码</label>
+                                    <label class="layui-form-label">车牌号码</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" maxlength="20" name="PlateNo" required type="text" />
+                                        <input class="layui-input no-border" disabled value="<%= plateNo %>" type="text" />
+
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">设备编号</label>
+                                    <label class="layui-form-label">设备编号</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" maxlength="20" name="PlateNo" required type="text" />
+                                        <input class="layui-input no-border" disabled value="<%= equipmentNo %>" type="text" />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">消费时间</label>
+                                    <label class="layui-form-label">消费时间</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" maxlength="20" name="PlateNo" required type="text" />
+                                        <input class="layui-input no-border" disabled value="<%= payTime %>" type="text" />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">金额</label>
+                                    <label class="layui-form-label">金额</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" maxlength="20" name="PlateNo" required type="text" />
+                                        <input class="layui-input no-border" disabled value="￥<%= fee %>" type="text" />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">发票抬头</label>
+                                    <label class="layui-form-label">发票抬头</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" maxlength="20" name="PlateNo" required type="text" />
+                                        <input class="layui-input" maxlength="30" name="txtInvoiceTitle" type="text" />
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
                                     <div class="layui-input-block">
-                                        <button class="layui-btn layui-btn-normal js_add_save">确 定</button>
+                                        <button type="button" class="layui-btn layui-btn-normal js_Inovice">确 定</button>
                                     </div>
                                 </div>
                             </div>

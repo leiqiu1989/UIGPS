@@ -72,7 +72,6 @@ define(function(require, exports, module) {
             lastLocation: remoteUrl + '/vehicle/get-last-location',
             historyLocation: remoteUrl + '/vehicle/get-history-location',
             sendGPS: remoteUrl + '/web/cmd/send'
-
         },
         //角色管理
         roleManager: {
@@ -101,17 +100,22 @@ define(function(require, exports, module) {
             detail: remoteUrl + '/LandMark/QueryDetailById'
         },
         // 报表管理
-        reportManager: {
-            obdReport: remoteUrl + '/obd/report'
-        },
+        reportManager: {},
         // 发票管理
         invoiceManager: {
             list: remoteUrl + '/Invoice/QueryInvoiceList',
             openInvoice: remoteUrl + '/Invoice/OpenInvoice',
             export: remoteUrl + '/Invoice/Export'
         },
+        // 服务到期管理
         serverDueManager: {
-            list: remoteUrl + '/Simcard/QuerySimcardList'
+            list: remoteUrl + '/Simcard/QuerySimcardList',
+            export: remoteUrl + '/Simcard/Export'
+        },
+        // 续费记录管理
+        renewLogManager: {
+            list: remoteUrl + '/Recharge/QueryRechargeList',
+            export: remoteUrl + '/Recharge/Export'
         }
     };
     return api;

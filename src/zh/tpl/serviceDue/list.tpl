@@ -1,25 +1,26 @@
 <% if(data && data.length >	0) {
 		for(var i = 0 , len = data.length; i < len; i++) {
 			var item = data[i];
+            var statusDesc = item.IsExpire == 0 ? 'Normal' : item.IsExpire ==1 ? 'Expiration' : '';
 	%>
     <tr>
         <td>
-            <%= item.Index %>
+            <%= item.SimCardId %>
+        </td>
+        <td title="<%= item.EquipmentNo %>">
+            <%= item.EquipmentNo %>
         </td>
         <td title="<%= item.PlateNo %>">
             <%= item.PlateNo %>
         </td>
-        <td title="<%= item.Vid %>">
-            <%= item.Vid %>
+        <td title="<%= item.OrganizationName %>">
+            <%= item.OrganizationName %>
         </td>
-        <td title="<%= item.OrgName %>">
-            <%= item.OrgName %>
+        <td title="<%= item.EndTime %>">
+            <%= item.EndTime %>
         </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
-        </td>
-        <td title="<%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= statusDesc %>">
+            <%= statusDesc %>
         </td>
     </tr>
     <% } } %>

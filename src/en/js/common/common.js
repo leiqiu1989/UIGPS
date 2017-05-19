@@ -199,7 +199,9 @@ define(function(require, exports, module) {
             });
         },
         // 日期区间选择
-        initDateRangeChange: function(type) {
+        initDateRangeChange: function(type, _startTime, _endTime) {
+            _startTime = _startTime || '';
+            _endTime = _endTime || '';
             //按周日为一周的最后一天计算
             var date = new Date();
             var startTime = null;
@@ -227,6 +229,15 @@ define(function(require, exports, module) {
             } else {
                 this.initDateTime('input[name="startTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
                 this.initDateTime('input[name="endTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+            }
+            if (_startTime) {
+                startTime = _startTime;
+            }
+            if (_endTime) {
+                endTime = _endTime;
+            }
+            if (!_startTime && !_endTime && type == 'custom') {
+                startTime = endTime = null;
             }
             $('input[name="startTime"]').val(startTime);
             $('input[name="endTime"]').val(endTime);
@@ -862,10 +873,14 @@ define(function(require, exports, module) {
             });
         },
         // 所属机构--tree
-        subordinateTree: function(loadDevice, loadPlateNum, loadSIM, callback, orgNo) {
-            loadDevice = _.isBoolean(loadDevice) ? loadDevice : true;
-            loadPlateNum = _.isBoolean(loadPlateNum) ? loadPlateNum : true;
-            loadSIM = _.isBoolean(loadSIM) ? loadSIM : true;
+        subordinateTree: function(option) {
+            option = option || {};
+            var opt = $.extend({}, {
+                loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
+                loadPlateNum: _.isBoolean(option.loadPlateNum) ? option.loadPlateNum : true,
+                loadSIM: _.isBoolean(option.loadSIM) ? option.loadSIM : true,
+                callback: option.callback || null
+            }, option);
             var me = this;
             $('.js-Subordinate').on('click', function() {
                 $(this).toggleClass('layui-form-selected');
@@ -901,16 +916,16 @@ define(function(require, exports, module) {
 
             function loadData(orgNo) {
                 // 获取设备编号
-                if (loadDevice) {
-                    me.getDeviceNum(orgNo);
+                if (opt.loadDevice) {
+                    me.getDeviceNum(orgNo, opt.EquipmentNo);
                 }
                 // 获取车辆牌号
-                if (loadPlateNum) {
-                    me.getPlateNum(orgNo);
+                if (opt.loadPlateNum) {
+                    me.getPlateNum(orgNo, opt.PlateNo);
                 }
                 // 获取sim卡号
-                if (loadSIM) {
-                    me.getSIMList(orgNo);
+                if (opt.loadSIM) {
+                    me.getSIMList(orgNo, opt.SimCardNo);
                 }
             }
 
@@ -921,16 +936,26 @@ define(function(require, exports, module) {
                 event.preventDefault();
                 $('.js-Subordinate').removeClass('layui-form-selected');
                 $('input[name="txtSubordinate"]').data('orgNo', orgNo).val(name);
-                callback && callback(orgNo, name);
+                opt.callback && opt.callback(orgNo, name);
                 loadData(orgNo);
             }
             // 外部传入，获取数据
-            if (orgNo) {
-                loadData(orgNo);
+            if (opt.orgNo) {
+                $('#txtSubordinate').data('orgNo', opt.orgNo);
+                loadData(opt.orgNo);
+            }
+            if (opt.timeType) {
+                $('span.time-area[data-type=' + opt.timeType + ']').addClass('active').siblings().removeClass('active');
+                this.initDateRangeChange(opt.timeType, opt.startTime, opt.endTime);
             }
         },
+        // 重置下拉框和内容
+        resetSelect: function(el) {
+            $(el).children('option:gt(0)').remove();
+            $(el).next().find(':text').val('').end().find('dl').empty();
+        },
         // 获取设备编号
-        getDeviceNum: function(orgNo) {
+        getDeviceNum: function(orgNo, currentVal) {
             var me = this;
             this.resetSelect('#selDevice');
             me.getSelect({
@@ -942,15 +967,16 @@ define(function(require, exports, module) {
                 obj: $('#selDevice')
             }, function() {
                 me.layUIForm();
+                if (currentVal) {
+                    $('#selDevice').val(currentVal).next().find(':text');
+                    var txtDevice = $('#selDevice > option:selected').text();
+                    $('#selDevice').next().find(':text').val(txtDevice).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
             });
         },
-        // 重置下拉框和内容
-        resetSelect: function(el) {
-            $(el).children('option:gt(0)').remove();
-            $(el).next().find(':text').val('').end().find('dl').empty();
-        },
         // 获取车牌号码
-        getPlateNum: function(orgNo) {
+        getPlateNum: function(orgNo, currentVal) {
             var me = this;
             this.resetSelect('#selPlateNumber');
             me.getSelect({
@@ -962,9 +988,15 @@ define(function(require, exports, module) {
                 obj: $('#selPlateNumber')
             }, function() {
                 me.layUIForm();
+                if (currentVal) {
+                    $('#selPlateNumber').val(currentVal).next().find(':text')
+                        .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
             });
         },
-        getSIMList: function(orgNo) {
+        // 获取sim卡号
+        getSIMList: function(orgNo, currentVal) {
             var me = this;
             this.resetSelect('#selSIM');
             me.getSelect({
@@ -976,25 +1008,12 @@ define(function(require, exports, module) {
                 obj: $('#selSIM')
             }, function() {
                 me.layUIForm();
+                if (currentVal) {
+                    $('#selSIM').val(currentVal).next().find(':text')
+                        .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
             });
-        },
-        // 初始化查询条件-根据所属机构查询 车牌号，设备编号，sim卡号，日期区间
-        initSearchCondition: function(param) {
-            param = param || {};
-            $('#txtSubordinate').data('orgNo', param.orgNo);
-            if (param.EquipmentNo) {
-                $('#selDevice').val(param.EquipmentNo).next().find(':text');
-                var txtDevice = $('#selDevice > option:selected').text();
-                $('#selDevice').next().find(':text').val(txtDevice).end().find('dd[lay-value=' + param.EquipmentNo + ']')
-                    .addClass('layui-this');
-            }
-            if (param.PlateNo) {
-                $('#selPlateNumber').val(param.PlateNo).next().find(':text')
-                    .val(param.PlateNo).end().find('dd[lay-value=' + param.PlateNo + ']')
-                    .addClass('layui-this');
-            }
-            $('span.time-area[data-type=' + param.timeType + ']').addClass('active').siblings().removeClass('active');
-            this.initDateRangeChange(param.timeType);
         }
     };
     return common;

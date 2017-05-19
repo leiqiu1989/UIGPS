@@ -5,7 +5,7 @@
 	%>
     <tr>
         <td>
-            <%= i %>
+            <%= item.SimCardId %>
         </td>
         <td title="<%= item.EquipmentNo %>">
             <%= item.EquipmentNo %>

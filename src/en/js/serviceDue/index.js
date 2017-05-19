@@ -26,26 +26,22 @@ define(function(require, exports, module) {
         },
         initControl: function() {
             var me = this;
-            common.subordinateTree(true, true, false, null, me.searchParam.orgNo);
+            common.subordinateTree({
+                loadSIM: false, //不加载sim
+                orgNo: me.searchParam.Subordinate, // 机构编号
+                EquipmentNo: me.searchParam.EquipmentNo, //设备编号
+                PlateNo: me.searchParam.PlateNo, //车牌号码                
+                timeType: me.searchParam.timeType, //时间类型
+                startTime: me.searchParam.StartTime, // 开始时间
+                endTime: me.searchParam.EndTime // 结束时间
+            });
+            // status
+            $('#selStatus').val(me.searchParam.IsExpire);
+            var txtStatus = $('#selStatus > option:selected').text();
+            $('#selStatus').next().find(':text').val(txtStatus).end()
+                .find('dd[lay-value=' + me.searchParam.IsExpire + ']').addClass('layui-this').siblings().removeClass('layui-this');
             common.layUIForm();
-            setTimeout(function() {
-                var orgNo = me.searchParam.orgNo;
-                var EquipmentNo = me.searchParam.EquipmentNo;
-                var PlateNo = me.searchParam.PlateNo;
-                var timeType = me.searchParam.timeType;
-                // 绑定查询参数到控件
-                common.initSearchCondition({
-                    orgNo: orgNo,
-                    EquipmentNo: EquipmentNo,
-                    PlateNo: PlateNo,
-                    timeType: timeType
-                });
-                // status
-                $('#selStatus').val(me.searchParam.IsOpen);
-                var txtStatus = $('#selStatus > option:selected').text();
-                $('#selStatus').next().find(':text').val(txtStatus).end()
-                    .find('dd[lay-value=' + me.searchParam.IsOpen + ']').addClass('layui-this').siblings().removeClass('layui-this');
-            }, 500);
+
         },
         getData: function() {
             var me = this;
@@ -65,7 +61,7 @@ define(function(require, exports, module) {
                         common.changeHash('#serviceDue/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
                     common.layMsg(msg);
                     return false;
                 }
@@ -80,8 +76,8 @@ define(function(require, exports, module) {
             var _param = null;
             if (reset) {
                 _param = {
-                    OrgName: '',
-                    OrgNo: '',
+                    SubordinateName: '',
+                    Subordinate: '',
                     EquipmentNo: '',
                     PlateNo: '',
                     StartTime: '',
@@ -92,8 +88,8 @@ define(function(require, exports, module) {
             } else {
                 if (param && _.isEmpty(param)) {
                     _param = {
-                        OrgName: common.getElValue('#txtSubordinate'),
-                        OrgNo: $('#txtSubordinate').data('orgNo') || '',
+                        SubordinateName: common.getElValue('#txtSubordinate'),
+                        Subordinate: $('#txtSubordinate').data('orgNo') || '',
                         EquipmentNo: common.getElValue('#selDevice'),
                         PlateNo: common.getElValue('#selPlateNumber'),
                         StartTime: common.getElValue('#startTime'),
@@ -112,7 +108,7 @@ define(function(require, exports, module) {
             var userType = common.getCookie('usertype');
             var orgNo = common.getCookie('orgno');
             var token = common.getCookie('token');
-            var src = api.invoiceManager.export+'?AccountId=' + accountId + '&UserType=' + userType + '&OrgNo=' + orgNo + '&Token=' + token;
+            var src = api.serverDueManager.export+'?AccountId=' + accountId + '&UserType=' + userType + '&OrgNo=' + orgNo + '&Token=' + token;
             $.each(this.searchParam, function(key, value) {
                 src += '&' + key + '=' + value;
             });
