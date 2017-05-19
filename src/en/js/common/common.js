@@ -152,21 +152,6 @@ define(function(require, exports, module) {
         }
         return flags;
     });
-    template.helper('userStatus', function(key) {
-        return key == 0 ? 'Disabled' : key == 1 ? 'Enabled' : '';
-    });
-    template.helper('carStatus', function(key) {
-        return !key ? '' : key == 1 ? 'Online' : 'Offline';
-    });
-    template.helper('sliceDate', function(date) {
-        return date ? date.slice(0, 10) : '';
-    });
-    template.helper('GPSID', function(key) {
-        return !key ? '' : key.substr(key.length - 7);
-    });
-    template.helper('plateNumberColorDesc', function(key) {
-        return key == 1 ? 'Blue' : 'Yellow';
-    });
     template.helper('formateDate', function(key, format) {
         format = format || 'yyyy/MM/dd';
         return !key ? '' : new Date(key).format(format);
@@ -877,10 +862,10 @@ define(function(require, exports, module) {
             });
         },
         // 所属机构--tree
-        subordinateTree: function(loadDevice, loadPlateNum, loadSIM, callback) {
-            loadDevice = loadDevice || true;
-            loadPlateNum = loadPlateNum || true;
-            loadSIM = loadSIM || true;
+        subordinateTree: function(loadDevice, loadPlateNum, loadSIM, callback, orgNo) {
+            loadDevice = _.isBoolean(loadDevice) ? loadDevice : true;
+            loadPlateNum = _.isBoolean(loadPlateNum) ? loadPlateNum : true;
+            loadSIM = _.isBoolean(loadSIM) ? loadSIM : true;
             var me = this;
             $('.js-Subordinate').on('click', function() {
                 $(this).toggleClass('layui-form-selected');
@@ -914,15 +899,7 @@ define(function(require, exports, module) {
                 }
             });
 
-            function zTreeOnClick(event, treeId, treeNode) {
-                var name = treeNode.OrganizationName;
-                var orgId = treeNode.OrgId;
-                var orgNo = treeNode.OrgNo;
-                event.stopPropagation();
-                event.preventDefault();
-                $('.js-Subordinate').removeClass('layui-form-selected');
-                $('input[name="txtSubordinate"]').data('orgId', orgId).val(name);
-                callback && callback(orgId, name);
+            function loadData(orgNo) {
                 // 获取设备编号
                 if (loadDevice) {
                     me.getDeviceNum(orgNo);
@@ -931,6 +908,25 @@ define(function(require, exports, module) {
                 if (loadPlateNum) {
                     me.getPlateNum(orgNo);
                 }
+                // 获取sim卡号
+                if (loadSIM) {
+                    me.getSIMList(orgNo);
+                }
+            }
+
+            function zTreeOnClick(event, treeId, treeNode) {
+                var name = treeNode.OrganizationName;
+                var orgNo = treeNode.OrgNo;
+                event.stopPropagation();
+                event.preventDefault();
+                $('.js-Subordinate').removeClass('layui-form-selected');
+                $('input[name="txtSubordinate"]').data('orgNo', orgNo).val(name);
+                callback && callback(orgNo, name);
+                loadData(orgNo);
+            }
+            // 外部传入，获取数据
+            if (orgNo) {
+                loadData(orgNo);
             }
         },
         // 获取设备编号
@@ -967,6 +963,38 @@ define(function(require, exports, module) {
             }, function() {
                 me.layUIForm();
             });
+        },
+        getSIMList: function(orgNo) {
+            var me = this;
+            this.resetSelect('#selSIM');
+            me.getSelect({
+                url: api.getSIMList,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['SimCardNo', 'SimCardNo'],
+                obj: $('#selSIM')
+            }, function() {
+                me.layUIForm();
+            });
+        },
+        // 初始化查询条件-根据所属机构查询 车牌号，设备编号，sim卡号，日期区间
+        initSearchCondition: function(param) {
+            param = param || {};
+            $('#txtSubordinate').data('orgNo', param.orgNo);
+            if (param.EquipmentNo) {
+                $('#selDevice').val(param.EquipmentNo).next().find(':text');
+                var txtDevice = $('#selDevice > option:selected').text();
+                $('#selDevice').next().find(':text').val(txtDevice).end().find('dd[lay-value=' + param.EquipmentNo + ']')
+                    .addClass('layui-this');
+            }
+            if (param.PlateNo) {
+                $('#selPlateNumber').val(param.PlateNo).next().find(':text')
+                    .val(param.PlateNo).end().find('dd[lay-value=' + param.PlateNo + ']')
+                    .addClass('layui-this');
+            }
+            $('span.time-area[data-type=' + param.timeType + ']').addClass('active').siblings().removeClass('active');
+            this.initDateRangeChange(param.timeType);
         }
     };
     return common;

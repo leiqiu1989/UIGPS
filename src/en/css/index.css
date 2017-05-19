@@ -413,10 +413,14 @@
 
 .auto-label-width .layui-form-item > label,
 .auto-label-width .layui-inline > label {
-  width: 140px; }
+  width: 160px;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
 .auto-label-width .layui-form-item .layui-input-block,
 .auto-label-width .layui-inline .layui-input-block {
-  margin-left: 140px; }
+  margin-left: 160px; }
 
 .layui-form-inline .layui-form-item {
   margin-bottom: 0; }

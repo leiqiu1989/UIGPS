@@ -125,10 +125,14 @@
     .layui-form-item,
     .layui-inline {
         >label {
-            width: 140px;
+            width: 160px;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         .layui-input-block {
-            margin-left: 140px;
+            margin-left: 160px;
         }
     }
 }
