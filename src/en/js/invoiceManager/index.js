@@ -62,7 +62,7 @@ define(function(require, exports, module) {
                         data: data
                     }));
                     common.page(total, param.PageSize, param.PageIndex, function(currPage) {
-                        me.searchParam.pageNumber = currPage;
+                        me.searchParam.PageIndex = currPage;
                         common.changeHash('#invoiceManager/index/', me.searchParam);
                     });
                 } else {

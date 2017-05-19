@@ -109,6 +109,9 @@ define(function(require, exports, module) {
             list: remoteUrl + '/Invoice/QueryInvoiceList',
             openInvoice: remoteUrl + '/Invoice/OpenInvoice',
             export: remoteUrl + '/Invoice/Export'
+        },
+        serverDueManager: {
+            list: remoteUrl + '/Simcard/QuerySimcardList'
         }
     };
     return api;
