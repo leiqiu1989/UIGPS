@@ -8,38 +8,57 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">Subordinate</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="至少输入3个字符搜索" value="<%= searchValue.orgName%>" />
-                        <ul class="ul-select hidden"></ul>
+                        <div class="layui-unselect layui-form-select js-Subordinate">
+                            <div class="layui-select-title">
+                                <input type="text" placeholder="Select" id="txtSubordinate" value="<%= searchValue.SubordinateName %>" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                <i class="layui-edge"></i>
+                            </div>
+                            <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
+                            </dl>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label border-right">Time</label>
-                    <div class="layui-input-inline w-150">
-                        <span class="time-area" data-type="week">Month</span>
-                        <span class="time-area" data-type="month">Week</span>
-                        <span class="time-area" data-type="custom" class="active">Custom</span>
-                    </div>
-                    <div class="layui-input-inline w-100">
-                        <input type="text" name="startTime" readonly autocomplete="off" class="layui-input" />
-                    </div>
-                    <div class="layui-form-mid">-</div>
-                    <div class="layui-input-inline w-100">
-                        <input type="text" name="endTime" readonly autocomplete="off" class="layui-input">
+                    <label class="layui-form-label">Device NO</label>
+                    <div class="layui-input-block">
+                        <select id="selDevice" name="selDevice">
+                            <option value="">Select</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">License</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
+                        <select id="selPlateNumber" name="selPlateNumber">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item mt10">
+                <div class="layui-inline">
+                    <label class="layui-form-label">Status</label>
+                    <div class="layui-input-block">
+                        <select id="selStatus" name="selStatus">
+                            <option value="2">All</option>
+                            <option value="0">Normal</option>
+                            <option value="1">Expiration</option>
 						</select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">Device IMEI</label>
-                    <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
-						</select>
+                    <label class="layui-form-label border-right">Expiration Time</label>
+                    <div class="layui-input-inline w-150">
+                        <span class="time-area" data-type="week">Week</span>
+                        <span class="time-area" data-type="month">Month</span>
+                        <span class="time-area active" data-type="custom">Custom</span>
+                    </div>
+                    <div class="layui-input-inline w-100">
+                        <input type="text" id="startTime" name="startTime" value="<%= searchValue.STime %>" readonly autocomplete="off" class="layui-input" />
+                    </div>
+                    <div class="layui-form-mid">-</div>
+                    <div class="layui-input-inline w-100">
+                        <input type="text" id="endTime" name="endTime" value="<%= searchValue.ETime %>" readonly autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -50,10 +69,9 @@
         </div>
     </div>
     <div class="panel-toolbar">
-        <button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
-            <i class="fa fa-export"></i>
-            Export
-        </button>
+        <a class="layui-btn layui-btn-small layui-btn-normal js_list_export">
+            <i class="fa fa-export"></i> Export
+        </a>
     </div>
     <div class="panel-body no-padding grow">
         <div class="panel full no-margin flexbox">

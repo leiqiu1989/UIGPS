@@ -9,11 +9,11 @@
         <td title="<%= item.PlateNo %>">
             <%= item.PlateNo %>
         </td>
-        <td title="<%= item.Remark %>">
-            <%= item.Remark %>
+        <td title="<%= item.EquipmentNo %>">
+            <%= item.EquipmentNo %>
         </td>
-        <td title="<%= item.Vid %>">
-            <%= item.Vid %>
+        <td title="<%= item.Brand %>">
+            <%= item.Brand %>
         </td>
         <td title="<%= item.ModelYear %>">
             <%= item.ModelYear %>
@@ -21,11 +21,11 @@
         <td title="<%= item.OrgName %>">
             <%= item.OrgName %>
         </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Stime %>">
+            <%= item.Stime %>
         </td>
-        <td title="<%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Etime %>">
+            <%= item.Etime %>
         </td>
         <td title="<%= item.DrivingTimeString %>">
             <%= item.DrivingTimeString %>
@@ -42,8 +42,8 @@
         <td title="<%= item.AverageOilConsumption %>">
             <%= item.AverageOilConsumption %>
         </td>
-        <td title="<%= 0 %>">
-            <%= 0 %>
+        <td title="<%= item.AverageOilConsumption * 100 %>">
+            <%= item.AverageOilConsumption * 100 %>
         </td>
         <td title="<%= item.TotalFaultCodeCount %>">
             <%= item.TotalFaultCodeCount %>
@@ -55,7 +55,7 @@
             <%= item.TotalRapidDown %>
         </td>
         <td title="<%= item.TotalRapidCorner %>">
-            <%= item.TotalRapidDown %>
+            <%= item.TotalRapidCorner %>
         </td>
         <td title="<%= item.TotalRapidBrake %>">
             <%= item.TotalRapidBrake %>

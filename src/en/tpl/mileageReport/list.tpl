@@ -9,17 +9,17 @@
         <td title="<%= item.PlateNo %>">
             <%= item.PlateNo %>
         </td>
-        <td title="<%= item.Vid %>">
-            <%= item.Vid %>
+        <td title="<%= item.EquipmentNo %>">
+            <%= item.EquipmentNo %>
         </td>
         <td title="<%= item.OrgName %>">
             <%= item.OrgName %>
         </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Stime %>">
+            <%= item.Stime %>
         </td>
-        <td title="<%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Etime %>">
+            <%= item.Etime %>
         </td>
         <td title="<%= item.DrivingTimeString %>">
             <%= item.DrivingTimeString %>

@@ -8,16 +8,20 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">Subordinate</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="至少输入3个字符搜索" value="<%= searchValue.orgName%>" />
-                        <ul class="ul-select hidden"></ul>
+                        <div class="layui-unselect layui-form-select js-Subordinate">
+                            <div class="layui-select-title">
+                                <input type="text" placeholder="Select" id="txtSubordinate" value="<%= searchValue.SubordinateName %>" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                <i class="layui-edge"></i>
+                            </div>
+                            <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
+                            </dl>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">User</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
-						</select>
+                        <input type="text" id="userName" name="userName" placeholder="Enter UserName" value="<%= searchValue.UserName %>" autocomplete="off" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -25,14 +29,14 @@
                     <div class="layui-input-inline w-150">
                         <span class="time-area" data-type="week">Week</span>
                         <span class="time-area" data-type="month">Month</span>
-                        <span class="time-area" data-type="custom" class="active">Custom</span>
+                        <span class="time-area active" data-type="custom">Custom</span>
                     </div>
                     <div class="layui-input-inline w-100">
-                        <input type="text" name="startTime" readonly autocomplete="off" class="layui-input" />
+                        <input type="text" id="startTime" name="startTime" value="<%= searchValue.Stime %>" readonly autocomplete="off" class="layui-input" />
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline w-100">
-                        <input type="text" name="endTime" readonly autocomplete="off" class="layui-input">
+                        <input type="text" id="endTime" name="endTime" value="<%= searchValue.Etime %>" readonly autocomplete="off" class="layui-input" />
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -43,10 +47,9 @@
         </div>
     </div>
     <div class="panel-toolbar">
-        <button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
-            <i class="fa fa-export"></i>
-            Export
-        </button>
+        <a class="layui-btn layui-btn-small layui-btn-normal js_list_export">
+            <i class="fa fa-export"></i> Export
+        </a>
     </div>
     <div class="panel-body no-padding grow">
         <div class="panel full no-margin flexbox">
@@ -68,8 +71,8 @@
                                     <th>User</th>
                                     <th>Subordinate</th>
                                     <th>Time</th>
-                                    <th>Instruction</th>
-                                    <th>Speed(km/h)</th>
+                                    <th>Log Type</th>
+                                    <th>Log Content</th>
                                 </tr>
                             </thead>
                         </table>
