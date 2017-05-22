@@ -56,6 +56,8 @@ define(function(require, exports, module) {
         getLienceList: remoteUrl + '/ConditionInfo/LicenseList',
         // 获取SIM卡号码-select，根据所属机构编号
         getSIMList: remoteUrl + '/ConditionInfo/SimList',
+        // 获取警情-select
+        getAlarmList: remoteUrl + '/alarm/code-option',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表

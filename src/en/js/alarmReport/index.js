@@ -28,13 +28,20 @@ define(function(require, exports, module) {
             var me = this;
             common.subordinateTree({
                 loadSIM: false, //不加载sim
+                loadAlarm: true, // 加载警情
+                AlarmCode: me.searchParam.AlarmCode, //警情
                 orgNo: me.searchParam.Subordinate, // 机构编号
                 EquipmentNo: me.searchParam.EquipmentNo, //设备编号
                 PlateNo: me.searchParam.PlateNo, //车牌号码                
                 timeType: me.searchParam.timeType, //时间类型
-                startTime: me.searchParam.StartTime, // 开始时间
-                endTime: me.searchParam.EndTime // 结束时间
+                startTime: me.searchParam.STime, // 开始时间
+                endTime: me.searchParam.ETime // 结束时间
             });
+            // status
+            $('#selStatus').val(me.searchParam.AlarmStatus);
+            var txtStatus = $('#selStatus > option:selected').text();
+            $('#selStatus').next().find(':text').val(txtStatus).end()
+                .find('dd[lay-value=' + me.searchParam.AlarmStatus + ']').addClass('layui-this').siblings().removeClass('layui-this');
             common.layUIForm();
         },
         getData: function() {
@@ -42,17 +49,17 @@ define(function(require, exports, module) {
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
             common.loading('show');
-            common.ajax(api.systemLogManager.list, param, function(res) {
+            common.ajax(api.reportManager.alarmReport, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var content = res.content || {};
                     var total = content.TotalCount || 0;
                     var data = content.Page || [];
-                    $('#systemLogReportList > table > tbody').empty().html(template.compile(tpls.list)({
+                    $('#alarmReportList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data
                     }));
                     common.page(total, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.PageIndex = currPage;
-                        common.changeHash('#systemLog/index/', me.searchParam);
+                        common.changeHash('#alarmReport/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || 'System error, please contact the administrator!';
@@ -72,9 +79,12 @@ define(function(require, exports, module) {
                 _param = {
                     SubordinateName: '',
                     Subordinate: '',
-                    UserName: '',
-                    Stime: '',
-                    Etime: '',
+                    EquipmentNo: '',
+                    AlarmCode: '',
+                    PlateNo: '',
+                    STime: '',
+                    ETime: '',
+                    AlarmStatus: -1,
                     timeType: 'custom'
                 }
             } else {
@@ -82,10 +92,13 @@ define(function(require, exports, module) {
                     _param = {
                         SubordinateName: common.getElValue('#txtSubordinate'),
                         Subordinate: $('#txtSubordinate').data('orgNo') || '',
-                        UserName: common.getElValue('#userName'),
-                        Stime: common.getElValue('#startTime'),
-                        Etime: common.getElValue('#endTime'),
-                        timeType: $('span.time-area.active').attr('data-type') || 'custom'
+                        EquipmentNo: common.getElValue('#selDevice'),
+                        AlarmCode: common.getElValue('#selAlarm'),
+                        PlateNo: common.getElValue('#selPlateNumber'),
+                        STime: common.getElValue('#startTime'),
+                        ETime: common.getElValue('#endTime'),
+                        timeType: $('span.time-area.active').attr('data-type') || 'custom',
+                        AlarmStatus: common.getElValue('#selStatus') || -1
                     }
                 } else {
                     _param = param;
@@ -117,12 +130,16 @@ define(function(require, exports, module) {
                 // 查询
                 .on('click', '.js_list_search', function() {
                     me.getParams();
-                    common.changeHash('#systemLog/index/', me.searchParam);
+                    common.changeHash('#alarmReport/index/', me.searchParam);
+                })
+                // 详情
+                .on('click', '.js_list_detail', function() {
+                    common.layMsg('No Implementation');
                 })
                 // 重置
                 .on('click', '.js_list_reset', function() {
                     me.getParams(null, true);
-                    common.changeHash('#systemLog/index/', me.searchParam);
+                    common.changeHash('#alarmReport/index/', me.searchParam);
                 })
                 // 时间切换
                 .on('click', '.time-area', function() {

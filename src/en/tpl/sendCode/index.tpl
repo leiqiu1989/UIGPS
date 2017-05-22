@@ -7,12 +7,10 @@
             <div class="col-sm-4">
                 <div class="p15">
                     <div class="layui-form auto-label-width">
-                        <div class="layui-form-row clearfix">
-                            <div class="layui-form-item">
-                                <label class="layui-form-label required">Return interval</label>
-                                <div class="layui-input-block">
-                                    <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="unit:second" />
-                                </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label required">Return interval</label>
+                            <div class="layui-input-block">
+                                <input type="text" autocomplete="off" class="layui-input" name="txtInterval" placeholder="unit:second" />
                             </div>
                         </div>
                         <div class="layui-form-item">

@@ -97,7 +97,7 @@
         <div class="mapOBD js-toggleOBD">
             OBD Info
         </div>
-        <div class="mapAlarm js-mapAlarm">
+        <div class="mapAlarm js-mapAlarm hidden">
             Alarm
         </div>
     </div>
