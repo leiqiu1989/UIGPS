@@ -21,7 +21,7 @@
     <div class="panel-toolbar">
         <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
             <i class="fa fa-plus"></i>
-            Edit
+            Add
         </button>
     </div>
     <div class="panel-body no-padding grow">

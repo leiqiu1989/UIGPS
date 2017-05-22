@@ -57,7 +57,7 @@ define(function(require, exports, module) {
         //删除车辆
         deleteLandMarkPoint: function(id, confirmText) {
             var me = this;
-            common.confirm(confirmText, function() {
+            common.layConfirm(confirmText, function() {
                 common.loading('show', '数据正在处理中...');
                 common.ajax(api.landMarkPointManager.del, {
                     KeyIds: id

@@ -95,13 +95,16 @@
             <a href="javascript:void(0)" class="js-search-car"></a>
         </div>
         <div class="mapOBD js-toggleOBD">
-            OBD Info.
+            OBD Info
+        </div>
+        <div class="mapAlarm js-mapAlarm hidden">
+            Alarm
         </div>
     </div>
     <!-- OBD信息列表 -->
     <div id="obdList" class="OBDInfo hidden">
         <div class="obd-Title">
-            <span>OBD Info.</span>
+            <span>OBD Info</span>
             <div class="pull-right odb-close">X</div>
         </div>
         <div class="obd-Content">

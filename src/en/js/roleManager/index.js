@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     // 引入模块
     var common = require('common');
     var api = require('api');
-    var map = require('map');
     var validate = require('validate');
 
     require('lodash');
@@ -12,18 +11,18 @@ define(function(require, exports, module) {
     require('exhide');
     // 模板
     var tpls = {
-        carIndex: require('../../tpl/roleManager/index'),
-        carList: require('../../tpl/roleManager/list'),
+        index: require('../../tpl/roleManager/index'),
+        list: require('../../tpl/roleManager/list'),
         editRole: require('../../tpl/roleManager/editRole')
     };
 
-    function carList() {}
-    $.extend(carList.prototype, {
+    function roleList() {}
+    $.extend(roleList.prototype, {
         init: function(param) {
             // 初始化查询条件参数
             this.getParams(param);
             // 渲染模板
-            $('#main-content').empty().html(template.compile(tpls.carIndex)({ searchValue: this.searchParam }));
+            $('#main-content').empty().html(template.compile(tpls.index)({ searchValue: this.searchParam }));
             this.event();
             // 获取数据
             this.getData();
@@ -38,12 +37,12 @@ define(function(require, exports, module) {
             common.ajax(api.roleManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#rolelist > table > tbody').empty().html(template.compile(tpls.carList)({
+                    $('#rolelist > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.pageNumber = currPage;
-                        common.changeHash('#orderManager/index/', me.searchParam);
+                        common.changeHash('#roleManager/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || 'System error, please contact the administrator!';
@@ -76,7 +75,6 @@ define(function(require, exports, module) {
             $(el).attr('href', downSrc);
         },
         editRoleLayer: function(id) {
-            debugger;
             var me = this;
             id = id || null;
             var title = id ? 'Add' : 'Edit';
@@ -319,9 +317,9 @@ define(function(require, exports, module) {
         }
     });
 
-    var _carObj = new carList();
+    var _roleObj = new roleList();
 
     exports.init = function(param) {
-        _carObj.init(param);
+        _roleObj.init(param);
     };
 });

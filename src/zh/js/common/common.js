@@ -10,6 +10,9 @@ define(function(require, exports, module) {
     var page = require('page');
     require('lodash');
     require('chosen');
+    require('zTree');
+    require('excheck');
+    require('exhide');
     var layer = null;
     layui.use('layer', function() {
         layer = layui.layer;
@@ -63,27 +66,6 @@ define(function(require, exports, module) {
             groupname: '车辆信息',
             group: 'resource',
             icon: 'icon-car'
-        }, {
-            name: 'GPS设备管理',
-            code: '00020',
-            url: 'javascript:void(0)',
-            groupname: '车辆信息',
-            group: 'resource',
-            icon: ''
-        }, {
-            name: '通讯卡管理',
-            code: '00021',
-            url: 'javascript:void(0)',
-            groupname: '车辆信息',
-            group: 'resource',
-            icon: ''
-        }, {
-            name: '司机管理',
-            code: '00022',
-            url: 'javascript:void(0)',
-            groupname: '车辆信息',
-            group: 'resource',
-            icon: ''
         }, {
             name: '指令发送',
             code: '00029',
@@ -147,59 +129,27 @@ define(function(require, exports, module) {
     };
 
     /**********template helper 公共方法***********/
-    template.helper('deviceFaultProcessDesc', function(key) {
-        var processDesc = '';
-        switch (key) {
-            case 1:
-                processDesc = '未处理';
-                break;
-            case 2:
-                processDesc = '正在处理';
-                break;
-            case 3:
-                processDesc = '处理完成';
-                break;
-            default:
-                break;
-        }
-        return processDesc;
-    });
     // 地图方向转换
     template.helper('directForm', function(direction) {
         var flags;
         if (direction < 23 || direction > 338) {
-            flags = "北";
+            flags = "North";
         } else if (direction < 68) {
-            flags = "东北";
+            flags = "Northeast";
         } else if (direction < 113) {
-            flags = "东";
+            flags = "East";
         } else if (direction < 157) {
-            flags = "东南";
+            flags = "Southeast";
         } else if (direction < 203) {
-            flags = "南";
+            flags = "South";
         } else if (direction < 248) {
-            flags = "西南";
+            flags = "Southwest";
         } else if (direction < 293) {
-            flags = "西";
+            flags = "West";
         } else {
-            flags = "西北";
+            flags = "Northwest";
         }
         return flags;
-    });
-    template.helper('userStatus', function(key) {
-        return key == 0 ? '停用' : key == 1 ? '启用' : '';
-    });
-    template.helper('carStatus', function(key) {
-        return !key ? '' : key == 1 ? '在线' : '离线';
-    });
-    template.helper('sliceDate', function(date) {
-        return date ? date.slice(0, 10) : '';
-    });
-    template.helper('GPSID', function(key) {
-        return !key ? '' : key.substr(key.length - 7);
-    });
-    template.helper('plateNumberColorDesc', function(key) {
-        return key == 1 ? '蓝牌' : '黄牌';
     });
     template.helper('formateDate', function(key, format) {
         format = format || 'yyyy/MM/dd';
@@ -246,6 +196,50 @@ define(function(require, exports, module) {
                     me.layMsg(msg);
                 }
             });
+        },
+        // 日期区间选择
+        initDateRangeChange: function(type, _startTime, _endTime) {
+            _startTime = _startTime || '';
+            _endTime = _endTime || '';
+            //按周日为一周的最后一天计算
+            var date = new Date();
+            var startTime = null;
+            var endTime = date.format('yyyy-MM-dd');
+            switch (type) {
+                case 'week':
+                    var this_day = date.getDay(); //今天是这周的第几天
+                    var step_s = -this_day + 1; //上周日距离今天的天数（负数表示）
+                    if (this_day === 0) {
+                        step_s = -7; // 如果今天是周日
+                    }
+                    // var step_m = 7 - this_day; // 周日距离今天的天数（负数表示）
+                    var thisTime = date.getTime();
+                    startTime = new Date(thisTime + step_s * 24 * 3600 * 1000).format('yyyy-MM-dd');
+                    break;
+                case 'month':
+                    startTime = new Date(date.getFullYear(), date.getMonth(), 1).format('yyyy-MM-dd');
+                    break;
+                case 'custom':
+                    startTime = date.format('yyyy-MM-dd');
+                    break;
+            }
+            if (type != 'custom') {
+                $('input[name="startTime"],input[name="endTime"]').datetimepicker('destroy');
+            } else {
+                this.initDateTime('input[name="startTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+                this.initDateTime('input[name="endTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+            }
+            if (_startTime) {
+                startTime = _startTime;
+            }
+            if (_endTime) {
+                endTime = _endTime;
+            }
+            if (!_startTime && !_endTime && type == 'custom') {
+                startTime = endTime = null;
+            }
+            $('input[name="startTime"]').val(startTime);
+            $('input[name="endTime"]').val(endTime);
         },
         // 初始化日期
         initDateTime: function(el, formatStyle, hasDefValue, defValueformat, timePickerBool, minDate, maxDate) {
@@ -380,27 +374,13 @@ define(function(require, exports, module) {
                 format: 'Y/m/d H:i'
             };
             var startOpts = $.extend({}, opts, {
-                maxDate: currentDate,
-                // onChangeDateTime: function(ct, $input) {
-                //     var endTime = $(endEl).val();
-                //     common.checkTime(endTime, ct, interVals);
-                // }
+                maxDate: currentDate
             });
             var endOpts = $.extend({}, opts, {
-                maxDate: currentDate,
-                // onChangeDateTime: function(ct, $input) {
-                //     var startTime = $(startEl).val();
-                //     common.checkTime(ct, startTime, interVals);
-                // }
+                maxDate: currentDate
             });
             $(startEl).datetimepicker(startOpts);
             $(endEl).datetimepicker(endOpts);
-        },
-        dialog: function(content, opts) {
-            dialog(content, $.extend({
-                mask: true,
-                titleClose: true
-            }, opts));
         },
         layUI: function(opts) {
             opts = $.extend({}, {
@@ -440,62 +420,6 @@ define(function(require, exports, module) {
                 layer.closeAll();
             });
         },
-        // 自适应高度的dialog
-        autoAdaptionDialog: function(content, opts, callback) {
-            opts = _.isObject(opts) ? opts : {};
-            var option = $.extend({}, {
-                mask: true,
-                titleClose: true,
-                init: function() {
-                    if (callback) callback(this);
-                },
-                buttons: []
-            }, opts);
-            dialog(content, option);
-            // 通过js更改样式
-            $('.pop-content.alert .content').css({
-                'min-height': 0
-            });
-            $('.pop-content.alert .title').css({
-                'text-align': 'left'
-            });
-        },
-        // 通知提示
-        toast: function(content, type) {
-            type = type || 'error';
-            var isSuccess = type === 'success';
-            var textCls = isSuccess ? 'toastCls toastCls-success' : 'toastCls';
-            var iconCls = isSuccess ? 'fa fa-check-square' : 'fa fa-exclamation-circle';
-            var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
-            dialog(contentHtml, {
-                type: 'toast',
-                toastTime: 2000
-            });
-        },
-        // alert对话框(内容，类型，是否有确定按钮，按钮回调函数)
-        alert: function(content, type, hasOK, callback) {
-            hasOK = hasOK || false;
-            type = type || 'success';
-            var isSuccess = type === 'success';
-            var textCls = isSuccess ? 'alertCls-success' : 'alertCls-error';
-            var iconCls = isSuccess ? 'fa fa-check-square' : 'fa fa-exclamation-circle';
-            var contentHtml = '<div class="' + textCls + '"><i class="' + iconCls + '"></i><span>' + content + '</span></div>';
-            dialog(contentHtml, {
-                buttons: hasOK ? [{
-                    name: '确 定',
-                    callback: function(d) {
-                        if (callback) callback();
-                        d.close();
-                    }
-                }] : []
-            });
-            // 通过js更改样式
-            $('.pop-content.alert .content').css({
-                'margin-top': 0,
-                'min-height': 0,
-                'padding': 0
-            });
-        },
         // 序列化参数
         serialParam: function(data) {
             var str = '';
@@ -524,13 +448,9 @@ define(function(require, exports, module) {
             common.setCookie('token', '', -1);
             common.removeLocationStorage('arrVids');
             common.removeLocationStorage('historyLocationParams'); //历史位置查询
-            common.removeLocationStorage('carManagerParams'); //车辆管理
-            common.removeLocationStorage('complaintManagerParams'); //投诉管理
+            common.removeLocationStorage('carManagerParams'); //车辆管理            
             common.removeLocationStorage('userManagerParams'); //组织用户
-            common.removeLocationStorage('roleManagerSearchParams'); //角色管理
-            common.removeLocationStorage('orderManagerSearchParams'); //订单管理
-            common.removeLocationStorage('orderConfigParams'); //车辆订单配置
-            common.removeLocationStorage('seatsManagerSearchParams'); // 坐席管理
+            common.removeLocationStorage('roleManagerSearchParams'); //角色管理            
             common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，
@@ -582,31 +502,6 @@ define(function(require, exports, module) {
                 callback: function(page) {
                     if (callback && _.isFunction(callback)) callback(page);
                 }
-            });
-        },
-        // confirm确认框
-        confirm: function(content, callback) {
-            var contentHtml = '<div class="confirmCls">' + content + '</div>';
-            dialog(contentHtml, {
-                type: 'confirm',
-                title: '提 示',
-                titleClose: true,
-                buttons: [{
-                    name: '确 定',
-                    callback: function(d) {
-                        if (callback) callback();
-                        d.close();
-                    }
-                }, {
-                    name: '取 消',
-                    callback: function(d) {
-                        d.close();
-                    }
-                }]
-            });
-            // 通过js更改样式
-            $('.pop-content.confirm .content').css({
-                'min-height': 0
             });
         },
         // 遮罩层
@@ -912,7 +807,7 @@ define(function(require, exports, module) {
                             html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
                         });
                     }
-                    obj.$objs.html(html);
+                    obj.$objs.append(html);
                     obj.selected && obj.$objs.val(obj.selected);
                     callback && callback();
                 } else {
@@ -968,6 +863,149 @@ define(function(require, exports, module) {
                 }
             });
         },
+        // 所属机构--tree
+        subordinateTree: function(option) {
+            option = option || {};
+            var opt = $.extend({}, {
+                loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
+                loadPlateNum: _.isBoolean(option.loadPlateNum) ? option.loadPlateNum : true,
+                loadSIM: _.isBoolean(option.loadSIM) ? option.loadSIM : true,
+                callback: option.callback || null
+            }, option);
+            var me = this;
+            $('.js-Subordinate').on('click', function() {
+                $(this).toggleClass('layui-form-selected');
+            });
+            var ztreeSetting = {
+                view: {
+                    selectedMulti: false,
+                    showIcon: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "OrgId",
+                        pIdKey: "ParentOrgId",
+                        rootPId: null
+                    },
+                    key: {
+                        name: "OrganizationName"
+                    }
+                },
+                callback: {
+                    onClick: zTreeOnClick
+                }
+            };
+            this.ajax(api.subordinateTree, {}, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var content = res.content || [];
+                    $.fn.zTree.init($("#orgTree"), ztreeSetting, content);
+                    var treeObj = $.fn.zTree.getZTreeObj("orgTree");
+                    treeObj.expandAll(true);
+                }
+            });
+
+            function loadData(orgNo) {
+                // 获取设备编号
+                if (opt.loadDevice) {
+                    me.getDeviceNum(orgNo, opt.EquipmentNo);
+                }
+                // 获取车辆牌号
+                if (opt.loadPlateNum) {
+                    me.getPlateNum(orgNo, opt.PlateNo);
+                }
+                // 获取sim卡号
+                if (opt.loadSIM) {
+                    me.getSIMList(orgNo, opt.SimCardNo);
+                }
+            }
+
+            function zTreeOnClick(event, treeId, treeNode) {
+                var name = treeNode.OrganizationName;
+                var orgNo = treeNode.OrgNo;
+                event.stopPropagation();
+                event.preventDefault();
+                $('.js-Subordinate').removeClass('layui-form-selected');
+                $('input[name="txtSubordinate"]').data('orgNo', orgNo).val(name);
+                opt.callback && opt.callback(orgNo, name);
+                loadData(orgNo);
+            }
+            // 外部传入，获取数据
+            if (opt.orgNo) {
+                $('#txtSubordinate').data('orgNo', opt.orgNo);
+                loadData(opt.orgNo);
+            }
+            if (opt.timeType) {
+                $('span.time-area[data-type=' + opt.timeType + ']').addClass('active').siblings().removeClass('active');
+                this.initDateRangeChange(opt.timeType, opt.startTime, opt.endTime);
+            }
+        },
+        // 重置下拉框和内容
+        resetSelect: function(el) {
+            $(el).children('option:gt(0)').remove();
+            $(el).next().find(':text').val('').end().find('dl').empty();
+        },
+        // 获取设备编号
+        getDeviceNum: function(orgNo, currentVal) {
+            var me = this;
+            this.resetSelect('#selDevice');
+            me.getSelect({
+                url: api.getDevice,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['EquipmentId', 'EquipmentNo'],
+                obj: $('#selDevice')
+            }, function() {
+                me.layUIForm();
+                if (currentVal) {
+                    $('#selDevice').val(currentVal).next().find(':text');
+                    var txtDevice = $('#selDevice > option:selected').text();
+                    $('#selDevice').next().find(':text').val(txtDevice).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
+            });
+        },
+        // 获取车牌号码
+        getPlateNum: function(orgNo, currentVal) {
+            var me = this;
+            this.resetSelect('#selPlateNumber');
+            me.getSelect({
+                url: api.getLienceList,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['PlateNo', 'PlateNo'],
+                obj: $('#selPlateNumber')
+            }, function() {
+                me.layUIForm();
+                if (currentVal) {
+                    $('#selPlateNumber').val(currentVal).next().find(':text')
+                        .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
+            });
+        },
+        // 获取sim卡号
+        getSIMList: function(orgNo, currentVal) {
+            var me = this;
+            this.resetSelect('#selSIM');
+            me.getSelect({
+                url: api.getSIMList,
+                params: {
+                    OrgNo: orgNo
+                },
+                key: ['SimCardNo', 'SimCardNo'],
+                obj: $('#selSIM')
+            }, function() {
+                me.layUIForm();
+                if (currentVal) {
+                    $('#selSIM').val(currentVal).next().find(':text')
+                        .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
+            });
+        }
     };
     return common;
 });

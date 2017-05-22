@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     // 引入模块
     var common = require('common');
     var api = require('api');
-    var map = require('map');
     var validate = require('validate');
 
     require('lodash');
@@ -43,7 +42,7 @@ define(function(require, exports, module) {
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.pageNumber = currPage;
-                        common.changeHash('#orderManager/index/', me.searchParam);
+                        common.changeHash('#roleManager/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || '系统出错，请联系管理员！';

@@ -427,6 +427,9 @@
 .layui-input-block-button {
   margin-left: 85px; }
 
+.layui-input-text {
+  width: 173px; }
+
 label.required:before {
   content: "\2a";
   color: red;
@@ -513,13 +516,16 @@ label.required:before {
   width: 100px !important; }
 
 .w-120 {
-  width: 120px; }
+  width: 120px !important; }
+
+.w-130 {
+  width: 130px !important; }
 
 .w-150 {
-  width: 150px; }
+  width: 150px !important; }
 
 .w-200 {
-  width: 200px; }
+  width: 200px !important; }
 
 .w-300 {
   width: 300px !important; }
@@ -688,6 +694,20 @@ dl dt {
   font-weight: initial; }
 dl dd {
   padding: 5px 12px; }
+
+.time-area {
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 5px;
+  cursor: pointer; }
+  .time-area:first-child {
+    padding-left: 10px; }
+  .time-area.active {
+    color: blue; }
+
+.border-right {
+  border-right: 1px solid #ccc; }
 
 /*ul-select样式*/
 .ul-select {
@@ -946,7 +966,7 @@ dl dd {
   top: 30px;
   left: 18%;
   font-size: 16px; }
-  .mapTools .icon, .mapTools .mapOBD {
+  .mapTools .icon, .mapTools .mapOBD, .mapTools .mapAlarm {
     display: inline-block;
     padding: 10px;
     padding-left: 40px;
@@ -980,6 +1000,9 @@ dl dd {
   .mapTools .mapOBD {
     background: #fff url("./../img/messageicon.png") no-repeat 10px;
     margin-left: 50px; }
+  .mapTools .mapAlarm {
+    background: #fff url("./../img/messageicon.png") no-repeat 10px;
+    margin-left: 10px; }
 
 /*OBD信息*/
 .OBDInfo {
@@ -2472,15 +2495,6 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit; }
-
-a {
-  color: #337ab7;
-  text-decoration: none; }
-
-a:hover,
-a:focus {
-  color: #23527c;
-  text-decoration: underline; }
 
 a:focus {
   outline: thin dotted;

@@ -206,8 +206,8 @@ define(function(require, exports, module) {
                 borderRadius: "4px"
             });
             label.setContent(data.PlateNo);
-            var onlineIcon = new BMap.Icon(window.DOMAIN + "/img/green_north.png", new BMap.Size(45, 45));
-            var offLineIcon = new BMap.Icon(window.DOMAIN + "/img/grey_north.png", new BMap.Size(45, 45));
+            var onlineIcon = new BMap.Icon(window.DOMAIN + "/img/map/green1.png", new BMap.Size(30, 30));
+            var offLineIcon = new BMap.Icon(window.DOMAIN + "/img/map/gray1.png", new BMap.Size(30, 30));
             var marker = new BMap.Marker(new BMap.Point(data.Lng, data.Lat), {
                 icon: (data.IsOnline ? onlineIcon : offLineIcon)
             });
@@ -280,12 +280,6 @@ define(function(require, exports, module) {
         summerPoint: function(data) {
             var me = this;
             $.each(data, function(index, item) {
-                // 停留点（3分钟以上）
-                // if (item.stopTime > 180) {
-                //     me.stopPoints.push(item);
-                // } else {
-                //     me.runPoints.push(item);
-                // }
                 me.points.push(item);
             });
         },
@@ -353,25 +347,18 @@ define(function(require, exports, module) {
             this._map.addOverlay(trackLine);
             //绘制开始点
             var startMark = new BMap.Marker(mapPoints[0], {
-                icon: new BMap.Icon(window.DOMAIN + "/img/start.png", new BMap.Size(38, 45), {
+                icon: new BMap.Icon(window.DOMAIN + "/img/start.png", new BMap.Size(26, 40), {
                     imageOffset: new BMap.Size(0, 0)
                 })
             });
             this._map.addOverlay(startMark);
             //绘制结束点
             var endMark = new BMap.Marker(mapPoints[mapPoints.length - 1], {
-                icon: new BMap.Icon(window.DOMAIN + "/img/end.png", new BMap.Size(38, 45), {
+                icon: new BMap.Icon(window.DOMAIN + "/img/end.png", new BMap.Size(26, 40), {
                     imageOffset: new BMap.Size(0, 0)
                 })
             });
             this._map.addOverlay(endMark);
-
-            /*停留点*/
-            // if (this.stopPoints.length > 0) {
-            //     for (var i = 0; i < this.stopPoints.length; i++) {
-            //         me.markStopPoint(me.stopPoints[i]);
-            //     }
-            // }
 
             // 折线事件绑定
             trackLine.addEventListener('mousemove', function(e) {

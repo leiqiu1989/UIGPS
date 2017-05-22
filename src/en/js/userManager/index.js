@@ -42,7 +42,7 @@ define(function(require, exports, module) {
         },
         deleteUser: function(orgId, confirmText) {
             var me = this;
-            common.confirm(confirmText, function() {
+            common.layConfirm(confirmText, function() {
                 common.loading('show', 'Data processing…');
                 common.ajax(api.userManager.del, {
                     OrgIds: orgId

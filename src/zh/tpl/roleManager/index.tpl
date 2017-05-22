@@ -13,7 +13,7 @@
                 </div>
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-normal js_search">查 询</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset" 重 置</button>
+                    <button class="layui-btn layui-btn-primary js_list_reset">重 置</button>
                 </div>
             </div>
         </div>

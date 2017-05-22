@@ -13,7 +13,8 @@ define(function(require, exports, module) {
         index: require('../../tpl/carMonitor/index'),
         carList: require('../../tpl/carMonitor/list'),
         carDetail: require('../../tpl/carMonitor/carDetail'),
-        directive: require('../../tpl/carMonitor/directive')
+        directive: require('../../tpl/carMonitor/directive'),
+        alarm: require('../../tpl/carMonitor/alarm')
     };
 
     function carMonitor() {
@@ -99,7 +100,6 @@ define(function(require, exports, module) {
                         name: "Name",
                         checked: "IsCheck"
                     }
-
                 }
             };
             common.ajax(api.vehicleList, {}, function(res) {
@@ -328,6 +328,15 @@ define(function(require, exports, module) {
                 });
             }
         },
+        getAlarmInfo: function() {
+            common.layUI({
+                title: '报警信息',
+                area: ['700px', '500px'],
+                btn: [],
+                content: template.compile(tpls.alarm)(),
+                success: function(el) {}
+            });
+        },
         event: function() {
             var me = this;
             // 事件监听
@@ -346,6 +355,10 @@ define(function(require, exports, module) {
                 // 切换OBD
                 .on('click', '.js-toggleOBD', function() {
                     $('#obdList').toggleClass('hidden');
+                })
+                // 报警
+                .on('click', '.js-mapAlarm', function() {
+                    me.getAlarmInfo();
                 })
                 // 隐藏OBD
                 .on('click', '.odb-close', function() {

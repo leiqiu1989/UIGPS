@@ -1,0 +1,37 @@
+{
+  "name": "gps",
+  "version": "1.0.0",
+  "description": "demo",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "browser-sync": "^2.9.6",
+    "del": "^2.0.2",
+    "gulp-changed": "^1.3.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.4",
+    "gulp-seajs-concat": "^1.0.1",
+    "gulp-seajs-transport": "^0.3.1",
+    "gulp-tpl": "^0.4.0",
+    "gulp-uglify": "^1.4.1",
+    "gulp-watch": "^4.3.5",
+    "run-sequence": "^1.1.4"
+  },
+  "devDependencies": {
+    "markerwithlabel": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://leiqiu1989:woai123huyi@github.com/leiqiu1989/UIGPS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leiqiu1989/UIGPS/issues"
+  },
+  "homepage": "https://github.com/leiqiu1989/UIGPS#readme"
+}

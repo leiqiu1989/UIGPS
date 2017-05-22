@@ -413,10 +413,14 @@
 
 .auto-label-width .layui-form-item > label,
 .auto-label-width .layui-inline > label {
-  width: 140px; }
+  width: 160px;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
 .auto-label-width .layui-form-item .layui-input-block,
 .auto-label-width .layui-inline .layui-input-block {
-  margin-left: 140px; }
+  margin-left: 160px; }
 
 .layui-form-inline .layui-form-item {
   margin-bottom: 0; }
@@ -688,6 +692,20 @@ dl dt {
 dl dd {
   padding: 5px 12px; }
 
+.time-area {
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 5px;
+  cursor: pointer; }
+  .time-area:first-child {
+    padding-left: 10px; }
+  .time-area.active {
+    color: blue; }
+
+.border-right {
+  border-right: 1px solid #ccc; }
+
 /*ul-select样式*/
 .ul-select {
   font-size: 14px;
@@ -945,7 +963,7 @@ dl dd {
   top: 30px;
   left: 18%;
   font-size: 16px; }
-  .mapTools .icon, .mapTools .mapOBD {
+  .mapTools .icon, .mapTools .mapOBD, .mapTools .mapAlarm {
     display: inline-block;
     padding: 10px;
     padding-left: 40px;
@@ -979,6 +997,9 @@ dl dd {
   .mapTools .mapOBD {
     background: #fff url("./../img/messageicon.png") no-repeat 10px;
     margin-left: 50px; }
+  .mapTools .mapAlarm {
+    background: #fff url("./../img/messageicon.png") no-repeat 10px;
+    margin-left: 10px; }
 
 /*OBD信息*/
 .OBDInfo {
@@ -1016,14 +1037,14 @@ dl dd {
 
 .mapToolbar {
   position: absolute;
-  top: 30px;
-  left: 90px;
+  top: 10px;
+  left: 150px;
   z-index: 1; }
   .mapToolbar .mapText {
-    line-height: 30px;
+    line-height: 32px;
     width: 300px;
-    height: 30px;
-    padding-left: 5px;
+    height: 32px;
+    padding: 0 11px 0 13px;
     border: 1px solid #ddd;
     box-shadow: 1px 1px 5px #a19f9e; }
   .mapToolbar .mapBtn, .mapToolbar .mapBtnSearch, .mapToolbar .mapBtnText {
@@ -1040,7 +1061,7 @@ dl dd {
   .mapToolbar a:hover {
     text-decoration: none; }
   .mapToolbar .mapBtnText {
-    height: 30px;
+    height: 32px;
     margin-right: 15px;
     color: #fff;
     background-color: #4fa0fb; }
@@ -2241,6 +2262,10 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
     background: url("./../img/orgicon1.png") no-repeat; }
   .main-menu .icon-sys {
     background: url("./../img/infoicon1.png") no-repeat; }
+  .main-menu .icon-report {
+    background: url("./../img/report1.png") no-repeat; }
+  .main-menu .icon-operation {
+    background: url("./../img/yunying1.png") no-repeat; }
 
 nav {
   -webkit-user-select: none;
@@ -2468,15 +2493,6 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit; }
-
-a {
-  color: #337ab7;
-  text-decoration: none; }
-
-a:hover,
-a:focus {
-  color: #23527c;
-  text-decoration: underline; }
 
 a:focus {
   outline: thin dotted;
