@@ -28,8 +28,8 @@ define(function(require, exports, module) {
             var me = this;
             common.subordinateTree({
                 loadSIM: false, //不加载sim
+                loadDevice: false, //不加载设备编号
                 orgNo: me.searchParam.Subordinate, // 机构编号
-                EquipmentNo: me.searchParam.EquipmentNo, //设备编号
                 PlateNo: me.searchParam.PlateNo, //车牌号码                
                 timeType: me.searchParam.timeType, //时间类型
                 startTime: me.searchParam.Stime, // 开始时间
@@ -72,7 +72,6 @@ define(function(require, exports, module) {
                 _param = {
                     SubordinateName: '',
                     Subordinate: '',
-                    EquipmentNo: '',
                     PlateNo: '',
                     STime: '',
                     ETime: '',
@@ -84,7 +83,6 @@ define(function(require, exports, module) {
                     _param = {
                         SubordinateName: common.getElValue('#txtSubordinate'),
                         Subordinate: $('#txtSubordinate').data('orgNo') || '',
-                        EquipmentNo: common.getElValue('#selDevice'),
                         PlateNo: common.getElValue('#selPlateNumber'),
                         STime: common.getElValue('#startTime'),
                         ETime: common.getElValue('#endTime'),

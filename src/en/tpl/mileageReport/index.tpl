@@ -19,14 +19,6 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">Device NO</label>
-                    <div class="layui-input-block">
-                        <select id="selDevice" name="selDevice">
-                            <option value="">Select</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
                     <label class="layui-form-label">License</label>
                     <div class="layui-input-block">
                         <select id="selPlateNumber" name="selPlateNumber">
@@ -34,20 +26,8 @@
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="layui-form-item mt10">
                 <div class="layui-inline">
-                    <label class="layui-form-label">Status</label>
-                    <div class="layui-input-block">
-                        <select id="selStatus" name="selStatus">
-                            <option value="2">All</option>
-                            <option value="0">Normal</option>
-                            <option value="1">Expiration</option>
-						</select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label border-right">Expiration Time</label>
+                    <label class="layui-form-label border-right">Time</label>
                     <div class="layui-input-inline w-150">
                         <span class="time-area" data-type="week">Week</span>
                         <span class="time-area" data-type="month">Month</span>
@@ -88,13 +68,11 @@
                                 <col />
                                 <col />
                                 <col />
-                                <col />
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th>Serial</th>
                                     <th>License</th>
-                                    <th>Device NO</th>
                                     <th>Subordinate</th>
                                     <th>Start TIme</th>
                                     <th>End TIme</th>
@@ -111,7 +89,6 @@
                 <div id="mileageReportList" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
-                            <col />
                             <col />
                             <col />
                             <col />

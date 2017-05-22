@@ -76,8 +76,7 @@ define(function(require, exports, module) {
                     PlateNo: '',
                     STime: '',
                     ETime: '',
-                    timeType: 'custom',
-                    IsExpire: 2
+                    timeType: 'custom'
                 }
             } else {
                 if (param && _.isEmpty(param)) {
@@ -88,8 +87,7 @@ define(function(require, exports, module) {
                         PlateNo: common.getElValue('#selPlateNumber'),
                         STime: common.getElValue('#startTime'),
                         ETime: common.getElValue('#endTime'),
-                        timeType: $('span.time-area.active').attr('data-type') || 'custom',
-                        IsExpire: common.getElValue('#selStatus') || 2
+                        timeType: $('span.time-area.active').attr('data-type') || 'custom'
                     }
                 } else {
                     _param = param;

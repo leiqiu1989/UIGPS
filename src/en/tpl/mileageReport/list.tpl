@@ -9,9 +9,6 @@
         <td title="<%= item.PlateNo %>">
             <%= item.PlateNo %>
         </td>
-        <td title="<%= item.EquipmentNo %>">
-            <%= item.EquipmentNo %>
-        </td>
         <td title="<%= item.OrgName %>">
             <%= item.OrgName %>
         </td>
