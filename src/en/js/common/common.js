@@ -683,7 +683,7 @@ define(function(require, exports, module) {
                         $('#btn-login').removeAttr('disabled', 'disabled');
                     } else {
                         me.loading();
-                        me.layAlert('请求失败，请联系管理员！', { icon: 2 });
+                        me.layAlert('Request fails, contact your administrator!', { icon: 2 });
                         // 如果sid，st为null，则跳转到登录页
                         var accountid = me.getCookie('accountid');
                         var usertype = me.getCookie('usertype');

@@ -6,7 +6,6 @@ define(function(require, exports, module) {
     var api = require('api');
     var map = require('google');
     require('lodash');
-    require('marktool');
 
     // 模板
     var tpls = {

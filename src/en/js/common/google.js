@@ -1,8 +1,6 @@
 define(function(require, exports, module) {
     'use strict';
 
-    require('eventWrapper');
-    require('draw');
     require('lodash');
     require('markerwithlabel');
     var common = require('common');
@@ -67,6 +65,7 @@ define(function(require, exports, module) {
                     map.setZoom(10);
                     map.setCenter(pos);
                 }, function(error) {
+                    debugger;
                     switch (error.code) {
                         case error.TIMEOUT:
                             common.layAlert("A timeout occured! Please try again!");

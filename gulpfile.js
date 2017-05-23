@@ -49,7 +49,6 @@ gulp.task('transport', function() {
                 app: 'app.js',
                 api: 'common/api',
                 map: 'common/map',
-                constValue: 'common/constValue',
                 router: 'common/router.js',
                 common: 'common/common.js'
             }
@@ -122,16 +121,13 @@ gulp.task('transport-en', function() {
                 zTree: "plugin/jquery.ztree.core.min.js",
                 excheck: 'plugin/jquery.ztree.excheck.js',
                 exhide: 'plugin/jquery.ztree.exhide.min.js',
-                eventWrapper: 'plugin/EventWrapper.min.js',
-                marktool: 'plugin/MarkerTool.js',
-                draw: 'plugin/DrawingManager.js',
                 validate: 'plugin/validate.min.js',
                 chosen: 'plugin/chosen.jquery.min.js',
+                markerwithlabel: 'plugin/markerWithLabel.js',
                 docEvent: 'common/docEvent.js',
                 app: 'app.js',
                 api: 'common/api',
                 map: 'common/map',
-                constValue: 'common/constValue',
                 router: 'common/router.js',
                 common: 'common/common.js'
             }

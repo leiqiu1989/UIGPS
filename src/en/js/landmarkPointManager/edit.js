@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     var api = require('api');
     var validate = require('validate');
     var map = require('google');
-    require('marktool');
 
     // 模板
     var tpls = {
