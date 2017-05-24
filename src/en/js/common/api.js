@@ -126,6 +126,10 @@ define(function(require, exports, module) {
         // 系统日志
         systemLogManager: {
             list: remoteUrl + '/log/list'
+        },
+        // 区域管理
+        areaManager: {
+            list: remoteUrl + '/area/list'
         }
     };
     return api;

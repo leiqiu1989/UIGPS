@@ -4,16 +4,16 @@
 	%>
     <tr>
         <td>
-            <%= item.Index %>
+            <%= item.KeyId %>
         </td>
-        <td title="<%= item.PlateNo %>">
-            <%= item.PlateNo %>
+        <td title="<%= item.AreaName %>">
+            <%= item.AreaName %>
         </td>
         <td title="<%= item.Vid %>">
             <%= item.Vid %>
         </td>
-        <td title="<%= item.OrgName %>">
-            <%= item.OrgName %>
+        <td title="<%= item.Vid %>">
+            <%= item.Vid %>
         </td>
         <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
             <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
