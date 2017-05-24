@@ -90,33 +90,33 @@ define(function(require, exports, module) {
         getCarMonitorInfoWindow: function(data) {
             var status = '';
             if (data.IsOnline === 0) {
-                status = '离线';
+                status = 'Offline';
             } else if (data.Status.indexOf('ACC开') > -1 || data.IsOnline == 1) {
-                status = '发动机开';
+                status = 'Engine Start';
             } else if (data.Status.indexOf('ACC关') - 1) {
-                status = 'ACC关';
+                status = 'ACC OFF';
             } else {
-                status = '未知状态';
+                status = 'Unknow Status';
             }
             return "<div class='point_info_title'>" +
-                "<div class='point_title_left'>车牌号：" + data.PlateNo + "</div>" +
+                "<div class='point_title_left'>License Plate Number：" + data.PlateNo + "</div>" +
                 "<div style='display:inline-block'>" + data.GpsTime + "</div>" +
                 "</div>" +
                 "<div class='point_info_row'>" +
-                "<div class='point_info_left'>车辆状态：" + status + "</div>" +
-                "<div class='point_info_right'>速度：" + data.Speed + "公里/小时</div>" +
+                "<div class='point_info_left'>Vehicle Status：" + status + "</div>" +
+                "<div class='point_info_right'>Speed：" + data.Speed + "km/h</div>" +
                 "</div>" +
                 "<div class='point_info_row'>" +
-                "<div class='point_info_left'>停车时长：" + 0 + "</div>" +
-                "<div class='point_info_right'>方向：" + data.DirectionDesc + "</div>" +
+                "<div class='point_info_left'>Parking Duration：" + 0 + "</div>" +
+                "<div class='point_info_right'>Direction：" + data.DirectionDesc + "</div>" +
                 "</div>" +
                 (data.AlarmInfo ? "<div class='point_info_row'>" +
-                    "<div class='point_info_right'>车辆警情：" + data.AlarmInfo + "</div></div>" : "") +
+                    "<div class='point_info_right'>Vehicle Alarm：" + data.AlarmInfo + "</div></div>" : "") +
                 "</div>" +
-                "<div class='point_info_addr ellipsis' title='" + data.Location + "'>位置：" + data.Location + "</div>" +
+                "<div class='point_info_addr ellipsis' title='" + data.Location + "'>Location：" + data.Location + "</div>" +
                 "<div class='point_btn'>" +
-                "<div class='point_btn_info br' onclick='showVehicleInfo(" + data.Vid + ")'>车辆详细资料</div>" +
-                "<div class='point_btn_info js-car-track' onclick=\"showVehicleTrack('" + data.Vid + "','" + data.PlateNo + "')\">轨迹回放</div>" +
+                "<div class='point_btn_info br' onclick='showVehicleInfo(" + data.Vid + ")'>Detailed Vehicle Info</div>" +
+                "<div class='point_btn_info js-car-track' onclick=\"showVehicleTrack('" + data.Vid + "','" + data.PlateNo + "')\">History Playback</div>" +
                 "</div>";
         },
         getMap: function() {
