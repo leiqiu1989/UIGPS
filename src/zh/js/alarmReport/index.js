@@ -7,7 +7,8 @@ define(function(require, exports, module) {
     // 模板
     var tpls = {
         index: require('../../tpl/alarmReport/index'),
-        list: require('../../tpl/alarmReport/list')
+        list: require('../../tpl/alarmReport/list'),
+        detail: require('../../tpl/alarmReport/alarmDetail')
     };
 
     function alarmReport() {}
@@ -70,12 +71,13 @@ define(function(require, exports, module) {
             this.getParams();
             var st = common.getCookie('st');
             var sid = common.getCookie('sid');
-            var src = api.carManager.exportCarList + '?sid=' + sid + '&st=' + st;
-            $.each(this.searchParam, function(key, value) {
-                src += '&' + key + '=' + value;
-            });
-            var downSrc = encodeURI(src);
-            $(el).attr('href', downSrc);
+            common.layMsg('No Implementation');
+            // var src = api.carManager.exportCarList + '?sid=' + sid + '&st=' + st;
+            // $.each(this.searchParam, function(key, value) {
+            //     src += '&' + key + '=' + value;
+            // });
+            // var downSrc = encodeURI(src);
+            // $(el).attr('href', downSrc);
         },
         event: function() {
             var me = this;
@@ -92,6 +94,10 @@ define(function(require, exports, module) {
                     me.getParams(true);
                     common.changeHash('#roleManager/index/', me.searchParam);
                 })
+                // 详情
+                .on('click', '.js_list_detail', function() {
+                    me.getAlarmInfo();
+                })
                 // 重置
                 .on('click', '.js_list_reset', function() {
                     common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
@@ -105,6 +111,28 @@ define(function(require, exports, module) {
                     var type = $(this).data('type');
                     common.initDateRangeChange(type);
                 });
+        },
+        // 报警报表详情
+        getAlarmInfo: function(param) {
+            param = param || {};
+            common.loading('show');
+            common.ajax(api.reportManager.alarmReportDetail, param, function(res) {
+                if (res.status === 'SUCCESS') {
+                    var content = res.content || [];
+                    common.layUI({
+                        title: 'Alarm Info',
+                        area: ['700px', '500px'],
+                        btn: [],
+                        content: template.compile(tpls.detail)({ data: content }),
+                        success: function(el) {}
+                    });
+                } else {
+                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    common.layMsg(msg);
+                    return false;
+                }
+                common.loading();
+            });
         }
     });
 

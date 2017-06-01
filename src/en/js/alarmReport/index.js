@@ -7,7 +7,8 @@ define(function(require, exports, module) {
     // 模板
     var tpls = {
         index: require('../../tpl/alarmReport/index'),
-        list: require('../../tpl/alarmReport/list')
+        list: require('../../tpl/alarmReport/list'),
+        detail: require('../../tpl/alarmReport/alarmDetail')
     };
 
     function alarmReport() {}
@@ -134,7 +135,7 @@ define(function(require, exports, module) {
                 })
                 // 详情
                 .on('click', '.js_list_detail', function() {
-                    common.layMsg('No Implementation');
+                    me.getAlarmInfo();
                 })
                 // 重置
                 .on('click', '.js_list_reset', function() {
@@ -148,6 +149,28 @@ define(function(require, exports, module) {
                     var type = $(this).data('type');
                     common.initDateRangeChange(type);
                 });
+        },
+        // 报警报表详情
+        getAlarmInfo: function(param) {
+            param = param || {};
+            common.loading('show');
+            common.ajax(api.reportManager.alarmReportDetail, param, function(res) {
+                if (res.status === 'SUCCESS') {
+                    var content = res.content || [];
+                    common.layUI({
+                        title: 'Alarm Info',
+                        area: ['700px', '500px'],
+                        btn: [],
+                        content: template.compile(tpls.detail)({ data: content }),
+                        success: function(el) {}
+                    });
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layMsg(msg);
+                    return false;
+                }
+                common.loading();
+            });
         }
     });
 

@@ -104,6 +104,7 @@ define(function(require, exports, module) {
         // 报表管理
         reportManager: {
             alarmReport: remoteUrl + '/alarm/report',
+            alarmReportDetail: remoteUrl + '/alarm/detail',
             obdReport: remoteUrl + '/obd/report',
             mileageReport: remoteUrl + '/position/report'
         },

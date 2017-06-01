@@ -2268,6 +2268,10 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
     background: url("./../img/orgicon1.png") no-repeat; }
   .main-menu .icon-sys {
     background: url("./../img/infoicon1.png") no-repeat; }
+  .main-menu .icon-report {
+    background: url("./../img/report1.png") no-repeat; }
+  .main-menu .icon-operation {
+    background: url("./../img/yunying1.png") no-repeat; }
 
 nav {
   -webkit-user-select: none;

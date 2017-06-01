@@ -100,7 +100,12 @@ define(function(require, exports, module) {
             detail: remoteUrl + '/LandMark/QueryDetailById'
         },
         // 报表管理
-        reportManager: {},
+        reportManager: {
+            alarmReport: remoteUrl + '/alarm/report',
+            alarmReportDetail: remoteUrl + '/alarm/detail',
+            obdReport: remoteUrl + '/obd/report',
+            mileageReport: remoteUrl + '/position/report'
+        },
         // 发票管理
         invoiceManager: {
             list: remoteUrl + '/Invoice/QueryInvoiceList',
@@ -116,6 +121,14 @@ define(function(require, exports, module) {
         renewLogManager: {
             list: remoteUrl + '/Recharge/QueryRechargeList',
             export: remoteUrl + '/Recharge/Export'
+        },
+        // 系统日志
+        systemLogManager: {
+            list: remoteUrl + '/log/list'
+        },
+        // 区域管理
+        areaManager: {
+            list: remoteUrl + '/area/list'
         }
     };
     return api;

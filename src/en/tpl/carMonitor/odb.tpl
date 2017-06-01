@@ -56,8 +56,8 @@
     <li><span>Fuel Amount(L)</span>
         <span><%= odbNull(data.Bcryl) %></span></li>
     <li>
-        <Accumulative Fuel Amount(RTM)</span>
-            <span><%= odbNull(data.Ljryl) %></span></li>
+        <span>Accumulative Fuel Amount(RTM)</span>
+        <span><%= odbNull(data.Ljryl) %></span></li>
     <li><span>Remaning Fuel(RTM)</span>
         <span><%= odbNull(data.Syyl) %></span></li>
 </ul>

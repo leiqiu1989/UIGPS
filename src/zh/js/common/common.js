@@ -36,14 +36,14 @@ define(function(require, exports, module) {
             url: '#historyLocation/index',
             groupname: '位置监控',
             group: 'carmonitor',
-            icon: ''
+            icon: 'icon-position'
         }, {
             name: '地标点管理',
             code: '00030',
             url: '#landmarkPointManager/index',
             groupname: '位置监控',
             group: 'carmonitor',
-            icon: ''
+            icon: 'icon-position'
         }, {
             name: '组织用户管理',
             code: '00007',
@@ -57,7 +57,7 @@ define(function(require, exports, module) {
             url: '#roleManager/index',
             groupname: '组织机构',
             group: 'users',
-            icon: ''
+            icon: 'icon-org'
         },
         {
             name: '车辆管理',
@@ -72,35 +72,56 @@ define(function(require, exports, module) {
             url: '#sendCode/index',
             groupname: '车辆信息',
             group: 'resource',
-            icon: ''
+            icon: 'icon-car'
         }, {
-            name: '车辆轨迹列表',
-            code: '00024',
-            url: 'javascript:void(0)',
+            name: '车辆里程报表',
+            code: '00034',
+            url: '#mileageReport/index',
             groupname: '报表管理',
             group: 'report',
-            icon: 'fa fa-pie-chart'
+            icon: 'icon-report'
         }, {
-            name: '车辆报警报表',
-            code: '00025',
-            url: 'javascript:void(0)',
+            name: 'OBD报表',
+            code: '00035',
+            url: '#OBDReport/index',
             groupname: '报表管理',
             group: 'report',
-            icon: ''
+            icon: 'icon-report'
         }, {
-            name: '车辆里程统计',
-            code: '00026',
-            url: 'javascript:void(0)',
+            name: '报警报表',
+            code: '00036',
+            url: '#alarmReport/index',
             groupname: '报表管理',
             group: 'report',
-            icon: ''
+            icon: 'icon-report'
         }, {
-            name: '设备指令记录',
-            code: '00027',
-            url: 'javascript:void(0)',
-            groupname: '报表管理',
-            group: 'report',
-            icon: ''
+            name: '系统日志',
+            code: '00038',
+            url: '#systemLog/index',
+            groupname: '系统管理',
+            group: 'system',
+            icon: 'icon-sys'
+        }, {
+            name: '续费记录',
+            code: '00040',
+            url: '#renewLog/index',
+            groupname: '运营管理',
+            group: 'Operations',
+            icon: 'icon-operation'
+        }, {
+            name: '服务到期',
+            code: '00041',
+            url: '#serviceDue/index',
+            groupname: '运营管理',
+            group: 'Operations',
+            icon: 'icon-operation'
+        }, {
+            name: '发票管理',
+            code: '00042',
+            url: '#invoiceManager/index',
+            groupname: '运营管理',
+            group: 'Operations',
+            icon: 'icon-operation'
         }
     ];
 
@@ -823,6 +844,8 @@ define(function(require, exports, module) {
                 userArray = [],
                 orderArray = [],
                 resourceArray = [],
+                systemArray = [],
+                operationArray = [],
                 array = [];
             this.ajax(api.userPermission, {}, function(res) {
                 if (res && res.status === 'SUCCESS') {
@@ -851,10 +874,16 @@ define(function(require, exports, module) {
                                     case 'report':
                                         reportArray.push(menu);
                                         break;
+                                    case 'system':
+                                        systemArray.push(menu);
+                                        break;
+                                    case 'Operations':
+                                        operationArray.push(menu);
+                                        break;
                                 }
                             }
                         }
-                        array.push(reportArray, monitorArray, userArray, orderArray, resourceArray);
+                        array.push(reportArray, monitorArray, userArray, orderArray, resourceArray, systemArray, operationArray);
                     }
                     if (callback) callback(array);
                 } else {

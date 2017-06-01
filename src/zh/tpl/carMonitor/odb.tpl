@@ -56,8 +56,8 @@
     <li><span>本次燃油量(L)</span>
         <span><%= odbNull(data.Bcryl) %></span></li>
     <li>
-        <span累计燃油量(RTM)</span>
-            <span><%= odbNull(data.Ljryl) %></span></li>
+        <span>累计燃油量(RTM)</span>
+        <span><%= odbNull(data.Ljryl) %></span></li>
     <li><span>剩余油量(RTM)</span>
         <span><%= odbNull(data.Syyl) %></span></li>
 </ul>
