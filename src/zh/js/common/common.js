@@ -656,6 +656,7 @@ define(function(require, exports, module) {
                 param.OrgNo = this.getCookie('orgno');
                 param.Token = this.getCookie('token');
             }
+            param.Language = 'zh-cn';
             return $.ajax($.extend(true, {
                 type: "POST",
                 url: url,
