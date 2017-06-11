@@ -107,6 +107,10 @@
             <span>OBD Info</span>
             <div class="pull-right odb-close">X</div>
         </div>
+        <ul class="ul-tab clearfix">
+            <li class="active" data-target="obdInfo">OBD Data</li>
+            <li data-target="obdStatus">OBD Status</li>
+        </ul>
         <div class="obd-Content">
         </div>
     </div>

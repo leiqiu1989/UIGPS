@@ -75,6 +75,7 @@ define(function(require, exports, module) {
             }
             // 获取OBD信息
             if (data && data.length > 0) {
+                $('.ul-tab > li:eq(0)').addClass('active').siblings().removeClass('active');
                 common.getOBDInfo(data[0].Vid);
             }
         },
@@ -363,6 +364,12 @@ define(function(require, exports, module) {
                 // 隐藏OBD
                 .on('click', '.odb-close', function() {
                     $('#obdList').addClass('hidden');
+                })
+                // 切换obd信息
+                .on('click', '.ul-tab > li', function() {
+                    $(this).addClass('active').siblings().removeClass('active');
+                    var target = $(this).attr('data-target');
+                    $('#' + target).removeClass('hidden').siblings().addClass('hidden');
                 })
                 // 切换车辆列表
                 .on('click', '.js-foldToggle', function() {

@@ -1003,11 +1003,12 @@ dl dd {
 
 /*OBD信息*/
 .OBDInfo {
-  width: 380px;
+  width: 300px;
   position: absolute;
   top: 30px;
   right: 30px;
-  background: #fff; }
+  background: #fff;
+  border: 1px solid #ddd; }
   .OBDInfo .obd-Title {
     border-bottom: 1px solid #ddd;
     padding: 10px;
@@ -1017,17 +1018,31 @@ dl dd {
       cursor: pointer; }
     .OBDInfo .obd-Title > span {
       font-weight: 700; }
+  .OBDInfo .ul-tab {
+    border-bottom: 1px solid #d1d1e1; }
+    .OBDInfo .ul-tab > li {
+      float: left;
+      width: 50%;
+      background: #f2f2f2;
+      cursor: pointer;
+      display: block;
+      text-align: center;
+      height: 40px;
+      line-height: 40px; }
+      .OBDInfo .ul-tab > li:first-child {
+        border-right: 1px solid #cecece; }
+      .OBDInfo .ul-tab > li.active {
+        background: #fff; }
   .OBDInfo .obd-Content {
     padding: 10px;
     height: 620px;
     overflow-y: auto;
-    border: 1px solid #ddd;
     border-top-width: 0; }
-    .OBDInfo .obd-Content > ul > li {
+    .OBDInfo .obd-Content ul > li {
       padding: 5px 0;
       color: #666;
       font-size: 14px; }
-      .OBDInfo .obd-Content > ul > li > span:last-child {
+      .OBDInfo .obd-Content ul > li > span:last-child {
         float: right;
         margin-right: 5px; }
     .OBDInfo .obd-Content .obd-group {

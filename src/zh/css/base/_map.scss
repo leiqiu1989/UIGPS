@@ -310,6 +310,7 @@
     top: 30px;
     right: 30px;
     background: #fff;
+    border: 1px solid #ddd;
     .obd-Title {
         border-bottom: 1px solid #ddd;
         padding: 10px;
@@ -322,13 +323,31 @@
             font-weight: 700;
         }
     }
+    .ul-tab {
+        border-bottom: 1px solid #d1d1e1;
+        >li {
+            float: left;
+            width: 50%;
+            background: #f2f2f2;
+            &:first-child {
+                border-right: 1px solid #cecece;
+            }
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            &.active {
+                background: #fff;
+            }
+        }
+    }
     .obd-Content {
         padding: 10px;
         height: 620px;
         overflow-y: auto;
-        border: 1px solid #ddd;
         border-top-width: 0;
-        >ul>li {
+        ul>li {
             padding: 5px 0;
             color: #666;
             font-size: 14px;

@@ -197,7 +197,7 @@
                                 </div>
                                 <% } %>
                                     <div class="row operator-row">
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-4">
                                             <div class="layui-form-item">
                                                 <div class="layui-input-block">
                                                     <button class="layui-btn layui-btn-normal js_add_save">保 存</button>
