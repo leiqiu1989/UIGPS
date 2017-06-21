@@ -43,6 +43,14 @@ define(function(require, exports, module) {
                 selected: me.searchParam.VehicleType,
                 isall: true
             }, function() {
+                // 机构            
+                common.subordinateTree({
+                    orgNo: me.searchParam.OnlyOrgNo, // 机构编号
+                    loadDevice: false,
+                    loadPlateNum: false,
+                    loadSIM: false,
+                    timeType: null
+                });
                 common.layUIForm();
             });
         },
@@ -50,9 +58,9 @@ define(function(require, exports, module) {
         getParams: function(param) {
             this.sortParam = {};
             var newParams = {
-                OnlyOrgNo: common.getElValue(':hidden[name="OnlyOrgNo"]'), //所属机构
-                VehicleType: common.getElValue('select[name="VehicleType"]'), //车辆类型
-                orgName: common.getElValue('input[name="orgName"]'), //机构名称
+                orgName: common.getElValue('#txtSubordinate'),
+                OnlyOrgNo: $('#txtSubordinate').data('orgNo') || '',
+                VehicleType: common.getElValue('select[name="VehicleType"]'), //车辆类型                
                 Condition: common.getElValue('input[name="Condition"]') //关键字
             };
             this.searchParam = common.getParams('carManagerParams', param, newParams, true);
@@ -112,7 +120,7 @@ define(function(require, exports, module) {
         event: function() {
             var me = this;
             // 所属机构事件监听
-            common.listenOrganization();
+            //common.listenOrganization();
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
                     me.getParams(true);

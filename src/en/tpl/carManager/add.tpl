@@ -69,9 +69,14 @@
                                 <div class="layui-form-item">
                                     <label class="layui-form-label required">Subordinate</label>
                                     <div class="layui-input-block">
-                                        <input type="text" class="layui-input" value="<%= data.Vehicle.OrgName%>" required name="orgName" data-nosubmit="true" placeholder="please input at least 3 characters to search" />
-                                        <input type="hidden" name="OnlyOrgNo" value="<%= data.Vehicle.OrgNo%>" />
-                                        <ul class="ul-select hidden"></ul>
+                                        <div class="layui-unselect layui-form-select js-Subordinate">
+                                            <div class="layui-select-title">
+                                                <input type="text" placeholder="Select" id="txtSubordinate" value="<%= data.Vehicle.OrgName %>" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                                <i class="layui-edge"></i>
+                                            </div>
+                                            <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
+                                            </dl>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

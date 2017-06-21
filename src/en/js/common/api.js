@@ -130,7 +130,9 @@ define(function(require, exports, module) {
         },
         // 区域管理
         areaManager: {
-            list: remoteUrl + '/area/list'
+            list: remoteUrl + '/area/list',
+            enable: remoteUrl + '/area/enable',
+            del: remoteUrl + '/area/delete'
         }
     };
     return api;

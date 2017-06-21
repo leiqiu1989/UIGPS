@@ -5,7 +5,6 @@ define(function(require, exports, module) {
     var common = require('common');
     var api = require('api');
     var map = require('google');
-    require('draw');
     require('lodash');
 
     // 模板

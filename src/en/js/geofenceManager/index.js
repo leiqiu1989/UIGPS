@@ -44,7 +44,7 @@ define(function(require, exports, module) {
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
             common.loading('show');
-            common.ajax(api.areaManager.obdReport, param, function(res) {
+            common.ajax(api.areaManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var content = res.content || {};
                     var total = content.TotalCount || 0;
@@ -123,7 +123,54 @@ define(function(require, exports, module) {
                 .on('click', '.js_list_reset', function() {
                     me.getParams(null, true);
                     common.changeHash('#geofenceManager/index/', me.searchParam);
-                });
+                })
+                // 更改状态
+                .on('click', '.js_list_changeStatus', function() {
+                    var keyId = $(this).closest('tr').attr('data-id');
+                    var enabled = $(this).attr('data-status');
+                    me.changeStatus(keyId, enabled);
+                })
+                // 删除
+                .on('click', '.js_list_delete', function() {
+                    var keyId = $(this).closest('tr').attr('data-id');
+                    common.layConfirm('Confirm to delete?', function() {
+                        me.deleteItem(keyId);
+                    });
+                })
+                // 新增
+                .on('click', '.js_list_add', function() {
+                    common.changeHash('#geofenceManager/add');
+                })
+        },
+        changeStatus: function(keyId, enabled) {
+            var me = this;
+            common.loading('show');
+            common.ajax(api.areaManager.enable, { KeyId: keyId, Enable: enabled }, function(res) {
+                if (res.status === 'SUCCESS') {
+                    me.getData();
+                    common.layMsg('Operator Success!');
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layMsg(msg);
+                    return false;
+                }
+                common.loading();
+            });
+        },
+        deleteItem: function(keyId) {
+            var me = this;
+            common.loading('show');
+            common.ajax(api.areaManager.del, { KeyId: keyId }, function(res) {
+                if (res.status === 'SUCCESS') {
+                    me.getData();
+                    common.layMsg('Operator Success!');
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layMsg(msg);
+                    return false;
+                }
+                common.loading();
+            });
         }
     });
 

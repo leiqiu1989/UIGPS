@@ -194,6 +194,12 @@ define(function(require, exports, module) {
     template.helper('odbNull', function(key) {
         return key ? key : '0';
     });
+    template.helper('geofenceStatus', function(key) {
+        if (_.isNumber(key)) {
+            return key ? 'Open' : 'Close';
+        }
+        return '';
+    });
 
     /*公共js*/
     var common = {
@@ -909,7 +915,7 @@ define(function(require, exports, module) {
                 loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
                 loadPlateNum: _.isBoolean(option.loadPlateNum) ? option.loadPlateNum : true,
                 loadSIM: _.isBoolean(option.loadSIM) ? option.loadSIM : true,
-                loadAlarm: _.isBoolean(option.loadAlarm) ? option.loadAlarm : false, // 默认布加载报警类型
+                loadAlarm: _.isBoolean(option.loadAlarm) ? option.loadAlarm : false, // 默认不加载报警类型
                 callback: option.callback || null
             }, option);
             var me = this;

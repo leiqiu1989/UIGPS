@@ -53,13 +53,12 @@
     </div>
     <div class="panel-toolbar">
         <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
-            <i class="fa fa-export"></i>
             Add
         </button>
-        <button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
+        <!--<button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
             <i class="fa fa-export"></i>
             Export
-        </button>
+        </button>-->
     </div>
     <div class="panel-body no-padding grow">
         <div class="panel full no-margin flexbox">
@@ -68,16 +67,16 @@
                     <div class="table-head-warp ">
                         <table class="grid-table ">
                             <colgroup>
+                                <col width="60px" />
                                 <col />
+                                <col width="120px" />
+                                <col width="120px" />
                                 <col />
+                                <col width="140px" />
+                                <col width="140px" />
+                                <col width="100px" />
                                 <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
+                                <col width="170px" />
                             </colgroup>
                             <thead>
                                 <tr>
@@ -101,16 +100,16 @@
                 <div id="geofenceManagerList" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
+                            <col width="60px" />
                             <col />
+                            <col width="120px" />
+                            <col width="120px" />
                             <col />
+                            <col width="140px" />
+                            <col width="140px" />
+                            <col width="100px" />
                             <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
+                            <col width="170px" />
                         </colgroup>
                         <tbody>
                         </tbody>

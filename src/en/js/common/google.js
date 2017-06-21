@@ -65,7 +65,6 @@ define(function(require, exports, module) {
                     map.setZoom(10);
                     map.setCenter(pos);
                 }, function(error) {
-                    debugger;
                     switch (error.code) {
                         case error.TIMEOUT:
                             common.layAlert("A timeout occured! Please try again!");
