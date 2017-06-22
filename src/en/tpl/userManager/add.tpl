@@ -6,7 +6,7 @@
             </h3>
         </div>
         <div class="panel-body">
-            <div id="frmOrgInfo" autocomplete="off" class="layui-form auto-label-width">
+            <div id="frmUser" autocomplete="off" class="layui-form auto-label-width">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="layui-form-item">
@@ -56,8 +56,8 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button type="button" class="layui-btn layui-btn-normal js_save">保 存</button>
-                                <button type="button" class="layui-btn layui-btn-primary js_cancel">取 消</button>
+                                <button type="button" class="layui-btn layui-btn-normal js_save">Save</button>
+                                <button type="button" class="layui-btn layui-btn-primary js_cancel">Cancel</button>
                             </div>
                         </div>
                     </div>

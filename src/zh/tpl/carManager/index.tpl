@@ -8,9 +8,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">所属机构</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="至少输入3个字符搜索" value="<%= searchValue.orgName%>" />
-                        <ul class="ul-select hidden"></ul>
+                        <div class="layui-unselect layui-form-select js-Subordinate">
+                            <div class="layui-select-title">
+                                <input type="text" placeholder="请选择" id="txtSubordinate" value="<%= searchValue.orgName %>" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                <i class="layui-edge"></i>
+                            </div>
+                            <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
+                            </dl>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-inline">

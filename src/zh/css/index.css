@@ -455,7 +455,6 @@ label.required:before {
 
 /*公共样式*/
 .ellipsis {
-  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }

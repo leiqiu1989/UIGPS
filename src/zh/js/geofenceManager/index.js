@@ -25,97 +25,152 @@ define(function(require, exports, module) {
             this.getData();
         },
         initControl: function() {
-            common.initDateTime('input[name="startTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
-            common.initDateTime('input[name="endTime"]', 'Y-m-d', true, 'yyyy-MM-dd', false);
+            var me = this;
+            common.subordinateTree({
+                loadSIM: false, //不加载sim
+                loadDevice: false, //不加载设备编号
+                orgNo: me.searchParam.Subordinate, // 机构编号
+                PlateNo: me.searchParam.PlateNo //车牌号码
+            });
+            // status
+            $('#selStatus').val(me.searchParam.Status);
+            var txtStatus = $('#selStatus > option:selected').text();
+            $('#selStatus').next().find(':text').val(txtStatus).end()
+                .find('dd[lay-value=' + me.searchParam.Status + ']').addClass('layui-this').siblings().removeClass('layui-this');
+            common.layUIForm();
         },
         getData: function() {
             var me = this;
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
-            // 将查询条件保存到localStorage里面
-            common.setlocationStorage('obdReportSearchParams', JSON.stringify(this.searchParam));
             common.loading('show');
-            common.ajax(api.reportManager.mileageReport, param, function(res) {
+            common.ajax(api.areaManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
-                    var data = res.content;
+                    var content = res.content || {};
+                    var total = content.TotalCount || 0;
+                    var data = content.Page || [];
                     $('#geofenceManagerList > table > tbody').empty().html(template.compile(tpls.list)({
-                        data: data.Page || []
+                        data: data
                     }));
-                    common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
-                        me.searchParam.pageNumber = currPage;
-                        common.changeHash('#invoiceManager/index/', me.searchParam);
+                    common.page(total, param.PageSize, param.PageIndex, function(currPage) {
+                        me.searchParam.PageIndex = currPage;
+                        common.changeHash('#geofenceManager/index/', me.searchParam);
                     });
                 } else {
-                    var msg = res.errorMsg || '系统出错，请联系管理员！';
+                    var msg = res.errorMsg || '系统错误，请联系管理员!';
                     common.layMsg(msg);
+                    return false;
                 }
                 common.loading();
             });
         },
         // 获取查询条件
-        getParams: function(param) {
+        getParams: function(param, reset) {
+            param = param || {};
+            reset = reset || false;
             this.sortParam = {};
-            var newParams = {
-                RoleName: common.getElValue('input[name="RoleName"]')
-            };
-            if (!param) {
-                newParams = {};
+            var _param = null;
+            if (reset) {
+                _param = {
+                    SubordinateName: '',
+                    Subordinate: '',
+                    PlateNo: '',
+                    AreaName: '',
+                    Status: -1 //全部
+                }
+            } else {
+                if (param && _.isEmpty(param)) {
+                    _param = {
+                        SubordinateName: common.getElValue('#txtSubordinate'),
+                        Subordinate: $('#txtSubordinate').data('orgNo') || '',
+                        PlateNo: common.getElValue('#selPlateNumber'),
+                        AreaName: common.getElValue('#AreaName'),
+                        Status: common.getElValue('#selStatus') || -1
+                    }
+                } else {
+                    _param = param;
+                }
             }
-            this.searchParam = common.getParams('roleManagerSearchParams', param, newParams, true);
+            this.searchParam = common.getParams(null, true, _param);
         },
-        exportCarList: function(el) {
-            this.getParams();
-            var st = common.getCookie('st');
-            var sid = common.getCookie('sid');
-            var src = api.carManager.exportCarList + '?sid=' + sid + '&st=' + st;
-            $.each(this.searchParam, function(key, value) {
-                src += '&' + key + '=' + value;
-            });
-            var downSrc = encodeURI(src);
-            $(el).attr('href', downSrc);
+        exportList: function(el) {
+            common.layMsg('No Implementation');
+            // var accountId = common.getCookie('accountid');
+            // var userType = common.getCookie('usertype');
+            // var orgNo = common.getCookie('orgno');
+            // var token = common.getCookie('token');
+            // var src = api.serverDueManager.export+'?AccountId=' + accountId + '&UserType=' + userType + '&OrgNo=' + orgNo + '&Token=' + token;
+            // $.each(this.searchParam, function(key, value) {
+            //     src += '&' + key + '=' + value;
+            // });
+            // var downSrc = encodeURI(src);
+            // $(el).attr('href', downSrc);
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization();
             // 事件监听
             $('#main-content').off()
-                // 新增
-                .on('click', '.js_list_add', function() {
-                    common.changeHash('#geofenceManager/add');
-                })
                 // 导出
                 .on('click', '.js_list_export', function() {
-                    me.exportCarList($(this));
-                })
-                // 开票
-                .on('click', '.js_list_invoice', function() {
-                    common.layUI({
-                        title: '开票',
-                        area: '500px',
-                        btn: [],
-                        content: template.compile(tpls.invoice)({ data: {} }),
-                        success: function(el) {}
-                    });
+                    me.exportList($(this));
                 })
                 // 查询
-                .on('click', '.js_search', function(event) {
-                    me.getParams(true);
+                .on('click', '.js_list_search', function() {
+                    me.getParams();
                     common.changeHash('#geofenceManager/index/', me.searchParam);
                 })
                 // 重置
                 .on('click', '.js_list_reset', function() {
-                    common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
-                    me.getParams(false);
+                    me.getParams(null, true);
                     common.changeHash('#geofenceManager/index/', me.searchParam);
                 })
-                // 时间切换
-                .on('click', '.time-area', function() {
-                    $(this).siblings().removeClass('active');
-                    $(this).toggleClass('active');
-                    var type = $(this).data('type');
-                    common.initDateRangeChange(type);
-                });
+                // 更改状态
+                .on('click', '.js_list_changeStatus', function() {
+                    var keyId = $(this).closest('tr').attr('data-id');
+                    var enabled = $(this).attr('data-status');
+                    me.changeStatus(keyId, enabled);
+                })
+                // 删除
+                .on('click', '.js_list_delete', function() {
+                    var keyId = $(this).closest('tr').attr('data-id');
+                    common.layConfirm('Confirm to delete?', function() {
+                        me.deleteItem(keyId);
+                    });
+                })
+                // 新增
+                .on('click', '.js_list_add', function() {
+                    common.changeHash('#geofenceManager/add');
+                })
+        },
+        changeStatus: function(keyId, enabled) {
+            var me = this;
+            common.loading('show');
+            common.ajax(api.areaManager.enable, { KeyId: keyId, Enable: enabled }, function(res) {
+                if (res.status === 'SUCCESS') {
+                    me.getData();
+                    common.layMsg('Operator Success!');
+                } else {
+                    var msg = res.errorMsg || '系统错误，请联系管理员!';
+                    common.layMsg(msg);
+                    return false;
+                }
+                common.loading();
+            });
+        },
+        deleteItem: function(keyId) {
+            var me = this;
+            common.loading('show');
+            common.ajax(api.areaManager.del, { KeyId: keyId }, function(res) {
+                if (res.status === 'SUCCESS') {
+                    me.getData();
+                    common.layMsg('Operator Success!');
+                } else {
+                    var msg = res.errorMsg || '系统错误，请联系管理员!';
+                    common.layMsg(msg);
+                    return false;
+                }
+                common.loading();
+            });
         }
     });
 

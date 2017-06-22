@@ -31,7 +31,7 @@ define(function(require, exports, module) {
         // 指令初始值
         directiveInfo: remoteUrl + '/command/param',
         // 里程设置
-        setMilage: remoteUrl + '/command/distance-set',
+        setMilage: remoteUrl + '/Command/distance-set',
         // 灵敏度设置
         setSensitivity: remoteUrl + '/command/sensitivity-set',
         // 超速设置
@@ -56,6 +56,8 @@ define(function(require, exports, module) {
         getLienceList: remoteUrl + '/ConditionInfo/LicenseList',
         // 获取SIM卡号码-select，根据所属机构编号
         getSIMList: remoteUrl + '/ConditionInfo/SimList',
+        // 获取警情-select
+        getAlarmList: remoteUrl + '/alarm/code-option',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表
@@ -65,7 +67,7 @@ define(function(require, exports, module) {
             carType: remoteUrl + '/Vehicle/VehicleType', //车辆类型
             carBrand: remoteUrl + '/Vehicle/VehicleBrand', //车辆品牌
             plateNumberColor: remoteUrl + '/Vehicle/VehicleColor', //车牌颜色
-            equipmentType: remoteUrl + '/Vehicle/EquipmentType', //设备类型            
+            equipmentType: remoteUrl + '/Vehicle/EquipmentType', //设备类型
             submit: remoteUrl + '/Vehicle/CreateVehicleAbbrInfo', // 增加车辆
             detail: remoteUrl + '/Vehicle/QueryVehicleAbbrInfo', //查看车辆详情
             update: remoteUrl + '/Vehicle/EditVehicleAbbrInfo', //编辑车辆
@@ -82,14 +84,22 @@ define(function(require, exports, module) {
             deleteRole: remoteUrl + '/Role/DeleteRole', //角色管理-删除 批量、单个
             rolePermission: remoteUrl + '/Role/QueryAllPermission' //角色管理-系统功能Ztree
         },
-        // 用户管理
-        userManager: {
+        // 组织管理
+        orgManager: {
             list: remoteUrl + '/Org/List',
             save: remoteUrl + '/Org/Create',
             update: remoteUrl + '/Org/Edit',
-            roles: remoteUrl + '/Role/QuertAllRoleAbbr',
             del: remoteUrl + '/Org/Delete',
             detail: remoteUrl + '/Org/QueryOrgByOrgId'
+        },
+        // 用户管理
+        userManager: {
+            list: remoteUrl + '/account/list',
+            save: remoteUrl + '/account/create',
+            update: remoteUrl + '/account/modify',
+            roles: remoteUrl + '/Role/QuertAllRoleAbbr',
+            del: remoteUrl + '/account/delete',
+            detail: remoteUrl + '/account/info'
         },
         // 地标点管理
         landMarkPointManager: {
@@ -128,7 +138,9 @@ define(function(require, exports, module) {
         },
         // 区域管理
         areaManager: {
-            list: remoteUrl + '/area/list'
+            list: remoteUrl + '/area/list',
+            enable: remoteUrl + '/area/enable',
+            del: remoteUrl + '/area/delete'
         }
     };
     return api;

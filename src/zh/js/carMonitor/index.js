@@ -332,10 +332,12 @@ define(function(require, exports, module) {
         getAlarmInfo: function() {
             common.layUI({
                 title: '报警信息',
-                area: ['700px', '500px'],
+                area: ['900px', '500px'],
                 btn: [],
                 content: template.compile(tpls.alarm)(),
-                success: function(el) {}
+                success: function(el) {
+
+                }
             });
         },
         event: function() {

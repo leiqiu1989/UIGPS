@@ -45,7 +45,14 @@ define(function(require, exports, module) {
             group: 'carmonitor',
             icon: 'icon-position'
         }, {
-            name: '组织用户管理',
+            name: '组织管理',
+            code: '00007',
+            url: '#organizetionManager/index',
+            groupname: '组织机构',
+            group: 'users',
+            icon: 'icon-org'
+        }, {
+            name: '用户管理',
             code: '00007',
             url: '#userManager/index',
             groupname: '组织机构',
@@ -192,6 +199,12 @@ define(function(require, exports, module) {
     });
     template.helper('odbNull', function(key) {
         return key ? key : '0';
+    });
+    template.helper('geofenceStatus', function(key) {
+        if (_.isNumber(key)) {
+            return key ? 'Open' : 'Close';
+        }
+        return '';
     });
 
     /*公共js*/
@@ -900,6 +913,7 @@ define(function(require, exports, module) {
                 loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
                 loadPlateNum: _.isBoolean(option.loadPlateNum) ? option.loadPlateNum : true,
                 loadSIM: _.isBoolean(option.loadSIM) ? option.loadSIM : true,
+                loadAlarm: _.isBoolean(option.loadAlarm) ? option.loadAlarm : false, // 默认不加载报警类型
                 callback: option.callback || null
             }, option);
             var me = this;
@@ -964,6 +978,10 @@ define(function(require, exports, module) {
             if (opt.orgNo) {
                 $('#txtSubordinate').data('orgNo', opt.orgNo);
                 loadData(opt.orgNo);
+            }
+            // 获取警情
+            if (opt.loadAlarm) {
+                me.getAlarmTypeList(opt.AlarmCode);
             }
             if (opt.timeType) {
                 $('span.time-area[data-type=' + opt.timeType + ']').addClass('active').siblings().removeClass('active');
@@ -1032,6 +1050,26 @@ define(function(require, exports, module) {
                 if (currentVal) {
                     $('#selSIM').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
+            });
+        },
+        // 获取警情
+        getAlarmTypeList: function(currentVal) {
+            var me = this;
+            this.resetSelect('#selAlarm');
+            me.getSelect({
+                url: api.getAlarmList,
+                params: {},
+                key: ['AlarmCode', 'AlarmText'],
+                obj: $('#selAlarm')
+            }, function() {
+                me.layUIForm();
+                if (currentVal) {
+                    $('#selAlarm').val(currentVal);
+                    var txtAlarm = $('#selAlarm > option:selected').text();
+                    $('#selAlarm').next().find(':text')
+                        .val(txtAlarm).end().find('dd[lay-value=' + currentVal + ']')
                         .addClass('layui-this');
                 }
             });

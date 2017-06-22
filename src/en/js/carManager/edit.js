@@ -159,10 +159,6 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization(function(orgId, orgName) {
-                me.orgId = orgId;
-            });
             // add event listen
             $('#main-content').on('click', '.js_add_cancel', function() {
                 common.changeHash('#carManager/index/', { back: true });

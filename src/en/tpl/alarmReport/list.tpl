@@ -38,7 +38,7 @@
         </td>
         <td>
             <a class="td-operator js_list_detail">
-                <i class="fa fa-pencil-square-o"></i> 详 情
+                <i class="fa fa-pencil-square-o"></i> Detail
             </a>
         </td>
     </tr>

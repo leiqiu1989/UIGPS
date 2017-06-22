@@ -53,6 +53,7 @@
     </div>
     <div class="panel-toolbar">
         <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
+            <i class="fa fa-plus"></i>
             Add
         </button>
         <!--<button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
