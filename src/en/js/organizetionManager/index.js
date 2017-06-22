@@ -6,12 +6,12 @@ define(function(require, exports, module) {
     require('lodash');
     // 模板
     var tpls = {
-        index: require('../../tpl/userManager/index'),
-        list: require('../../tpl/userManager/list')
+        index: require('../../tpl/organizetionManager/index'),
+        list: require('../../tpl/organizetionManager/list')
     };
 
-    function userManager() {}
-    $.extend(userManager.prototype, {
+    function organizetionManager() {}
+    $.extend(organizetionManager.prototype, {
         init: function(param) {
             // 初始化查询条件参数
             this.getParams(param);
@@ -31,7 +31,7 @@ define(function(require, exports, module) {
                 me.getData();
             });
             common.subordinateTree({
-                orgNo: me.searchParam.Subordinate, // 机构编号
+                orgNo: me.searchParam.OnlyOrgNo, // 机构编号
                 loadDevice: false,
                 loadPlateNum: false,
                 loadSIM: false,
@@ -48,15 +48,13 @@ define(function(require, exports, module) {
             if (reset || param.back) {
                 _param = {
                     SubordinateName: '',
-                    Subordinate: '',
-                    UserName: ''
+                    OnlyOrgNo: ''
                 }
             } else {
                 if (param && _.isEmpty(param)) {
                     _param = {
                         SubordinateName: common.getElValue('#txtSubordinate'),
-                        Subordinate: $('#txtSubordinate').data('orgNo') || '',
-                        UserName: $('#txtUserName').val()
+                        OnlyOrgNo: $('#txtSubordinate').data('orgNo') || '',
                     }
                 } else {
                     _param = param;
@@ -64,12 +62,12 @@ define(function(require, exports, module) {
             }
             this.searchParam = common.getParams(null, true, _param);
         },
-        deleteUser: function(uid, confirmText) {
+        deleteOrg: function(orgId, confirmText) {
             var me = this;
             common.layConfirm(confirmText, function() {
                 common.loading('show', 'Data processing...');
-                common.ajax(api.userManager.del, {
-                    userId: uid
+                common.ajax(api.orgManager.del, {
+                    OrgIds: orgId
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         me.getData();
@@ -87,15 +85,15 @@ define(function(require, exports, module) {
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
             common.loading('show');
-            common.ajax(api.userManager.list, param, function(res) {
+            common.ajax(api.orgManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    $('#userManagerList > table > tbody').empty().html(template.compile(tpls.list)({
+                    $('#orgManagerList > table > tbody').empty().html(template.compile(tpls.list)({
                         data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.PageIndex = currPage;
-                        common.changeHash('#userManager/index/', me.searchParam);
+                        common.changeHash('#organizetionManager/index/', me.searchParam);
                     });
                 } else {
                     var msg = res.errorMsg || 'System error, please contact the administrator!';
@@ -109,31 +107,31 @@ define(function(require, exports, module) {
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
                 me.getParams();
-                common.changeHash('#userManager/index/', me.searchParam);
+                common.changeHash('#organizetionManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
                 me.getParams(null, true);
-                common.changeHash('#userManager/index/', me.searchParam);
+                common.changeHash('#organizetionManager/index/', me.searchParam);
             });
             // 事件监听
             $('#main-content').on('click', '.js_list_add', function() {
-                    common.changeHash('#userManager/edit');
+                    common.changeHash('#organizetionManager/edit');
                 })
-                //编辑用户
+                //编辑组织
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
-                    var id = tr.attr('data-uid');
-                    common.changeHash('#userManager/edit/', { id: id });
+                    var id = tr.data('orgid');
+                    common.changeHash('#organizetionManager/edit/', { id: id });
                 })
-                //删除用户
+                //删除组织机构
                 .on('click', '.js_list_delete', function() {
-                    var uid = $(this).closest('tr').data('data-uid');
+                    var ogrId = $(this).closest('tr').data('orgid');
                     var confirmText = 'Confirm to delete?';
-                    me.deleteUser(uid, confirmText);
+                    me.deleteOrg(ogrId, confirmText);
                 });
         }
     });
 
     exports.init = function(param) {
-        new userManager().init(param);
+        new organizetionManager().init(param);
     };
 });

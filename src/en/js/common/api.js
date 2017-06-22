@@ -84,14 +84,22 @@ define(function(require, exports, module) {
             deleteRole: remoteUrl + '/Role/DeleteRole', //角色管理-删除 批量、单个
             rolePermission: remoteUrl + '/Role/QueryAllPermission' //角色管理-系统功能Ztree
         },
-        // 用户管理
-        userManager: {
+        // 组织管理
+        orgManager: {
             list: remoteUrl + '/Org/List',
             save: remoteUrl + '/Org/Create',
             update: remoteUrl + '/Org/Edit',
-            roles: remoteUrl + '/Role/QuertAllRoleAbbr',
             del: remoteUrl + '/Org/Delete',
             detail: remoteUrl + '/Org/QueryOrgByOrgId'
+        },
+        // 用户管理
+        userManager: {
+            list: remoteUrl + '/account/list',
+            save: remoteUrl + '/account/create',
+            update: remoteUrl + '/account/modify',
+            roles: remoteUrl + '/Role/QuertAllRoleAbbr',
+            del: remoteUrl + '/account/delete',
+            detail: remoteUrl + '/account/info'
         },
         // 地标点管理
         landMarkPointManager: {

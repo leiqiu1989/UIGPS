@@ -165,7 +165,7 @@ define(function(require, exports, module) {
             });
             // add event listen
             $('#main-content').on('click', '.js_add_cancel', function() {
-                common.changeHash('#carManager/index');
+                common.changeHash('#carManager/index/', { back: true });
             });
         }
     });

@@ -1,6 +1,6 @@
 <div class="panel panel-transparent flexbox">
     <div class="panel-heading">
-        <h3 class="panel-title">User Management</h3>
+        <h3 class="panel-title">Organizetion Management</h3>
     </div>
     <div class="panel-toolbar">
         <div class="layui-form auto-label-width layui-form-inline">
@@ -16,12 +16,6 @@
                             <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
                             </dl>
                         </div>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">User</label>
-                    <div class="layui-input-block">
-                        <input type="text" class="layui-input w-400" name="txtUserName" value="<%= searchValue.UserName %>" />
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -49,16 +43,16 @@
                                 <col width="12%" />
                                 <col width="12%" />
                                 <col width="12%" />
-                                <col width="20%" />
-                                <col width="14%" />
+                                <col width="24%" />
+                                <col width="10%" />
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th>User Name</th>
-                                    <th>Subordinate</th>
-                                    <th>Real Name</th>
+                                    <th>Organization Name</th>
+                                    <th>Higher Organizetion</th>
+                                    <th>Contact Person</th>
                                     <th>Contact Number</th>
-                                    <th>Role</th>
+                                    <th>Address</th>
                                     <th>Remark</th>
                                     <th>Operation</th>
                                 </tr>
@@ -68,7 +62,7 @@
                 </div>
             </div>
             <div class="panel-body no-padding grow ">
-                <div id="userManagerList" class="grid-content">
+                <div id="orgManagerList" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
                             <col width="12%" />
@@ -76,8 +70,8 @@
                             <col width="12%" />
                             <col width="12%" />
                             <col width="12%" />
-                            <col width="20%" />
-                            <col width="14%" />
+                            <col width="24%" />
+                            <col width="10%" />
                         </colgroup>
                         <tbody>
                         </tbody>

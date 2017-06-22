@@ -46,6 +46,13 @@ define(function(require, exports, module) {
             group: 'carmonitor',
             icon: 'icon-position'
         }, {
+            name: 'Organizetion Management',
+            code: '00007',
+            url: '#organizetionManager/index',
+            groupname: 'Organization',
+            group: 'users',
+            icon: 'icon-org'
+        }, {
             name: 'User Management',
             code: '00007',
             url: '#userManager/index',
@@ -483,11 +490,6 @@ define(function(require, exports, module) {
             common.setCookie('orgno', '', -1);
             common.setCookie('token', '', -1);
             common.removeLocationStorage('arrVids');
-            common.removeLocationStorage('historyLocationParams'); //历史位置查询
-            common.removeLocationStorage('carManagerParams'); //车辆管理            
-            common.removeLocationStorage('userManagerParams'); //组织用户
-            common.removeLocationStorage('roleManagerSearchParams'); //角色管理            
-            common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，
         // newParam：新的查询参数，hasDefaultPage：参数默认传递page参数，默认为true
@@ -702,51 +704,6 @@ define(function(require, exports, module) {
                     }
                 }
             }, ajaxOpt));
-        },
-        // 所属机构-查询公共组件(callback代表选择了某一项的回调函数)
-        listenOrganization: function(callback) {
-            var me = this;
-            $('#main-content').off()
-
-            .on('input propertychange', 'input[name="orgName"]', function(e) {
-                var value = $.trim($(this).val());
-                common.setElValue(':hidden[name="OnlyOrgNo"]', '');
-                if (value.length >= 3) {
-                    me.getOrganizationList(value);
-                }
-            }).on('click', 'ul.ul-select a', function() {
-                var orgId = $(this).data('orgid');
-                var orgName = $(this).data('name');
-                common.setElValue(':hidden[name="OnlyOrgNo"]', orgId);
-                common.setElValue('input[name="orgName"]', orgName);
-                $(this).closest('ul.ul-select').addClass('hidden');
-                if (callback) callback(orgId, orgName);
-            });
-        },
-        // 所属机构-查询结果列表
-        getOrganizationList: function(value) {
-            value = $.trim(value);
-            if (!value || value.length < 3) {
-                common.layMsg('至少输入3个字符进行搜索');
-                $('input[name="orgName"]').focus();
-                return false;
-            }
-            common.ajax(api.carManager.orgList, {
-                OnlyOrgName: value
-            }, function(res) {
-                if (res.status === 'SUCCESS') {
-                    var data = res.content;
-                    var html = '';
-                    if (data && data.length > 0) {
-                        $.each(data, function(i, item) {
-                            html += '<li><a href="javascript:" data-name="' + item.Name + '" data-orgid="' + item.Id + '">' + item.Name + '</a></li>';
-                        });
-                    } else {
-                        html = '<li><span>未找到相关数据项！</span></li>';
-                    }
-                    $('ul.ul-select').removeClass('hidden').empty().html(html);
-                }
-            });
         },
         // ztree查询
         searchTree: function() {
