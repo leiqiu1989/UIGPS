@@ -28,9 +28,9 @@
             <a class="td-operator js_list_delete">
                 <i class="fa fa-times"></i> Delete
             </a>
-            <a class="td-operator js_list_delete">
+            <!--<a class="td-operator js_list_delete">
                 <i class="fa fa-times"></i> Reset Password
-            </a>
+            </a>-->
         </td>
     </tr>
     <% } } %>

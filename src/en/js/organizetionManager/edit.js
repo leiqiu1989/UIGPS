@@ -72,10 +72,12 @@ define(function(require, exports, module) {
         submitForm: function() {
             var me = this;
             var params = common.getFormData('#frmOrgInfo');
-            params.Users = [];
-            params.OrgId = $('#txtSubordinate').data('orgNo') || '';
+            params.ParentOrgNo = $('#txtSubordinate').data('orgNo') || '';
             var url = this.isEdit ? api.orgManager.update : api.orgManager.save;
-            common.ajax(url, { OrgUser: JSON.stringify(params) }, function(res) {
+            if (this.isEdit) {
+                params.OrgId = this.orgId;
+            }
+            common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('SUCCESS!', 'success');
                     common.changeHash('#organizetionManager/index');

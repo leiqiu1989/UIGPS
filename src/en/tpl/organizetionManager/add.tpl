@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">Subordinate</label>
+                            <label class="layui-form-label">Higher Organizetion</label>
                             <div class="layui-input-block">
                                 <div class="layui-unselect layui-form-select js-Subordinate">
                                     <div class="layui-select-title">

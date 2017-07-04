@@ -39,6 +39,13 @@ define(function(require, exports, module) {
             group: 'carmonitor',
             icon: 'icon-position'
         }, {
+            name: 'Geofence Manager',
+            code: '00033',
+            url: '#geofenceManager/index',
+            groupname: 'Location Monitor',
+            group: 'carmonitor',
+            icon: 'icon-position'
+        }, {
             name: 'Punctuation Management',
             code: '00030',
             url: '#landmarkPointManager/index',
@@ -47,7 +54,7 @@ define(function(require, exports, module) {
             icon: 'icon-position'
         }, {
             name: 'Organizetion Management',
-            code: '00007',
+            code: '00043',
             url: '#organizetionManager/index',
             groupname: 'Organization',
             group: 'users',

@@ -113,7 +113,7 @@ define(function(require, exports, module) {
                 common.changeHash('#organizetionManager/index/', me.searchParam);
             });
             // 事件监听
-            $('#main-content').on('click', '.js_list_add', function() {
+            $('#main-content').off().on('click', '.js_list_add', function() {
                     common.changeHash('#organizetionManager/edit');
                 })
                 //编辑组织
