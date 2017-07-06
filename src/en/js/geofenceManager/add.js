@@ -57,7 +57,7 @@ define(function(require, exports, module) {
             var me = this;
             data = data || {};
             $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
-            this.validate();
+            this.validateForm();
             //map.init('geofenceMap');
             // if (data && !$.isEmptyObject(data)) {
             //     me.bindMapData(data.Lng, data.Lat);
@@ -179,7 +179,7 @@ define(function(require, exports, module) {
             });
             this.cricle = cricle;
         },
-        validate: function() {
+        validateForm: function() {
             var me = this;
             validate('#frmGeofenceAdd', {
                 subBtn: '.js_geofence_save',
