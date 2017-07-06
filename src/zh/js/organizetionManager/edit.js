@@ -72,13 +72,15 @@ define(function(require, exports, module) {
         submitForm: function() {
             var me = this;
             var params = common.getFormData('#frmOrgInfo');
-            params.Users = [];
-            params.OrgId = $('#txtSubordinate').data('orgNo') || '';
+            params.ParentOrgNo = $('#txtSubordinate').data('orgNo') || '';
             var url = this.isEdit ? api.orgManager.update : api.orgManager.save;
+            if (this.isEdit) {
+                params.OrgId = this.orgId;
+            }
             common.ajax(url, { OrgUser: JSON.stringify(params) }, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('SUCCESS!', 'success');
-                    common.changeHash('#organizetionManager/index');
+                    common.changeHash('#organizetionManager/index/', { back: true });
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '系统错误,请稍后再试!';
                     common.layAlert(msg);

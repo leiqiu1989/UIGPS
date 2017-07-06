@@ -38,6 +38,13 @@ define(function(require, exports, module) {
             group: 'carmonitor',
             icon: 'icon-position'
         }, {
+            name: '围栏管理',
+            code: '00033',
+            url: '#geofenceManager/index',
+            groupname: '位置监控',
+            group: 'carmonitor',
+            icon: 'icon-position'
+        }, {
             name: '地标点管理',
             code: '00030',
             url: '#landmarkPointManager/index',
@@ -46,7 +53,7 @@ define(function(require, exports, module) {
             icon: 'icon-position'
         }, {
             name: '组织管理',
-            code: '00007',
+            code: '00043',
             url: '#organizetionManager/index',
             groupname: '组织机构',
             group: 'users',

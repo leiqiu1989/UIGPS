@@ -80,7 +80,7 @@ define(function(require, exports, module) {
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('SUCCESS!', 'success');
-                    common.changeHash('#organizetionManager/index');
+                    common.changeHash('#organizetionManager/index/', { back: true });
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                     common.layAlert(msg);

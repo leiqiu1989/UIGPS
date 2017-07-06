@@ -37,7 +37,7 @@ define(function(require, exports, module) {
                 common.layUIForm();
                 if (me.isEdit) {
                     $('select[name="RoleId"]').val(data.RoleId).next().find(':text')
-                        .val(data.RoleId).end().find('dd[lay-value=' + data.RoleId + ']')
+                        .val(data.RoleName).end().find('dd[lay-value=' + data.RoleId + ']')
                         .addClass('layui-this');
                 }
             });
@@ -121,7 +121,7 @@ define(function(require, exports, module) {
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('SUCCESS!', 'success');
-                    common.changeHash('#userManager/index');
+                    common.changeHash('#userManager/index/', { back: true });
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '系统异常, 请稍后再试';
                     common.layAlert(msg);

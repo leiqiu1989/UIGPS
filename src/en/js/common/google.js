@@ -21,7 +21,7 @@ define(function(require, exports, module) {
         this.zoom = 10;
     };
 
-    map.prototype = {
+    $.extend(map.prototype, {
         reset: function() {
             this._map = null;
             this.clearData();
@@ -443,7 +443,7 @@ define(function(require, exports, module) {
             });
             this.trackInfoWindow.open(me._map, clickedMarker);
         }
-    };
+    });
     var _map = new map();
 
     module.exports = _map;
