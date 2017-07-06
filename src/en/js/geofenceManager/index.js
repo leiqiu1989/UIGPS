@@ -70,7 +70,7 @@ define(function(require, exports, module) {
             reset = reset || false;
             this.sortParam = {};
             var _param = null;
-            if (reset) {
+            if (reset || param.back) {
                 _param = {
                     SubordinateName: '',
                     Subordinate: '',

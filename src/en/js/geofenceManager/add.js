@@ -33,24 +33,36 @@ define(function(require, exports, module) {
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
+                        //me.initControl(data);
                         me.renderHtml(title, data);
                     }
                 });
             } else {
                 this.renderHtml(title);
+                //this.initControl();
             }
-            common.layUIForm();
             this.event();
+
+        },
+        initControl: function(data) {
+            common.subordinateTree({
+                loadSIM: false, //不加载sim
+                loadDevice: false, //不加载设备编号
+                orgNo: '', // 机构编号
+                PlateNo: '' //车牌号码
+            });
+            common.layUIForm();
         },
         renderHtml: function(title, data) {
             var me = this;
             data = data || {};
             $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
-            map.init('geofenceMap');
-            if (data && !$.isEmptyObject(data)) {
-                me.bindMapData(data.Lng, data.Lat);
-            }
-            this.placeAutoComplete();
+            this.validate();
+            //map.init('geofenceMap');
+            // if (data && !$.isEmptyObject(data)) {
+            //     me.bindMapData(data.Lng, data.Lat);
+            // }
+            // this.placeAutoComplete();
         },
         placeAutoComplete: function() {
             var me = this;
@@ -79,7 +91,7 @@ define(function(require, exports, module) {
                     _map.setCenter(place.geometry.location);
                     _map.setZoom(17); // Why 17? Because it looks good.
                 }
-                marker.setIcon( /** @type {google.maps.Icon} */ ({
+                marker.setIcon(({
                     url: 'https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png',
                     size: new google.maps.Size(71, 71),
                     origin: new google.maps.Point(0, 0),
@@ -148,8 +160,12 @@ define(function(require, exports, module) {
             });
         },
         addCricle: function(mapLocation) {
+            if (this.cricle) {
+                this.cricle.setMap(null);
+            }
             var lng = mapLocation.lng();
             var lat = mapLocation.lat();
+            var radius = parseInt($('#Radius').val());
             var point = new google.maps.LatLng(lat, lng);
             var cricle = new google.maps.Circle({
                 strokeColor: '#B7AD76',
@@ -159,61 +175,56 @@ define(function(require, exports, module) {
                 fillOpacity: '0.6',
                 map: map._map,
                 center: point,
-                radius: 200
+                radius: radius
             });
             this.cricle = cricle;
         },
+        validate: function() {
+            var me = this;
+            validate('#frmGeofenceAdd', {
+                subBtn: '.js_geofence_save',
+                promptPos: 'inline',
+                submit: function() {
+                    me.submitForm();
+                }
+            });
+        },
         submitForm: function() {
+            debugger;
             var me = this;
             if (this.mark) {
-                var url = this.isEdit ? api.landMarkPointManager.update : api.landMarkPointManager.add;
-                var params = {
-                    LandMarkName: common.getElValue('input[name="LandMarkName"]'),
-                    Remark: common.getElValue('textarea[name="Remark"]')
-                };
-                if (this.isEdit) {
-                    params.LandMarkId = this.id;
-                }
-                common.loading('show');
-                common.ajax(url, params, function(res) {
-                    if (res && res.status === 'SUCCESS') {
-                        common.layMsg('数据操作成功');
-                        common.changeHash('#landmarkPointManager/index');
-                    } else {
-                        var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
-                        common.layMsg(msg);
-                    }
-                    common.loading();
-                });
+                var url = this.isEdit ? api.areaManager.update : api.areaManager.add;
+                var params = common.getFormData('#frmGeofence');
+                debugger;
+                // common.loading('show');
+                // common.ajax(url, params, function(res) {
+                //     if (res && res.status === 'SUCCESS') {
+                //         common.layMsg('Operator Success!');
+                //         common.changeHash('#geofenceManager/index/', { back: true });
+                //     } else {
+                //         var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
+                //         common.layMsg(msg);
+                //     }
+                //     common.loading();
+                // });
             } else {
-                common.layAlert('请在地图上面标注地标点!');
+                common.layAlert('Please mark the mark on the map!');
                 return false;
             }
         },
         event: function() {
             var me = this;
             $('#main-content')
-                .on('click', '.js-cancel', function() {
-                    common.changeHash('#geofenceManager/index');
-                })
-                .on('click', '.js-save', function() {
-                    var lanMarkName = $.trim($('input[name="LandMarkName"]').val());
-                    var remark = $.trim($('input[name="LandMarkName"]').val());
-                    if (!lanMarkName || lanMarkName.length > 20) {
-                        common.layAlert('地标点名称不能为空，且最大长度20个字符!', { icon: 2 });
-                        return false;
-                    }
-                    if (remark && remark.length > 50) {
-                        common.layAlert('最大长度50个字符!', { icon: 2 });
-                        return false;
-                    }
-                    me.submitForm();
+                .on('click', '.js_geofence_cancel', function() {
+                    common.changeHash('#geofenceManager/index/', { back: true });
                 })
                 // 清除标注物
                 .on('click', '.js_mark_point_clear', function() {
                     common.setElValue('input[name="searchTxt"]', '');
                     if (me.cricle) { me.cricle.setMap(null); }
-                    if (me.mark) { me.mark.setMap(null); }
+                    if (me.mark) {
+                        me.mark.setVisible(false);
+                    }
                 });
         }
     });
