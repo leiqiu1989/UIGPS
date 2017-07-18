@@ -74,32 +74,26 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">Remark</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="" class="layui-textarea"></textarea>
+                                    <textarea placeholder="" name="Reamrk" class="layui-textarea"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-transparent no-margin">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="col-sm-offset-4 col-sm-8">
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
                                     <button type="button" class="layui-btn layui-btn-normal js_geofence_save">Save</button>
-                                    <button type="button" class="layui-btn layui-btn-normal js_geofence_cancel">Cancel</button>
+                                    <button type="button" class="layui-btn layui-btn-primary js_geofence_cancel">Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!--<div class="col-sm-8">
+            <div class="col-sm-8">
                 <div class="mapToolbar">
                     <input type="text" class="mapText" name="searchTxt" id="searchTxt" placeholder="Enter a location" autocomplete="off" />
                     <a href="javascript:" class="mapBtn mapBtnText js_mark_point_clear">Remove</a>
                 </div>
                 <div id="geofenceMap" style="width:100%;height:600px;"></div>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>

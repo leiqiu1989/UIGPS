@@ -14,11 +14,11 @@
                         </h3>
                     </div>
                     <div class="panel-body">
-                        <div class="layui-form auto-label-width">
+                        <div id="frmGeofenceAdd" class="layui-form auto-label-width">
                             <div class="layui-form-item">
-                                <label class="layui-form-label">围栏名称</label>
+                                <label class="layui-form-label required">围栏名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" autocomplete="off" class="layui-input" maxlength="20" />
+                                    <input type="text" autocomplete="off" required class="layui-input" maxlength="20" />
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -37,13 +37,22 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">所属机构</label>
                                 <div class="layui-input-block">
-
+                                    <div class="layui-unselect layui-form-select js-Subordinate">
+                                        <div class="layui-select-title">
+                                            <input type="text" placeholder="Select" id="txtSubordinate" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                            <i class="layui-edge"></i>
+                                        </div>
+                                        <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
+                                        </dl>
+                                    </div>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">车辆</label>
                                 <div class="layui-input-block">
-
+                                    <select id="selPlateNumber" name="selPlateNumber">
+                                        <option value="">请选择</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -68,16 +77,10 @@
                                     <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-transparent no-margin">
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="col-sm-offset-4 col-sm-8">
-                                    <button class="layui-btn layui-btn-small layui-btn-normal w-100 js-search">保 存</button>
-                                    <button class="layui-btn layui-btn-small layui-btn-normal w-100 js-cancel">取 消</button>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button type="button" class="layui-btn layui-btn-normal js_geofence_save">保 存</button>
+                                    <button type="button" class="layui-btn layui-btn-primary js_geofence_cancel">取 消</button>
                                 </div>
                             </div>
                         </div>

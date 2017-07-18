@@ -28,9 +28,9 @@
             <a class="td-operator js_list_delete">
                 <i class="fa fa-times"></i> 删 除
             </a>
-            <a class="td-operator js_list_delete">
+            <!--<a class="td-operator js_list_delete">
                 <i class="fa fa-times"></i> 重置密码
-            </a>
+            </a>-->
         </td>
     </tr>
     <% } } %>

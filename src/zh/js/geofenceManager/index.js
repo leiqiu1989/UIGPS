@@ -133,7 +133,7 @@ define(function(require, exports, module) {
                 // 删除
                 .on('click', '.js_list_delete', function() {
                     var keyId = $(this).closest('tr').attr('data-id');
-                    common.layConfirm('Confirm to delete?', function() {
+                    common.layConfirm('确认删除?', function() {
                         me.deleteItem(keyId);
                     });
                 })
@@ -148,7 +148,7 @@ define(function(require, exports, module) {
             common.ajax(api.areaManager.enable, { KeyId: keyId, Enable: enabled }, function(res) {
                 if (res.status === 'SUCCESS') {
                     me.getData();
-                    common.layMsg('Operator Success!');
+                    common.layMsg('操作成功!');
                 } else {
                     var msg = res.errorMsg || '系统错误，请联系管理员!';
                     common.layMsg(msg);
@@ -163,7 +163,7 @@ define(function(require, exports, module) {
             common.ajax(api.areaManager.del, { KeyId: keyId }, function(res) {
                 if (res.status === 'SUCCESS') {
                     me.getData();
-                    common.layMsg('Operator Success!');
+                    common.layMsg('操作成功!');
                 } else {
                     var msg = res.errorMsg || '系统错误，请联系管理员!';
                     common.layMsg(msg);

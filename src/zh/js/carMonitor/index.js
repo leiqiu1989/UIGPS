@@ -31,12 +31,26 @@ define(function(require, exports, module) {
             map.addDrawing(function(param) {
                 me.getDrawData(param);
             });
+            me.getAlarmCount();
             this.initControl();
         },
         // 初始化控件
         initControl: function() {
             this.event();
             this.initZTree();
+        },
+        // 获取未处理报警数量
+        getAlarmCount: function() {
+            debugger;
+            common.ajax(api.getAlarmCount, {}, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var count = res.content || 0;
+                    $('.js_alarmCount').text(count);
+                } else {
+                    var msg = res.errorMsg || '系统错误，请联系管理员!';
+                    common.layMsg(msg);
+                }
+            });
         },
         getDrawData: function(param) {
             var me = this;

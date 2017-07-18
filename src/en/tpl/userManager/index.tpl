@@ -21,7 +21,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">User</label>
                     <div class="layui-input-block">
-                        <input type="text" class="layui-input w-400" name="txtUserName" value="<%= searchValue.UserName %>" />
+                        <input type="text" class="layui-input w-400" id="txtUserName" name="txtUserName" value="<%= searchValue.UserName %>" />
                     </div>
                 </div>
                 <div class="layui-inline">

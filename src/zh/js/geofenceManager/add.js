@@ -19,26 +19,15 @@ define(function(require, exports, module) {
         this.markTool = null;
         this.mark = null;
         this.cricle = null;
+        this.lat = null;
+        this.lng = null;
+        this.vid = null;
     };
     $.extend(addGeofence.prototype, {
         init: function(id) {
             this.id = $.isEmptyObject(id) ? null : id;
             this.isEdit = !!this.id;
             this.initPage();
-        },
-        renderHtml: function(title, data) {
-            var me = this;
-            data = data || {};
-            $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
-            map.init('geofenceMap', null, false);
-            this.initMapTime = setInterval(function() {
-                if (map.isLoaded) {
-                    clearInterval(me.initMapTime);
-                    if (data && !$.isEmptyObject(data)) {
-                        me.bindMapData(data.Lng, data.Lat);
-                    }
-                }
-            }, 500);
         },
         initPage: function() {
             var me = this;
@@ -50,13 +39,38 @@ define(function(require, exports, module) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
                         me.renderHtml(title, data);
+                        me.initControl(data);
                     }
                 });
             } else {
                 this.renderHtml(title);
+                this.initControl();
             }
-            common.layUIForm();
             this.event();
+        },
+        initControl: function(data) {
+            common.subordinateTree({
+                loadSIM: false, //不加载sim
+                loadDevice: false, //不加载设备编号
+                orgNo: '', // 机构编号
+                PlateNo: '' //车牌号码
+            });
+            common.layUIForm();
+        },
+        renderHtml: function(title, data) {
+            var me = this;
+            data = data || {};
+            $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
+            this.validateForm();
+            map.init('geofenceMap', null, false);
+            this.initMapTime = setInterval(function() {
+                if (map.isLoaded) {
+                    clearInterval(me.initMapTime);
+                    if (data && !$.isEmptyObject(data)) {
+                        me.bindMapData(data.Lng, data.Lat);
+                    }
+                }
+            }, 500);
         },
         bindMapData: function(lng, lat) {
             var me = this;
@@ -90,28 +104,33 @@ define(function(require, exports, module) {
             map._map.addOverlay(circle);
 
         },
+        validateForm: function() {
+            var me = this;
+            validate('#frmGeofenceAdd', {
+                subBtn: '.js_geofence_save',
+                promptPos: 'inline',
+                submit: function() {
+                    me.submitForm();
+                }
+            });
+        },
         submitForm: function() {
             var me = this;
             if (this.markTool) {
-                var url = this.isEdit ? api.landMarkPointManager.update : api.landMarkPointManager.add;
-                var params = {
-                    LandMarkName: common.getElValue('input[name="LandMarkName"]'),
-                    Remark: common.getElValue('textarea[name="Remark"]')
-                };
-                if (this.isEdit) {
-                    params.LandMarkId = this.id;
-                }
-                common.loading('show');
-                common.ajax(url, params, function(res) {
-                    if (res && res.status === 'SUCCESS') {
-                        common.layMsg('数据操作成功');
-                        common.changeHash('#landmarkPointManager/index');
-                    } else {
-                        var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
-                        common.layMsg(msg);
-                    }
-                    common.loading();
-                });
+                var url = this.isEdit ? api.areaManager.update : api.areaManager.add;
+                var params = common.getFormData('#frmGeofenceAdd');
+                debugger;
+                // common.loading('show');
+                // common.ajax(url, params, function(res) {
+                //     if (res && res.status === 'SUCCESS') {
+                //         common.layMsg('Operator Success!');
+                //         common.changeHash('#geofenceManager/index/', { back: true });
+                //     } else {
+                //         var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
+                //         common.layMsg(msg);
+                //     }
+                //     common.loading();
+                // });
             } else {
                 common.layAlert('请在地图上面标注地标点!');
                 return false;
@@ -125,11 +144,11 @@ define(function(require, exports, module) {
                 onSearchComplete: function(result) {
                     //查询结果状态码
                     if (localSearch.getStatus() == BMAP_STATUS_SUCCESS) {
-                        var ur = result.ur;
+                        var rt = result.ur || result.or || result.wr || result.vr;
                         var points = [];
                         var mapPoints = [];
-                        if (ur.length > 0) {
-                            $.each(ur, function(i, item) {
+                        if (rt.length > 0) {
+                            $.each(rt, function(i, item) {
                                 points.push(item.point);
                             });
                         }
@@ -180,49 +199,39 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            $('#main-content').on('click', '.js-cancel', function() {
-                common.changeHash('#geofenceManager/index');
-            }).on('click', '.js-save', function() {
-                var lanMarkName = $.trim($('input[name="LandMarkName"]').val());
-                var remark = $.trim($('input[name="LandMarkName"]').val());
-                if (!lanMarkName || lanMarkName.length > 20) {
-                    common.layAlert('地标点名称不能为空，且最大长度20个字符!', { icon: 2 });
-                    return false;
-                }
-                if (remark && remark.length > 50) {
-                    common.layAlert('最大长度50个字符!', { icon: 2 });
-                    return false;
-                }
-                me.submitForm();
-            }).on('click', '.js_search_map', function() {
-                var searchTxt = $('input[name="searchTxt"]').val();
-                if (!$.trim(searchTxt)) {
-                    common.layAlert('请输入查询条件！', { icon: 2 });
-                    return false;
-                }
-                if (me.markTool) {
-                    me.markTool.setPoint(null);
-                }
-                me.locationSearch(searchTxt);
-            }).on('click', '.js_mark_point', function() {
-                if (!$(this).hasClass('disabled')) {
-                    $(this).addClass('disabled');
-                    me.markTool = new BMapLib.MarkerTool(map._map, {
-                        autoClose: true,
-                        followText: '选择要标注的区域'
-                    });
-                    me.markToolEvent();
-                    me.markTool.open();
-                } else {
-                    return false;
-                }
-            }).on('click', '.js_mark_point_clear', function() {
-                map.clearOverlays();
-                $('.js_mark_point').removeClass('disabled');
-                $('input[name="searchTxt"]').val('');
-                me.markTool = null;
-                me.mark = null;
-            });
+            $('#main-content')
+                .on('click', '.js_geofence_cancel', function() {
+                    common.changeHash('#geofenceManager/index/', { back: true });
+                })
+                .on('click', '.js_search_map', function() {
+                    var searchTxt = $('input[name="searchTxt"]').val();
+                    if (!$.trim(searchTxt)) {
+                        common.layAlert('请输入查询条件！', { icon: 2 });
+                        return false;
+                    }
+                    if (me.markTool) {
+                        me.markTool.setPoint(null);
+                    }
+                    me.locationSearch(searchTxt);
+                }).on('click', '.js_mark_point', function() {
+                    if (!$(this).hasClass('disabled')) {
+                        $(this).addClass('disabled');
+                        me.markTool = new BMapLib.MarkerTool(map._map, {
+                            autoClose: true,
+                            followText: '选择要标注的区域'
+                        });
+                        me.markToolEvent();
+                        me.markTool.open();
+                    } else {
+                        return false;
+                    }
+                }).on('click', '.js_mark_point_clear', function() {
+                    map.clearOverlays();
+                    $('.js_mark_point').removeClass('disabled');
+                    $('input[name="searchTxt"]').val('');
+                    me.markTool = null;
+                    me.mark = null;
+                });
         }
     });
 

@@ -126,7 +126,7 @@ define(function(require, exports, module) {
                 })
                 //删除用户
                 .on('click', '.js_list_delete', function() {
-                    var uid = $(this).closest('tr').data('data-uid');
+                    var uid = $(this).closest('tr').attr('data-uid');
                     var confirmText = 'Confirm to delete?';
                     me.deleteUser(uid, confirmText);
                 });

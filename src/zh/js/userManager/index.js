@@ -75,7 +75,7 @@ define(function(require, exports, module) {
                         me.getData();
                         common.layMsg('SUCCESS!', 'success');
                     } else {
-                        var msg = res.errorMsg || 'System error, please contact the administrator!';
+                        var msg = res.errorMsg || '系统错误，请联系管理员!';
                         common.layMsg(msg);
                     }
                     common.loading();
@@ -126,7 +126,7 @@ define(function(require, exports, module) {
                 })
                 //删除用户
                 .on('click', '.js_list_delete', function() {
-                    var uid = $(this).closest('tr').data('data-uid');
+                    var uid = $(this).closest('tr').attr('data-uid');
                     var confirmText = 'Confirm to delete?';
                     me.deleteUser(uid, confirmText);
                 });

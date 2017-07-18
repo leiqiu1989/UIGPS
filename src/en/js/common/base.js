@@ -14,7 +14,7 @@ define("base", [], function() {
             zTree: "plugin/jquery.ztree.core.min.js",
             excheck: 'plugin/jquery.ztree.excheck.js',
             exhide: 'plugin/jquery.ztree.exhide.min.js',
-            validate: 'plugin/validate.min.js',
+            validate: 'plugin/validate.js',
             chosen: 'plugin/chosen.jquery.min.js',
             markerwithlabel: 'plugin/markerWithLabel.js',
             docEvent: 'common/docEvent.js',

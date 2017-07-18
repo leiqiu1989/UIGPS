@@ -58,6 +58,8 @@ define(function(require, exports, module) {
         getSIMList: remoteUrl + '/ConditionInfo/SimList',
         // 获取警情-select
         getAlarmList: remoteUrl + '/alarm/code-option',
+        // 获取未处理报警数量
+        getAlarmCount: remoteUrl + '/alarm/count',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表

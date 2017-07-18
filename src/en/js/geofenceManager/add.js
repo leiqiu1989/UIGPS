@@ -17,6 +17,9 @@ define(function(require, exports, module) {
         this.isEdit = null;
         this.mark = null;
         this.cricle = null;
+        this.lat = null;
+        this.lng = null;
+        this.vid = null;
     };
     $.extend(addGeofence.prototype, {
         init: function(id) {
@@ -33,13 +36,13 @@ define(function(require, exports, module) {
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
-                        //me.initControl(data);
                         me.renderHtml(title, data);
+                        me.initControl(data);
                     }
                 });
             } else {
                 this.renderHtml(title);
-                //this.initControl();
+                this.initControl();
             }
             this.event();
 
@@ -58,11 +61,11 @@ define(function(require, exports, module) {
             data = data || {};
             $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
             this.validateForm();
-            //map.init('geofenceMap');
-            // if (data && !$.isEmptyObject(data)) {
-            //     me.bindMapData(data.Lng, data.Lat);
-            // }
-            // this.placeAutoComplete();
+            map.init('geofenceMap');
+            if (data && !$.isEmptyObject(data)) {
+                me.bindMapData(data.Lng, data.Lat);
+            }
+            this.placeAutoComplete();
         },
         placeAutoComplete: function() {
             var me = this;
@@ -165,6 +168,8 @@ define(function(require, exports, module) {
             }
             var lng = mapLocation.lng();
             var lat = mapLocation.lat();
+            this.lat = lat;
+            this.lng = lng;
             var radius = parseInt($('#Radius').val());
             var point = new google.maps.LatLng(lat, lng);
             var cricle = new google.maps.Circle({
@@ -194,7 +199,7 @@ define(function(require, exports, module) {
             var me = this;
             if (this.mark) {
                 var url = this.isEdit ? api.areaManager.update : api.areaManager.add;
-                var params = common.getFormData('#frmGeofence');
+                var params = common.getFormData('#frmGeofenceAdd');
                 debugger;
                 // common.loading('show');
                 // common.ajax(url, params, function(res) {

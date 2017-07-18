@@ -296,8 +296,13 @@
     }
     .mapAlarm {
         @extend .icon;
-        background: #fff url('./../img/messageicon.png') no-repeat 10px;
+        background: #fff url('./../img/bell.png') no-repeat 10px;
         margin-left: 10px;
+    }
+    .alarmCount {
+        color: red;
+        font-weight: 700;
+        padding: 10px;
     }
 }
 
