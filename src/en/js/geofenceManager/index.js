@@ -141,6 +141,11 @@ define(function(require, exports, module) {
                 .on('click', '.js_list_add', function() {
                     common.changeHash('#geofenceManager/add');
                 })
+                // 编辑
+                .on('click', '.js_list_edit', function() {
+                    var keyId = $(this).closest('tr').attr('data-id');
+                    common.changeHash('#geofenceManager/add/', { id: keyId });
+                });
         },
         changeStatus: function(keyId, enabled) {
             var me = this;

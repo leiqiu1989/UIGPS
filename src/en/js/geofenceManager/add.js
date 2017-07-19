@@ -19,7 +19,6 @@ define(function(require, exports, module) {
         this.cricle = null;
         this.lat = null;
         this.lng = null;
-        this.vid = null;
     };
     $.extend(addGeofence.prototype, {
         init: function(id) {
@@ -31,8 +30,8 @@ define(function(require, exports, module) {
             var me = this;
             var title = this.isEdit ? 'Edit Geofence' : 'Add Geofence';
             if (this.isEdit) {
-                common.ajax(api.landMarkPointManager.detail, {
-                    LandMarkId: this.id
+                common.ajax(api.areaManager.detail, {
+                    KeyId: this.id
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
@@ -54,7 +53,29 @@ define(function(require, exports, module) {
                 orgNo: '', // 机构编号
                 PlateNo: '' //车牌号码
             });
-            common.layUIForm();
+            common.layUIForm({
+                callback: function() {
+                    if (data) {
+                        // radius
+                        $('#Radius').val(data.Radius);
+                        var txtRadius = $('#Radius > option:selected').text();
+                        $('#Radius').next().find(':text').val(txtRadius).end()
+                            .find('dd[lay-value=' + data.Radius + ']').addClass('layui-this').siblings().removeClass('layui-this');
+                        // status
+                        $('#status').val(data.Enabled);
+                        var txtEnabled = $('#status > option:selected').text();
+                        $('#status').next().find(':text').val(txtEnabled).end()
+                            .find('dd[lay-value=' + data.Enabled + ']').addClass('layui-this').siblings().removeClass('layui-this');
+                        // arae in,area out
+                        if (data.AreaIn) {
+                            $('[name="AreaIn"]').attr('checked', true).next('div').addClass('layui-form-checked');
+                        }
+                        if (data.AreaOut) {
+                            $('[name="AreaOut"]').attr('checked', true).next('div').addClass('layui-form-checked');
+                        }
+                    }
+                }
+            });
         },
         renderHtml: function(title, data) {
             var me = this;
@@ -104,7 +125,10 @@ define(function(require, exports, module) {
                 marker.setDraggable(true);
                 marker.setPosition(place.geometry.location);
                 marker.setVisible(true);
-                me.addCricle(place.geometry.location);
+                var location = place.geometry.location;
+                var lng = location.lng();
+                var lat = location.lat();
+                me.addCricle(lat, lng);
                 me.mark = marker;
                 me.markEvent();
             });
@@ -118,13 +142,13 @@ define(function(require, exports, module) {
             });
             google.maps.event.addListener(this.mark, 'dragend', function(evt) {
                 var latlng = evt.latLng;
-                me.addCricle(latlng);
+                var lat = latlng.lat();
+                var lng = latlng.lng();
+                me.addCricle(lat, lng);
             });
         },
         bindMapData: function(lng, lat) {
             var me = this;
-            lng = 104.123597;
-            lat = 30.600088;
             var point = new google.maps.LatLng(lat, lng);
             this.reverseGeocode(lat, lng, function(place) {
                 common.setElValue('input[name="searchTxt"]', place);
@@ -139,9 +163,12 @@ define(function(require, exports, module) {
                         scaledSize: new google.maps.Size(35, 35)
                     }
                 });
-                me.mark = marker;
+                marker.setDraggable(true);
+                me.addCricle(lat, lng);
                 map._map.setZoom(17);
                 map._map.panTo(point);
+                me.mark = marker;
+                me.markEvent();
             });
         },
         reverseGeocode: function(lat, lng, fn) {
@@ -162,12 +189,10 @@ define(function(require, exports, module) {
                 }
             });
         },
-        addCricle: function(mapLocation) {
+        addCricle: function(lat, lng) {
             if (this.cricle) {
                 this.cricle.setMap(null);
             }
-            var lng = mapLocation.lng();
-            var lat = mapLocation.lat();
             this.lat = lat;
             this.lng = lng;
             var radius = parseInt($('#Radius').val());
@@ -200,18 +225,28 @@ define(function(require, exports, module) {
             if (this.mark) {
                 var url = this.isEdit ? api.areaManager.update : api.areaManager.add;
                 var params = common.getFormData('#frmGeofenceAdd');
-                debugger;
-                // common.loading('show');
-                // common.ajax(url, params, function(res) {
-                //     if (res && res.status === 'SUCCESS') {
-                //         common.layMsg('Operator Success!');
-                //         common.changeHash('#geofenceManager/index/', { back: true });
-                //     } else {
-                //         var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
-                //         common.layMsg(msg);
-                //     }
-                //     common.loading();
-                // });
+                params = $.extend(params, {
+                    Vid: $('#selPlateNumber > option:selected').attr('vid'),
+                    AreaIn: $('[name="AreaIn"]').is(':checked') ? 1 : 0,
+                    AreaOut: $('[name="AreaOut"]').is(':checked') ? 1 : 0,
+                    Lat: this.lat,
+                    Lng: this.lng,
+                    Enabled: $('#status').val()
+                });
+                if (this.isEdit) {
+                    params.KeyId = this.id;
+                }
+                common.loading('show');
+                common.ajax(url, params, function(res) {
+                    if (res && res.status === 'SUCCESS') {
+                        common.layMsg('Operator Success!');
+                        common.changeHash('#geofenceManager/index/', { back: true });
+                    } else {
+                        var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
+                        common.layMsg(msg);
+                    }
+                    common.loading();
+                });
             } else {
                 common.layAlert('Please mark the mark on the map!');
                 return false;
@@ -234,7 +269,7 @@ define(function(require, exports, module) {
         }
     });
 
-    exports.init = function(id) {
-        new addGeofence().init(id);
+    exports.init = function(param) {
+        new addGeofence().init(param.id);
     };
 });

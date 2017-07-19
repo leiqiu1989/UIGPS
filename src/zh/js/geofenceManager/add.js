@@ -21,7 +21,6 @@ define(function(require, exports, module) {
         this.cricle = null;
         this.lat = null;
         this.lng = null;
-        this.vid = null;
     };
     $.extend(addGeofence.prototype, {
         init: function(id) {
@@ -33,8 +32,8 @@ define(function(require, exports, module) {
             var me = this;
             var title = this.isEdit ? '编辑围栏' : '新增围栏';
             if (this.isEdit) {
-                common.ajax(api.landMarkPointManager.detail, {
-                    LandMarkId: this.id
+                common.ajax(api.areaManager.detail, {
+                    KeyId: this.id
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
@@ -55,7 +54,29 @@ define(function(require, exports, module) {
                 orgNo: '', // 机构编号
                 PlateNo: '' //车牌号码
             });
-            common.layUIForm();
+            common.layUIForm({
+                callback: function() {
+                    if (data) {
+                        // radius
+                        $('#Radius').val(data.Radius);
+                        var txtRadius = $('#Radius > option:selected').text();
+                        $('#Radius').next().find(':text').val(txtRadius).end()
+                            .find('dd[lay-value=' + data.Radius + ']').addClass('layui-this').siblings().removeClass('layui-this');
+                        // status
+                        $('#status').val(data.Enabled);
+                        var txtEnabled = $('#status > option:selected').text();
+                        $('#status').next().find(':text').val(txtEnabled).end()
+                            .find('dd[lay-value=' + data.Enabled + ']').addClass('layui-this').siblings().removeClass('layui-this');
+                        // arae in,area out
+                        if (data.AreaIn) {
+                            $('[name="AreaIn"]').attr('checked', true).next('div').addClass('layui-form-checked');
+                        }
+                        if (data.AreaOut) {
+                            $('[name="AreaOut"]').attr('checked', true).next('div').addClass('layui-form-checked');
+                        }
+                    }
+                }
+            });
         },
         renderHtml: function(title, data) {
             var me = this;
@@ -87,6 +108,8 @@ define(function(require, exports, module) {
                 });
                 map._map.panTo(point);
                 me.markTool.markPoint(point);
+                me.markToolEvent();
+                me.addCricle(point);
                 $('.js_mark_point').addClass('disabled');
             });
         },
@@ -100,6 +123,8 @@ define(function(require, exports, module) {
                 strokeStyle: 'solid',
                 fillOpacity: '0.6'
             });
+            this.lat = point.lat;
+            this.lng = point.lng;
             this.cricle = circle;
             map._map.addOverlay(circle);
 
@@ -119,18 +144,28 @@ define(function(require, exports, module) {
             if (this.markTool) {
                 var url = this.isEdit ? api.areaManager.update : api.areaManager.add;
                 var params = common.getFormData('#frmGeofenceAdd');
-                debugger;
-                // common.loading('show');
-                // common.ajax(url, params, function(res) {
-                //     if (res && res.status === 'SUCCESS') {
-                //         common.layMsg('Operator Success!');
-                //         common.changeHash('#geofenceManager/index/', { back: true });
-                //     } else {
-                //         var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
-                //         common.layMsg(msg);
-                //     }
-                //     common.loading();
-                // });
+                params = $.extend(params, {
+                    Vid: $('#selPlateNumber > option:selected').attr('vid'),
+                    AreaIn: $('[name="AreaIn"]').is(':checked') ? 1 : 0,
+                    AreaOut: $('[name="AreaOut"]').is(':checked') ? 1 : 0,
+                    Lat: this.lat,
+                    Lng: this.lng,
+                    Enabled: $('#status').val()
+                });
+                if (this.isEdit) {
+                    params.KeyId = this.id;
+                }
+                common.loading('show');
+                common.ajax(url, params, function(res) {
+                    if (res && res.status === 'SUCCESS') {
+                        common.layMsg('操作成功!');
+                        common.changeHash('#geofenceManager/index/', { back: true });
+                    } else {
+                        var msg = res.errorMsg ? res.errorMsg : '服务异常，请稍后再试!';
+                        common.layMsg(msg);
+                    }
+                    common.loading();
+                });
             } else {
                 common.layAlert('请在地图上面标注地标点!');
                 return false;
@@ -235,7 +270,7 @@ define(function(require, exports, module) {
         }
     });
 
-    exports.init = function(id) {
-        new addGeofence().init(id);
+    exports.init = function(param) {
+        new addGeofence().init(param.id);
     };
 });

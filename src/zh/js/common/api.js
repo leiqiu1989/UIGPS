@@ -142,7 +142,10 @@ define(function(require, exports, module) {
         areaManager: {
             list: remoteUrl + '/area/list',
             enable: remoteUrl + '/area/enable',
-            del: remoteUrl + '/area/delete'
+            del: remoteUrl + '/area/delete',
+            add: remoteUrl + '/area/create',
+            update: remoteUrl + '/area/update',
+            detail: remoteUrl + '/area/detail'
         }
     };
     return api;

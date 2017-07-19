@@ -18,7 +18,7 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label required">Geofence Name</label>
                                 <div class="layui-input-block">
-                                    <input type="text" autocomplete="off" name="AreaName" required class="layui-input" maxlength="20" />
+                                    <input type="text" autocomplete="off" name="AreaName" value="<%= data.AreaName %>" required class="layui-input" maxlength="20" />
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -74,7 +74,9 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">Remark</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="" name="Reamrk" class="layui-textarea"></textarea>
+                                    <textarea placeholder="" name="Reamrk" class="layui-textarea">
+                                        <%= data.Remark %>
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">

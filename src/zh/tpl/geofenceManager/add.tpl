@@ -18,13 +18,13 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label required">围栏名称</label>
                                 <div class="layui-input-block">
-                                    <input type="text" autocomplete="off" required class="layui-input" maxlength="20" />
+                                    <input type="text" autocomplete="off" name="AreaName" value="<%= data.AreaName %>" required class="layui-input" maxlength="20" />
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">围栏半径</label>
                                 <div class="layui-input-block">
-                                    <select id="vehicleType" name="VehicleType">
+                                    <select id="Radius" name="Radius">
                                         <option value="200">200米</option>
                                         <option value="500">500米</option>
                                         <option value="1000">1000米</option>
@@ -58,8 +58,8 @@
                             <div class="layui-form-item">
                                 <label class="layui-form-label">围栏警情</label>
                                 <div class="layui-input-block">
-                                    <input type="checkbox" title="进围栏" lay-skin="primary" />
-                                    <input type="checkbox" title="出围栏" lay-skin="primary" />
+                                    <input type="checkbox" title="进围栏" name="AreaIn" lay-skin="primary" />
+                                    <input type="checkbox" title="出围栏" name="AreaOut" lay-skin="primary" />
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -67,14 +67,16 @@
                                 <div class="layui-input-block">
                                     <select id="status" name="status">
                                         <option value="1">打开</option>
-                                        <option value="2">关闭</option>
+                                        <option value="0">关闭</option>
 						            </select>
                                 </div>
                             </div>
                             <div class="layui-form-item">
                                 <label class="layui-form-label">备注</label>
                                 <div class="layui-input-block">
-                                    <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                                    <textarea placeholder="请输入内容" name="Reamrk" class="layui-textarea">
+                                        <%= data.Remark %>
+                                    </textarea>
                                 </div>
                             </div>
                             <div class="layui-form-item">

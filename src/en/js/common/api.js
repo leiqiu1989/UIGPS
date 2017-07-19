@@ -144,7 +144,8 @@ define(function(require, exports, module) {
             enable: remoteUrl + '/area/enable',
             del: remoteUrl + '/area/delete',
             add: remoteUrl + '/area/create',
-            update: remoteUrl + '/area/update'
+            update: remoteUrl + '/area/update',
+            detail: remoteUrl + '/area/detail'
         }
     };
     return api;

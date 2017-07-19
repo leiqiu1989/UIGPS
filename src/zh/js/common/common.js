@@ -434,11 +434,21 @@ define(function(require, exports, module) {
             }, opts)
             layer.open(opts);
         },
-        layUIForm: function() {
+        layUIForm: function(opt) {
+            opt = opt || {};
+            var defaultOpt = $.extend({
+                callback: null,
+                renderCheckbox: true
+            }, opt);
             layui.use(['form'], function() {
                 var form = layui.form()
                 form.render('select');
-                form.render('checkbox');
+                if (defaultOpt.renderCheckbox) {
+                    form.render('checkbox');
+                }
+                setTimeout(function() {
+                    defaultOpt.callback && defaultOpt.callback();
+                }, 500);
             });
         },
         layAlert: function(content, opt) {
@@ -846,7 +856,8 @@ define(function(require, exports, module) {
                     var html = obj.isall ? '<option value="0">全部</option>' : '';
                     if (data && data.length > 0) {
                         $.each(data, function(i, item) {
-                            html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
+                            var vid = obj.key[2] ? obj.key[2] : '';
+                            html += '<option value="' + item[obj.key[0]] + '" vid="' + (vid ? item[vid] : '') + '">' + item[obj.key[1]] + '</option>';
                         });
                     }
                     obj.$objs.append(html);
@@ -1012,7 +1023,9 @@ define(function(require, exports, module) {
                 key: ['EquipmentId', 'EquipmentNo'],
                 obj: $('#selDevice')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selDevice').val(currentVal).next().find(':text');
                     var txtDevice = $('#selDevice > option:selected').text();
@@ -1030,10 +1043,12 @@ define(function(require, exports, module) {
                 params: {
                     OrgNo: orgNo
                 },
-                key: ['PlateNo', 'PlateNo'],
+                key: ['PlateNo', 'PlateNo', 'Vid'],
                 obj: $('#selPlateNumber')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selPlateNumber').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
@@ -1053,7 +1068,9 @@ define(function(require, exports, module) {
                 key: ['SimCardNo', 'SimCardNo'],
                 obj: $('#selSIM')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selSIM').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
@@ -1071,7 +1088,9 @@ define(function(require, exports, module) {
                 key: ['AlarmCode', 'AlarmText'],
                 obj: $('#selAlarm')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selAlarm').val(currentVal);
                     var txtAlarm = $('#selAlarm > option:selected').text();
