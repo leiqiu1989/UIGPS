@@ -622,7 +622,7 @@ define(function(require, exports, module) {
                     } else {
                         value = $(input).val();
                     }
-                    formData[name] = value;
+                    formData[name] = $.trim(value);
                 }
             });
             return formData;

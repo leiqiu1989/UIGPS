@@ -44,14 +44,13 @@ define(function(require, exports, module) {
                 this.initControl();
             }
             this.event();
-
         },
         initControl: function(data) {
             common.subordinateTree({
                 loadSIM: false, //不加载sim
                 loadDevice: false, //不加载设备编号
-                orgNo: '', // 机构编号
-                PlateNo: '' //车牌号码
+                orgNo: data ? data.OrgNo : '', // 机构编号
+                PlateNo: data ? data.PlateNo : '' //车牌号码
             });
             common.layUIForm({
                 callback: function() {
@@ -231,7 +230,7 @@ define(function(require, exports, module) {
                     AreaOut: $('[name="AreaOut"]').is(':checked') ? 1 : 0,
                     Lat: this.lat,
                     Lng: this.lng,
-                    Enabled: $('#status').val()
+                    Enabled: parseInt($('#status').val())
                 });
                 if (this.isEdit) {
                     params.KeyId = this.id;
