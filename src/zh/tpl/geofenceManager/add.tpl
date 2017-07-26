@@ -39,7 +39,7 @@
                                 <div class="layui-input-block">
                                     <div class="layui-unselect layui-form-select js-Subordinate">
                                         <div class="layui-select-title">
-                                            <input type="text" placeholder="Select" id="txtSubordinate" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                            <input type="text" placeholder="Select" id="txtSubordinate" name="txtSubordinate" value="<%= data.OrgName %>" readonly class="layui-input layui-unselect" />
                                             <i class="layui-edge"></i>
                                         </div>
                                         <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">

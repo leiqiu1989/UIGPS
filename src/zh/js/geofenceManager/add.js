@@ -51,8 +51,8 @@ define(function(require, exports, module) {
             common.subordinateTree({
                 loadSIM: false, //不加载sim
                 loadDevice: false, //不加载设备编号
-                orgNo: '', // 机构编号
-                PlateNo: '' //车牌号码
+                orgNo: data ? data.OrgNo : '', // 机构编号
+                PlateNo: data ? data.PlateNo : '' //车牌号码
             });
             common.layUIForm({
                 callback: function() {

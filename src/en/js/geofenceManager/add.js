@@ -219,7 +219,6 @@ define(function(require, exports, module) {
             });
         },
         submitForm: function() {
-            debugger;
             var me = this;
             if (this.mark) {
                 var url = this.isEdit ? api.areaManager.update : api.areaManager.add;

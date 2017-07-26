@@ -60,6 +60,10 @@ define(function(require, exports, module) {
         getAlarmList: remoteUrl + '/alarm/code-option',
         // 获取未处理报警数量
         getAlarmCount: remoteUrl + '/alarm/count',
+        // 报警详情
+        getAlarmInfo: remoteUrl + '/alarm/last-all',
+        // 处理报警
+        processAlarm: remoteUrl + '/alarm/process',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表

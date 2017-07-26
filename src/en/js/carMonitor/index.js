@@ -14,7 +14,8 @@ define(function(require, exports, module) {
         carList: require('../../tpl/carMonitor/list'),
         carDetail: require('../../tpl/carMonitor/carDetail'),
         directive: require('../../tpl/carMonitor/directive'),
-        alarm: require('../../tpl/carMonitor/alarm')
+        alarm: require('../../tpl/carMonitor/alarm'),
+        alarmList: require('../../tpl/carMonitor/alarmList')
     };
 
     function carMonitor() {
@@ -41,7 +42,6 @@ define(function(require, exports, module) {
         },
         // 获取未处理报警数量
         getAlarmCount: function() {
-            debugger;
             common.ajax(api.getAlarmCount, {}, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var count = res.content || 0;
@@ -344,13 +344,72 @@ define(function(require, exports, module) {
                 });
             }
         },
+        getAlarmData: function(param) {
+            param = param || {
+                AlarmCode: '',
+                PlateNo: ''
+            }
+            common.ajax(api.getAlarmInfo, param, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    var data = res.content || [];
+                    $('#tbAlarmList').empty().html(template.compile(tpls.alarmList)({ data: data }));
+                    $('.js_alarm_total').text(data.length);
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layMsg(msg);
+                }
+            });
+        },
+        processAlarm: function(id) {
+            common.ajax(api.processAlarm, {
+                KeyId: id
+            }, function(res) {
+                if (res && res.status === 'SUCCESS') {
+                    common.layMsg('Operator Success!');
+                    $('.js_alarm_search').click();
+                } else {
+                    var msg = res.errorMsg || 'System error, please contact the administrator!';
+                    common.layMsg(msg);
+                }
+            });
+        },
         getAlarmInfo: function() {
+            var me = this;
             common.layUI({
                 title: 'Alarm Info',
-                area: ['700px', '500px'],
+                area: ['1000px', '500px'],
                 btn: [],
                 content: template.compile(tpls.alarm)(),
-                success: function(el) {}
+                success: function(el) {
+                    var orgNo = common.getCookie('orgno');
+                    // 获取车牌
+                    common.getPlateNum(orgNo);
+                    // 获取警情
+                    common.getAlarmTypeList();
+                    // 获取数据
+                    me.getAlarmData();
+                    // event
+                    $(el)
+                        .on('click', '.js_alarm_search', function() {
+                            var param = {
+                                AlarmCode: $('#selAlarm').val(),
+                                PlateNo: $('#selPlateNumber').val()
+                            }
+                            me.getAlarmData(param);
+                        })
+                        .on('click', '.js_alarm_reset', function() {
+                            $('#selAlarm,#selPlateNumber').val('').next().find(':text').val('').end()
+                                .find('dd').removeClass('layui-this');
+                            me.getAlarmData();
+                        })
+                        // 全部处理
+                        .on('click', '.js_alarm_allDispose', function() {})
+                        // 单个处理
+                        .on('click', '.js_alarm_dispose', function() {
+                            var id = $(this).closest('tr').attr('data-id');
+                            me.processAlarm(id);
+                        });
+                }
             });
         },
         event: function() {
