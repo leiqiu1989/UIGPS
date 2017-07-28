@@ -206,7 +206,7 @@ define(function(require, exports, module) {
         }
     });
     template.helper('odbNull', function(key) {
-        return key ? key : '0';
+        return key ? key : '--';
     });
     template.helper('geofenceStatus', function(key) {
         if (_.isNumber(key)) {
@@ -229,8 +229,11 @@ define(function(require, exports, module) {
             this.ajax(api.odbInfo, { vid: vid }, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var data = res.content || {};
+                    var obdInfo = data.mObdInfo;
+                    var obdStatus = data.mObdStatus;
                     $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
-                        data: data
+                        obdInfo: obdInfo,
+                        obdStatus: obdStatus
                     }));
                     $('#obdList').removeClass('hidden');
                 } else {

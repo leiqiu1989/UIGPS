@@ -47,7 +47,7 @@ define(function(require, exports, module) {
         // 区域查车
         areaQuery: remoteUrl + '/position/QueryVehicleByRectangle',
         // odb信息
-        odbInfo: remoteUrl + '/obd/last',
+        odbInfo: remoteUrl + '/obd/obddata-status',
         // 组织机构列表-tree
         subordinateTree: remoteUrl + '/ConditionInfo/OrgList',
         // 获取设备编号-select，根据所属机构编号
