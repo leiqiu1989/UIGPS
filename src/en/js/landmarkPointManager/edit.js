@@ -164,7 +164,7 @@ define(function(require, exports, module) {
         event: function() {
             var me = this;
             $('#main-content').on('click', '.js-cancel', function() {
-                common.changeHash('#landmarkPointManager/index');
+                common.changeHash('#landmarkPointManager/index/', { back: true });
             }).on('click', '.js-save', function() {
                 var lanMarkName = $.trim($('input[name="LandMarkName"]').val());
                 var remark = $.trim($('input[name="LandMarkName"]').val());

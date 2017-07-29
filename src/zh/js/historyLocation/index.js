@@ -266,8 +266,7 @@ define(function(require, exports, module) {
                     return false;
                 }
                 // 查询参数保存
-                params.rectangle = this.pointArray; // 矩形原始点
-                common.setlocationStorage('historyLocationParams', JSON.stringify(params));
+                params.rectangle = this.pointArray; // 矩形原始点                
                 common.ajax(api.historyQuery, params, function(res) {
                     if (res && res.status === 'SUCCESS') {
                         var data = res.content;

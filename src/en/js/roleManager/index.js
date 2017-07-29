@@ -31,8 +31,6 @@ define(function(require, exports, module) {
             var me = this;
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
-            // 将查询条件保存到localStorage里面
-            common.setlocationStorage('roleManagerSearchParams', JSON.stringify(this.searchParam));
             common.loading('show');
             common.ajax(api.roleManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
@@ -53,26 +51,25 @@ define(function(require, exports, module) {
             //}
         },
         // 获取查询条件
-        getParams: function(param) {
+        getParams: function(param, reset) {
+            param = param || {};
+            reset = reset || false;
             this.sortParam = {};
-            var newParams = {
-                RoleName: common.getElValue('input[name="RoleName"]')
-            };
-            if (!param) {
-                newParams = {};
+            var _param = null;
+            if (reset || param.back) {
+                _param = {
+                    RoleName: ''
+                }
+            } else {
+                if (param && _.isEmpty(param)) {
+                    _param = {
+                        RoleName: common.getElValue('input[name="RoleName"]')
+                    }
+                } else {
+                    _param = param;
+                }
             }
-            this.searchParam = common.getParams('roleManagerSearchParams', param, newParams, true);
-        },
-        exportCarList: function(el) {
-            this.getParams();
-            var st = common.getCookie('st');
-            var sid = common.getCookie('sid');
-            var src = api.carManager.exportCarList + '?sid=' + sid + '&st=' + st;
-            $.each(this.searchParam, function(key, value) {
-                src += '&' + key + '=' + value;
-            });
-            var downSrc = encodeURI(src);
-            $(el).attr('href', downSrc);
+            this.searchParam = common.getParams(null, true, _param);
         },
         editRoleLayer: function(id) {
             var me = this;
@@ -101,15 +98,16 @@ define(function(require, exports, module) {
 
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_search', function(event) {
-                me.getParams(true);
+                me.getParams();
                 common.changeHash('#roleManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
                 common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
-                me.getParams(false);
+                me.getParams(null, true);
                 common.changeHash('#roleManager/index/', me.searchParam);
             });
             // 事件监听
-            $('#main-content').off().on('click', '.js_list_add', function() {
+            $('#main-content').off()
+                .on('click', '.js_list_add', function() {
                     me.editRoleLayer();
                 })
                 .on('click', '.js_list_edit', function() {
@@ -117,48 +115,11 @@ define(function(require, exports, module) {
                     var id = tr.data('id');
                     me.editRoleLayer(id);
                 })
-                .on('click', '.js_list_import', function() {
-                    common.changeHash('#carManager/import');
-                })
-                .on('click', '.js_list_export', function() {
-                    me.exportCarList($(this));
-                })
-                //批量、单个删除角色
+                //删除角色
                 .on('click', '.js_list_delete', function() {
                     var id = $(this).closest('tr').data('id');
-                    var confirmText = '';
-                    if (id) {
-                        confirmText = 'Sure to delete this user?';
-                    } else {
-                        var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
-                        if (chks.size() < 1) {
-                            common.layAlert('Please select the user you want to delete!');
-                            return false;
-                        }
-                        confirmText = 'Have selected&nbsp;<span class="red">' + chks.size() + '</span>&nbsp; users,sure to delete?';
-                        var array = [];
-                        $.each(chks, function(i, item) {
-                            array.push($(item).closest('tr').data('id'));
-                        });
-                        id = array.join(',');
-                    }
+                    var confirmText = 'Sure to delete this user?';
                     me.deleteRole(id, confirmText);
-                })
-                .on('click', 'input[name="checkAll"]', function() {
-                    var isChecked = $(this).is(':checked');
-                    if (isChecked) {
-                        $('.datatable-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
-                    } else {
-                        $('.datatable-content table > tbody input[name="checkItem"]').removeAttr('checked');
-                    }
-                }).on('click', 'input[name="checkItem"]', function() {
-                    var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked').size();
-                    var totalChks = $('.datatable-content table > tbody input[name="checkItem"]').size();
-                    if (chks == totalChks) {
-                        $('.datatable-header table > thead input[name="checkAll"]').prop('checked', true);
-                    } else {
-                        $('.datatable-header table > thead input[name="checkAll"]').removeAttr('checked');
-                    }
                 });
         },
         //初始化树

@@ -4,7 +4,7 @@
 	%>
     <tr data-id="<%= item.KeyId %>">
         <td>
-            <%= i %>
+            <%= i+1 %>
         </td>
         <td class="ellipsis" title="<%= item.AreaName %>">
             <%= item.AreaName %>

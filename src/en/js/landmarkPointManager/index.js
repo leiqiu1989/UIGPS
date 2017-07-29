@@ -23,19 +23,30 @@ define(function(require, exports, module) {
             this.event();
         },
         // 获取查询条件
-        getParams: function(param) {
+        getParams: function(param, reset) {
+            param = param || {};
+            reset = reset || false;
             this.sortParam = {};
-            var newParams = {
-                landMarkName: common.getElValue('input[name="landMarkName"]'), //地标点名称
-            };
-            this.searchParam = common.getParams('landMarkPointParams', param, newParams, true);
+            var _param = null;
+            if (reset || param.back) {
+                _param = {
+                    landMarkName: ''
+                }
+            } else {
+                if (param && _.isEmpty(param)) {
+                    _param = {
+                        landMarkName: common.getElValue('input[name="landMarkName"]') //地标点名称
+                    }
+                } else {
+                    _param = param;
+                }
+            }
+            this.searchParam = common.getParams(null, true, _param);
         },
         getData: function() {
             var me = this;
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
-            // 将查询条件保存到localStorage里面
-            common.setlocationStorage('landMarkPointParams', JSON.stringify(this.searchParam));
             common.loading('show');
             common.ajax(api.landMarkPointManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
@@ -54,7 +65,7 @@ define(function(require, exports, module) {
                 common.loading();
             });
         },
-        //删除车辆
+        //删除地标点
         deleteLandMarkPoint: function(id, confirmText) {
             var me = this;
             common.layConfirm(confirmText, function() {
@@ -74,62 +85,30 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization();
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
-                me.getParams(true);
+                me.getParams();
                 common.changeHash('#landmarkPointManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
                 common.removeLocationStorage('landMarkPointParams'); // 车辆管理
-                me.getParams(false);
+                me.getParams(null, true);
                 common.changeHash('#landmarkPointManager/index/', me.searchParam);
             });
             // 事件监听
             $('#main-content').on('click', '.js_list_add', function() {
                     common.changeHash('#landmarkPointManager/edit');
                 })
-                //编辑车辆
+                //编辑地标点
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
                     var id = tr.data('id');
                     common.changeHash('#landmarkPointManager/edit/', { id: id });
                 })
-                //批量、单个删除车辆
+                //删除
                 .on('click', '.js_list_delete', function() {
                     var id = $(this).closest('tr').data('id');
-                    var confirmText = '';
-                    if (id) {
-                        confirmText = 'Sure to delete the label?';
-                    } else {
-                        var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
-                        if (chks.size() < 1) {
-                            common.layMsg('Please select the label to delete!');
-                            return false;
-                        }
-                        confirmText = 'Have chosen&nbsp;<span class="red">' + chks.size() + '</span>&nbsp; data,sure to delete?';
-                        var array = [];
-                        $.each(chks, function(i, item) {
-                            array.push($(item).closest('tr').data('id'));
-                        });
-                        id = array.join(',');
-                    }
+                    var confirmText = 'Sure to delete the label?';
                     me.deleteLandMarkPoint(id, confirmText);
-                }).on('click', 'input[name="checkAll"]', function() {
-                    var isChecked = $(this).is(':checked');
-                    if (isChecked) {
-                        $('.datatable-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
-                    } else {
-                        $('.datatable-content table > tbody input[name="checkItem"]').removeAttr('checked');
-                    }
-                }).on('click', 'input[name="checkItem"]', function() {
-                    var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked').size();
-                    var totalChks = $('.datatable-content table > tbody input[name="checkItem"]').size();
-                    if (chks == totalChks) {
-                        $('.datatable-header table > thead input[name="checkAll"]').prop('checked', true);
-                    } else {
-                        $('.datatable-header table > thead input[name="checkAll"]').removeAttr('checked');
-                    }
                 });
         }
     });

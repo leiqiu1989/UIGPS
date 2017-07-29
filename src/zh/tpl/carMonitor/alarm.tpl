@@ -5,21 +5,23 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">车牌号码</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
+                        <select id="selPlateNumber" name="selPlateNumber">
+                            <option value="">请选择</option>
 						</select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">警情</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
+                        <select id="selAlarm" name="selAlarm">
+                            <option value="">请选择</option>
 						</select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal js_list_search">查 询</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">重 置</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">全部处理</button>
+                    <button class="layui-btn layui-btn-normal js_alarm_search">查 询</button>
+                    <button class="layui-btn layui-btn-primary js_alarm_reset">重 置</button>
+                    <button class="layui-btn layui-btn-primary js_alarm_allDispose">全部处理</button>
                 </div>
             </div>
         </div>
@@ -63,23 +65,13 @@
                             <col />
                             <col />
                         </colgroup>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <a class="td-operator js_list_edit">处 理</a>
-                                </td>
-                            </tr>
+                        <tbody id="tbAlarmList">
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="panel-footer clearfix">
-                数据：<span>100</span>条
+                数据：<span class="js_alarm_total">0</span>&nbsp;条
             </div>
         </div>
     </div>

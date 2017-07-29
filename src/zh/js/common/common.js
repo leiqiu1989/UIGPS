@@ -205,11 +205,11 @@ define(function(require, exports, module) {
         }
     });
     template.helper('odbNull', function(key) {
-        return key ? key : '0';
+        return key ? key : '--';
     });
     template.helper('geofenceStatus', function(key) {
         if (_.isNumber(key)) {
-            return key ? 'Open' : 'Close';
+            return key ? '打开' : '关闭';
         }
         return '';
     });
@@ -228,8 +228,11 @@ define(function(require, exports, module) {
             this.ajax(api.odbInfo, { vid: vid }, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var data = res.content || {};
+                    var obdInfo = data.mObdInfo;
+                    var obdStatus = data.mObdStatus;
                     $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
-                        data: data
+                        obdInfo: obdInfo,
+                        obdStatus: obdStatus
                     }));
                     $('#obdList').removeClass('hidden');
                 } else {
@@ -498,11 +501,6 @@ define(function(require, exports, module) {
             common.setCookie('orgno', '', -1);
             common.setCookie('token', '', -1);
             common.removeLocationStorage('arrVids');
-            common.removeLocationStorage('historyLocationParams'); //历史位置查询
-            common.removeLocationStorage('carManagerParams'); //车辆管理            
-            common.removeLocationStorage('userManagerParams'); //组织用户
-            common.removeLocationStorage('roleManagerSearchParams'); //角色管理            
-            common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，
         // newParam：新的查询参数，hasDefaultPage：参数默认传递page参数，默认为true

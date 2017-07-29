@@ -21,7 +21,7 @@
                 <div class="layui-inline">
                     <button class="layui-btn layui-btn-normal js_alarm_search">Query</button>
                     <button class="layui-btn layui-btn-primary js_alarm_reset">Reset</button>
-                    <button class="layui-btn layui-btn-primary js_alarm_dispose">All Dispose</button>
+                    <button class="layui-btn layui-btn-primary js_alarm_allDispose">All Dispose</button>
                 </div>
             </div>
         </div>
