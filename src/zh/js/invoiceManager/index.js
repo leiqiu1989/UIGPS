@@ -131,7 +131,7 @@ define(function(require, exports, module) {
                     var equipmentNo = $tr.attr('data-equipmentNo');
                     var payTime = $tr.attr('data-payTime');
                     var fee = $tr.attr('data-fee');
-                    var data = { id, plateNo, equipmentNo, payTime, fee, };
+                    var data = { id: id, plateNo: plateNo, equipmentNo: equipmentNo, payTime: payTime, fee: fee };
                     common.layUI({
                         title: '开 票',
                         area: '500px',
