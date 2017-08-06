@@ -64,6 +64,8 @@ define(function(require, exports, module) {
         getAlarmInfo: remoteUrl + '/alarm/last-all',
         // 处理报警
         processAlarm: remoteUrl + '/alarm/process',
+        // 发送指令
+        sendCode: remoteUrl + '/Command/SendGeneralByVid',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表
