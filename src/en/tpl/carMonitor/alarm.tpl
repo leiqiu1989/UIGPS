@@ -1,25 +1,27 @@
 <div class="panel panel-transparent flexbox no-margin">
     <div class="panel-toolbar">
-        <div class="layui-form auto-label-width layui-form-inline">
+        <div class="layui-form layui-form-inline">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">License</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
+                        <select id="selPlateNumber" name="selPlateNumber">
+                            <option value="">Select</option>
 						</select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">Alarm</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
+                        <select id="selAlarm" name="selAlarm">
+                            <option value="">Select</option>
 						</select>
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <button class="layui-btn layui-btn-normal js_list_search">Query</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">Reset</button>
-                    <button class="layui-btn layui-btn-primary js_list_reset">All Dispose</button>
+                    <button class="layui-btn layui-btn-normal js_alarm_search">Query</button>
+                    <button class="layui-btn layui-btn-primary js_alarm_reset">Reset</button>
+                    <button class="layui-btn layui-btn-primary js_alarm_allDispose">All Dispose</button>
                 </div>
             </div>
         </div>
@@ -63,23 +65,13 @@
                             <col />
                             <col />
                         </colgroup>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <a class="td-operator js_list_edit">Dispose</a>
-                                </td>
-                            </tr>
+                        <tbody id="tbAlarmList">
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="panel-footer clearfix">
-                data:<span>100</span>piece
+                data：<span class="js_alarm_total">0</span>&nbsp;piece
             </div>
         </div>
     </div>

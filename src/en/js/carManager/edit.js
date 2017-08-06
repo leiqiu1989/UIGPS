@@ -12,15 +12,15 @@ define(function(require, exports, module) {
 
     var carAdd = function() {
         this.orgId = null;
-        this.truckId = null;
+        this.vid = null;
         this.isEdit = null;
     };
 
     $.extend(carAdd.prototype, {
-        init: function(truckId, orgId) {
-            this.truckId = truckId;
+        init: function(vid, orgId) {
+            this.vid = vid;
             this.orgId = orgId || null;
-            this.isEdit = !!truckId;
+            this.isEdit = !!vid;
             this.obj = {
                 Driver: {},
                 Equipment: {},
@@ -45,7 +45,7 @@ define(function(require, exports, module) {
         initEditValue: function() {
             var me = this;
             common.ajax(api.carManager.detail, {
-                Vid: this.truckId,
+                Vid: this.vid,
                 orgId: this.orgId
             }, function(res) {
                 if (res.status === 'SUCCESS') {
@@ -105,6 +105,14 @@ define(function(require, exports, module) {
                 var equipmentLen = $('select[name="EquipmentTypeId"] > option').length;
                 if (vehicleTypeLen && brandLen && colorLen && equipmentLen) {
                     clearInterval(timer);
+                    // 机构
+                    common.subordinateTree({
+                        orgNo: data.Vehicle.OrgNo, // 机构编号
+                        loadDevice: false,
+                        loadPlateNum: false,
+                        loadSIM: false,
+                        timeType: null
+                    });
                     common.layUIForm();
                 }
             }, 100);
@@ -132,10 +140,12 @@ define(function(require, exports, module) {
             var url = this.isEdit ? api.carManager.update : api.carManager.submit;
             var params = common.getFormData('#frmaddCar');
             if (this.isEdit) {
-                params.Vid = me.truckId;
+                params.Vid = me.vid;
             }
             if (me.orgId) {
                 params.OnlyOrgNo = me.orgId;
+            } else {
+                params.OnlyOrgNo = $('#OnlyOrgNo').data('orgNo');
             }
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
@@ -149,13 +159,9 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization(function(orgId, orgName) {
-                me.orgId = orgId;
-            });
             // add event listen
             $('#main-content').on('click', '.js_add_cancel', function() {
-                common.changeHash('#carManager/index');
+                common.changeHash('#carManager/index/', { back: true });
             });
         }
     });

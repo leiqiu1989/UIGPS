@@ -31,7 +31,6 @@
                     <div class="table-head-warp ">
                         <table class="grid-table ">
                             <colgroup>
-                                <col width="50px" />
                                 <col width="25%" />
                                 <col width="25%" />
                                 <col width="30%" />
@@ -39,9 +38,6 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th>
-                                        <input type="checkbox" name="checkAll" />
-                                    </th>
                                     <th>Role Name</th>
                                     <th>Update Time</th>
                                     <th>Remark</th>
@@ -56,7 +52,6 @@
                 <div id="rolelist" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
-                            <col width="50px" />
                             <col width="25%" />
                             <col width="25%" />
                             <col width="30%" />

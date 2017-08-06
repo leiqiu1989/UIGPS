@@ -10,12 +10,30 @@
                     <div class="layui-input-block">
                         <div class="layui-unselect layui-form-select js-Subordinate">
                             <div class="layui-select-title">
-                                <input type="text" placeholder="请选择所属机构" value="" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                <input type="text" placeholder="Select" id="txtSubordinate" value="<%= searchValue.SubordinateName %>" name="txtSubordinate" readonly class="layui-input layui-unselect" />
                                 <i class="layui-edge"></i>
                             </div>
                             <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
                             </dl>
                         </div>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">车牌号码</label>
+                    <div class="layui-input-block">
+                        <select id="selPlateNumber" name="selPlateNumber">
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item mt10">
+                <div class="layui-inline">
+                    <label class="layui-form-label">设备编号</label>
+                    <div class="layui-input-block">
+                        <select id="selDevice" name="selDevice">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -26,27 +44,11 @@
                         <span class="time-area active" data-type="custom">自定义</span>
                     </div>
                     <div class="layui-input-inline w-100">
-                        <input type="text" name="startTime" readonly autocomplete="off" class="layui-input" />
+                        <input type="text" id="startTime" name="startTime" value="<%= searchValue.STime %>" readonly autocomplete="off" class="layui-input" />
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline w-100">
-                        <input type="text" name="endTime" readonly autocomplete="off" class="layui-input" />
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">车牌号码</label>
-                    <div class="layui-input-block">
-                        <select id="selPlateNumber" name="selPlateNumber">
-                            <option value="">请选择车牌号码</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">设备编号</label>
-                    <div class="layui-input-block">
-                        <select id="selDevice" name="selDevice">
-                            <option value="">请选择设备编号</option>
-                        </select>
+                        <input type="text" id="endTime" name="endTime" value="<%= searchValue.ETime %>" readonly autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -57,10 +59,9 @@
         </div>
     </div>
     <div class="panel-toolbar">
-        <button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
-            <i class="fa fa-export"></i>
-            导 出
-        </button>
+        <a class="layui-btn layui-btn-small layui-btn-normal js_list_export">
+            <i class="fa fa-export"></i> Export
+        </a>
     </div>
     <div class="panel-body no-padding grow">
         <div class="panel full no-margin flexbox">

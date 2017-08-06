@@ -4,22 +4,22 @@
 	%>
     <tr>
         <td>
-            <%= item.Index %>
+            <%= item.KeyId %>
         </td>
-        <td title="<%= item.PlateNo %>">
-            <%= item.PlateNo %>
-        </td>
-        <td title="<%= item.Vid %>">
-            <%= item.Vid %>
+        <td title="<%= item.UserName %>">
+            <%= item.UserName %>
         </td>
         <td title="<%= item.OrgName %>">
             <%= item.OrgName %>
         </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.CreateTime %>">
+            <%= item.CreateTime %>
         </td>
-        <td title="<%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.LogTypeString %>">
+            <%= item.LogTypeString %>
+        </td>
+        <td title="<%= item.LogInfo %>">
+            <%= item.LogInfo %>
         </td>
     </tr>
     <% } } %>

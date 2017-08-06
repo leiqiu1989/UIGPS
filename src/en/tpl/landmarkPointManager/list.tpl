@@ -3,9 +3,6 @@
 			var item = data[i];
 	%>
     <tr data-id="<%= item.LandMarkId %>">
-        <td>
-            <input type="checkbox" name="checkItem" />
-        </td>
         <td title="<%= item.LandMarkName %>">
             <%= item.LandMarkName %>
         </td>

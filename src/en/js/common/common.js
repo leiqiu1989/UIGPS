@@ -39,12 +39,26 @@ define(function(require, exports, module) {
             group: 'carmonitor',
             icon: 'icon-position'
         }, {
+            name: 'Geofence Manager',
+            code: '00033',
+            url: '#geofenceManager/index',
+            groupname: 'Location Monitor',
+            group: 'carmonitor',
+            icon: 'icon-position'
+        }, {
             name: 'Punctuation Management',
             code: '00030',
             url: '#landmarkPointManager/index',
             groupname: 'Location Monitor',
             group: 'carmonitor',
             icon: 'icon-position'
+        }, {
+            name: 'Organizetion Management',
+            code: '00043',
+            url: '#organizetionManager/index',
+            groupname: 'Organization',
+            group: 'users',
+            icon: 'icon-org'
         }, {
             name: 'User Management',
             code: '00007',
@@ -192,7 +206,13 @@ define(function(require, exports, module) {
         }
     });
     template.helper('odbNull', function(key) {
-        return key ? key : '0';
+        return key ? key : '--';
+    });
+    template.helper('geofenceStatus', function(key) {
+        if (_.isNumber(key)) {
+            return key ? 'Open' : 'Close';
+        }
+        return '';
     });
 
     /*公共js*/
@@ -209,8 +229,11 @@ define(function(require, exports, module) {
             this.ajax(api.odbInfo, { vid: vid }, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var data = res.content || {};
+                    var obdInfo = data.mObdInfo;
+                    var obdStatus = data.mObdStatus;
                     $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
-                        data: data
+                        obdInfo: obdInfo,
+                        obdStatus: obdStatus
                     }));
                     $('#obdList').removeClass('hidden');
                 } else {
@@ -423,11 +446,21 @@ define(function(require, exports, module) {
             }, opts)
             layer.open(opts);
         },
-        layUIForm: function() {
+        layUIForm: function(opt) {
+            opt = opt || {};
+            var defaultOpt = $.extend({
+                callback: null,
+                renderCheckbox: true
+            }, opt);
             layui.use(['form'], function() {
                 var form = layui.form()
                 form.render('select');
-                form.render('checkbox');
+                if (defaultOpt.renderCheckbox) {
+                    form.render('checkbox');
+                }
+                setTimeout(function() {
+                    defaultOpt.callback && defaultOpt.callback();
+                }, 500);
             });
         },
         layAlert: function(content, opt) {
@@ -477,11 +510,6 @@ define(function(require, exports, module) {
             common.setCookie('orgno', '', -1);
             common.setCookie('token', '', -1);
             common.removeLocationStorage('arrVids');
-            common.removeLocationStorage('historyLocationParams'); //历史位置查询
-            common.removeLocationStorage('carManagerParams'); //车辆管理            
-            common.removeLocationStorage('userManagerParams'); //组织用户
-            common.removeLocationStorage('roleManagerSearchParams'); //角色管理            
-            common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，
         // newParam：新的查询参数，hasDefaultPage：参数默认传递page参数，默认为true
@@ -597,7 +625,7 @@ define(function(require, exports, module) {
                     } else {
                         value = $(input).val();
                     }
-                    formData[name] = value;
+                    formData[name] = $.trim(value);
                 }
             });
             return formData;
@@ -683,7 +711,7 @@ define(function(require, exports, module) {
                         $('#btn-login').removeAttr('disabled', 'disabled');
                     } else {
                         me.loading();
-                        me.layAlert('请求失败，请联系管理员！', { icon: 2 });
+                        me.layAlert('Request fails, contact your administrator!', { icon: 2 });
                         // 如果sid，st为null，则跳转到登录页
                         var accountid = me.getCookie('accountid');
                         var usertype = me.getCookie('usertype');
@@ -696,51 +724,6 @@ define(function(require, exports, module) {
                     }
                 }
             }, ajaxOpt));
-        },
-        // 所属机构-查询公共组件(callback代表选择了某一项的回调函数)
-        listenOrganization: function(callback) {
-            var me = this;
-            $('#main-content').off()
-
-            .on('input propertychange', 'input[name="orgName"]', function(e) {
-                var value = $.trim($(this).val());
-                common.setElValue(':hidden[name="OnlyOrgNo"]', '');
-                if (value.length >= 3) {
-                    me.getOrganizationList(value);
-                }
-            }).on('click', 'ul.ul-select a', function() {
-                var orgId = $(this).data('orgid');
-                var orgName = $(this).data('name');
-                common.setElValue(':hidden[name="OnlyOrgNo"]', orgId);
-                common.setElValue('input[name="orgName"]', orgName);
-                $(this).closest('ul.ul-select').addClass('hidden');
-                if (callback) callback(orgId, orgName);
-            });
-        },
-        // 所属机构-查询结果列表
-        getOrganizationList: function(value) {
-            value = $.trim(value);
-            if (!value || value.length < 3) {
-                common.layMsg('至少输入3个字符进行搜索');
-                $('input[name="orgName"]').focus();
-                return false;
-            }
-            common.ajax(api.carManager.orgList, {
-                OnlyOrgName: value
-            }, function(res) {
-                if (res.status === 'SUCCESS') {
-                    var data = res.content;
-                    var html = '';
-                    if (data && data.length > 0) {
-                        $.each(data, function(i, item) {
-                            html += '<li><a href="javascript:" data-name="' + item.Name + '" data-orgid="' + item.Id + '">' + item.Name + '</a></li>';
-                        });
-                    } else {
-                        html = '<li><span>未找到相关数据项！</span></li>';
-                    }
-                    $('ul.ul-select').removeClass('hidden').empty().html(html);
-                }
-            });
         },
         // ztree查询
         searchTree: function() {
@@ -835,7 +818,8 @@ define(function(require, exports, module) {
                     var html = obj.isall ? '<option value="0">全部</option>' : '';
                     if (data && data.length > 0) {
                         $.each(data, function(i, item) {
-                            html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
+                            var vid = obj.key[2] ? obj.key[2] : '';
+                            html += '<option value="' + item[obj.key[0]] + '" vid="' + (vid ? item[vid] : '') + '">' + item[obj.key[1]] + '</option>';
                         });
                     }
                     obj.$objs.append(html);
@@ -909,7 +893,7 @@ define(function(require, exports, module) {
                 loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
                 loadPlateNum: _.isBoolean(option.loadPlateNum) ? option.loadPlateNum : true,
                 loadSIM: _.isBoolean(option.loadSIM) ? option.loadSIM : true,
-                loadAlarm: _.isBoolean(option.loadAlarm) ? option.loadAlarm : false, // 默认布加载报警类型
+                loadAlarm: _.isBoolean(option.loadAlarm) ? option.loadAlarm : false, // 默认不加载报警类型
                 callback: option.callback || null
             }, option);
             var me = this;
@@ -1001,7 +985,9 @@ define(function(require, exports, module) {
                 key: ['EquipmentId', 'EquipmentNo'],
                 obj: $('#selDevice')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selDevice').val(currentVal).next().find(':text');
                     var txtDevice = $('#selDevice > option:selected').text();
@@ -1019,10 +1005,12 @@ define(function(require, exports, module) {
                 params: {
                     OrgNo: orgNo
                 },
-                key: ['PlateNo', 'PlateNo'],
+                key: ['PlateNo', 'PlateNo', 'Vid'],
                 obj: $('#selPlateNumber')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selPlateNumber').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
@@ -1042,7 +1030,9 @@ define(function(require, exports, module) {
                 key: ['SimCardNo', 'SimCardNo'],
                 obj: $('#selSIM')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selSIM').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
@@ -1060,7 +1050,9 @@ define(function(require, exports, module) {
                 key: ['AlarmCode', 'AlarmText'],
                 obj: $('#selAlarm')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selAlarm').val(currentVal);
                     var txtAlarm = $('#selAlarm > option:selected').text();

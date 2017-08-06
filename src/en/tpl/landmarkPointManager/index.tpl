@@ -31,7 +31,6 @@
                     <div class="table-head-warp ">
                         <table class="grid-table ">
                             <colgroup>
-                                <col width="50px" />
                                 <col width="20%" />
                                 <col width="20%" />
                                 <col width="20%" />
@@ -40,9 +39,6 @@
                             </colgroup>
                             <thead>
                                 <tr>
-                                    <th class="align-center">
-                                        <input type="checkbox" name="checkAll" />
-                                    </th>
                                     <th>Punctuation Name</th>
                                     <th>Longitude</th>
                                     <th>Latitude</th>
@@ -58,7 +54,6 @@
                 <div id="landMarkPontList" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
-                            <col width="50px" />
                             <col width="20%" />
                             <col width="20%" />
                             <col width="20%" />

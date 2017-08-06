@@ -36,16 +36,30 @@ define(function(require, exports, module) {
             url: '#historyLocation/index',
             groupname: '位置监控',
             group: 'carmonitor',
-            icon: ''
+            icon: 'icon-position'
+        }, {
+            name: '围栏管理',
+            code: '00033',
+            url: '#geofenceManager/index',
+            groupname: '位置监控',
+            group: 'carmonitor',
+            icon: 'icon-position'
         }, {
             name: '地标点管理',
             code: '00030',
             url: '#landmarkPointManager/index',
             groupname: '位置监控',
             group: 'carmonitor',
-            icon: ''
+            icon: 'icon-position'
         }, {
-            name: '组织用户管理',
+            name: '组织管理',
+            code: '00043',
+            url: '#organizetionManager/index',
+            groupname: '组织机构',
+            group: 'users',
+            icon: 'icon-org'
+        }, {
+            name: '用户管理',
             code: '00007',
             url: '#userManager/index',
             groupname: '组织机构',
@@ -57,7 +71,7 @@ define(function(require, exports, module) {
             url: '#roleManager/index',
             groupname: '组织机构',
             group: 'users',
-            icon: ''
+            icon: 'icon-org'
         },
         {
             name: '车辆管理',
@@ -72,35 +86,56 @@ define(function(require, exports, module) {
             url: '#sendCode/index',
             groupname: '车辆信息',
             group: 'resource',
-            icon: ''
+            icon: 'icon-car'
         }, {
-            name: '车辆轨迹列表',
-            code: '00024',
-            url: 'javascript:void(0)',
+            name: '车辆里程报表',
+            code: '00034',
+            url: '#mileageReport/index',
             groupname: '报表管理',
             group: 'report',
-            icon: 'fa fa-pie-chart'
+            icon: 'icon-report'
         }, {
-            name: '车辆报警报表',
-            code: '00025',
-            url: 'javascript:void(0)',
+            name: 'OBD报表',
+            code: '00035',
+            url: '#OBDReport/index',
             groupname: '报表管理',
             group: 'report',
-            icon: ''
+            icon: 'icon-report'
         }, {
-            name: '车辆里程统计',
-            code: '00026',
-            url: 'javascript:void(0)',
+            name: '报警报表',
+            code: '00036',
+            url: '#alarmReport/index',
             groupname: '报表管理',
             group: 'report',
-            icon: ''
+            icon: 'icon-report'
         }, {
-            name: '设备指令记录',
-            code: '00027',
-            url: 'javascript:void(0)',
-            groupname: '报表管理',
-            group: 'report',
-            icon: ''
+            name: '系统日志',
+            code: '00038',
+            url: '#systemLog/index',
+            groupname: '系统管理',
+            group: 'system',
+            icon: 'icon-sys'
+        }, {
+            name: '续费记录',
+            code: '00040',
+            url: '#renewLog/index',
+            groupname: '运营管理',
+            group: 'Operations',
+            icon: 'icon-operation'
+        }, {
+            name: '服务到期',
+            code: '00041',
+            url: '#serviceDue/index',
+            groupname: '运营管理',
+            group: 'Operations',
+            icon: 'icon-operation'
+        }, {
+            name: '发票管理',
+            code: '00042',
+            url: '#invoiceManager/index',
+            groupname: '运营管理',
+            group: 'Operations',
+            icon: 'icon-operation'
         }
     ];
 
@@ -170,7 +205,13 @@ define(function(require, exports, module) {
         }
     });
     template.helper('odbNull', function(key) {
-        return key ? key : '0';
+        return key ? key : '--';
+    });
+    template.helper('geofenceStatus', function(key) {
+        if (_.isNumber(key)) {
+            return key ? '打开' : '关闭';
+        }
+        return '';
     });
 
     /*公共js*/
@@ -187,8 +228,11 @@ define(function(require, exports, module) {
             this.ajax(api.odbInfo, { vid: vid }, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var data = res.content || {};
+                    var obdInfo = data.mObdInfo;
+                    var obdStatus = data.mObdStatus;
                     $('.obd-Content').empty().html(template.compile(tpls.odbInfo)({
-                        data: data
+                        obdInfo: obdInfo,
+                        obdStatus: obdStatus
                     }));
                     $('#obdList').removeClass('hidden');
                 } else {
@@ -393,11 +437,21 @@ define(function(require, exports, module) {
             }, opts)
             layer.open(opts);
         },
-        layUIForm: function() {
+        layUIForm: function(opt) {
+            opt = opt || {};
+            var defaultOpt = $.extend({
+                callback: null,
+                renderCheckbox: true
+            }, opt);
             layui.use(['form'], function() {
                 var form = layui.form()
                 form.render('select');
-                form.render('checkbox');
+                if (defaultOpt.renderCheckbox) {
+                    form.render('checkbox');
+                }
+                setTimeout(function() {
+                    defaultOpt.callback && defaultOpt.callback();
+                }, 500);
             });
         },
         layAlert: function(content, opt) {
@@ -447,11 +501,6 @@ define(function(require, exports, module) {
             common.setCookie('orgno', '', -1);
             common.setCookie('token', '', -1);
             common.removeLocationStorage('arrVids');
-            common.removeLocationStorage('historyLocationParams'); //历史位置查询
-            common.removeLocationStorage('carManagerParams'); //车辆管理            
-            common.removeLocationStorage('userManagerParams'); //组织用户
-            common.removeLocationStorage('roleManagerSearchParams'); //角色管理            
-            common.removeLocationStorage('landMarkPointParams'); //地标点管理
         },
         // 根据key获取查询条件，param:历史查询参数(传递true则更新为新的查询参数)，
         // newParam：新的查询参数，hasDefaultPage：参数默认传递page参数，默认为true
@@ -567,7 +616,7 @@ define(function(require, exports, module) {
                     } else {
                         value = $(input).val();
                     }
-                    formData[name] = value;
+                    formData[name] = $.trim(value);
                 }
             });
             return formData;
@@ -635,6 +684,7 @@ define(function(require, exports, module) {
                 param.OrgNo = this.getCookie('orgno');
                 param.Token = this.getCookie('token');
             }
+            param.Language = 'zh-cn';
             return $.ajax($.extend(true, {
                 type: "POST",
                 url: url,
@@ -804,7 +854,8 @@ define(function(require, exports, module) {
                     var html = obj.isall ? '<option value="0">全部</option>' : '';
                     if (data && data.length > 0) {
                         $.each(data, function(i, item) {
-                            html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
+                            var vid = obj.key[2] ? obj.key[2] : '';
+                            html += '<option value="' + item[obj.key[0]] + '" vid="' + (vid ? item[vid] : '') + '">' + item[obj.key[1]] + '</option>';
                         });
                     }
                     obj.$objs.append(html);
@@ -823,6 +874,8 @@ define(function(require, exports, module) {
                 userArray = [],
                 orderArray = [],
                 resourceArray = [],
+                systemArray = [],
+                operationArray = [],
                 array = [];
             this.ajax(api.userPermission, {}, function(res) {
                 if (res && res.status === 'SUCCESS') {
@@ -851,10 +904,16 @@ define(function(require, exports, module) {
                                     case 'report':
                                         reportArray.push(menu);
                                         break;
+                                    case 'system':
+                                        systemArray.push(menu);
+                                        break;
+                                    case 'Operations':
+                                        operationArray.push(menu);
+                                        break;
                                 }
                             }
                         }
-                        array.push(reportArray, monitorArray, userArray, orderArray, resourceArray);
+                        array.push(reportArray, monitorArray, userArray, orderArray, resourceArray, systemArray, operationArray);
                     }
                     if (callback) callback(array);
                 } else {
@@ -870,6 +929,7 @@ define(function(require, exports, module) {
                 loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
                 loadPlateNum: _.isBoolean(option.loadPlateNum) ? option.loadPlateNum : true,
                 loadSIM: _.isBoolean(option.loadSIM) ? option.loadSIM : true,
+                loadAlarm: _.isBoolean(option.loadAlarm) ? option.loadAlarm : false, // 默认不加载报警类型
                 callback: option.callback || null
             }, option);
             var me = this;
@@ -935,6 +995,10 @@ define(function(require, exports, module) {
                 $('#txtSubordinate').data('orgNo', opt.orgNo);
                 loadData(opt.orgNo);
             }
+            // 获取警情
+            if (opt.loadAlarm) {
+                me.getAlarmTypeList(opt.AlarmCode);
+            }
             if (opt.timeType) {
                 $('span.time-area[data-type=' + opt.timeType + ']').addClass('active').siblings().removeClass('active');
                 this.initDateRangeChange(opt.timeType, opt.startTime, opt.endTime);
@@ -957,7 +1021,9 @@ define(function(require, exports, module) {
                 key: ['EquipmentId', 'EquipmentNo'],
                 obj: $('#selDevice')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selDevice').val(currentVal).next().find(':text');
                     var txtDevice = $('#selDevice > option:selected').text();
@@ -975,10 +1041,12 @@ define(function(require, exports, module) {
                 params: {
                     OrgNo: orgNo
                 },
-                key: ['PlateNo', 'PlateNo'],
+                key: ['PlateNo', 'PlateNo', 'Vid'],
                 obj: $('#selPlateNumber')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selPlateNumber').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
@@ -998,10 +1066,34 @@ define(function(require, exports, module) {
                 key: ['SimCardNo', 'SimCardNo'],
                 obj: $('#selSIM')
             }, function() {
-                me.layUIForm();
+                me.layUIForm({
+                    renderCheckbox: false
+                });
                 if (currentVal) {
                     $('#selSIM').val(currentVal).next().find(':text')
                         .val(currentVal).end().find('dd[lay-value=' + currentVal + ']')
+                        .addClass('layui-this');
+                }
+            });
+        },
+        // 获取警情
+        getAlarmTypeList: function(currentVal) {
+            var me = this;
+            this.resetSelect('#selAlarm');
+            me.getSelect({
+                url: api.getAlarmList,
+                params: {},
+                key: ['AlarmCode', 'AlarmText'],
+                obj: $('#selAlarm')
+            }, function() {
+                me.layUIForm({
+                    renderCheckbox: false
+                });
+                if (currentVal) {
+                    $('#selAlarm').val(currentVal);
+                    var txtAlarm = $('#selAlarm > option:selected').text();
+                    $('#selAlarm').next().find(':text')
+                        .val(txtAlarm).end().find('dd[lay-value=' + currentVal + ']')
                         .addClass('layui-this');
                 }
             });

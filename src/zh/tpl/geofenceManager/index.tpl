@@ -8,33 +8,40 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">所属机构</label>
                     <div class="layui-input-block">
-                        <input type="hidden" name="OnlyOrgNo" value="<%= searchValue.OnlyOrgNo %>" />
-                        <input type="text" class="layui-input w-200" name="orgName" placeholder="至少输入3个字符搜索" value="<%= searchValue.orgName%>" />
-                        <ul class="ul-select hidden"></ul>
+                        <div class="layui-unselect layui-form-select js-Subordinate">
+                            <div class="layui-select-title">
+                                <input type="text" placeholder="请选择" id="txtSubordinate" value="<%= searchValue.SubordinateName %>" name="txtSubordinate" readonly class="layui-input layui-unselect" />
+                                <i class="layui-edge"></i>
+                            </div>
+                            <dl id="orgTree" class="layui-anim layui-anim-upbit ztree">
+                            </dl>
+                        </div>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">围栏名称</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
-						</select>
+                        <input type="text" class="layui-input" id="AreaName" name="AreaName" placeholder="" value="<%= searchValue.AreaName %>" />
                     </div>
                 </div>
+            </div>
+            <div class="layui-form-item mt10">
                 <div class="layui-inline">
                     <label class="layui-form-label">车辆</label>
                     <div class="layui-input-block">
-                        <select id="vehicleType" name="VehicleType">
-						</select>
+                        <select id="selPlateNumber" name="selPlateNumber">
+                            <option value="">请选择</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
-                        <select>
-                            <option value="0">全部</option>
+                        <select id="selStatus" name="selStatus">
+                            <option value="-1">全部</option>
                             <option value="1">打开</option>
-                            <option value="2">关闭</option>
-						</select>
+                            <option value="0">关闭</option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -46,13 +53,13 @@
     </div>
     <div class="panel-toolbar">
         <button class="layui-btn layui-btn-small layui-btn-normal js_list_add">
-            <i class="fa fa-export"></i>
+            <i class="fa fa-plus"></i>
             新 增
         </button>
-        <button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
+        <!--<button class="layui-btn layui-btn-small layui-btn-normal js_list_export">
             <i class="fa fa-export"></i>
-            导 出
-        </button>
+            Export
+        </button>-->
     </div>
     <div class="panel-body no-padding grow">
         <div class="panel full no-margin flexbox">
@@ -61,16 +68,16 @@
                     <div class="table-head-warp ">
                         <table class="grid-table ">
                             <colgroup>
+                                <col width="60px" />
                                 <col />
+                                <col width="120px" />
+                                <col width="120px" />
                                 <col />
+                                <col width="140px" />
+                                <col width="140px" />
+                                <col width="100px" />
                                 <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
-                                <col />
+                                <col width="170px" />
                             </colgroup>
                             <thead>
                                 <tr>
@@ -94,16 +101,16 @@
                 <div id="geofenceManagerList" class="grid-content">
                     <table class="grid-table ">
                         <colgroup>
+                            <col width="60px" />
                             <col />
+                            <col width="120px" />
+                            <col width="120px" />
                             <col />
+                            <col width="140px" />
+                            <col width="140px" />
+                            <col width="100px" />
                             <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
-                            <col />
+                            <col width="170px" />
                         </colgroup>
                         <tbody>
                         </tbody>

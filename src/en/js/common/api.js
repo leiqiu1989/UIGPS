@@ -47,7 +47,7 @@ define(function(require, exports, module) {
         // 区域查车
         areaQuery: remoteUrl + '/position/QueryVehicleByRectangle',
         // odb信息
-        odbInfo: remoteUrl + '/obd/last',
+        odbInfo: remoteUrl + '/obd/obddata-status',
         // 组织机构列表-tree
         subordinateTree: remoteUrl + '/ConditionInfo/OrgList',
         // 获取设备编号-select，根据所属机构编号
@@ -58,6 +58,12 @@ define(function(require, exports, module) {
         getSIMList: remoteUrl + '/ConditionInfo/SimList',
         // 获取警情-select
         getAlarmList: remoteUrl + '/alarm/code-option',
+        // 获取未处理报警数量
+        getAlarmCount: remoteUrl + '/alarm/count',
+        // 报警详情
+        getAlarmInfo: remoteUrl + '/alarm/last-all',
+        // 处理报警
+        processAlarm: remoteUrl + '/alarm/process',
         // 车辆管理
         carManager: {
             list: remoteUrl + '/Vehicle/QueryAllVehicleAbbrInfo', //车辆管理列表
@@ -84,14 +90,22 @@ define(function(require, exports, module) {
             deleteRole: remoteUrl + '/Role/DeleteRole', //角色管理-删除 批量、单个
             rolePermission: remoteUrl + '/Role/QueryAllPermission' //角色管理-系统功能Ztree
         },
-        // 用户管理
-        userManager: {
+        // 组织管理
+        orgManager: {
             list: remoteUrl + '/Org/List',
             save: remoteUrl + '/Org/Create',
             update: remoteUrl + '/Org/Edit',
-            roles: remoteUrl + '/Role/QuertAllRoleAbbr',
             del: remoteUrl + '/Org/Delete',
             detail: remoteUrl + '/Org/QueryOrgByOrgId'
+        },
+        // 用户管理
+        userManager: {
+            list: remoteUrl + '/account/list',
+            save: remoteUrl + '/account/create',
+            update: remoteUrl + '/account/modify',
+            roles: remoteUrl + '/Role/QuertAllRoleAbbr',
+            del: remoteUrl + '/account/delete',
+            detail: remoteUrl + '/account/info'
         },
         // 地标点管理
         landMarkPointManager: {
@@ -104,6 +118,7 @@ define(function(require, exports, module) {
         // 报表管理
         reportManager: {
             alarmReport: remoteUrl + '/alarm/report',
+            alarmReportDetail: remoteUrl + '/alarm/detail',
             obdReport: remoteUrl + '/obd/report',
             mileageReport: remoteUrl + '/position/report'
         },
@@ -126,6 +141,15 @@ define(function(require, exports, module) {
         // 系统日志
         systemLogManager: {
             list: remoteUrl + '/log/list'
+        },
+        // 区域管理
+        areaManager: {
+            list: remoteUrl + '/area/list',
+            enable: remoteUrl + '/area/enable',
+            del: remoteUrl + '/area/delete',
+            add: remoteUrl + '/area/create',
+            update: remoteUrl + '/area/update',
+            detail: remoteUrl + '/area/detail'
         }
     };
     return api;

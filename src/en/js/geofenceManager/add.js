@@ -6,7 +6,6 @@ define(function(require, exports, module) {
     var api = require('api');
     var map = require('google');
     require('lodash');
-    require('marktool');
 
     // 模板
     var tpls = {
@@ -18,6 +17,8 @@ define(function(require, exports, module) {
         this.isEdit = null;
         this.mark = null;
         this.cricle = null;
+        this.lat = null;
+        this.lng = null;
     };
     $.extend(addGeofence.prototype, {
         init: function(id) {
@@ -29,24 +30,57 @@ define(function(require, exports, module) {
             var me = this;
             var title = this.isEdit ? 'Edit Geofence' : 'Add Geofence';
             if (this.isEdit) {
-                common.ajax(api.landMarkPointManager.detail, {
-                    LandMarkId: this.id
+                common.ajax(api.areaManager.detail, {
+                    KeyId: this.id
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
                         me.renderHtml(title, data);
+                        me.initControl(data);
                     }
                 });
             } else {
                 this.renderHtml(title);
+                this.initControl();
             }
-            common.layUIForm();
             this.event();
+        },
+        initControl: function(data) {
+            common.subordinateTree({
+                loadSIM: false, //不加载sim
+                loadDevice: false, //不加载设备编号
+                orgNo: data ? data.OrgNo : '', // 机构编号
+                PlateNo: data ? data.PlateNo : '' //车牌号码
+            });
+            common.layUIForm({
+                callback: function() {
+                    if (data) {
+                        // radius
+                        $('#Radius').val(data.Radius);
+                        var txtRadius = $('#Radius > option:selected').text();
+                        $('#Radius').next().find(':text').val(txtRadius).end()
+                            .find('dd[lay-value=' + data.Radius + ']').addClass('layui-this').siblings().removeClass('layui-this');
+                        // status
+                        $('#status').val(data.Enabled);
+                        var txtEnabled = $('#status > option:selected').text();
+                        $('#status').next().find(':text').val(txtEnabled).end()
+                            .find('dd[lay-value=' + data.Enabled + ']').addClass('layui-this').siblings().removeClass('layui-this');
+                        // arae in,area out
+                        if (data.AreaIn) {
+                            $('[name="AreaIn"]').attr('checked', true).next('div').addClass('layui-form-checked');
+                        }
+                        if (data.AreaOut) {
+                            $('[name="AreaOut"]').attr('checked', true).next('div').addClass('layui-form-checked');
+                        }
+                    }
+                }
+            });
         },
         renderHtml: function(title, data) {
             var me = this;
             data = data || {};
             $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
+            this.validateForm();
             map.init('geofenceMap');
             if (data && !$.isEmptyObject(data)) {
                 me.bindMapData(data.Lng, data.Lat);
@@ -80,7 +114,7 @@ define(function(require, exports, module) {
                     _map.setCenter(place.geometry.location);
                     _map.setZoom(17); // Why 17? Because it looks good.
                 }
-                marker.setIcon( /** @type {google.maps.Icon} */ ({
+                marker.setIcon(({
                     url: 'https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png',
                     size: new google.maps.Size(71, 71),
                     origin: new google.maps.Point(0, 0),
@@ -90,7 +124,10 @@ define(function(require, exports, module) {
                 marker.setDraggable(true);
                 marker.setPosition(place.geometry.location);
                 marker.setVisible(true);
-                me.addCricle(place.geometry.location);
+                var location = place.geometry.location;
+                var lng = location.lng();
+                var lat = location.lat();
+                me.addCricle(lat, lng);
                 me.mark = marker;
                 me.markEvent();
             });
@@ -104,13 +141,13 @@ define(function(require, exports, module) {
             });
             google.maps.event.addListener(this.mark, 'dragend', function(evt) {
                 var latlng = evt.latLng;
-                me.addCricle(latlng);
+                var lat = latlng.lat();
+                var lng = latlng.lng();
+                me.addCricle(lat, lng);
             });
         },
         bindMapData: function(lng, lat) {
             var me = this;
-            lng = 104.123597;
-            lat = 30.600088;
             var point = new google.maps.LatLng(lat, lng);
             this.reverseGeocode(lat, lng, function(place) {
                 common.setElValue('input[name="searchTxt"]', place);
@@ -125,9 +162,12 @@ define(function(require, exports, module) {
                         scaledSize: new google.maps.Size(35, 35)
                     }
                 });
-                me.mark = marker;
+                marker.setDraggable(true);
+                me.addCricle(lat, lng);
                 map._map.setZoom(17);
                 map._map.panTo(point);
+                me.mark = marker;
+                me.markEvent();
             });
         },
         reverseGeocode: function(lat, lng, fn) {
@@ -148,9 +188,13 @@ define(function(require, exports, module) {
                 }
             });
         },
-        addCricle: function(mapLocation) {
-            var lng = mapLocation.lng();
-            var lat = mapLocation.lat();
+        addCricle: function(lat, lng) {
+            if (this.cricle) {
+                this.cricle.setMap(null);
+            }
+            this.lat = lat;
+            this.lng = lng;
+            var radius = parseInt($('#Radius').val());
             var point = new google.maps.LatLng(lat, lng);
             var cricle = new google.maps.Circle({
                 strokeColor: '#B7AD76',
@@ -160,66 +204,70 @@ define(function(require, exports, module) {
                 fillOpacity: '0.6',
                 map: map._map,
                 center: point,
-                radius: 200
+                radius: radius
             });
             this.cricle = cricle;
+        },
+        validateForm: function() {
+            var me = this;
+            validate('#frmGeofenceAdd', {
+                subBtn: '.js_geofence_save',
+                promptPos: 'inline',
+                submit: function() {
+                    me.submitForm();
+                }
+            });
         },
         submitForm: function() {
             var me = this;
             if (this.mark) {
-                var url = this.isEdit ? api.landMarkPointManager.update : api.landMarkPointManager.add;
-                var params = {
-                    LandMarkName: common.getElValue('input[name="LandMarkName"]'),
-                    Remark: common.getElValue('textarea[name="Remark"]')
-                };
+                var url = this.isEdit ? api.areaManager.update : api.areaManager.add;
+                var params = common.getFormData('#frmGeofenceAdd');
+                params = $.extend(params, {
+                    Vid: $('#selPlateNumber > option:selected').attr('vid'),
+                    AreaIn: $('[name="AreaIn"]').is(':checked') ? 1 : 0,
+                    AreaOut: $('[name="AreaOut"]').is(':checked') ? 1 : 0,
+                    Lat: this.lat,
+                    Lng: this.lng,
+                    Enabled: parseInt($('#status').val())
+                });
                 if (this.isEdit) {
-                    params.LandMarkId = this.id;
+                    params.KeyId = this.id;
                 }
                 common.loading('show');
                 common.ajax(url, params, function(res) {
                     if (res && res.status === 'SUCCESS') {
-                        common.layMsg('数据操作成功');
-                        common.changeHash('#landmarkPointManager/index');
+                        common.layMsg('Operator Success!');
+                        common.changeHash('#geofenceManager/index/', { back: true });
                     } else {
-                        var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                        var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                         common.layMsg(msg);
                     }
                     common.loading();
                 });
             } else {
-                common.layAlert('请在地图上面标注地标点!');
+                common.layAlert('Please mark the mark on the map!');
                 return false;
             }
         },
         event: function() {
             var me = this;
             $('#main-content')
-                .on('click', '.js-cancel', function() {
-                    common.changeHash('#geofenceManager/index');
-                })
-                .on('click', '.js-save', function() {
-                    var lanMarkName = $.trim($('input[name="LandMarkName"]').val());
-                    var remark = $.trim($('input[name="LandMarkName"]').val());
-                    if (!lanMarkName || lanMarkName.length > 20) {
-                        common.layAlert('地标点名称不能为空，且最大长度20个字符!', { icon: 2 });
-                        return false;
-                    }
-                    if (remark && remark.length > 50) {
-                        common.layAlert('最大长度50个字符!', { icon: 2 });
-                        return false;
-                    }
-                    me.submitForm();
+                .on('click', '.js_geofence_cancel', function() {
+                    common.changeHash('#geofenceManager/index/', { back: true });
                 })
                 // 清除标注物
                 .on('click', '.js_mark_point_clear', function() {
                     common.setElValue('input[name="searchTxt"]', '');
                     if (me.cricle) { me.cricle.setMap(null); }
-                    if (me.mark) { me.mark.setMap(null); }
+                    if (me.mark) {
+                        me.mark.setVisible(false);
+                    }
                 });
         }
     });
 
-    exports.init = function(id) {
-        new addGeofence().init(id);
+    exports.init = function(param) {
+        new addGeofence().init(param.id);
     };
 });

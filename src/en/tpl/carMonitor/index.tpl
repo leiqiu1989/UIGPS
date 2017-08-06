@@ -97,8 +97,8 @@
         <div class="mapOBD js-toggleOBD">
             OBD Info
         </div>
-        <div class="mapAlarm js-mapAlarm hidden">
-            Alarm
+        <div class="mapAlarm js-mapAlarm">
+            Alarm <span class="alarmCount js_alarmCount"></span>
         </div>
     </div>
     <!-- OBD信息列表 -->
@@ -107,6 +107,10 @@
             <span>OBD Info</span>
             <div class="pull-right odb-close">X</div>
         </div>
+        <ul class="ul-tab clearfix">
+            <li class="active" data-target="obdInfo">OBD Data</li>
+            <li data-target="obdStatus">OBD Status</li>
+        </ul>
         <div class="obd-Content">
         </div>
     </div>

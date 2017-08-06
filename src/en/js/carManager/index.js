@@ -43,26 +43,48 @@ define(function(require, exports, module) {
                 selected: me.searchParam.VehicleType,
                 isall: true
             }, function() {
+                // 机构            
+                common.subordinateTree({
+                    orgNo: me.searchParam.OnlyOrgNo, // 机构编号
+                    loadDevice: false,
+                    loadPlateNum: false,
+                    loadSIM: false,
+                    timeType: null
+                });
                 common.layUIForm();
             });
         },
         // 获取查询条件
-        getParams: function(param) {
+        getParams: function(param, reset) {
+            param = param || {};
+            reset = reset || false;
             this.sortParam = {};
-            var newParams = {
-                OnlyOrgNo: common.getElValue(':hidden[name="OnlyOrgNo"]'), //所属机构
-                VehicleType: common.getElValue('select[name="VehicleType"]'), //车辆类型
-                orgName: common.getElValue('input[name="orgName"]'), //机构名称
-                Condition: common.getElValue('input[name="Condition"]') //关键字
-            };
-            this.searchParam = common.getParams('carManagerParams', param, newParams, true);
+            var _param = null;
+            if (reset || param.back) {
+                _param = {
+                    orgName: '',
+                    OnlyOrgNo: '',
+                    VehicleType: '',
+                    Condition: ''
+                }
+            } else {
+                if (param && _.isEmpty(param)) {
+                    _param = {
+                        orgName: common.getElValue('#txtSubordinate'),
+                        OnlyOrgNo: $('#txtSubordinate').data('orgNo') || '',
+                        VehicleType: common.getElValue('select[name="VehicleType"]'), //车辆类型                
+                        Condition: common.getElValue('input[name="Condition"]') //关键字
+                    }
+                } else {
+                    _param = param;
+                }
+            }
+            this.searchParam = common.getParams(null, true, _param);
         },
         getData: function() {
             var me = this;
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
-            // 将查询条件保存到localStorage里面
-            common.setlocationStorage('carManagerParams', JSON.stringify(this.searchParam));
             common.loading('show');
             common.ajax(api.carManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
@@ -111,17 +133,14 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization();
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
-                    me.getParams(true);
+                    me.getParams();
                     common.changeHash('#carManager/index/', me.searchParam);
                 })
                 //重置
                 .on('click', '.js_list_reset', function() {
-                    common.removeLocationStorage('carManagerParams'); // 车辆管理
-                    me.getParams(false);
+                    me.getParams(null, true);
                     common.changeHash('#carManager/index/', me.searchParam);
                 });
             // 事件监听

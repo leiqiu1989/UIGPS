@@ -2,27 +2,24 @@
 		for(var i = 0 , len = data.length; i < len; i++) {
 			var item = data[i];
 	%>
-    <tr data-orgid="<%= item.OrgId %>">
-        <td>
-            <input type="checkbox" name="checkItem" />
+    <tr data-uid="<%= item.Uid %>">
+        <td title="<%= item.UserName %>">
+            <%= item.UserName %>
         </td>
-        <td title="<%= item.OrganizationName %>">
-            <%= item.OrganizationName %>
+        <td title="<%= item.OrgName %>">
+            <%= item.OrgName %>
         </td>
-        <td title="<%= item.ParentOrgName %>">
-            <%= item.ParentOrgName %>
+        <td title="<%= item.RealName %>">
+            <%= item.RealName %>
         </td>
-        <td title="<%= item.Manager %>">
-            <%= item.Manager %>
+        <td title="<%= item.Phone %>">
+            <%= item.Phone %>
         </td>
-        <td title="<%= item.Principal %>">
-            <%= item.Principal %>
+        <td title="<%= item.RoleName %>">
+            <%= item.RoleName %>
         </td>
-        <td title="<%= item.PrincipalPhone %>">
-            <%= item.PrincipalPhone %>
-        </td>
-        <td title="<%= item.UserNames %>">
-            <%= item.UserNames %>
+        <td title="<%= item.Remark %>">
+            <%= item.Remark %>
         </td>
         <td>
             <a class="td-operator js_list_edit">
@@ -31,6 +28,9 @@
             <a class="td-operator js_list_delete">
                 <i class="fa fa-times"></i> 删 除
             </a>
+            <!--<a class="td-operator js_list_delete">
+                <i class="fa fa-times"></i> 重置密码
+            </a>-->
         </td>
     </tr>
     <% } } %>

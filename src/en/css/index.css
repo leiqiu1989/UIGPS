@@ -455,7 +455,6 @@ label.required:before {
 
 /*公共样式*/
 .ellipsis {
-  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; }
@@ -706,40 +705,6 @@ dl dd {
 .border-right {
   border-right: 1px solid #ccc; }
 
-/*ul-select样式*/
-.ul-select {
-  font-size: 14px;
-  position: absolute;
-  z-index: 3;
-  min-width: 170px;
-  min-height: 200px;
-  margin: 2px 0 5px;
-  padding: 5px 0;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  background-color: #fff;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
-  .ul-select li a {
-    font-weight: 400;
-    line-height: 1.42857143;
-    display: block;
-    clear: both;
-    padding: 3px 20px;
-    white-space: nowrap;
-    color: #333; }
-    .ul-select li a:hover {
-      text-decoration: none;
-      color: #262626;
-      background-color: #f5f5f5; }
-  .ul-select li span {
-    position: absolute;
-    top: 50px;
-    left: 20px;
-    display: block;
-    color: #a94442; }
-
 /*map style*/
 .mapContainer {
   position: absolute;
@@ -915,7 +880,7 @@ dl dd {
 
 .point_title_left {
   display: inline-block;
-  width: 200px;
+  width: 300px;
   padding-left: 10px; }
 
 .point_info_row {
@@ -998,16 +963,21 @@ dl dd {
     background: #fff url("./../img/messageicon.png") no-repeat 10px;
     margin-left: 50px; }
   .mapTools .mapAlarm {
-    background: #fff url("./../img/messageicon.png") no-repeat 10px;
+    background: #fff url("./../img/bell.png") no-repeat 10px;
     margin-left: 10px; }
+  .mapTools .alarmCount {
+    color: red;
+    font-weight: 700;
+    padding: 10px; }
 
 /*OBD信息*/
 .OBDInfo {
-  width: 380px;
+  width: 400px;
   position: absolute;
   top: 30px;
   right: 30px;
-  background: #fff; }
+  background: #fff;
+  border: 1px solid #ddd; }
   .OBDInfo .obd-Title {
     border-bottom: 1px solid #ddd;
     padding: 10px;
@@ -1017,17 +987,31 @@ dl dd {
       cursor: pointer; }
     .OBDInfo .obd-Title > span {
       font-weight: 700; }
+  .OBDInfo .ul-tab {
+    border-bottom: 1px solid #d1d1e1; }
+    .OBDInfo .ul-tab > li {
+      float: left;
+      width: 50%;
+      background: #f2f2f2;
+      cursor: pointer;
+      display: block;
+      text-align: center;
+      height: 40px;
+      line-height: 40px; }
+      .OBDInfo .ul-tab > li:first-child {
+        border-right: 1px solid #cecece; }
+      .OBDInfo .ul-tab > li.active {
+        background: #fff; }
   .OBDInfo .obd-Content {
     padding: 10px;
     height: 620px;
     overflow-y: auto;
-    border: 1px solid #ddd;
     border-top-width: 0; }
-    .OBDInfo .obd-Content > ul > li {
+    .OBDInfo .obd-Content ul > li {
       padding: 5px 0;
       color: #666;
       font-size: 14px; }
-      .OBDInfo .obd-Content > ul > li > span:last-child {
+      .OBDInfo .obd-Content ul > li > span:last-child {
         float: right;
         margin-right: 5px; }
     .OBDInfo .obd-Content .obd-group {
@@ -1062,6 +1046,8 @@ dl dd {
     text-decoration: none; }
   .mapToolbar .mapBtnText {
     height: 32px;
+    line-height: 32px;
+    padding: 0 12px;
     margin-right: 15px;
     color: #fff;
     background-color: #4fa0fb; }

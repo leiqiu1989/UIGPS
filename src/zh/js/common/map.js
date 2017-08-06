@@ -194,14 +194,14 @@ define(function(require, exports, module) {
         addTrackMark: function(data) {
             var me = this;
             var label = new BMap.Label("", {
-                offset: new BMap.Size(-15, 35)
+                offset: new BMap.Size(-20, 35)
             });
             label.setStyle({
                 border: "1px solid black",
                 color: "black",
                 fontSize: "12px",
-                height: "20px",
-                lineHeight: "20px",
+                height: "30px",
+                lineHeight: "30px",
                 fontFamily: "微软雅黑",
                 borderRadius: "4px"
             });

@@ -7,35 +7,38 @@ define(function(require, exports, module) {
 
     // 模板
     var tpls = {
-        add: require('../../tpl/userManager/add'),
-        userinfo: require('../../tpl/userManager/userInfo')
+        add: require('../../tpl/userManager/add')
     };
 
     var userAdd = function() {
         this.isEdit = false;
-        this.orgId = null;
-        this.roles = null;
+        this.uid = null;
     };
 
     $.extend(userAdd.prototype, {
         init: function(id) {
             this.isEdit = !!id;
-            this.orgId = id || null;
+            this.uid = id || null;
             this.initPage();
         },
         renderHtml: function(data) {
             var me = this;
-            var title = data ? '编辑组织用户' : '新增组织用户';
+            var title = data ? 'Edit' : 'Add';
             data = data || {};
-            data.Users = data.Users || [];
-            $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data, isEdit: this.isEdit }));
+            $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
             this.initSelect($('select[name="RoleId"]'), function() {
+                common.subordinateTree({
+                    orgNo: data.OrgNo, // 机构编号
+                    loadDevice: false,
+                    loadPlateNum: false,
+                    loadSIM: false,
+                    timeType: null
+                });
                 common.layUIForm();
                 if (me.isEdit) {
-                    var rows = $('#frmUserList > div.row');
-                    $.each(rows, function(i, row) {
-                        $(row).find('select[name="RoleId"]').val(data.Users[i].RoleId);
-                    });
+                    $('select[name="RoleId"]').val(data.RoleId).next().find(':text')
+                        .val(data.RoleName).end().find('dd[lay-value=' + data.RoleId + ']')
+                        .addClass('layui-this');
                 }
             });
             this.validate();
@@ -47,13 +50,13 @@ define(function(require, exports, module) {
             if (this.isEdit) {
                 common.loading('show');
                 common.ajax(api.userManager.detail, {
-                    OrgId: me.orgId
+                    userId: me.uid
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         var data = res.content;
                         me.renderHtml(data);
                     } else {
-                        var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                        var msg = res.errorMsg ? res.errorMsg : '系统异常, 请稍后再试';
                         common.layAlert(msg, 'error');
                     }
                     common.loading();
@@ -75,15 +78,14 @@ define(function(require, exports, module) {
             var obj = {
                 url: opt.url,
                 params: opt.params || {},
-                errorMsg: opt.errorMsg || '请求错误，未请求到数据',
+                errorMsg: opt.errorMsg || '系统异常, 请稍后再试',
                 key: opt.key || ['id', 'name'],
                 $objs: opt.obj
             };
             common.ajax(obj.url, obj.params, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
-                    me.roles = data;
-                    var html = '';
+                    var html = '<option value="">请选择</option>';
                     if (data && data.length > 0) {
                         $.each(data, function(i, item) {
                             html += '<option value="' + item[obj.key[0]] + '">' + item[obj.key[1]] + '</option>';
@@ -99,72 +101,39 @@ define(function(require, exports, module) {
         },
         validate: function() {
             var me = this;
-            validate('#frmOrgUser', {
-                subBtn: '.js_add_save',
+            validate('#frmUser', {
+                subBtn: '.js_save',
                 promptPos: 'inline',
                 submit: function() {
                     me.submitForm();
-                },
-                reg: {
-                    'pwd': /^[a-zA-Z0-9]{8,16}$/
-                },
-                errorMsg: {
-                    'pwd': '密码为字母和数字,长度(8-16)'
                 }
             });
         },
         submitForm: function() {
             var me = this;
             var users = [];
-            var params = common.getFormData('#frmOrgInfo');
-            var rows = $('#frmUserList > div.row:not(:last)');
-            for (var i = 0; i < rows.size(); i++) {
-                var el = rows[i];
-                var user = common.getFormData(el);
-                users.push(user);
+            var params = common.getFormData('#frmUser');
+            if (this.isEdit) {
+                params.Uid = this.uid;
             }
-            params.Users = users;
+            params.OnlyOrgNo = $('#txtSubordinate').data('orgNo') || '';
             var url = this.isEdit ? api.userManager.update : api.userManager.save;
-            common.ajax(url, { OrgUser: JSON.stringify(params) }, function(res) {
+            common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
-                    common.layMsg('数据操作成功!', 'success');
-                    common.changeHash('#userManager/index');
+                    common.layMsg('SUCCESS!', 'success');
+                    common.changeHash('#userManager/index/', { back: true });
                 } else {
-                    var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
+                    var msg = res.errorMsg ? res.errorMsg : '系统异常, 请稍后再试';
                     common.layAlert(msg);
                 }
             });
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization(function(orgId, orgName) {
-                $(':hidden[name="ParentOrgNo"]').val(orgId);
-                $('input[type="ParentOrgName"]').val(orgName);
-            });
             // 事件监听
-            $('#main-content').on('click', '.js_add_back', function() {
-                    common.changeHash('#userManager/index');
-                })
-                // 新增用户
-                .on('click', '.js-addUser', function() {
-                    if ($('#frmUserList div.row:not(.operator-row)').size() < 5) {
-                        if ($('#frmUserList div.row:not(.operator-row)').size() < 1) {
-                            $('#frmUserList div.row').before(template.compile(tpls.userinfo)({ roles: me.roles }));
-                        } else {
-                            $('#frmUserList div.row:first').after(template.compile(tpls.userinfo)({ roles: me.roles }));
-                        }
-                        common.layUIForm();
-                    } else {
-                        common.layMsg('It can bound 5 users at most!');
-                        return false;
-                    }
-                })
-                // 删除用户
-                .on('click', '.js_delete', function() {
-                    var row = $(this).closest('div.row');
-                    row.remove();
-                });
+            $('#main-content').on('click', '.js_cancel', function() {
+                common.changeHash('#userManager/index/', { back: true });
+            });
         }
     });
 

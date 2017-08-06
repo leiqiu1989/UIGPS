@@ -4,7 +4,7 @@
 	%>
     <tr>
         <td>
-            <%= i %>
+            <%= item.Id %>
         </td>
         <td title="<%= item.PlateNo %>">
             <%= item.PlateNo %>
@@ -15,14 +15,14 @@
         <td title="<%= item.OrgName %>">
             <%= item.OrgName %>
         </td>
-        <td title="<%= item.Alarm %>">
-            <%= item.Alarm %>
+        <td title="<%= item.AlarmInfo %>">
+            <%= item.AlarmInfo %>
         </td>
-        <td title="<%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Stime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Stime %>">
+            <%= item.Stime %>
         </td>
-        <td title="<%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.Etime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.Etime %>">
+            <%= item.Etime %>
         </td>
         <td title="<%= item.Speed %>">
             <%= item.Speed %>
@@ -30,14 +30,14 @@
         <td title="<%= item.Processor %>">
             <%= item.Processor %>
         </td>
-        <td title="<%= formateDate(item.ProcessTime,'yyyy/MM/dd hh:mm') %>">
-            <%= formateDate(item.ProcessTime,'yyyy/MM/dd hh:mm') %>
+        <td title="<%= item.ProcessTime %>">
+            <%= item.ProcessTime %>
         </td>
         <td title="<%= item.ProcessResult %>">
             <%= item.ProcessResult %>
         </td>
         <td>
-            <a class="td-operator js_list_edit">
+            <a class="td-operator js_list_detail">
                 <i class="fa fa-pencil-square-o"></i> 详 情
             </a>
         </td>

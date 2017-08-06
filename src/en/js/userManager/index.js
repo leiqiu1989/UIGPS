@@ -30,22 +30,46 @@ define(function(require, exports, module) {
                 me.sortParam = sortParam;
                 me.getData();
             });
+            common.subordinateTree({
+                orgNo: me.searchParam.Subordinate, // 机构编号
+                loadDevice: false,
+                loadPlateNum: false,
+                loadSIM: false,
+                timeType: null
+            });
+            common.layUIForm();
         },
         // 获取查询条件
-        getParams: function(param) {
+        getParams: function(param, reset) {
+            param = param || {};
+            reset = reset || false;
             this.sortParam = {};
-            var newParams = {
-                OnlyOrgNo: common.getElValue(':hidden[name="OnlyOrgNo"]'), //所属机构
-                Condition: common.getElValue('input[name="Condition"]') //关键字
-            };
-            this.searchParam = common.getParams('userManagerParams', param, newParams, true);
+            var _param = null;
+            if (reset || param.back) {
+                _param = {
+                    SubordinateName: '',
+                    Subordinate: '',
+                    UserName: ''
+                }
+            } else {
+                if (param && _.isEmpty(param)) {
+                    _param = {
+                        SubordinateName: common.getElValue('#txtSubordinate'),
+                        Subordinate: $('#txtSubordinate').data('orgNo') || '',
+                        UserName: $('#txtUserName').val()
+                    }
+                } else {
+                    _param = param;
+                }
+            }
+            this.searchParam = common.getParams(null, true, _param);
         },
-        deleteUser: function(orgId, confirmText) {
+        deleteUser: function(uid, confirmText) {
             var me = this;
             common.layConfirm(confirmText, function() {
-                common.loading('show', 'Data processing…');
+                common.loading('show', 'Data processing...');
                 common.ajax(api.userManager.del, {
-                    OrgIds: orgId
+                    userId: uid
                 }, function(res) {
                     if (res.status === 'SUCCESS') {
                         me.getData();
@@ -62,8 +86,6 @@ define(function(require, exports, module) {
             var me = this;
             var param = this.searchParam;
             param = $.extend({}, param, this.sortParam ? this.sortParam : {});
-            // 将查询条件保存到localStorage里面
-            common.setlocationStorage('userManagerParams', JSON.stringify(this.searchParam));
             common.loading('show');
             common.ajax(api.userManager.list, param, function(res) {
                 if (res.status === 'SUCCESS') {
@@ -84,62 +106,29 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            // 所属机构事件监听
-            common.listenOrganization();
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
-                me.getParams(true);
+                me.getParams();
                 common.changeHash('#userManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
-                common.removeLocationStorage('userManagerParams'); // 组织用户管理
-                me.getParams(false);
+                me.getParams(null, true);
                 common.changeHash('#userManager/index/', me.searchParam);
             });
             // 事件监听
-            $('#main-content').on('click', '.js_list_add', function() {
+            $('#main-content').off().on('click', '.js_list_add', function() {
                     common.changeHash('#userManager/edit');
                 })
-                //编辑车辆
+                //编辑用户
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
-                    var id = tr.data('orgid');
+                    var id = tr.attr('data-uid');
                     common.changeHash('#userManager/edit/', { id: id });
                 })
-                //批量、单个删除车辆
+                //删除用户
                 .on('click', '.js_list_delete', function() {
-                    var ogrId = $(this).closest('tr').data('orgid');
-                    var confirmText = '';
-                    if (ogrId) {
-                        confirmText = 'sure to delete this user?';
-                    } else {
-                        var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
-                        if (chks.size() < 1) {
-                            common.layMsg('Please select the user you want to delete!');
-                            return false;
-                        }
-                        confirmText = 'Have selected&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;users,sure to delete?';
-                        var array = [];
-                        $.each(chks, function(i, item) {
-                            array.push($(item).closest('tr').data('orgid'));
-                        });
-                        ogrId = array.join(',');
-                    }
-                    me.deleteUser(ogrId, confirmText);
-                }).on('click', 'input[name="checkAll"]', function() {
-                    var isChecked = $(this).is(':checked');
-                    if (isChecked) {
-                        $('.datatable-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
-                    } else {
-                        $('.datatable-content table > tbody input[name="checkItem"]').removeAttr('checked');
-                    }
-                }).on('click', 'input[name="checkItem"]', function() {
-                    var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked').size();
-                    var totalChks = $('.datatable-content table > tbody input[name="checkItem"]').size();
-                    if (chks == totalChks) {
-                        $('.datatable-header table > thead input[name="checkAll"]').prop('checked', true);
-                    } else {
-                        $('.datatable-header table > thead input[name="checkAll"]').removeAttr('checked');
-                    }
+                    var uid = $(this).closest('tr').attr('data-uid');
+                    var confirmText = 'Confirm to delete?';
+                    me.deleteUser(uid, confirmText);
                 });
         }
     });

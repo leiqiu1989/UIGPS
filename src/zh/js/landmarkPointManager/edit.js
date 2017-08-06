@@ -111,11 +111,11 @@ define(function(require, exports, module) {
                 onSearchComplete: function(result) {
                     //查询结果状态码
                     if (localSearch.getStatus() == BMAP_STATUS_SUCCESS) {
-                        var ur = result.ur;
+                        var rt = result.ur || result.or || result.wr || result.vr;
                         var points = [];
                         var mapPoints = [];
-                        if (ur.length > 0) {
-                            $.each(ur, function(i, item) {
+                        if (rt.length > 0) {
+                            $.each(rt, function(i, item) {
                                 points.push(item.point);
                             });
                         }
@@ -170,7 +170,7 @@ define(function(require, exports, module) {
         event: function() {
             var me = this;
             $('#main-content').on('click', '.js-cancel', function() {
-                common.changeHash('#landmarkPointManager/index');
+                common.changeHash('#landmarkPointManager/index/', { back: true });
             }).on('click', '.js-save', function() {
                 var lanMarkName = $.trim($('input[name="LandMarkName"]').val());
                 var remark = $.trim($('input[name="LandMarkName"]').val());
