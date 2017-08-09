@@ -106,7 +106,7 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-            // 查询-事件监听
+            // 查询-事件监听            
             $('.panel-toolbar').on('click', '.js_list_search', function() {
                 me.getParams();
                 common.changeHash('#userManager/index/', me.searchParam);

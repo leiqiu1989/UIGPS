@@ -90,12 +90,11 @@ define(function(require, exports, module) {
                 me.getParams();
                 common.changeHash('#landmarkPointManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
-                common.removeLocationStorage('landMarkPointParams'); // 车辆管理
                 me.getParams(null, true);
                 common.changeHash('#landmarkPointManager/index/', me.searchParam);
             });
             // 事件监听
-            $('#main-content').on('click', '.js_list_add', function() {
+            $('#main-content').off().on('click', '.js_list_add', function() {
                     common.changeHash('#landmarkPointManager/edit');
                 })
                 //编辑地标点

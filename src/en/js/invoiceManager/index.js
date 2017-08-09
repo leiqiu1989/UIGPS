@@ -117,6 +117,14 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
+            // 查询-事件监听
+            $('.panel-toolbar').on('click', '.js_list_search', function(event) {
+                me.getParams();
+                common.changeHash('#geofenceManager/index/', me.searchParam);
+            }).on('click', '.js_list_reset', function() {
+                me.getParams(null, true);
+                common.changeHash('#geofenceManager/index/', me.searchParam);
+            });
             // 事件监听
             $('#main-content').off()
                 // 导出
@@ -157,16 +165,6 @@ define(function(require, exports, module) {
                             });
                         }
                     });
-                })
-                // 查询
-                .on('click', '.js_list_search', function() {
-                    me.getParams();
-                    common.changeHash('#invoiceManager/index/', me.searchParam);
-                })
-                // 重置
-                .on('click', '.js_list_reset', function() {
-                    me.getParams(null, true);
-                    common.changeHash('#invoiceManager/index/', me.searchParam);
                 })
                 // 时间切换
                 .on('click', '.time-area', function() {

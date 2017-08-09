@@ -94,7 +94,7 @@ define(function(require, exports, module) {
                 common.changeHash('#landmarkPointManager/index/', me.searchParam);
             });
             // 事件监听
-            $('#main-content').on('click', '.js_list_add', function() {
+            $('#main-content').off().on('click', '.js_list_add', function() {
                     common.changeHash('#landmarkPointManager/edit');
                 })
                 //编辑地标点

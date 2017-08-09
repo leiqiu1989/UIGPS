@@ -135,16 +135,15 @@ define(function(require, exports, module) {
             var me = this;
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_list_search', function() {
-                    me.getParams();
-                    common.changeHash('#carManager/index/', me.searchParam);
-                })
-                //重置
-                .on('click', '.js_list_reset', function() {
-                    me.getParams(null, true);
-                    common.changeHash('#carManager/index/', me.searchParam);
-                });
+                me.getParams();
+                common.changeHash('#carManager/index/', me.searchParam);
+            }).on('click', '.js_list_reset', function() {
+                common.removeLocationStorage('carManagerParams'); // 车辆管理
+                me.getParams(null, true);
+                common.changeHash('#carManager/index/', me.searchParam);
+            });
             // 事件监听
-            $('#main-content').on('click', '.js_list_add', function() {
+            $('#main-content').off().on('click', '.js_list_add', function() {
                     common.changeHash('#carManager/edit');
                 })
                 //编辑车辆

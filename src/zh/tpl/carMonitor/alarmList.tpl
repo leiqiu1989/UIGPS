@@ -19,7 +19,7 @@
             <%= item.ETime %>
         </td>
         <td>
-            <a class="td-operator js_alarm_dispose">Dispose</a>
+            <a class="td-operator js_alarm_dispose">处理</a>
         </td>
     </tr>
     <% } } %>

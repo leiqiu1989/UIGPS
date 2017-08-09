@@ -95,13 +95,11 @@ define(function(require, exports, module) {
         },
         event: function() {
             var me = this;
-
             // 查询-事件监听
             $('.panel-toolbar').on('click', '.js_search', function(event) {
                 me.getParams();
                 common.changeHash('#roleManager/index/', me.searchParam);
             }).on('click', '.js_list_reset', function() {
-                common.removeLocationStorage('roleManagerSearchParams'); // 投诉管理
                 me.getParams(null, true);
                 common.changeHash('#roleManager/index/', me.searchParam);
             });

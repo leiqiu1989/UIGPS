@@ -414,7 +414,7 @@ define(function(require, exports, module) {
         event: function() {
             var me = this;
             // 事件监听
-            $('#main-content')
+            $('#main-content').off()
                 // 组织列表隐藏
                 .on('click', '.vehicle-close', function() {
                     $('.vehicle-box').hide();
