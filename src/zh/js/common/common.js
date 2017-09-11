@@ -470,6 +470,7 @@ define(function(require, exports, module) {
                 btn: ['确定', '取消'] //按钮
             }, function() {
                 callback && callback();
+                layer.closeAll();
             }, function() {
                 layer.closeAll();
             });
@@ -924,6 +925,8 @@ define(function(require, exports, module) {
         },
         // 所属机构--tree
         subordinateTree: function(option) {
+            // 机构名称，临时变量
+            var _orgName = null;
             option = option || {};
             var opt = $.extend({}, {
                 loadDevice: _.isBoolean(option.loadDevice) ? option.loadDevice : true,
@@ -959,6 +962,12 @@ define(function(require, exports, module) {
             this.ajax(api.subordinateTree, {}, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     var content = res.content || [];
+                    if (opt.orgNo) {
+                        _orgName = _.result(_.find(content, function(item) {
+                            return item.OrgNo == opt.orgNo;
+                        }), 'OrganizationName');
+                    }
+                    _orgName && $('#txtSubordinate').val(_orgName);
                     $.fn.zTree.init($("#orgTree"), ztreeSetting, content);
                     var treeObj = $.fn.zTree.getZTreeObj("orgTree");
                     treeObj.expandAll(true);

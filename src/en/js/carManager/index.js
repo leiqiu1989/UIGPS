@@ -63,7 +63,7 @@ define(function(require, exports, module) {
             if (reset || param.back) {
                 _param = {
                     orgName: '',
-                    OnlyOrgNo: '',
+                    OnlyOrgNo: common.getCookie('orgno'),
                     VehicleType: '',
                     Condition: ''
                 }
@@ -71,7 +71,7 @@ define(function(require, exports, module) {
                 if (param && _.isEmpty(param)) {
                     _param = {
                         orgName: common.getElValue('#txtSubordinate'),
-                        OnlyOrgNo: $('#txtSubordinate').data('orgNo') || '',
+                        OnlyOrgNo: $('#txtSubordinate').data('orgNo') || common.getCookie('orgno'),
                         VehicleType: common.getElValue('select[name="VehicleType"]'), //车辆类型                
                         Condition: common.getElValue('input[name="Condition"]') //关键字
                     }
