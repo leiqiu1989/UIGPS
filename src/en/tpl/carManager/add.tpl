@@ -111,25 +111,25 @@
                         <div class='row'>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">Driver Name</label>
+                                    <label class="layui-form-label">Driver Name</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" value="<%= data.Driver.DriverName%>" required maxlength="10" name="DriverName" type="text" />
+                                        <input class="layui-input" value="<%= data.Driver.DriverName%>" maxlength="10" name="DriverName" type="text" />
                                     </div>
                                 </div>
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required">ID Card No.</label>
+                                    <label class="layui-form-label">ID Card No.</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" data-type="idcard" value="<%= data.Driver.IDCard%>" required maxlength="20" name="IDCard" type="text" />
+                                        <input class="layui-input" data-type="idcard" value="<%= data.Driver.IDCard%>" maxlength="20" name="IDCard" type="text" />
                                     </div>
                                 </div>
                             </div>
                             <div class='col-sm-3'>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label required ellipsis">Contact Number</label>
+                                    <label class="layui-form-label ellipsis">Contact Number</label>
                                     <div class="layui-input-block">
-                                        <input class="layui-input" data-type="tel" value="<%= data.Driver.PhoneNo%>" required maxlength="20" name="PhoneNo" data-type="tel" type="text" />
+                                        <input class="layui-input" data-type="tel" value="<%= data.Driver.PhoneNo%>" maxlength="20" name="PhoneNo" data-type="tel" type="text" />
                                     </div>
                                 </div>
                             </div>
