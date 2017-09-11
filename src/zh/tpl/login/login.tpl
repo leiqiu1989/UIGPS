@@ -67,7 +67,7 @@
         <span>版权所有：深圳市长胜卓越电子科技有限公司</span>
     </div>
     <div class="item">
-        <span>@ 2016 itte.com 版权所有</span>
-        <span>ICP证：粤B2-20140901</span>
+        <span>@ 2017 www.cszy868.com 版权所有</span>
+        <span>ICP证：</span>
     </div>
 </div>
