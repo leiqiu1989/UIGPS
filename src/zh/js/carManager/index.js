@@ -150,8 +150,8 @@ define(function(require, exports, module) {
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
                     var id = tr.data('truckid');
-                    var orgId = tr.data('orgid');
-                    common.changeHash('#carManager/edit/', { vid: id });
+                    var orgno = tr.data('orgno');
+                    common.changeHash('#carManager/edit/', { vid: id, orgNo: orgno });
                 })
                 .on('click', '.js_list_import', function() {
                     common.changeHash('#carManager/import');
@@ -173,35 +173,8 @@ define(function(require, exports, module) {
                     var confirmText = '';
                     if (truckId) {
                         confirmText = '确定要删除该车辆吗？';
-                    } else {
-                        var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
-                        if (chks.size() < 1) {
-                            common.layAlert('请选择要删除的车辆！');
-                            return false;
-                        }
-                        confirmText = '已选择&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;辆车，是否对车辆进行删除？';
-                        var array = [];
-                        $.each(chks, function(i, item) {
-                            array.push($(item).closest('tr').data('truckid'));
-                        });
-                        truckId = array.join(',');
                     }
                     me.deleteCar(truckId, confirmText);
-                }).on('click', 'input[name="checkAll"]', function() {
-                    var isChecked = $(this).is(':checked');
-                    if (isChecked) {
-                        $('.grid-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
-                    } else {
-                        $('.grid-content table > tbody input[name="checkItem"]').removeAttr('checked');
-                    }
-                }).on('click', 'input[name="checkItem"]', function() {
-                    var chks = $('.grid-content table > tbody input[name="checkItem"]:checked').size();
-                    var totalChks = $('.grid-content table > tbody input[name="checkItem"]').size();
-                    if (chks == totalChks) {
-                        $('.table-head table > thead input[name="checkAll"]').prop('checked', true);
-                    } else {
-                        $('.table-head table > thead input[name="checkAll"]').removeAttr('checked');
-                    }
                 });
         }
     });

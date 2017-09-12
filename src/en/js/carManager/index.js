@@ -150,8 +150,8 @@ define(function(require, exports, module) {
                 .on('click', '.js_list_edit', function() {
                     var tr = $(this).closest('tr');
                     var id = tr.data('truckid');
-                    var orgId = tr.data('orgid');
-                    common.changeHash('#carManager/edit/', { vid: id });
+                    var orgno = tr.data('orgno');
+                    common.changeHash('#carManager/edit/', { vid: id, orgNo: orgno });
                 })
                 .on('click', '.js_list_import', function() {
                     common.changeHash('#carManager/import');
@@ -167,41 +167,14 @@ define(function(require, exports, module) {
                 //     var uniqueIds = tr.data('uniqueids');
                 //     common.changeHash('#carManager/detail/', { truckId: truckId, orgId: orgId, uniqueIds: uniqueIds });
                 // })
-                //批量、单个删除车辆
+                //单个删除车辆
                 .on('click', '.js_list_delete', function() {
                     var truckId = $(this).closest('tr').data('truckid');
                     var confirmText = '';
                     if (truckId) {
                         confirmText = 'Sure you to delete the vehicle?';
-                    } else {
-                        var chks = $('.datatable-content table > tbody input[name="checkItem"]:checked');
-                        if (chks.size() < 1) {
-                            common.layAlert('Please select a vehicle to delete!');
-                            return false;
-                        }
-                        confirmText = 'Have chosen&nbsp;<span class="red">' + chks.size() + '</span>&nbsp;car,do you want to delete?';
-                        var array = [];
-                        $.each(chks, function(i, item) {
-                            array.push($(item).closest('tr').data('truckid'));
-                        });
-                        truckId = array.join(',');
                     }
                     me.deleteCar(truckId, confirmText);
-                }).on('click', 'input[name="checkAll"]', function() {
-                    var isChecked = $(this).is(':checked');
-                    if (isChecked) {
-                        $('.grid-content table > tbody input[name="checkItem"]').prop('checked', isChecked);
-                    } else {
-                        $('.grid-content table > tbody input[name="checkItem"]').removeAttr('checked');
-                    }
-                }).on('click', 'input[name="checkItem"]', function() {
-                    var chks = $('.grid-content table > tbody input[name="checkItem"]:checked').size();
-                    var totalChks = $('.grid-content table > tbody input[name="checkItem"]').size();
-                    if (chks == totalChks) {
-                        $('.table-head table > thead input[name="checkAll"]').prop('checked', true);
-                    } else {
-                        $('.table-head table > thead input[name="checkAll"]').removeAttr('checked');
-                    }
                 });
         }
     });

@@ -53,12 +53,11 @@
                             <div class="table-head-warp ">
                                 <table class="grid-table ">
                                     <colgroup>
-                                        <col width="50px" />
                                         <col width="9%" />
                                         <col width="7%" />
                                         <col width="7%" />
-                                        <col width="10%" />
-                                        <col width="10%" />
+                                        <col />
+                                        <col />
                                         <col width="8%" />
                                         <col width="8%" />
                                         <col width="8%" />
@@ -68,9 +67,6 @@
                                     </colgroup>
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <input type="checkbox" name="checkAll" />
-                                            </th>
                                             <th class="sortable string asc" data-sortfield="plateNumber">License</th>
                                             <th>Color</th>
                                             <th>Subordinate</th>
@@ -92,12 +88,11 @@
                         <div id="carList" class="grid-content">
                             <table class="grid-table ">
                                 <colgroup>
-                                    <col width="50px" />
                                     <col width="9%" />
                                     <col width="7%" />
                                     <col width="7%" />
-                                    <col width="10%" />
-                                    <col width="10%" />
+                                    <col />
+                                    <col />
                                     <col width="8%" />
                                     <col width="8%" />
                                     <col width="8%" />

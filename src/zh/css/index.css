@@ -453,7 +453,7 @@ label.required:before {
 .error-tips {
   margin-left: 0 !important; }
 
-/*公共样式*/
+/*common style*/
 .ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -708,7 +708,7 @@ dl dd {
 .border-right {
   border-right: 1px solid #ccc; }
 
-/*ul-select样式*/
+/*ul-select style*/
 .ul-select {
   font-size: 14px;
   position: absolute;
@@ -897,7 +897,7 @@ dl dd {
 .pause {
   background-image: url(./../img/btn_Paused.png) !important; }
 
-/*历史位置查询*/
+/*history location*/
 #historyMap {
   height: 450px;
   max-height: 450px;
@@ -907,7 +907,7 @@ dl dd {
   border-top: 1px solid #eee;
   height: 350px; }
 
-/*地图信息框样式*/
+/*map info style*/
 .point_info {
   display: inline-block; }
 
@@ -959,7 +959,7 @@ dl dd {
 .point_btn_info.br {
   border-right: 1px solid #c9c9c9; }
 
-/*地图工具栏*/
+/*map tools*/
 .mapTools {
   position: absolute;
   top: 30px;
@@ -1007,7 +1007,7 @@ dl dd {
     font-weight: 700;
     padding: 10px; }
 
-/*OBD信息*/
+/*OBD info*/
 .OBDInfo {
   width: 300px;
   position: absolute;
@@ -1088,7 +1088,7 @@ dl dd {
     background-color: #4fa0fb; }
 
 /*轨迹样式*/
-/*轨迹回放*/
+/*杞ㄨ抗鍥炴斁*/
 .track-container {
   position: absolute;
   top: 0;
@@ -2181,7 +2181,7 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
     padding-left: 10px;
     border: 1px solid #e2e3e7; }
     .grid-content table > tbody tr > td a {
-      color: #4e87f8; }
+      color: #1E9FFF; }
     .grid-content table > tbody tr > td .tdFix {
       position: absolute;
       top: 0;
@@ -2501,7 +2501,7 @@ th {
 
 html {
   font-size: 10px;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
 body {
   font-family: Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
