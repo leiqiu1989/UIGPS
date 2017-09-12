@@ -3,7 +3,7 @@
     display: none;
 }
 
-// 地图监控车辆列表
+// map monitor carlist
 .monitorList {
     position: absolute;
     left: 0px;
@@ -106,7 +106,7 @@
     color: #7A7A7A;
 }
 
-// 地图监控组织列表
+// map monitor org
 .vehicle-box {
     display: none;
     position: absolute;
@@ -165,7 +165,7 @@
 }
 
 
-/*历史位置查询*/
+/*history location*/
 
 #historyMap {
     height: 450px;
@@ -179,7 +179,7 @@
 }
 
 
-/*地图信息框样式*/
+/*map info style*/
 
 .point_info {
     display: inline-block;
@@ -244,7 +244,7 @@
 }
 
 
-/*地图工具栏*/
+/*map tool*/
 
 .mapTools {
     position: absolute;
@@ -307,7 +307,7 @@
 }
 
 
-/*OBD信息*/
+/*OBD info*/
 
 .OBDInfo {
     width: 300px;
