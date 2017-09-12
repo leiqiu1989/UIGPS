@@ -11,15 +11,15 @@ define(function(require, exports, module) {
     };
 
     var carAdd = function() {
-        this.orgId = null;
+        this.orgNo = null;
         this.vid = null;
         this.isEdit = null;
     };
 
     $.extend(carAdd.prototype, {
-        init: function(vid, orgId) {
+        init: function(vid, orgNo) {
             this.vid = vid;
-            this.orgId = orgId || null;
+            this.orgNo = orgNo || null;
             this.isEdit = !!vid;
             this.obj = {
                 Driver: {},
@@ -142,15 +142,11 @@ define(function(require, exports, module) {
             if (this.isEdit) {
                 params.Vid = me.vid;
             }
-            if (me.orgId) {
-                params.OnlyOrgNo = me.orgId;
-            } else {
-                params.OnlyOrgNo = $('#OnlyOrgNo').data('orgNo');
-            }
+            params.OnlyOrgNo = $('#txtSubordinate').data('orgNo');
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('Data is successful!');
-                    common.changeHash('#carManager/index');
+                    common.changeHash('#carManager/index/', { back: true });
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : 'Server problem, please try again later';
                     common.layMsg(msg);
@@ -167,6 +163,6 @@ define(function(require, exports, module) {
     });
 
     exports.init = function(param) {
-        new carAdd().init(param.vid, param.orgId);
+        new carAdd().init(param.vid, param.orgNo);
     };
 });

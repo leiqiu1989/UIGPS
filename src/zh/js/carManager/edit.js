@@ -11,15 +11,15 @@ define(function(require, exports, module) {
     };
 
     var carAdd = function() {
-        this.orgId = null;
+        this.orgNo = null;
         this.truckId = null;
         this.isEdit = null;
     };
 
     $.extend(carAdd.prototype, {
-        init: function(truckId, orgId) {
+        init: function(truckId, orgNo) {
             this.truckId = truckId;
-            this.orgId = orgId || null;
+            this.orgNo = orgNo || null;
             this.isEdit = !!truckId;
             this.obj = {
                 Driver: {},
@@ -46,7 +46,7 @@ define(function(require, exports, module) {
             var me = this;
             common.ajax(api.carManager.detail, {
                 Vid: this.truckId,
-                orgId: this.orgId
+                orgId: this.orgNo
             }, function(res) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
@@ -142,15 +142,11 @@ define(function(require, exports, module) {
             if (this.isEdit) {
                 params.Vid = me.truckId;
             }
-            if (me.orgId) {
-                params.OnlyOrgNo = me.orgId;
-            } else {
-                params.OnlyOrgNo = $('#OnlyOrgNo').data('orgNo');
-            }
+            params.OnlyOrgNo = $('#txtSubordinate').data('orgNo');
             common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('数据操作成功!');
-                    common.changeHash('#carManager/index');
+                    common.changeHash('#carManager/index/', { back: true });
                 } else {
                     var msg = res.errorMsg ? res.errorMsg : '服务器问题，请稍后重试';
                     common.layMsg(msg);
@@ -167,6 +163,6 @@ define(function(require, exports, module) {
     });
 
     exports.init = function(param) {
-        new carAdd().init(param.vid, param.orgId);
+        new carAdd().init(param.vid, param.orgNo);
     };
 });
