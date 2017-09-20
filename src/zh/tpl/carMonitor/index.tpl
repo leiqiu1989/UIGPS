@@ -24,10 +24,10 @@
                                     <col width="10% " />
                                     <col width="8% " />
                                     <col width="12% " />
-                                    <col width="10% " />
+                                    <col width="7% " />
                                     <col width="12% " />
-                                    <col width="10% " />
-                                    <col width="35% " />
+                                    <col width="7% " />
+                                    <col />
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -53,10 +53,10 @@
                                 <col width="10% " />
                                 <col width="8% " />
                                 <col width="12% " />
-                                <col width="10% " />
+                                <col width="7% " />
                                 <col width="12% " />
-                                <col width="10% " />
-                                <col width="35% " />
+                                <col width="7% " />
+                                <col />
                             </colgroup>
                             <tbody>
                             </tbody>
