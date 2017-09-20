@@ -10,9 +10,17 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="layui-form-item">
-                            <label class="layui-form-label required ellipsis" title="Organization Name">用户名</label>
+                            <label class="layui-form-label required ellipsis">用户名</label>
                             <div class="layui-input-block">
-                                <input class="layui-input" value="<%= data.UserName %>" required name="UserName" maxlength="20" type="text" placeholder="不能为空，最大长度为20个字符!" />
+                                <input class="layui-input" value="<%= data.UserName %>" required name="UserName" autocomplete="off" maxlength="20" type="text" placeholder="不能为空，最大长度为20个字符" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label required ellipsis">密 码</label>
+                            <div class="layui-input-block">
+                                <input type="password" name="pwdTemp" data-nosubmit="true" style="width: 0; height: 0; position: absolute; border: 0;" />
+                                <!-- 禁用表单默认填充 -->
+                                <input class="layui-input" value="<%= data.Pwd %>" required name="Pwd" data-type="regPwd" autocomplete="off" maxlength="12" type="password" placeholder="不能为空，长度为6-12位数字和字母" />
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -41,13 +49,13 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">角色</label>
+                            <label class="layui-form-label">角 色</label>
                             <div class="layui-input-block">
                                 <select name="RoleId"></select>
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">备注</label>
+                            <label class="layui-form-label">备 注</label>
                             <div class="layui-input-block">
                                 <textarea class="layui-textarea" maxlength="255" placeholder="最大长度为255个字符" name="Remark">
 							        <%= data.Remark %>

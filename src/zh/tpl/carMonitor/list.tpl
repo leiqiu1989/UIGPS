@@ -8,8 +8,8 @@
             <%= i+1 %>
         </td>
         <td>
-            <a class="td-a js_car_info" data-id="<%= item.Vid %>">查看资料</a> |
-            <a class="td-a js_track_replay" data-id="<%= item.Vid %>" data-plate="<%= item.PlateNo %>">轨迹回放</a> |
+            <a class="td-a js_car_info" data-id="<%= item.Vid %>">资料</a> |
+            <a class="td-a js_track_replay" data-id="<%= item.Vid %>" data-plate="<%= item.PlateNo %>">轨迹</a> |
             <a class="td-a js_directive" data-id="<%= item.Vid %>">指令</a>
         </td>
         <td title="<%= item.PlateNo %>">

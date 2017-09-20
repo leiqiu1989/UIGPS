@@ -16,6 +16,14 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
+                            <label class="layui-form-label required ellipsis">Password</label>
+                            <div class="layui-input-block">
+                                <input type="password" name="pwdTemp" data-nosubmit="true" style="width: 0; height: 0; position: absolute; border: 0;" />
+                                <!-- 禁用表单默认填充 -->
+                                <input class="layui-input" value="<%= data.Pwd %>" required name="Pwd" data-type="regPwd" autocomplete="off" maxlength="12" type="password" placeholder="Cannot be empty, with a length of 6-12 digits and letters" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
                             <label class="layui-form-label">Subordinate</label>
                             <div class="layui-input-block">
                                 <div class="layui-unselect layui-form-select js-Subordinate">

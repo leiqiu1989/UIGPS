@@ -1014,7 +1014,8 @@ dl dd {
   top: 30px;
   right: 30px;
   background: #fff;
-  border: 1px solid #ddd; }
+  border: 1px solid #ddd;
+  bottom: 60px; }
   .OBDInfo .obd-Title {
     border-bottom: 1px solid #ddd;
     padding: 10px;
@@ -1041,9 +1042,13 @@ dl dd {
         background: #fff; }
   .OBDInfo .obd-Content {
     padding: 10px;
-    height: 620px;
     overflow-y: auto;
-    border-top-width: 0; }
+    border-top-width: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 84px; }
     .OBDInfo .obd-Content ul > li {
       padding: 5px 0;
       color: #666;
