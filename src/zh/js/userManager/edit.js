@@ -23,7 +23,7 @@ define(function(require, exports, module) {
         },
         renderHtml: function(data) {
             var me = this;
-            var title = data ? 'Edit' : 'Add';
+            var title = data ? '编辑用户' : '新增用户';
             data = data || {};
             $('#main-content').empty().html(template.compile(tpls.add)({ title: title, data: data }));
             this.initSelect($('select[name="RoleId"]'), function() {
@@ -106,6 +106,12 @@ define(function(require, exports, module) {
                 promptPos: 'inline',
                 submit: function() {
                     me.submitForm();
+                },
+                reg: {
+                    'regPwd': /^[0-9a-zA-Z]{6,12}$/
+                },
+                errorMsg: {
+                    'regPwd': '只能输入字母和数字(长度6-12)'
                 }
             });
         },
@@ -115,6 +121,10 @@ define(function(require, exports, module) {
             var params = common.getFormData('#frmUser');
             if (this.isEdit) {
                 params.Uid = this.uid;
+            }
+            if (!$.trim(params.Pwd)) {
+                common.layAlert('只能输入字母和数字(长度6-12)');
+                return false;
             }
             params.OnlyOrgNo = $('#txtSubordinate').data('orgNo') || '';
             var url = this.isEdit ? api.userManager.update : api.userManager.save;

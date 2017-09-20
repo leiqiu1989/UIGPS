@@ -106,6 +106,12 @@ define(function(require, exports, module) {
                 promptPos: 'inline',
                 submit: function() {
                     me.submitForm();
+                },
+                reg: {
+                    'regPwd': /^[0-9a-zA-Z]{6,12}$/
+                },
+                errorMsg: {
+                    'regPwd': 'Only the letters and Numbers (6-12)'
                 }
             });
         },
@@ -115,6 +121,10 @@ define(function(require, exports, module) {
             var params = common.getFormData('#frmUser');
             if (this.isEdit) {
                 params.Uid = this.uid;
+            }
+            if (!$.trim(params.Pwd)) {
+                common.layAlert('Only the letters and Numbers (6-12)');
+                return false;
             }
             params.OnlyOrgNo = $('#txtSubordinate').data('orgNo') || '';
             var url = this.isEdit ? api.userManager.update : api.userManager.save;
