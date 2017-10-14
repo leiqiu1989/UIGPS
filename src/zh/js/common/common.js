@@ -715,7 +715,9 @@ define(function(require, exports, module) {
                         }
                     }
                 }
-            }, ajaxOpt));
+            }, ajaxOpt)).always(function() {
+                me.loading();
+            });
         },
         // 所属机构-查询公共组件(callback代表选择了某一项的回调函数)
         listenOrganization: function(callback) {
