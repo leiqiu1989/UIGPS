@@ -28,7 +28,7 @@
                             <input class="layui-input" maxlength="20" name="password" required type="password" />
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label class="layui-form-label">Type</label>
                         <div class="layui-input-block">
                             <select name="userType">
@@ -36,7 +36,7 @@
                             <option value="2">Enterprise</option>
                         </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <a class="login-btn js-login">Login</a>

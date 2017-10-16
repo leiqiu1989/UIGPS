@@ -28,7 +28,7 @@
                             <input class="layui-input" maxlength="20" name="password" required type="password" />
                         </div>
                     </div>
-                    <div class="layui-form-item">
+                    <!-- <div class="layui-form-item">
                         <label class="layui-form-label">类&nbsp;&nbsp;&nbsp;型</label>
                         <div class="layui-input-block">
                             <select name="userType">
@@ -36,7 +36,7 @@
                             <option value="2">企业账户</option>
                         </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <a class="login-btn js-login">登 陆</a>

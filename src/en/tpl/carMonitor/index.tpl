@@ -98,7 +98,7 @@
             OBD Info
         </div>
         <div class="mapAlarm js-mapAlarm">
-            Alarm <span class="alarmCount js_alarmCount"></span>
+            Alarm <span class="alarmCount js_alarmCount">0</span>
         </div>
     </div>
     <!-- OBD信息列表 -->
