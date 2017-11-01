@@ -15,7 +15,7 @@ var option = {
     en: './src/en',
     zhDist: './dist/zh',
     enDist: './dist/en',
-    version: '20161225'
+    version: '20171101'
 };
 
 // 中文配置
