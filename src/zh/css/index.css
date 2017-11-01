@@ -1093,7 +1093,7 @@ dl dd {
     background-color: #4fa0fb; }
 
 /*轨迹样式*/
-/*杞ㄨ抗鍥炴斁*/
+/*轨迹回放*/
 .track-container {
   position: absolute;
   top: 0;
@@ -2161,6 +2161,41 @@ background-image: linear-gradient(#eeeeee 20%, #ffffff 80%);*/
         border-width: 0 0 0 1px;
         border-style: solid;
         border-color: #e6e6e6; }
+        .grid .table-head .table-head-warp table th span[span-sort=asc] > .asc {
+          border-bottom-color: #000; }
+        .grid .table-head .table-head-warp table th span[span-sort=desc] > .desc {
+          border-top-color: #000; }
+        .grid .table-head .table-head-warp table th .sort {
+          position: relative;
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          top: 5px;
+          margin-left: 5px;
+          cursor: pointer !important; }
+          .grid .table-head .table-head-warp table th .sort ._baseSort, .grid .table-head .table-head-warp table th .sort .asc, .grid .table-head .table-head-warp table th .sort .desc {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: dashed;
+            border-color: transparent;
+            overflow: hidden;
+            left: 5px;
+            border-width: 5px; }
+          .grid .table-head .table-head-warp table th .sort .asc {
+            top: 4px;
+            border-top: none;
+            border-bottom-style: solid;
+            border-bottom-color: #b2b2b2; }
+            .grid .table-head .table-head-warp table th .sort .asc:hover {
+              border-bottom-color: #666; }
+          .grid .table-head .table-head-warp table th .sort .desc {
+            bottom: 4px;
+            border-bottom: none;
+            border-top-style: solid;
+            border-top-color: #b2b2b2; }
+            .grid .table-head .table-head-warp table th .sort .desc:hover {
+              border-top-color: #666; }
 
 .grid-table {
   width: 100%;
@@ -2506,7 +2541,7 @@ th {
 
 html {
   font-size: 10px;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: transparent; }
 
 body {
   font-family: Lantinghei SC, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;

@@ -34,7 +34,12 @@
                                         <th>Serial</th>
                                         <th>Operation</th>
                                         <th>License</th>
-                                        <th>GPSTime</th>
+                                        <th>GPSTime
+                                            <span class="sort" data-field="GpsTime">
+                                                <i class="asc" data-sort="1"></i>
+                                                <i class="desc" data-sort="0"></i>
+                                            </span>
+                                        </th>
                                         <th>Speed(Km/h)</th>
                                         <th>Status</th>
                                         <th>Direction</th>
@@ -97,9 +102,9 @@
         <div class="mapOBD js-toggleOBD">
             OBD Info
         </div>
-        <div class="mapAlarm js-mapAlarm">
+        <!-- <div class="mapAlarm js-mapAlarm">
             Alarm <span class="alarmCount js_alarmCount">0</span>
-        </div>
+        </div> -->
     </div>
     <!-- OBD信息列表 -->
     <div id="obdList" class="OBDInfo hidden">
