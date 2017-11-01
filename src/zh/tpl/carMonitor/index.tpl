@@ -17,7 +17,7 @@
             <div class="panel full no-margin flexbox">
                 <div class="grid ">
                     <div class="table-head ">
-                        <div class="table-head-warp ">
+                        <div class="table-head-warp">
                             <table class="grid-table ">
                                 <colgroup>
                                     <col width="50px " />
@@ -34,7 +34,12 @@
                                         <th>序号</th>
                                         <th>操作</th>
                                         <th>车牌号码</th>
-                                        <th>GPS时间</th>
+                                        <th>GPS时间
+                                            <span class="sort" data-field="GpsTime">
+                                                <i class="asc" data-sort="1"></i>
+                                                <i class="desc" data-sort="0"></i>
+                                            </span>
+                                        </th>
                                         <th>速度(Km/h)</th>
                                         <th>车辆状态</th>
                                         <th>行驶方向</th>
@@ -97,9 +102,9 @@
         <div class="mapOBD js-toggleOBD">
             OBD信息
         </div>
-        <div class="mapAlarm js-mapAlarm">
-            报 警 <span class="alarmCount js_alarmCount"></span>
-        </div>
+        <!-- <div class="mapAlarm js-mapAlarm">
+            报 警 <span class="alarmCount js_alarmCount">0</span>
+        </div> -->
     </div>
     <!-- OBD信息列表 -->
     <div id="obdList" class="OBDInfo hidden">

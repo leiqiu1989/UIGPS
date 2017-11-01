@@ -783,25 +783,24 @@ define(function(require, exports, module) {
         },
         tableSort: function(callback) {
             var me = this;
-            $('.datatable-header').on('click', 'th.sortable', function() {
-                var field = $(this).data('sortfield');
-                var order = $(this).data('sortorder');
-                order = order || 'asc';
-                $(this).data('sortorder', order === 'asc' ? 'desc' : 'asc');
+            $('.table-head-warp').on('click', 'th i', function() {
+                var parentEl = $(this).parent();
+                var field = parentEl.attr('data-field');
+                var order = $(this).attr('data-sort');
+                var desc = order == 1 ? 'asc' : 'desc';
+                parentEl.attr('span-sort', desc);
                 var params = {
-                    sortField: field,
-                    sortType: order
+                    orderby: field,
+                    orderrule: order
                 };
-                if ($('.datatable-content tbody > tr').size() < 1) {
+                if ($('.grid-table tbody > tr').size() < 1) {
                     return false;
-                }
-                if (order === 'asc') {
-                    $(this).removeClass('asc').addClass('desc');
-                } else {
-                    $(this).removeClass('desc').addClass('asc');
                 }
                 if (callback) callback(params);
             });
+        },
+        clearSort: function() {
+            $('.table-head-warp th > span').removeAttr('span-sort');
         },
         getSelect: function(opt, callback) {
             var obj = {

@@ -52,7 +52,7 @@ define(function(require, exports, module) {
                 if (res.status === 'SUCCESS') {
                     var data = res.content;
                     $('#landMarkPontList > table > tbody').empty().html(template.compile(tpls.list)({
-                        data: data.Page || [],
+                        data: data.Page || []
                     }));
                     common.page(data.TotalCount, param.PageSize, param.PageIndex, function(currPage) {
                         me.searchParam.PageIndex = currPage;

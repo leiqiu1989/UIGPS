@@ -194,16 +194,18 @@ define(function(require, exports, module) {
         addTrackMark: function(data) {
             var me = this;
             var label = new BMap.Label("", {
-                offset: new BMap.Size(-20, 35)
+                offset: new BMap.Size(-25, 35)
             });
             label.setStyle({
-                border: "1px solid black",
-                color: "black",
-                fontSize: "12px",
-                height: "30px",
-                lineHeight: "30px",
-                fontFamily: "微软雅黑",
-                borderRadius: "4px"
+                borderRadius: '3px',
+                display: 'inline-block',
+                padding: '5px 10px',
+                border: '0',
+                color: '#1E2533',
+                fontSize: '12px',
+                lineHeight: '15px',
+                fontFamily: '微软雅黑',
+                boxShadow: '0 0 8px 0 #A1A7B3'
             });
             label.setContent(data.PlateNo);
             var onlineIcon = new BMap.Icon(window.DOMAIN + "/img/map/green1.png", new BMap.Size(30, 30));

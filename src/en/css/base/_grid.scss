@@ -34,6 +34,55 @@
                     &:first-child {
                         // padding-left: 20px;
                     }
+                    span[span-sort=asc] {
+                        >.asc {
+                            border-bottom-color: #000;
+                        }
+                    }
+                    span[span-sort=desc] {
+                        >.desc {
+                            border-top-color: #000;
+                        }
+                    }
+                    .sort {
+                        position: relative;
+                        display: inline-block;
+                        width: 20px;
+                        height: 20px;
+                        top: 5px;
+                        margin-left: 5px;
+                        cursor: pointer!important;
+                        ._baseSort {
+                            position: absolute;
+                            width: 0;
+                            height: 0;
+                            border-style: dashed;
+                            border-color: transparent;
+                            overflow: hidden;
+                            left: 5px;
+                            border-width: 5px;
+                        }
+                        .asc {
+                            @extend ._baseSort;
+                            top: 4px;
+                            border-top: none;
+                            border-bottom-style: solid;
+                            border-bottom-color: #b2b2b2;
+                            &:hover {
+                                border-bottom-color: #666;
+                            }
+                        }
+                        .desc {
+                            @extend ._baseSort;
+                            bottom: 4px;
+                            border-bottom: none;
+                            border-top-style: solid;
+                            border-top-color: #b2b2b2;
+                            &:hover {
+                                border-top-color: #666;
+                            }
+                        }
+                    }
                 }
             }
         }
