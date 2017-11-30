@@ -32,13 +32,17 @@ define(function(require, exports, module) {
             map.addDrawing(function(param) {
                 me.getDrawData(param);
             });
-            me.getAlarmCount();
+            //me.getAlarmCount();
             this.initControl();
         },
         // 初始化控件
         initControl: function() {
+            var me = this;
             this.event();
             this.initZTree();
+            common.tableSort(function(_sortParam) {
+                me.getCarPositionList(null, true, _sortParam);
+            });
         },
         // 获取未处理报警数量
         getAlarmCount: function() {
@@ -83,7 +87,7 @@ define(function(require, exports, module) {
             map.bindMonitorListEvent();
             // 统计
             me.monitorSummary(data);
-            if (data.length > 0 && monitorStart) {
+            if (monitorStart) {
                 // 开启监控
                 me.startMonitorTimer();
             }
@@ -167,6 +171,7 @@ define(function(require, exports, module) {
             var me = this;
             if (!window.monitorTimer) {
                 window.monitorTimer = setInterval(function() {
+                    common.clearSort();
                     me.getCarPositionList();
                 }, 15000);
             }
@@ -325,14 +330,14 @@ define(function(require, exports, module) {
             });
         },
         // 获取车辆位置列表
-        getCarPositionList: function(arrVids, isloading) {
+        getCarPositionList: function(arrVids, isloading, sortParam) {
             var loadStatus = isloading ? 'show' : 'hide';
             var me = this;
             var arrVid = arrVids ? arrVids : common.getTreeNodeSelected('vehicleTree');
             common.setlocationStorage('arrVids', arrVid);
             if (arrVid) {
                 common.loading(loadStatus);
-                common.ajax(api.carPositionList, { ArrVid: arrVid }, function(res) {
+                common.ajax(api.carPositionList, $.extend({ ArrVid: arrVid }, sortParam || {}), function(res) {
                     if (res && res.status === 'SUCCESS') {
                         var data = res.content || [];
                         me.initCarMonitorList(data, true);

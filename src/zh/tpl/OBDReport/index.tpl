@@ -60,7 +60,7 @@
     </div>
     <div class="panel-toolbar">
         <a class="layui-btn layui-btn-small layui-btn-normal js_list_export">
-            <i class="fa fa-export"></i> Export
+            <i class="fa fa-export"></i> 导 出
         </a>
     </div>
     <div class="panel-body no-padding grow">

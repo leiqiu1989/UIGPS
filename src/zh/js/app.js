@@ -45,7 +45,6 @@ define(function(require, exports, module) {
                 beforeLoad: function(mod, href) {
                     //登录页和其他页面的切换
                     if (mod !== 'login') {
-                        //$('body').removeClass('logn-bg');
                         var username = common.getCookie('username') || '';
                         if (!username) {
                             common.clearData();
