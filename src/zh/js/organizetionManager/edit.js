@@ -77,7 +77,7 @@ define(function(require, exports, module) {
             if (this.isEdit) {
                 params.OrgId = this.orgId;
             }
-            common.ajax(url, { OrgUser: JSON.stringify(params) }, function(res) {
+            common.ajax(url, params, function(res) {
                 if (res && res.status === 'SUCCESS') {
                     common.layMsg('SUCCESS!', 'success');
                     common.changeHash('#organizetionManager/index/', { back: true });
